@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="interclps.skin">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="interclps"
+      directory="profiles/default"
+      description='Extension profile for the "interclps" Plone theme.'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:importStep
+      name="interclps.skin.various"
+      title="interclps: miscellaneous import steps"
+      description="Various import steps that are not handled by GS import/export handlers."
+      handler="interclps.skin.setuphandlers.setupVarious">
+    <depends name="skins"/>
+  </genericsetup:importStep>
+
+</configure>

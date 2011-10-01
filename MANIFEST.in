@@ -1,0 +1,2 @@
+recursive-include interclps *
+global-exclude *pyc

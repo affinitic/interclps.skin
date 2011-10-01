@@ -1,0 +1,8 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    i18n_domain="interclps.skin">
+  <cmf:registerDirectory name="interclps_skin_images"/>
+  <cmf:registerDirectory name="interclps_skin_templates"/>
+  <cmf:registerDirectory name="interclps_skin_styles"/>
+</configure>
