@@ -25,6 +25,7 @@ setup(name='interclps.skin',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'Products.AddRemoveWidget',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

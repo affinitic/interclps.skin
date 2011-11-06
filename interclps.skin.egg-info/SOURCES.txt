@@ -1,7 +1,12 @@
 MANIFEST.in
 README.txt
+interclps.skin-configure.zcml
 setup.cfg
 setup.py
+docs/HISTORY.txt
+docs/INSTALL.txt
+docs/LICENSE.GPL
+docs/LICENSE.txt
 interclps/__init__.py
 interclps.skin.egg-info/PKG-INFO
 interclps.skin.egg-info/SOURCES.txt
@@ -22,11 +27,6 @@ interclps/skin/version.txt
 interclps/skin/browser/__init__.py
 interclps/skin/browser/configure.zcml
 interclps/skin/browser/interfaces.py
-interclps/skin/browser/viewlet.pt
-interclps/skin/browser/viewlets.py
-interclps/skin/browser/images/README.txt
-interclps/skin/browser/stylesheets/README.txt
-interclps/skin/browser/stylesheets/main.css
 interclps/skin/locales/README.txt
 interclps/skin/profiles/default/cssregistry.xml
 interclps/skin/profiles/default/interclps.skin_various.txt
@@ -34,7 +34,7 @@ interclps/skin/profiles/default/jsregistry.xml
 interclps/skin/profiles/default/metadata.xml
 interclps/skin/profiles/default/skins.xml
 interclps/skin/profiles/default/viewlets.xml
-interclps/skin/skins/interclps_skin_custom_images/CONTENT.txt
-interclps/skin/skins/interclps_skin_custom_templates/CONTENT.txt
+interclps/skin/skins/interclps_skin_images/CONTENT.txt
 interclps/skin/skins/interclps_skin_styles/CONTENT.txt
-interclps/skin/skins/interclps_skin_styles/base_properties.props
+interclps/skin/skins/interclps_skin_styles/interclps.css
+interclps/skin/skins/interclps_skin_templates/CONTENT.txt
