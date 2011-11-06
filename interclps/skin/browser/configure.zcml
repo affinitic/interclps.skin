@@ -6,7 +6,7 @@
 
     <!-- 'interclps skin' Zope 3 browser layer -->
     <interface
-        interface=".interfaces.IClpsbwTheme"
+        interface=".interfaces.IInterClpsTheme"
         type="zope.publisher.interfaces.browser.IBrowserSkinType"
         name="interclps skin"
         />
@@ -17,18 +17,11 @@
         file="js/interclps.js"
         />
 
-    <!-- Customize the navigation portlet -->
-    <plone:portletRenderer
-        portlet="plone.app.portlets.portlets.navigation.INavigationPortlet"
-        layer=".interfaces.IClpsbwTheme"
-        class=".navigation.MyNavRenderer"
-        />
-
     <browser:page
         for="*"
-        name="manageInterClpsbw"
-        class=".ManageInterClpsbw.ManageInterClpsbw"
-        allowed_interface=".interfaces.IManageInterClpsbw"
+        name="manageInterClps"
+        class=".ManageInterClps.ManageInterClps"
+        allowed_interface=".interfaces.IManageInterClps"
         permission="zope.Public"
         />
 
@@ -50,15 +43,6 @@
        />
      -->
 
-
-    <!-- interclps footer -->
-    <browser:viewlet
-        name="interclps.footer"
-        manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
-        class=".viewlets.InterClpsFooterViewlet"
-        layer=".interfaces.InterClpsbwTheme"
-        permission="zope.Public"
-        />
 
     <!-- leffe search -->
     <browser:page
@@ -93,50 +77,6 @@
          />
 
 
-
-    <!-- page d'accueil avec listing des news -->
-    <browser:view
-        name="homepageView"
-        class=".homepage.HomePageNews"
-        allowed_interface=".interfaces.IHomePageNews"
-        for="*"
-        permission="zope.Public"
-        />
-
-     <browser:page
-        for="*"
-        name="bannerView"
-        class=".BannerView.BannerView"
-        permission="zope.Public"
-        allowed_interface=".interfaces.IBannerView"
-        />
-
-    <!-- Home page header with flash animation viewlet -->
-    <browser:viewlet
-        name="interclps.header"
-        manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
-        class=".viewlets.InterClpsSectionsViewlet"
-        layer=".interfaces.InterClpsbwTheme"
-        permission="zope.Public"
-        />
-
-    <!-- move portlet plone.path_bar-->
-    <browser:viewlet
-        name="plone.path_bar"
-        manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
-        class="plone.app.layout.viewlets.common.PathBarViewlet"
-        layer=".interfaces.InterClpsTheme"
-        permission="zope2.View"
-        />
-
-    <!-- move portlet plone.personnal_bar-->
-     <browser:viewlet
-        name="plone.personnal_bar"
-        manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
-        class="plone.app.layout.viewlets.common.PersonalBarViewlet"
-        layer=".interfaces.InterClpsTheme"
-        permission="zope2.View"
-        />
 
 <!-- GESTION DB -->
 <!-- experience -->
