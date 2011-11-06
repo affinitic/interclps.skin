@@ -1,0 +1,28 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
+
+<body>
+
+<!--
+    Portlet qui liste toutes les exépriences pour la plate-forme assuetude
+-->
+
+<div metal:define-macro="portlet">
+    <div id="portlet-experience-assuetude">
+       
+        <div tal:define="experiences python:view.getExperienceByPlateForme('experience_plate_forme_assuetude')">
+            <span tal:repeat="experience experiences">
+                <!--
+                <a href=""
+                   tal:attributes="href string:${context/portal_url}/sante-environnement">
+                   Sante<br /> -<br /> Environnement
+               </a>
+               -->
+               <span tal:content="experience/experience_titre">titre</span>
+            </span>
+         </div>
+     </div>
+</div>
+</body>
+</html>

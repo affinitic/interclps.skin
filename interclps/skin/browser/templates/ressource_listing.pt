@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main">
+   <div metal:use-macro="here/document_actions/macros/document_actions">
+     Document actions (print, sendto etc)
+   </div>
+   <h1>:: Ressource ::</h1>
+
+    <div tal:define="ressources python:view.getAllRessource();">
+        <tal:boucle tal:repeat="ressource ressources">
+            <tal:block tal:define="ressourcePk ressource/ressource_pk">
+                <fieldset>
+                    <legend>
+                        <img src="carre_orange.gif"
+                             widht="50%"/>
+                          <a href=""
+                             tal:content="ressource/ressource_titre"
+                             tal:attributes="href string:ressource-decrire?ressourcePk=${ressourcePk}"
+                             class="titre_formation">titre de la ressource</a>
+                    </legend>
+                    <div id="experience-etat"
+                         tal:define="ressourceEtat python:view.getRessourceEtat(ressourcePk)"
+                         tal:condition="python:user.has_role(['Manager'], here)">
+                        <span tal:content="ressourceEtat" />
+                        &Xi;
+                        <span tal:content="ressource/ressource_pk" />
+                    </div>
+                    <ul class="description">
+                        <li>
+                            <span class="brun"><img src="list_flch_rouge.png" /> Description :</span><br />
+                            <span tal:replace="structure ressource/ressource_description"
+                                   class="rubrique-db" />
+                        </li>
+                        <li>
+                            <span class="brun"><img src="list_flch_rouge.png" /> Auteur :</span><br />
+                            <span tal:content="ressource/ressource_auteur"
+                                   class="rubrique-db" />
+                        </li>
+                        <li>
+                            <span class="brun"><img src="list_flch_rouge.png" /> Année de parution :</span><br />
+                            <span tal:content="ressource/ressource_date_edition"
+                                   class="rubrique-db" />
+                        </li>
+                        <li>
+                            <span class="brun"><img src="list_flch_rouge.png" /> Public :</span><br />
+                            <span tal:content="ressource/ressource_public"
+                                   class="rubrique-db" />
+                        </li>
+
+                    </ul>
+                    <div align="right">
+                        <a href=""
+                           tal:attributes="href
+                           string:ressource-decrire?ressourcePk=${ressourcePk}">
+                           <img src="btn_suivant.png" /></a>
+                    </div>
+                </fieldset>
+            </tal:block>
+        </tal:boucle>
+    </div><!--define-->
+</div><!--metal-->
+</body>
+</html>
+

@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="arsia">
+
+<body>
+
+<div metal:fill-slot="main">
+    <h1>:: Mots-clé ::</h1>
+    <div tal:define="result view/manageMotCle;
+                     status result/status">
+
+        <fieldset tal:define="motcles python: view.getAllMotCle()">
+            <table width="50%"
+                   align="center"
+                   class="listing">
+                <thead>
+                <tr>
+                    <th> Mot </th>
+                    <th> Thème </th>
+                    <th class="nosort"> Modifier </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tal:boucle tal:repeat="motcle motcles">
+                    <span tal:define="odd repeat/motcle/odd">
+                        <tr tal:attributes="class python:odd and 'odd' or 'even'">
+                            <td align="center">
+                                <span tal:content="motcle/motcle_mot">mot-cle</span>
+                            </td>
+                            <td align="center">
+                                <span tal:condition="python: motcle.motcle_actif">
+                                    <span class="vert-actif">Actif</span>
+                                </span>
+                                <span tal:condition="python: motcle.motcle_actif==False">
+                                    <span class="rouge-non-actif">Non-actif</span>
+                                </span>
+                            </td>
+                            <td align="center">
+                                <div class="btn-modifier">
+                                <a href=""
+                                   tal:attributes="href string: mot-cle-modifier?motclePk=${motcle/motcle_pk}">&nbsp;</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </span>
+                </tal:boucle>
+                </tbody>
+            </table>
+        </fieldset>
+        <div tal:condition="python: status==1">
+            Le mot clé a été correctement enregistré
+            <br />
+        </div>
+
+        <div tal:condition="python: status == 2">
+            <img src="alerte.png" />
+            Un erreur s'est passée.
+        </div>
+    </div>
+    <div>
+        <br />
+        <a href="mot-cle-creer">
+            <img src="btn_retour_vert.png" />
+            Ajouter un mot-clé
+        </a>
+    </div>
+</div>
+</body>
+</html>

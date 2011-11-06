@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:define="plateForme request/plateForme"
+     tal:condition="python:user.has_role(['Manager'], here)">
+    <div metal:use-macro="here/document_actions/macros/document_actions">
+        Document actions (print, sendto etc)
+    </div>
+    <h1>Liste des institutions</h1>
+
+    <div tal:define="institutions python:view.getInstitutionByPlateForme(plateForme);">
+        <tal:boucle tal:repeat="institution institutions">
+            <tal:boucle tal:repeat="institution institutions">
+           <tal:block tal:define="institutionPk institution/institution_pk">
+               <fieldset>
+                   <legend>
+                        <img src="carre_orange.gif"
+                             widht="50%"/>
+                        <a href=""
+                           tal:content="institution/institution_nom"
+                           tal:attributes="href string:institution-decrire?institutionPk=${institutionPk}"
+                           class="titre_formation">nom de l'institution</a>
+                   </legend>
+                   <div id="experience-etat"
+                        tal:define="institutionEtat python:view.getInstitutionEtat(institutionPk)"
+                        tal:condition="python:user.has_role(['Manager'], here)">
+                        <span tal:content="institutionEtat" />
+                        &Xi;
+                        <span tal:content="institutionPk" />
+                   </div>
+                   <ul>
+                        <li>
+                           <span class="brun">Adresse :</span><br />
+                           <span tal:content="institution/institution_adresse"
+                                 class="rubrique-db" />
+                        </li>
+                        <li>
+                           <span class="brun">Localité :</span><br />
+                           <span class="rubrique-db">
+                               <span tal:content="institution/commune/com_localite_cp" />
+                               <span tal:content="institution/commune/com_localite_nom" />
+                           </span>
+                        </li>
+                        <li>
+                           <span class="brun">Contact :</span><br />
+                           <span tal:content="institution/institution_nom_contact"
+                                 class="rubrique-db" />
+                        </li>
+                   </ul>
+                   <div align="right">
+                        <a href=""
+                           tal:attributes="href
+                           string:institution-decrire?institutionPk=${institutionPk}">
+                           <img src="btn_suivant.png" /></a>
+                   </div>
+               </fieldset>
+           </tal:block>
+       </tal:boucle>
+        </tal:boucle>
+    </div><!--define-->
+</div><!--metal-->
+</body>
+</html>
+

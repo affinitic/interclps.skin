@@ -1,0 +1,304 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                    tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:define="ressourcePk request/ressourcePk | nothing;
+                 ressources python:view.getAllRessource(ressourcePk)">
+    <tal:boucle tal:repeat="ressource ressources">
+        <tal:block tal:define="ressourcePk ressource/ressource_pk">
+            <div metal:use-macro="here/document_actions/macros/document_actions">
+                Document actions (print, sendto etc)
+            </div>
+
+            <div id="title-ressource">
+                <div id="title-ressource-left"></div>
+                <div class="titre-ressource-top">
+                    <p><span tal:content="ressource/ressource_titre" /></p>
+                </div>
+                <div id="title-ressource-right"
+                      tal:define="ressourcePk ressource/ressource_pk">
+                    <div class="btn-modifier"
+                         tal:condition="python:user.has_role(['Manager'], here)">
+                        <br />
+                        <a href=""
+                           tal:attributes="href string: ressource-modifier?ressourcePk=${ressourcePk}">&nbsp;</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="left-ressource">
+                <div class="puzzle-vert">
+                    <span class="left-rubrique-db">Public</span>
+                    <div class="text-db">
+                        <tal:block tal:define="publics python:view.getPublicByRessourcePk(ressource.ressource_pk)">
+                            <tal:boucle tal:repeat="public publics">
+                                <span tal:content="public"
+                                      class="rubrique-db">public</span><br />
+                            </tal:boucle>
+                        </tal:block>
+                    </div>
+                    <div class="text-db">
+                        <span tal:content="ressource/ressource_autre_info"
+                              class="rubrique-db" />
+                    </div>
+                </div>
+
+                <div class="puzzle-rouge"
+                     tal:condition="python: ressource.ressource_objectif!=''">
+                    <span class="left-rubrique-db">Objectif(s)</span>
+                    <div class="text-db">
+                        <span tal:replace="structure ressource/ressource_objectif"></span>
+                    </div>
+                </div>
+
+                <div class="puzzle-vert"
+                     tal:condition="python: ressource.ressource_description!=''">
+                    <span class="left-rubrique-db">Description</span>
+                    <div class="text-db">
+                        <span tal:replace="structure ressource/ressource_description" />
+                    </div>
+                </div>
+            
+                <div class="puzzle-jaune"
+                     tal:condition="python: ressource.ressource_utilisation!=''">
+                    <span class="left-rubrique-db">Utilisation</span>
+                    <div class="text-db">
+                        <span tal:replace="structure ressource/ressource_utilisation" />
+                    </div>
+                </div>
+            
+                <div class="puzzle-rouge"
+                     tal:condition="python: ressource.ressource_avis_clps!=''">
+                    <span class="left-rubrique-db">Avis du CLPS</span>
+                    <div class="text-db">
+                        <span tal:replace="structure ressource/ressource_avis_clps" />
+                    </div>
+                </div>
+                <div class="puzzle-vert"
+                     tal:condition="python: ressource.ressource_lien_pipsa!=''">
+                    <span class="left-rubrique-db">Lien pipsa</span>
+                    <br />
+                    <a href=""
+                       target="_blank"
+                       tal:attributes="href ressource/ressource_lien_pipsa">
+                        <span tal:content="ressource/ressource_lien_pipsa" /></a>
+                </div>
+    
+                <div class="puzzle-gris"
+                     tal:condition="python: ressource.ressource_autre_lien!=''">
+                    <span class="left-rubrique-db">Autre lien</span>
+                    <br />
+                    <a href=""
+                       target="_blank"
+                       tal:attributes="href ressource/ressource_autre_lien">
+                    <span tal:content="ressource/ressource_autre_lien" /></a>
+                </div>
+            </div><!--left-->
+
+
+            
+            <div id="right-ressource">
+                <div id="right-ressource-header"></div>
+                <div id="right-ressource-content">
+                    <div tal:condition="python: ressource.ressource_auteur!=''">
+                        <span class="right-rubrique-db">Auteur(s)</span>
+                        <br />
+                        &#8226; 
+                        <span tal:content="ressource/ressource_auteur" />
+                    </div>
+                    
+                    <div tal:condition="python: ressource.ressource_edition!=''">
+                        <span class="right-rubrique-db">Editeur</span>
+                        <br />
+                        &#8226; 
+                        <span tal:content="ressource/ressource_edition" />
+                    </div>
+                    
+                    <div tal:condition="python: ressource.ressource_lieu_edition!=''">
+                        <span class="right-rubrique-db">Lieu d'édition</span>
+                        <br />
+                        &#8226; 
+                        <span tal:content="ressource/ressource_lieu_edition" />
+                    </div>
+                    
+                    <div tal:condition="python: ressource.ressource_date_edition!=''">
+                        <span class="right-rubrique-db">Date d'édition</span>
+                        <br />
+                        &#8226; 
+                        <span tal:content="ressource/ressource_date_edition" />
+                    </div>
+                    
+                    <div tal:condition="python: ressource.ressource_collection!=''">
+                        <span class="right-rubrique-db">Collection</span>
+                        <br />
+                        &#8226; 
+                        <span tal:content="ressource/ressource_collection" />
+                    </div>
+                    
+                    <div>
+                        <span class="right-rubrique-db">Disponible au CLPS</span>
+                        <br /> 
+                        <span tal:condition="python:ressource.ressource_disponible_clps==True">
+                            <span class="rubrique-db">Oui</span>
+                        </span>
+                        <span tal:condition="python:ressource.ressource_disponible_clps==False">
+                            <span class="rubrique-db">Non</span>
+                        </span>
+                    </div>
+
+                    <div tal:condition="python: ressource.ressource_disponible_autre!=''">
+                        <span class="right-rubrique-db">Autre disponibilité</span>
+                        <br />
+                        &#8226; 
+                        <span tal:content="ressource/ressource_disponible_autre" />
+                    </div>
+
+                    <div>
+                        <span class="right-rubrique-db">Support</span>
+                        <br />
+                        <tal:block tal:define="supports python:view.getSupportByRessourcePk(ressource.ressource_pk, 'titre')">
+                            <tal:boucle tal:repeat="support supports">
+                                <span tal:content="support"
+                                      class="rubrique-db">support</span><br />
+                            </tal:boucle>
+                        </tal:block>
+                    </div>
+                </div><!--content-->
+                <div id="right-ressource-footer"></div>
+                
+                <tal:block tal:define="experiences python:view.getExperienceByRessource(ressource.ressource_pk)">
+                    <div tal:condition="python: len(experiences) > 0"
+                         class="portlet-experience-pour-ressource">
+                        <h3><img src="logo_projet_partage.png" /> Projets partagés</h3>
+                        <tal:boucle tal:repeat="experience experiences">
+                            <p>
+                            &#8226;
+                            <a href=""
+                               tal:attributes="href string:${context/portal_url}/experience-decrire?experiencePk=${experience/experience_pk}">
+                                <span tal:content="experience/experience_titre"></span></a>
+                            </p>
+                        </tal:boucle>
+                    </div>
+                </tal:block>
+            </div><!--right-->
+            
+            <div id="clearboth"></div>
+
+
+<!--gestion admin-->            
+            <div tal:condition="python:user.has_role(['Manager'], here)"
+                 class="description-for-manager">
+                <div class="titre-for-manage">
+                    &Xi; Administration &Xi;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span tal:content="ressource/ressource_pk" />
+                </div>
+                <img src="list_flch_rouge.png" /> Etat :
+                <span tal:condition="python:ressource.ressource_etat=='private'">
+                    <span class="grasrouge">Privé</span>
+                </span>
+                <span tal:condition="python:ressource.ressource_etat=='publish'">
+                    <span class="grasvert">Publié</span>
+                </span>
+                <br />
+                <fieldset>
+                    <legend>Thème</legend>
+                    <tal:block tal:define="themes python:view.getThemeNomByRessourcePk(ressource.ressource_pk)">
+                        <tal:boucle tal:repeat="theme themes">
+                            <span tal:content="theme"
+                                  class="rubrique-db">theme</span><br />
+                        </tal:boucle>
+                    </tal:block>
+                </fieldset>
+                <fieldset>
+                    <legend>Plate-forme</legend>
+                    <ul class="formulaire">
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="ressource_plate_forme_sante_ecole"
+                                   value="True"
+                                   tal:attributes="checked python:ressource.ressource_plate_forme_sante_ecole and 'checked' or None;" />
+                            &nbsp;&nbsp;Santé à l'école
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="ressource_plate_forme_assuetude"
+                                   value="True"
+                                   tal:attributes="checked python:ressource.ressource_plate_forme_assuetude and 'checked' or None;" />
+                            &nbsp;&nbsp;Point d'appui assuétudes
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="ressource_plate_forme_sante_famille"
+                                   value="True"
+                                   tal:attributes="checked python:ressource.ressource_plate_forme_sante_famille and 'checked' or None;" />
+                            &nbsp;&nbsp;Santé des familles
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="ressource_plate_forme_sante_environnement"
+                                   value="True"
+                                   tal:attributes="checked python:ressource.ressource_plate_forme_sante_environnement and 'checked' or None;" />
+                            &nbsp;&nbsp;Santé - environnement
+                        </li>
+                    </ul>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Mission</legend>
+                    <ul class="formulaire">
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="ressource_mission_centre_documentation"
+                                   value="True"
+                                   tal:attributes="checked python:ressource.ressource_mission_centre_documentation and 'checked' or None;" />
+                            &nbsp;&nbsp;Centre documentation
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="ressource_mission_accompagnement_projet"
+                                   value="True"
+                                   tal:attributes="checked python:ressource.ressource_mission_accompagnement_projet and 'checked' or None;" />
+                            &nbsp;&nbsp;Accompagnement de projet
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="ressource_mission_reseau_echange"
+                                   value="True"
+                                   tal:attributes="checked python:ressource.ressource_mission_reseau_echange and 'checked' or None;" />
+                            &nbsp;&nbsp;Mise en réseau, échanges
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="ressource_mission_formation"
+                                   value="True"
+                                   tal:attributes="checked python:ressource.ressource_mission_formation and 'checked' or None;" />
+                             &nbsp;&nbsp;Formation
+                        </li>
+                    </ul>
+                </fieldset>
+            </div>
+            <hr />
+        </tal:block>
+    </tal:boucle>
+</div><!-- div metal-->
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="arsia">
+
+<body>
+
+<div metal:fill-slot="main">
+
+    <h1>:: Gestion des insitutions ::</h1>
+    <div tal:define="result view/manageInstitution;
+                     status result/status">
+
+          <div align="center"
+               tal:condition="python: status==1"
+               class="merci-text">
+              Vos données sont correctement enregistrées.<br />
+              Merci de votre collaboration.<br />
+              Elles seront publiées sous peu, vous serez prévenu via
+              un courrier électronique.
+              <br />
+              <hr />
+          </div>
+
+          <div tal:condition="python: status == 2">
+              <img src="alerte.png" />
+              Un erreur s'est passée.
+          </div>
+          
+          
+          <div class="btn-nouvelle-recherche">
+              <a href=""
+                 tal:attributes="href string:${context/portal_url}/institution-creer">
+                  Cr&eacute;er une nouvelle institution</a>
+          </div> 
+          <div class="btn-nouvelle-recherche"
+               tal:condition="python:user.has_role(['Manager'], here)">
+                <a href=""
+                   tal:attributes="href string:${context/portal_url}/institution-chercher">
+                    Modifier une institution</a>
+          </div>
+    </div>   
+</div>
+</body>
+</html>

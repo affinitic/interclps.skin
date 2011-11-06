@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main">
+    <br />
+    <div metal:use-macro="here/document_actions/macros/document_actions">
+        Document actions (print, sendto etc)
+    </div>
+    <h1>Démonstartion gestion base de données</h1>
+    <fieldset>
+        <legend class="legende">Liste des employés</legend>
+        <tal:requete tal:define="Employes python:view.getAllEmploye();">
+            <table class="plain">
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Adresse</th>
+                    <th>CP</th>
+                    <th>Localité</th>
+                </tr>
+                <tal:boucle tal:repeat="employe Employes">
+                    <tr>
+                        <td><span tal:content="employe/emp_nom" /></td>
+                        <td><span tal:content="employe/emp_prenom" /></td>
+                        <td><span tal:content="employe/emp_adresse" /></td>
+                        <td><span tal:content="employe/emp_cp" /></td>
+                        <td><span tal:content="employe/emp_localite" /></td>
+                    </tr>
+                </tal:boucle>
+            </table>
+        </tal:requete>
+    </fieldset>
+
+    <fieldset>
+        <legend class="legende">Ajouter un employé</legend>
+        <form action="form-demo/addEmploye"
+              method="post">
+        <fieldset>
+            <legend class="legende">Coordonn&eacute;es</legend>
+            <div class="div_question">
+                <span class="fieldRequired" title="Requis">&nbsp;</span>
+                <span class="clps-etiquette">Nom de l'employé</span>
+                <br />
+                <input type="text"
+                       name="employeNom"
+                       value=""
+                       size="50" />
+            </div>
+            <div class="div_question">
+                <span class="clps-etiquette">Prénom de l'employé</span><br />
+                <input type="text"
+                       name="employePrenom"
+                       value=""
+                       size="50" />
+            </div>
+
+            <div class="div_question">
+                <span class="fieldRequired" title="Requis">&nbsp;</span>
+                <span class="clps-etiquette">Adresse</span>
+                <br />
+                <input type="text"
+                       name="employeAdresse"
+                       value=""
+                       class="string required"
+                       size="50" />
+            </div>
+            <div class="div_question">
+                <span class="fieldRequired" title="Requis">&nbsp;</span>
+                <span class="clps-etiquette">Code postal</span>
+                <br />
+                <input type="text"
+                       name="employeCp"
+                       value=""
+                       class="required"
+                       size="50" />
+            </div>
+            <div class="div_question">
+                <span class="fieldRequired" title="Requis">&nbsp;</span>
+                <span class="clps-etiquette">Localit&eacute;</span>
+                <br />
+                <input type="text"
+                       name="employeLocalite"
+                       value=""
+                       class="string required"
+                       size="50" />
+            </div>
+        </fieldset>
+
+        <hr />
+
+        <div class="div_form_input">
+            <input type="submit"
+                   value="S'inscrire" />
+        </div>
+    </form>
+    </fieldset>
+</div><!-- div metal-->
+</body>
+</html>
+

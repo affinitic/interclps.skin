@@ -1,0 +1,295 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:define="ressources python:view.getRessourceByPk(ressourcePk=request.ressourcePk)"
+     tal:condition="python:user.has_role(['Manager'], here)">
+<form action="ressource-inserer" method="post">
+    <tal:boucle tal:repeat="ressource ressources">
+        <br />
+        <div metal:use-macro="here/document_actions/macros/document_actions">
+            Document actions (print, sendto etc)
+        </div>
+        <h1>:: Modifier la ressource : <span tal:content="ressource/ressource_titre" class="rouge-titre" /> ::</h1>
+        Il s'agit de livre, cd-rom, dvd, dossier pédagogique, jeu, ....
+        <fieldset>
+            <ul class="formulaire">
+                <li>
+                    <img src="list_flch_rouge.png" /> Titre
+                    <br />
+                    <input type="text"
+                            name="ressource_titre"
+                            value=""
+                            size="50"
+                            tal:attributes="value ressource/ressource_titre"
+                            class="grasorange" />
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Description
+                    <br />
+                    <span tal:replace="structure python: view.getWysiwygField('ressource_description', ressource.ressource_description)" />
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Auteur(s)
+                    <br />
+                    <input type="text"
+                            name="ressource_auteur"
+                            value=""
+                            size="50"
+                            tal:attributes="value ressource/ressource_auteur"
+                            class="grasorange" />
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Collection
+                    <br />
+                    <input type="text"
+                            name="ressource_collection"
+                            value=""
+                            size="50" 
+                            tal:attributes="value ressource/ressource_collection"
+                            class="grasorange" />
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Edition
+                    <br />
+                    <input type="text"
+                           name="ressource_edition"
+                           value=""
+                           size="50" 
+                           tal:attributes="value ressource/ressource_edition"
+                           class="grasorange"/>
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Lieu d'édition
+                    <br />
+                    <input type="text"
+                           name="ressource_lieu_edition"
+                           value=""
+                           size="50" 
+                           tal:attributes="value ressource/ressource_lieu_edition"
+                           class="grasorange"/>
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Année d'édition
+                    <br />
+                    <input type="text"
+                           name="ressource_date_edition"
+                           value=""
+                           size="50" 
+                           tal:attributes="value ressource/ressource_date_edition"
+                           class="grasorange"/>
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Public
+                    <br />
+                    <textarea name="ressource_public"
+                              rows="5"
+                              cols="50"
+                              tal:content="ressource/ressource_public"
+                              class="grasorange"></textarea>
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Autres info
+                    <br />
+                    <textarea name="ressource_autre_info"
+                              rows="5"
+                              cols="50"
+                              tal:content="ressource/ressource_autre_info"
+                              class="grasorange"></textarea>
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Lien pipsa
+                    <br />
+                    <input type="text"
+                           name="ressource_lien_pipsa"
+                           value=""
+                           size="50"
+                           tal:attributes="value ressource/ressource_lien_pipsa"
+                           class="grasorange" />
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Autre lien
+                    <br />
+                    <input type="text"
+                           name="ressource_autre_lien"
+                           value=""
+                           size="50"
+                           tal:attributes="value ressource/ressource_autre_lien"
+                           class="grasorange" />
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Objectif(s)
+                    <br />
+                    <span tal:replace="structure python: view.getWysiwygField('ressource_objectif', ressource.ressource_objectif)" />
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Disponible au CLPS<br />
+                    <input type="radio"
+                           name="ressource_disponible_clps"
+                           value="True" 
+                           tal:attributes="checked python:ressource.ressource_disponible_clps and 'checked' or None;" /> Oui
+                    <input type="radio"
+                           name="ressource_disponible_clps"
+                           value="False"
+                           tal:attributes="checked python:ressource.ressource_disponible_clps== False and 'checked' or None;" /> Non
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Autre disponibilité
+                    <br />
+                    <textarea name="ressource_disponible_autre"
+                              rows="5"
+                              cols="50"
+                              tal:content="ressource/ressource_disponible_autre"
+                              class="grasorange"></textarea>
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Support
+                    <br />
+                    <tal:addremove define="errors python:{};">
+                        <span metal:use-macro="python: view.getAddRemoveField('ressource_support_fk', ' ',
+                                                       view.getAllActiveSupport(),
+                                                       nameKey='support_titre',
+                                                       pkKey='support_pk',
+                                                       selectedPks=view.getSupportByRessourcePk(ressource.ressource_pk, 'cle'))" /> 
+                    </tal:addremove>
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> Utilisation
+                    <br />
+                    <span tal:replace="structure python: view.getWysiwygField('ressource_utilisation', ressource.ressource_utilisation)" />
+                    </li>
+                <li>
+                    <img src="list_flch_rouge.png" /> L'avis du CLPS
+                    <br />
+                    <span tal:replace="structure python: view.getWysiwygField('ressource_avis_clps', ressource.ressource_avis_clps)" />
+                    </li>
+            </ul>
+        </fieldset>
+        <div tal:condition="python:user.has_role(['Manager'], here)"
+             class="description-for-manager">
+            <div class="titre-for-manage">
+                &Xi; Administration &Xi; 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span tal:content="ressource/ressource_pk" />
+            </div>
+            <img src="list_flch_rouge.png" /> Etat
+            <br />
+            <select name="ressource_etat">
+                <option value="private"
+                        tal:attributes="selected python:ressource.ressource_etat=='private' and 'selected' or None;"> Privé </option>
+                <option value="publish"
+                        tal:attributes="selected python:ressource.ressource_etat=='publish' and 'selected' or None;"> Publié </option>
+            </select>
+            <br />
+            <fieldset>
+                <legend class="legende">Thème</legend>
+                <tal:addremove define="errors python:{};">
+                    <span metal:use-macro="python: view.getAddRemoveField('ressource_theme_fk', ' ',
+                                                   view.getAllActiveTheme(),
+                                                   nameKey='theme_nom',
+                                                   pkKey='theme_pk',
+                                                   selectedPks=view.getThemePkByRessourcePk(ressource.ressource_pk))" /> 
+                </tal:addremove>
+            </fieldset>
+            
+            
+            
+            
+            <fieldset>
+                <legend class="legende">Plate-formes et sous plate-formes concernées</legend>
+                <tal:blok tal:define="plateformes python:view.getAllActivePlateForme()">
+                    <tal:boucle tal:repeat="plateforme plateformes">
+                        <input type="checkbox"
+                               name="plateformeFk"
+                               value=""
+                               tal:attributes="value plateforme/plateforme_pk" />
+                        &nbsp;&nbsp;<span tal:content="plateforme/plateforme_nom"></span>
+                        <span tal:define="sousplateformes python:view.getSousPlateFormeByPlateFormePk(plateforme.plateforme_pk)">
+                            <span tal:repeat="sousplateforme sousplateformes">
+                                <br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox"
+                                       name="institution_sousplateforme_fk:list"
+                                       value=""
+                                       tal:attributes="value sousplateforme/sousplateforme_pk" />
+                                &nbsp;&nbsp;<span tal:content="sousplateforme/sousplateforme_nom"></span>
+                            </span>
+                        </span>
+                        <br /><br />
+                    </tal:boucle>
+                </tal:blok>
+                
+                passser la clé institution à la table sousplateforme
+                recupere la sous plateforme_nom
+                recuperer la plateforme_nom
+                <br />
+            </fieldset>
+
+            <fieldset>
+                <legend>Mission</legend>
+                <ul class="formulaire">
+                    <li>
+                        <img src="list_flch_rouge.png" /> 
+                        <input type="checkbox"
+                               name="ressource_mission_centre_documentation"
+                               value="True"
+                               tal:attributes="checked python:ressource.ressource_mission_centre_documentation and 'checked' or None;" />
+                        &nbsp;&nbsp;Centre documentation
+                    </li>
+                    <li>
+                        <img src="list_flch_rouge.png" /> 
+                        <input type="checkbox"
+                               name="ressource_mission_accompagnement_projet"
+                               value="True"
+                               tal:attributes="checked python:ressource.ressource_mission_accompagnement_projet and 'checked' or None;" />
+                        &nbsp;&nbsp;Accompagnement de projet
+                    </li>
+                    <li>
+                        <img src="list_flch_rouge.png" /> 
+                        <input type="checkbox"
+                               name="ressource_mission_reseau_echange"
+                               value="True"
+                               tal:attributes="checked python:ressource.ressource_mission_reseau_echange and 'checked' or None;" />
+                        &nbsp;&nbsp;Mise en réseau, échanges
+                    </li>
+                    <li>
+                        <img src="list_flch_rouge.png" /> 
+                        <input type="checkbox"
+                               name="ressource_mission_formation"
+                               value="True"
+                               tal:attributes="checked python:ressource.ressource_mission_formation and 'checked' or None;" />
+                         &nbsp;&nbsp;Formation
+                    </li>
+                </ul>
+            </fieldset>
+        </div>
+
+        <hr />
+        <ul class="formulaire">
+            <li>
+                <input type="hidden"
+                       name="operation"
+                       value="update" />
+                <input type="hidden"
+                       name="ressource_pk"
+                       value=""
+                       tal:attributes="value ressource/ressource_pk" />
+                <input type="submit"
+                       value="Modifier la ressource" />
+            </li>
+        </ul>
+    </tal:boucle>
+</form>
+</div><!-- div metal-->
+</body>
+</html>
+

@@ -1,0 +1,50 @@
+<div id="interclps-footer"
+     metal:define-macro="portal_footer"
+     i18n:domain="plone"
+     tal:define="portal_url context/portal_url;">
+
+   <div id="interclps-copyright">
+      &copy; 1998 - <span tal:define="now modules/DateTime/DateTime"
+                          tal:replace="now/year" />
+      <span i18n:domain="interclps.skin"
+            i18n:translate="interclps_copyright">
+          Centre Local de Promotion de la Sante Brabant Wallon -  All rights reserved.
+      </span>
+   </div>
+
+   <div id="interclps-disclaimer">
+      Informations légales (disclaimer) : This website may contain information
+      which is confidential and/or protected by intellectual property rights.<br />
+      Any use of the information contained herein (including, but not limited to,
+      total or partial reproduction, communication or distribution in any form)
+      is prohibited.Thank you for your cooperation.
+      <br /><br />
+      L'équipe "Projets partagés" décline toute responsabilité en cas d'usage inapproprié ou 
+      frauduleux des données fournies sur le site. Il ne peut encourir aucune 
+      responsabilité en ce qui concerne l'exactitude ou l'exhaustivité des 
+      informations qui sont consultées sur ce système ou qui sont échangées 
+      via ce système.
+   </div>
+
+   <div id="marque">
+       <div id="plone-site">
+           <a href="http://plone.org"
+              target="_blank"
+              title="This site was built using Plone CMS, the Open Source Content Management System. Click for more information."
+              i18n:attributes="title title_built_with_plone;"
+              i18n:translate="label_powered_by_plone">
+              Powered by Plone</a>
+       </div>
+       
+        <div id="affinitic-site">
+            <a href="http://www.affinitic.be"
+               target="_blank"
+               title="Ce site est développé et hébergé par Affinitic."
+               i18n:domain="interclps.skin"
+               i18n:attributes="title title_developed_affinitic;"
+               i18n:translate="label_affinitic">
+               Développé et hébergé par Affinitic</a>
+        </div>
+   </div>
+
+</div>

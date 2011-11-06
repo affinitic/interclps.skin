@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+public
+<body>
+<div metal:fill-slot="main"
+     tal:define="publicPk request/publicPk;
+                 publics python:view.getPublicByPk(publicPk)">
+<form action="public-inserer" method="post">
+    <br />
+    <div metal:use-macro="here/document_actions/macros/document_actions">
+        Document actions (print, sendto etc)
+    </div>
+    <h1>Gestion des publics</h1>
+    <fieldset>
+        <legend class="legende">Modifier un thème</legend>
+        <tal:boucle tal:repeat="public publics">
+            <form action="public-inserer" method="post">
+                <div>
+                    <img src="list_flch_rouge.png" /> Thème
+                    <br />
+                    <input type="text"
+                           name="public_nom"
+                           value=""
+                           size="50"
+                           class="grasorange"
+                           tal:attributes="value public/public_nom" />
+                </div>
+                <div>
+                    <img src="list_flch_rouge.png" /> Etat
+                    <br />
+                    <select name="public_actif">
+                        <option value="True"
+                                tal:attributes="selected python:public.public_actif and 'selected' or None;">Activer</option>
+                        <option value="False"
+                                tal:attributes="selected python:not public.public_actif and 'selected' or None;">Désactiver</option>
+                    </select>
+                </div>
+                <hr />
+                <div class="div_form_input">
+                    <input type="hidden"
+                           name="operation"
+                           value="update" />
+                    <input type="hidden"
+                           name="public_pk"
+                           value=""
+                           tal:attributes="value public/public_pk" />
+                    <input type="submit"
+                           value="Modifier le public" />
+                </div>
+            </form>
+        </tal:boucle>
+    </fieldset>
+
+</form>
+</div><!-- div metal-->
+</body>
+</html>
+

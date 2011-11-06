@@ -1,0 +1,105 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:js fill-slot="javascript_head_slot">
+    <script src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js"
+            type="text/javascript"></script>
+        <script src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js"
+                type="text/javascript"></script>
+
+        <script src="validate_forms.js"
+                type="text/javascript"></script>
+        <script src="++resource++interclps.js"
+                type="text/javascript"></script>
+    </metal:js>
+    <metal:css fill-slot="style_slot">
+        <link href="++resource++collective.javascript.jqueryui/css/ui-lightness/jquery-ui.css"
+              type="text/css"
+              rel="stylesheet" />
+    </metal:css>
+
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main">
+     <div metal:use-macro="here/document_actions/macros/document_actions">
+            Document actions (print, sendto etc)
+    </div>
+    <div id="zone-titre-moteur-recherche">
+        <div class="search-titre">
+            Rechercher un auteur
+        </div>
+        <br />
+        <div class="search-text-intro">Plusieurs types de recherche sont possibles.</div>
+    </div>
+
+    <div id="zone-moteur-recherche">
+
+        <fieldset class="search-zone-nom">
+            <legend class="search-legend-titre"> A partir du nom d'un auteur</legend>
+            <div id="info-champs">
+            </div>
+            <br />
+            <form action="admin-auteur-modifier"
+                  method="post">
+                <input type="text"
+                       id="auteur_nom"
+                       name="nomAuteur"
+                       value=""
+                       size="50">
+                <br />
+                <input type="submit"
+                       value="lancer la recherche"
+                       class="search-button" />
+            </form>
+        </fieldset>
+
+        <fieldset  class="search-zone-nom">
+            <legend class="search-legend-titre"> A partir de la PK de l'auteur</legend>
+            <form action="admin-auteur-modifier"
+                  method="post">
+                Pk de l'auteur<br />
+                <input type="text"
+                       id="auteurPk"
+                       name="auteurPk"
+                       value=""
+                       size="10">
+                <br />
+                <input type="submit"
+                       value="lancer la recherche"
+                       class="search-button" />
+            </form>
+        </fieldset>
+
+
+        <fieldset  class="search-zone-nom">
+            <legend class="search-legend-titre"> Toutes les auteurs de la DB </legend>
+            <form action="admin-auteur-modifier"
+                  method="post">
+                Ci-dessous, la liste des différents auteurs encodés dans la base.
+                <br />
+                <tal:block tal:define="auteurs python:view.getAllAuteur()">
+                    <select name="auteurPk">
+                        <tal:boucle tal:repeat="auteur auteurs">
+                            <option value=""
+                                    tal:attributes="value auteur/auteur_pk">
+                                <span tal:content="auteur/auteur_nom">nom auteur</span>
+                            </option>
+                        </tal:boucle>
+                    </select>
+                </tal:block>
+                <br />
+                <input type="submit"
+                       value="lancer la recherche"
+                       class="search-button" />
+            </form>
+        </fieldset><!--search-zone-nom-->
+</div><!--id moteur-recherche-->
+</div><!-- div metal-->
+</body>
+</html>

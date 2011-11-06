@@ -1,0 +1,228 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main">
+<form action="ressource-inserer" method="post">
+    <br />
+    <div metal:use-macro="here/document_actions/macros/document_actions">
+        Document actions (print, sendto etc)
+    </div>
+    <h1>Insérer une ressource</h1>
+    Il s'agit de livre, cd-rom, dvd, dossier pédagogique, jeu, ....
+
+    <fieldset>
+        <legend class="legende">Ressource</legend>
+        Titre
+        <br />
+        <input type="text"
+                name="ressource_titre"
+                value=""
+                size="50" />
+        <br />
+        <br />
+
+        Description
+        <br />
+        <textarea name="ressource_description"
+                  rows="5"
+                  cols="50"></textarea>
+        <br />
+        <br />
+
+        Auteur(s)
+        <br />
+        <input type="text"
+                name="ressource_auteur"
+                value=""
+                size="50" />
+        <br />
+        <br />
+
+        Collection
+        <br />
+        <input type="text"
+                name="ressource_collection"
+                value=""
+                size="50" />
+        <br />
+        <br />
+
+        Edition
+        <br />
+        <input type="text"
+               name="ressource_edition"
+               value=""
+               size="50" />
+        <br />
+        <br />
+
+        Année d'édition
+        <br />
+        <input type="text"
+               name="ressource_date_edition"
+               value=""
+               size="50" />
+        <br />
+        <br />
+
+        Public
+        <br />
+        <textarea name="ressource_public"
+                  rows="5"
+                  cols="50"></textarea>
+        <br />
+        <br />
+
+        Autres info
+        <br />
+        <textarea name="ressource_autre_info"
+                  rows="5"
+                  cols="50"></textarea>
+        <br />
+        <br />
+
+        Lien pipsa
+        <br />
+        <input type="text"
+               name="ressource_lien_pipsa"
+               value=""
+               size="50" />
+        <br />
+        <br />
+
+        Autre lien
+        <br />
+        <input type="text"
+               name="ressource_autre_lien"
+               value=""
+               size="50" />
+        <br />
+        <br />
+
+        Objectif(s)
+        <br />
+        <textarea name="ressource_objectif"
+                  rows="5"
+                  cols="50"></textarea>
+        <br />
+        <br />
+
+        Disponible au CLPS<br />
+        <input type="radio"
+               name="ouvrage_disponible_clps"
+               value="True" /> Oui
+        <input type="radio"
+               name="ouvrage_disponible_clps"
+               value="False"
+               checked="checked" /> Non
+        <br />
+        <br />
+
+
+        Autre disponibilité
+        <br />
+        <textarea name="ressource_disponible_autre"
+                  rows="5"
+                  cols="50"></textarea>
+        <br />
+        <br />
+
+
+        Etat
+        <br />
+        <select name="ressource_etat">
+            <option value="privé"> Privé </option>
+            <option value="publié"> Publié </option>
+        </select>
+        <br />
+
+
+        Santé à l'école
+        <br />
+        <input type="checkbox"
+               name="ressource_plate_forme_sante_ecole"
+               value="True" />
+        <br />
+        <br />
+
+
+        Point d'appui assuétudes
+        <input type="checkbox"
+               name="ressource_plate_forme_assuetude"
+               value="True" />
+        <br />
+        <br />
+
+
+        Santé des familles
+        <input type="checkbox"
+               name="ressource_plate_forme_sante_famille"
+               value="True" />
+        <br />
+        <br />
+
+
+        Santé - environnement
+        <input type="checkbox"
+               name="ressource_plate_forme_sante_environnement"
+               value="True" />
+        <br />
+        <br />
+
+
+        Centre documentation
+        <br />
+        <input type="checkbox"
+               name="experience_mission_centre_documentation"
+               value="True" />
+        <br />
+        <br />
+
+
+        Accompagnement de projet
+        <br />
+        <input type="checkbox"
+               name="experience_mission_accompagnement_projet"
+               value="True" />
+        <br />
+        <br />
+
+
+        Mise en réseau, échanges
+        <br />
+        <input type="checkbox"
+               name="experience_mission_reseau_echange"
+               value="True" />
+        <br />
+        <br />
+
+
+        Formation
+        <br />
+        <input type="checkbox"
+               name="experience_mission_formation"
+               value="True" />
+        <br />
+        <br />
+    </fieldset>
+
+    <hr />
+
+    <div class="div_form_input">
+        <input type="submit"
+               value="Enregistrer l'ouvrage" />
+    </div>
+</form>
+</div><!-- div metal-->
+</body>
+</html>
+

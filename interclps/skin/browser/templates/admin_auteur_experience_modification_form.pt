@@ -1,0 +1,154 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:condition="python:user.has_role(['Manager'], here)">
+    <br />
+    <div metal:use-macro="here/document_actions/macros/document_actions">
+        Document actions (print, sendto etc)
+    </div>
+    <h1>:: Gestion des auteurs d'expériences ::</h1>
+    <fieldset>
+        <legend class="legende">Modifier un auteur</legend>
+        <tal:requete tal:define="auteurPk request/auteurPk;
+                                 Auteur python:view.getAuteurByPk(auteurPk);">
+            <tal:boucle tal:repeat="auteur Auteur">
+                <form action="admin-auteur-inserer"
+                      method="post">
+                    <fieldset>
+                        <legend class="legende">Coordonn&eacute;es</legend>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Nom de l'auteur</span>
+                            <br />
+                            <input type="text"
+                                   name="auteur_nom"
+                                   value=""
+                                   size="50"
+                                   class="grasorange"
+                                   tal:attributes="value auteur/auteur_nom" />
+                        </div>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Prénom de l'auteur</span><br />
+                            <input type="text"
+                                   name="auteur_prenom"
+                                   value=""
+                                   size="50"
+                                   class="grasorange"
+                                   tal:attributes="value auteur/auteur_prenom" />
+                        </div>
+
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Identifiant</span>
+                            <br />
+                            <input type="text"
+                                   name="auteur_login"
+                                   value=""
+                                   size="50"
+                                   class="grasorange"
+                                   tal:attributes="value auteur/auteur_login" />
+                        </div>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Pass</span>
+                            <br />
+                            <input type="text"
+                                   name="auteur_pass"
+                                   value=""
+                                   size="50"
+                                   class="grasorange"
+                                   tal:attributes="value auteur/auteur_pass" />
+                        </div>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Email</span>
+                            <br />
+                            <input type="text"
+                                   name="auteur_email"
+                                   value=""
+                                   size="50"
+                                   class="grasorange"
+                                   tal:attributes="value auteur/auteur_email" />
+                        </div>
+                        <div class="div_question">
+                            <span class="fieldRequired" title="Requis">&nbsp;</span>
+                            <span class="clps-etiquette">Institution</span>
+                            <br />
+                            <input type="text"
+                                   name="auteur_institution"
+                                   value=""
+                                   class="required"
+                                   size="50"
+                                   tal:attributes="value auteur/auteur_institution" />
+                        </div>
+                        <div class="div_question">
+                            <span class="fieldRequired" title="Requis">&nbsp;</span>
+                            <span class="clps-etiquette">ID FileMaker</span>
+                            <br />
+                            <input type="text"
+                                   name="auteur_id_filemaker"
+                                   value=""
+                                   class="required"
+                                   size="50"
+                                   tal:attributes="value auteur/auteur_id_filemaker" />
+                        </div>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Etat</span>
+                            <br />
+                            <select name="auteur_actif"
+                                    id="auteur_actif">
+                                <option value="True" selected="selected">Activer</option>
+                                <option value="False">Désactiver</option>
+                            </select>
+                        </div>
+                        <div class="div_question">
+                            <span class="fieldRequired" title="Requis">&nbsp;</span>
+                            <span class="clps-etiquette">Rôle</span>
+                            <br />
+                            <input type="checkbox"
+                                   value="True"
+                                   name="auteur_for_experience"
+                                   id="auteur_for_experience"
+                                   tal:attributes="checked python:auteur.auteur_for_experience and 'checked' or None;" /> Auteur d'une expérience.
+                            <br />
+                            <input type="checkbox"
+                                   value="True"
+                                   name="auteur_for_institution"
+                                   id="auteur_for_institution"
+                                   tal:attributes="checked python:auteur.auteur_for_institution and 'checked' or None;" /> Auteur d'une institution.
+                        </div>
+
+                        <hr />
+
+                        <div class="div_form_input">
+                            <input type="hidden"
+                                   name="operation"
+                                   value="update" />
+                            <input type="hidden"
+                                   name="auteur_pk"
+                                   value=""
+                                   tal:attributes="value auteurPk">
+                            <input type="submit"
+                                   value="Modifier" />
+                        </div>
+                    </fieldset>
+                </form>
+            </tal:boucle>
+        </tal:requete> 
+    </fieldset>
+</div><!-- div metal-->
+</body>
+</html>
+
