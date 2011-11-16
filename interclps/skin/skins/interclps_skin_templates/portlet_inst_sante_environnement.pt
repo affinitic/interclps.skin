@@ -1,0 +1,48 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
+
+<body>
+<!--
+    Portlet qui liste toutes les institutions pour la plate-forme sante environnement
+-->
+<div metal:define-macro="portlet"
+     tal:define="inst context/@@manageClpsbw;
+                 institutions python:inst.getInstitutionByPlateForme('institution_plate_forme_sante_environnement')"
+     tal:condition="python:len(institutions) > 0">
+    <dl id="portlet-institution-assuetude">
+        <dt class="portletHeaderInstitution">
+            <span class="portletTopLeft"></span>
+            <span class="portletTopRight"></span>
+            Institutions
+        </dt>
+        <tal:boucle tal:repeat="institution institutions">
+            <dt class="portletItemInstitution">
+                <div class="portlet-experience-links">
+                    <img src="puce_famille.png" />
+                    <a href=""
+                       tal:attributes="href
+                                       string:${context/portal_url}/institution-decrire?institutionPk=${institution/institution_pk}">
+                        <span tal:content="institution/institution_nom">nom institution</span></a>
+                </div>
+            </dt>
+        </tal:boucle>
+        <dt class="portletFooterInstitution">
+            <div id="portletFooterDB-Bouton">
+                <div id="btn-flch-verte">
+                    <a href="institution-plate-forme-lister?plateForme=institution_plate_forme_assuetude"
+                       title="listing des institutions"
+                       alt="listing des projets partag&eacute;s">
+                        <img src="flch_verte.png" /></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <span class="portletBottomLeft"></span>
+            <span class="portletBottomRight"></span>
+        </dt>
+    </dl>
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,52 @@
+<!--
+    Portlet avec les noms des domaines sur page interne des 
+    domaines.
+
+-->
+
+<div metal:define-macro="portlet">
+
+<dl class="portlet portlet-sub-menus">
+
+    <dt class="portletHeaderPlateForme">
+        <span class="portletTopLeft"></span>
+        <span class="portletTopRight"></span>
+        Nos autres plates-formes
+    </dt>
+
+    <dd class="portletItemPlateforme">
+        <img src="puce_ecole.png" />
+        <a href=""
+           tal:attributes="href string:${context/portal_url}/sante-et-bien-etre-a-l-ecole">
+           Sant&eacute; &agrave; l'&eacute;cole</a>
+    </dd>
+
+    <dd class="portletItemPlateforme">
+        <img src="puce_assuetude.png" />
+        <a href=""
+           tal:attributes="href string:${context/portal_url}/point-d-appui-assuetudes">
+           Point d'appui assu&eacute;tudes</a>
+    </dd>
+
+    <dd class="portletItemPlateforme">
+        <img src="puce_famille.png" />
+        <a href=""
+           tal:attributes="href string:${context/portal_url}/sante-et-bien-etre-des-familles">
+           Sant&eacute; des familles</a>
+    </dd>
+
+    <dd class="portletItemPlateforme">
+        <img src="puce_environnement.png" />
+        <a href=""
+           tal:attributes="href string:${context/portal_url}/sante-environnement">
+            Sant&eacute; - environnement</a>
+    </dd>
+
+    <dd class="portletFooterPlateForme">
+        <span class="portletBottomLeft"></span>
+        <span class="portletBottomRight"></span>
+    </dd>
+
+</dl>
+
+</div>

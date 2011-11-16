@@ -15,9 +15,6 @@
                  motcles python:view.getMotCleByPk(motclePk)">
 <form action="mot-cle-inserer" method="post">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
     <h1>Gestion des mots-clé</h1>
     <fieldset>
         <legend class="legende">Modifier un mot-clé</legend>

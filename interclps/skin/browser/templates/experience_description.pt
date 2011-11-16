@@ -22,9 +22,6 @@
                      title=" Projets partagés"
                      alt="titre_logo_presentation_db.png" />
             </div>
-            <div metal:use-macro="here/document_actions/macros/document_actions">
-                Document actions (print, sendto etc)
-            </div>
         </div>
 
         <div id="main-experience">

@@ -10,7 +10,6 @@
 
 <div metal:define-macro="portlet">
     <div id="portlet-experience-assuetude">
-       
         <div tal:define="experiences python:view.getExperienceByPlateForme('experience_plate_forme_assuetude')">
             <span tal:repeat="experience experiences">
                 <!--

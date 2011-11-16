@@ -1,0 +1,41 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
+
+<body>
+
+<!-- 
+    Portlet domaine du site
+    Portlet avec toutes les picèces de puzzle niveau 1 du site. 
+-->
+
+<div metal:define-macro="portlet">
+    <div id="portlet-domaine">
+        <div id="sante-ecole">
+            <a href="" tal:attributes="href string:${context/portal_url}/sante-et-bien-etre-a-l-ecole">
+                Sante <br />a l'ecole
+            </a>
+        </div>
+        <div id="point-appui">
+            <a href="" 
+               tal:attributes="href
+               string:${context/portal_url}/point-d-appui-assuetudes">
+               Point<br/>&nbsp;d'appui<br /> assuetudes
+            </a>
+        </div>
+        <div id="sante-famille">
+            <a href="" 
+               tal:attributes="href string:${context/portal_url}/sante-et-bien-etre-des-familles">
+               Sante <br />des familles
+            </a>
+        </div>
+        <div id="sante-environnement">
+            <a href="" 
+               tal:attributes="href string:${context/portal_url}/sante-environnement">
+               Sante<br /> -<br /> Environnement
+            </a>
+         </div>
+     </div>
+</div>
+</body>
+</html>

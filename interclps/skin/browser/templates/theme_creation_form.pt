@@ -13,9 +13,6 @@
 <div metal:fill-slot="main">
 <form action="theme-inserer" method="post">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
     <h1>Encoder un theme</h1>
     <fieldset tal:define="themes python: view.getAllTheme()">
         <table width="50%"

@@ -10,7 +10,6 @@
     <h1>:: Gestion des plate-formes ::</h1>
     <div tal:define="result view/managePlateForme;
                      status result/status">
-
         <fieldset tal:define="plateformes python: view.getAllPlateForme()">
             <table width="50%"
                    align="center"

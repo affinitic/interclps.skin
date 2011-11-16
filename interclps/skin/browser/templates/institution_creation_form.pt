@@ -23,11 +23,7 @@
 
 <form action="institution-inserer" method="post">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
     <h1>:: Encoder une institution ::</h1>
-
     <fieldset>
         <legend class="legende">Institution</legend>
         <ul class="formulaire">

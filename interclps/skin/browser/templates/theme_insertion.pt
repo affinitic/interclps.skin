@@ -10,7 +10,6 @@
     <h1>:: Th&egrave;me ::</h1>
     <div tal:define="result view/manageTheme;
                      status result/status">
-
         <fieldset tal:define="themes python: view.getAllTheme()">
             <table width="50%"
                    align="center"

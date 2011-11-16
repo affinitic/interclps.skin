@@ -12,9 +12,7 @@
 <div metal:fill-slot="main"
      tal:define="publicPk request/publicPk;
                  experiences python:view.getExperienceByPublic(publicPk)">
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
+    
     <div id="listing-titre">
         <h1>
             Liste des experiences correspondant

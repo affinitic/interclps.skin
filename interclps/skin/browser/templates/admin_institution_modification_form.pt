@@ -19,9 +19,6 @@
     <tal:boucle tal:repeat="institution institutions">
         <tal:block tal:define="institutionPk institution/institution_pk">
             <br />
-            <div metal:use-macro="here/document_actions/macros/document_actions">
-                Document actions (print, sendto etc)
-            </div>
             <h1>:: Modifier l'institution : <span tal:content="institution/institution_nom" class="rouge-titre"/> ::</h1>
 
             <fieldset>

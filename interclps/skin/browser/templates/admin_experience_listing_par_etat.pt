@@ -13,9 +13,6 @@
      tal:define="etatExperience request/etat;
                  etat python: view.getTranslationExperienceEtat(etatExperience)"
      tal:condition="python:user.has_role(['Manager'], here)">
-   <div metal:use-macro="here/document_actions/macros/document_actions">
-     Document actions (print, sendto etc)
-   </div>
    <h1>:: Listing des expériences selon l'état "<span tal:content="etat" />" ::</h1>
    
     <div tal:define="etatExperience request/etat;

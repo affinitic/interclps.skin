@@ -25,9 +25,6 @@
       method="post">
     <tal:boucle tal:repeat="experience experiences">
         <br />
-        <div metal:use-macro="here/document_actions/macros/document_actions">
-            Document actions (print, sendto etc)
-        </div>
         <h1>:: Modifier l'expérience <span tal:content="experience/experience_titre" class="rouge-titre" /> ::</h1>
         <div class="discreet">
             Les <img src="info.png" /> situés à droite de l’écran sont là pour vous soutenir

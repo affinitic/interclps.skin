@@ -13,9 +13,7 @@
 <div metal:fill-slot="main"
      tal:condition="python:user.has_role(['Manager'], here)">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
+    
     <h1>:: Gestion des auteurs d'expériences ::</h1>
     <fieldset>
         <legend class="legende">Modifier un auteur</legend>

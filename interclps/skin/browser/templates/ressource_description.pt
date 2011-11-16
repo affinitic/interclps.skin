@@ -15,10 +15,6 @@
                  ressources python:view.getAllRessource(ressourcePk)">
     <tal:boucle tal:repeat="ressource ressources">
         <tal:block tal:define="ressourcePk ressource/ressource_pk">
-            <div metal:use-macro="here/document_actions/macros/document_actions">
-                Document actions (print, sendto etc)
-            </div>
-
             <div id="title-ressource">
                 <div id="title-ressource-left"></div>
                 <div class="titre-ressource-top">

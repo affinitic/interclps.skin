@@ -1,0 +1,26 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
+
+<body>
+<div metal:define-macro="portlet">
+     <!--tal:condition="python:user.has_role(['Manager', 'VisiteurDb'], here)">-->
+    <dl id="portlet-db">
+        <dt class="portletHeaderDB">
+            <span class="portletTopLeft"></span>
+            <span class="portletTopRight"></span>
+            Projets partag&eacute;s.
+        </dt>
+        <dt class="portletPresentationDB">
+            <img src="puce_presentation_bd.png" /> <a href="presentation-db">Pr&eacute;sentation</a>
+            <br /><br />
+            <img src="puce_presentation_bd.png" /> <a href="experience-recherche">Effectuer une recherche</a><br />
+        </dt>
+        <dt class="portletFooterDB">
+            <span class="portletBottomLeft"></span>
+            <span class="portletBottomRight"></span>
+        </dt>
+     </dl>
+</div>
+</body>
+</html>

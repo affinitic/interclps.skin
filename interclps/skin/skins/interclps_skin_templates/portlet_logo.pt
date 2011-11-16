@@ -1,0 +1,34 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
+
+<body>
+<div metal:define-macro="portlet">
+     <!--tal:condition="python:user.has_role(['Manager', 'VisiteurDb'], here)">-->
+    <dl id="portlet-logo">
+        <dt class="portletPresentation">
+            <div id="logo-promosante">
+                <a href="http://www.promosantenet.be"
+                   target="_blank">
+                   <img src="logo_promosante.png"
+                        title="R&eacute;seau Promosant&eacute;.net de la Communaut&eacute; fran&ccedil;aise"
+                        alt="www.promosantenet.be"/></a>
+            </div>
+            <div id="coq">
+                <a href="http://www.sante.cfwb.be"
+                   target="_blank">
+                   <img src="coq_cfwb.jpg"
+                        title="www.sante.cfwb.be"
+                        alt="www.sante.cfwb.be"/></a>
+            </div>
+            <div id="logo-bw">
+                <a href="http://www.brabantwallon.be" target="_blank">
+                    <img src="logo_province_bw.png"
+                         title="la jeune province du Brabant wallon"
+                         alt="la jeune province du Brabant wallon" /></a>
+            </div>   
+        </dt>
+     </dl>
+</div>
+</body>
+</html>

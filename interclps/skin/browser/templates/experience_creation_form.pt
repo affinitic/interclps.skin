@@ -16,9 +16,7 @@
 <form action="experience-inserer"
       method="post">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
+    
     <h1>Encoder votre expérience</h1>
     <div class="discreet">
         Les <img src="info.png" /> situés à droite de l’écran sont là pour vous soutenir

@@ -14,9 +14,6 @@
                  institutionTypes python:view.getInstitutionTypeByPk(institutionTypePk)">
 <form action="institution-type-inserer" method="post">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
     <h1>:: Gestion des types d'institution ::</h1>
     <fieldset>
         <legend class="legende">Modifier un type d'institution</legend>

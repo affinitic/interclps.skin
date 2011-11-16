@@ -11,9 +11,6 @@
 <body>
 <div metal:fill-slot="main"
      tal:condition="python:user.has_role(['RecitExperience'], here)">
-   <div metal:use-macro="here/document_actions/macros/document_actions">
-     Document actions (print, sendto etc)
-   </div>
    <h1>:: Gérer les institutions ::</h1>
    Sélectionnez l'institution à modifier.
    <div tal:define="institutions python:view.getInstitutionByAuteurLogin();">

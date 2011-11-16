@@ -13,9 +13,6 @@
      tal:define="etatInstitution request/etat;
                  etat python: view.getTranslationExperienceEtat(etatInstitution)"
      tal:condition="python:user.has_role(['Manager'], here)">
-   <div metal:use-macro="here/document_actions/macros/document_actions">
-     Document actions (print, sendto etc)
-   </div>
    <h1>:: Listing des institution selon l'état "<span tal:content="etat" />" ::</h1>
    
     <div tal:define="institutions python:view.getAllInstitutionByEtat(etatInstitution);">

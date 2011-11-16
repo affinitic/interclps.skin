@@ -1,0 +1,56 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
+
+<body>
+<div metal:define-macro="portlet"
+     tal:define="experiences context/@@manageClpsbw;
+                 auteur python:experiences.getAuteurTypeByLogin()"
+     tal:condition="python:user.has_role(['RecitExperience'], here)">
+    <dl id="portlet-db-auteur">
+        <dt class="portletHeaderDB">
+            <span class="portletTopLeft"></span>
+            <span class="portletTopRight"></span>
+            Mes donn&eacute;es
+        </dt>
+        <div tal:condition="python: auteur.auteur_for_experience==True">
+        <dt id="Recits"
+            class="portletItemDB"><img src="puce_presentation_bd.png" /> experiences</dt>
+            <dd class="portletItemDB">
+                <a href=""
+                   tal:attributes="href string:${context/portal_url}/experience-creer">Cr&eacute;er</a>
+            </dd>
+            <dd class="portletItemDB">
+                <a href=""
+                   tal:attributes="href string:${context/portal_url}/experience-lister-auteur">Lister</a>
+            </dd>
+            <dd class="portletItemDB">
+                <a href=""
+                   tal:attributes="href string:${context/portal_url}/experience-gerer">Modifier</a>
+            </dd>
+        </div>
+
+        <div tal:condition="python: auteur.auteur_for_institution==True">
+        <dt id="Recits"
+            class="portletItemDB"><img src="puce_presentation_bd.png" /> institutions</dt>
+            <dd class="portletItemDB">
+                <a href=""
+                   tal:attributes="href string:${context/portal_url}/instituion-creer">Cr&eacute;er</a>
+            </dd>
+            <dd class="portletItemDB">
+                <a href=""
+                   tal:attributes="href string:${context/portal_url}/institution_listing_par_login_auteur">xxLister</a>
+            </dd>
+            <dd class="portletItemDB">
+                <a href=""
+                   tal:attributes="href string:${context/portal_url}/institution-gerer">Modifier</a>
+            </dd>
+        </div>
+        <dt class="portletFooterDB">
+            <span class="portletBottomLeft"></span>
+            <span class="portletBottomRight"></span>
+        </dt>
+     </dl>
+</div>
+</body>
+</html>

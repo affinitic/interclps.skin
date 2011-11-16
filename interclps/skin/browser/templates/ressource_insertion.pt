@@ -7,7 +7,6 @@
 <body>
 
 <div metal:fill-slot="main">
-
     <h1>:: Ressources ::</h1>
     <div tal:define="result view/manageRessource;
                      status result/status">

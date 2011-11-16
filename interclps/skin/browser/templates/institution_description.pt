@@ -15,9 +15,6 @@
                  institutions python:view.getAllInstitution(institutionPk)">
     <tal:boucle tal:repeat="institution institutions">
         <tal:block tal:define="institutionPk institution/institution_pk">
-            <div metal:use-macro="here/document_actions/macros/document_actions">
-                Document actions (print, sendto etc)
-            </div>
             <div id="title-institution">
                 <div id="title-institution-left"></div>
                 <div class="titre-institution-top">

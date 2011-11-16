@@ -14,9 +14,6 @@
      tal:define="experiences python:view.getExperienceByPk(experiencePk=request.experiencePk)">
     <tal:boucle tal:repeat="experience experiences">
         <br />
-        <div metal:use-macro="here/document_actions/macros/document_actions">
-            Document actions (print, sendto etc)
-        </div>
         <h1><span tal:content="experience/experience_titre" /></h1>
 
         <fieldset class="description-texte">

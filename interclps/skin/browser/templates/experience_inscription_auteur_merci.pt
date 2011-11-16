@@ -7,9 +7,6 @@
     <div metal:fill-slot="main">
         <div>
             <br />
-            <div metal:use-macro="here/document_actions/macros/document_actions">
-                Document actions (print, sendto etc)
-            </div>
             <h1>Inscription à la base de données de récits d'expériences</h1>
             <div class="merci-text">
                 Merci de votre participation.<br />

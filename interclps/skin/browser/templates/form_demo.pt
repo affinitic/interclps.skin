@@ -12,9 +12,6 @@
 <body>
 <div metal:fill-slot="main">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
     <h1>Démonstartion gestion base de données</h1>
     <fieldset>
         <legend class="legende">Liste des employés</legend>

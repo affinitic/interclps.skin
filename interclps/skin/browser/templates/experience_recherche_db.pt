@@ -22,16 +22,13 @@
 <body>
 <div metal:fill-slot="main">
     <div>
-        <div metal:use-macro="here/document_actions/macros/document_actions">
-                Document actions (print, sendto etc)
-        </div>
-         <div  id="logo-projet-paratge">
+        <div  id="logo-projet-paratge">
              <img src="titre_logo_presentation_db.png"
                   width="185"
                   height="35"
                   title=" Projets partagés"
                   alt="titre_logo_presentation_db.png" />
-         </div>
+        </div>
     </div>
     <div id="zone-titre-moteur-recherche">
         <div class="search-titre">

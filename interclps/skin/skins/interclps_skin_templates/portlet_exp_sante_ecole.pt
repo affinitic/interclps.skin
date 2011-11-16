@@ -1,0 +1,55 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
+
+<body>
+<!--
+    Portlet qui liste toutes les exépriences pour la plate-forme assuetude
+-->
+<div metal:define-macro="portlet"
+     tal:define="exp context/@@manageClpsbw;
+                 experiences python:exp.getExperienceByPlateForme('experience_plate_forme_sante_ecole', True)"
+     tal:condition="python:len(experiences) > 0">
+    <dl id="portlet-experience-assuetude">        
+        <dt class="portletHeaderDB">
+            <span class="portletTopLeft"></span>
+            <span class="portletTopRight"></span>
+            Projets partag&eacute;s
+        </dt>
+        <tal:boucle tal:repeat="experience experiences">
+            <dt class="portletPresentationDB">
+                <div class="portlet-experience-links">
+                    <img src="puce_presentation_bd.png" />
+                    <a href=""
+                       tal:attributes="href
+                                       string:${context/portal_url}/experience-decrire?experiencePk=${experience/experience_pk}">
+                    <span tal:content="experience/experience_titre">titre</span></a>
+                </div>
+            </dt>
+        </tal:boucle>
+        <dt class="portletFooterDB">
+            <div id="portletFooterDB-Bouton">
+                <div id="btn-projet-partage">
+                    <a href=""
+                       tal:attributes="href string:${context/portal_url}/presentation-db"
+                       title="Pr&eacute;sentation des projets partag&eacute;s"
+                       alt="Présentation des projets partag">
+                        <img src="logo_projet_partage.png" /></a>
+                </div>
+                <div id="btn-flch-verte">
+                    <a href="experience-plate-forme-lister?plateForme=experience_plate_forme_sante_ecole"
+                       title="listing des projets partag&eacute;s"
+                       alt="listing des projets partag&eacute;s">
+                        <img src="flch_verte.png" /></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <span class="portletBottomLeft"></span>
+            <span class="portletBottomRight"></span>
+        </dt>
+    </dl>
+</div>
+</body>
+</html>
+
+

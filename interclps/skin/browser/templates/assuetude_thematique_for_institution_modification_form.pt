@@ -14,9 +14,6 @@
      tal:define="assuetudePk request/assuetudePk;
                  assuetudeThematique python:view.getInstitutionAssuetudeThematiqueByPk(assuetudePk)">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
     <h1>Gestion des assuétudes</h1>
     <fieldset>
         <legend class="legende">Modifier une assuétude de type thématique</legend>

@@ -13,9 +13,6 @@
 <div metal:fill-slot="main">
 <form action="support-inserer" method="post">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
     <h1>Encoder un suppport</h1>
     <fieldset tal:define="supports python: view.getAllSupport()">
         <table width="50%"

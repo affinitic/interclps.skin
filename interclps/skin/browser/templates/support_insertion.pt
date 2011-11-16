@@ -10,7 +10,6 @@
     <h1>:: Supports ::</h1>
     <div tal:define="result view/manageSupport;
                      status result/status">
-
         <fieldset tal:define="supports python: view.getAllSupport()">
             <table width="50%"
                    align="center"

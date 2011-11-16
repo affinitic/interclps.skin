@@ -11,11 +11,7 @@
 <body>
 <div metal:fill-slot="main"
      tal:define="plateForme request/plateForme">
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
     <h1>Liste des experiences</h1>
-
     <div tal:define="experiences python:view.getExperienceByPlateForme(plateForme);">
         <tal:boucle tal:repeat="experience experiences">
             <tal:block tal:define="experiencePk experience/experience_pk">

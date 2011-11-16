@@ -11,9 +11,6 @@
 
 <body>
 <div metal:fill-slot="main">
-   <div metal:use-macro="here/document_actions/macros/document_actions">
-     Document actions (print, sendto etc)
-   </div>
    <h1>Vous souhaitez partager votre expérience, quelle bonne idée !</h1>
    <fieldset>
        <legend class="legende">Envoyer une demande d'inscription</legend>

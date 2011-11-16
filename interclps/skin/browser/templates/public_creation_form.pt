@@ -13,9 +13,6 @@
 <div metal:fill-slot="main">
 <form action="public-inserer" method="post">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
     <h1>Encoder un public</h1>
     <fieldset tal:define="publics python: view.getAllPublic()">
         <table width="50%"

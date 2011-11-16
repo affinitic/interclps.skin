@@ -16,9 +16,6 @@
 <form action="ressource-inserer" method="post">
     <tal:boucle tal:repeat="ressource ressources">
         <br />
-        <div metal:use-macro="here/document_actions/macros/document_actions">
-            Document actions (print, sendto etc)
-        </div>
         <h1>:: Modifier la ressource : <span tal:content="ressource/ressource_titre" class="rouge-titre" /> ::</h1>
         Il s'agit de livre, cd-rom, dvd, dossier pédagogique, jeu, ....
         <fieldset>

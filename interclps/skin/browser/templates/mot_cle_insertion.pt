@@ -10,7 +10,6 @@
     <h1>:: Mots-clé ::</h1>
     <div tal:define="result view/manageMotCle;
                      status result/status">
-
         <fieldset tal:define="motcles python: view.getAllMotCle()">
             <table width="50%"
                    align="center"

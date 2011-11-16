@@ -22,8 +22,7 @@
 <body>
 <div metal:fill-slot="main">
      <div metal:use-macro="here/document_actions/macros/document_actions">
-            Document actions (print, sendto etc)
-    </div>
+            
     <div id="zone-titre-moteur-recherche">
         <div class="search-titre">
             Rechercher une institution

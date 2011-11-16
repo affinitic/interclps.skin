@@ -18,7 +18,7 @@ from Products.Archetypes.atapi import LinesField
 from Products.Archetypes.Renderer import renderer
 from Products.Archetypes.atapi import BaseContent
 from interfaces import IManageInterClps
-from collective.captcha.browser.captcha import Captcha
+from collective.captcha.browser.captcha import Captcha  
 
 
 class ManageInterClps(BrowserView):
@@ -36,6 +36,8 @@ class ManageInterClps(BrowserView):
             required = False
             default = value
             missing_value = None
+            title = None
+            description = None 
 
         request = self.request
         request.form = {}
@@ -49,9 +51,7 @@ class ManageInterClps(BrowserView):
         nameKey and pkKey are used for the display value and the record pk to
         save
         """
-
         class MyContext(BaseContent):
-
             def getSelectedValues(self):
                 return selectedPks
         if not isinstance(nameKey, list):
@@ -60,10 +60,10 @@ class ManageInterClps(BrowserView):
         for value in values:
             if isinstance(value, dict):
                 display = ' '.join([value.get(n) for n in nameKey])
-                term = (value.get(pkKey), display)
+                term = (str(value.get(pkKey)), display)
             else:
                 display = ' '.join([getattr(value, n) for n in nameKey])
-                term = (getattr(value, pkKey), display)
+                term = (str(getattr(value, pkKey)), display)
             items.append(term)
 
         field = LinesField(name,
@@ -75,7 +75,7 @@ class ManageInterClps(BrowserView):
                                                   description='',
                                                   label=title))
 
-        wrappedContext = MyContext('dummycontext').__of__(self)
+        wrappedContext = MyContext('dummycontext').__of__(self.context)
         widget = field.widget
         res = renderer.render(name, 'edit', widget, wrappedContext, field=field)
         return res

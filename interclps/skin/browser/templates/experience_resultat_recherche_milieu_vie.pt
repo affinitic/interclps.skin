@@ -13,9 +13,7 @@
      tal:define="milieudeviePk request/milieudeviePk;
                  experiences python:view.getExperienceByMilieuDeVie(milieudeviePk)">
       
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
+    
     <div id="listing-titre">
         <h1>
             Liste des experiences correspondant

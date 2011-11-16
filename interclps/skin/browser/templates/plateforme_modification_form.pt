@@ -15,9 +15,6 @@ public
                  plateformes python:view.getPlateFormeByPk(plateformePk)">
 <form action="plateforme-inserer" method="post">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
     <h1>:: Gestion des plate-formes ::</h1>
     <fieldset>
         <legend class="legende">Modifier un thème</legend>

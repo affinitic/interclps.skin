@@ -13,9 +13,6 @@
 <div metal:fill-slot="main">
 <form action="milieu-de-vie-inserer" method="post">
     <br />
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
     <h1>:: Gestion des milieux de vie ::</h1>
     <fieldset tal:define="milieudevies python: view.getAllMilieuDeVie()">
         <table width="50%"
