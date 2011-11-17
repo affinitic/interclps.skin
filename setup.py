@@ -26,6 +26,7 @@ setup(name='interclps.skin',
       install_requires=[
           'setuptools',
           'Products.AddRemoveWidget',
+          'reportlab',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
