@@ -609,7 +609,7 @@
                tal:attributes="value auteur/auteur_login" />
         <input type="hidden"
                name="experienceClpsProprio"
-               value="1" />
+               value="2" />
         <input type="hidden"
                name="experience_auteur_fk"
                value=""

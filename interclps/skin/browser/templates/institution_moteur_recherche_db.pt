@@ -7,8 +7,6 @@
     <metal:js fill-slot="javascript_head_slot">
     <script src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js" type="text/javascript"></script>
         <script src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js" type="text/javascript"></script>
-
-        <script src="validate_forms.js" type="text/javascript"></script>
         <script src="++resource++interclps.js" type="text/javascript"></script>
     </metal:js>
     <metal:css fill-slot="style_slot">

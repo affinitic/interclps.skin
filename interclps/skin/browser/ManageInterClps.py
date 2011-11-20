@@ -207,10 +207,10 @@ class ManageInterClps(BrowserView):
         """
         envoi de mail à clpsbw admin
         """
-        mailer = Mailer("localhost", "houtain@clps-bw.be, alain.meurant@affinitic.be")
+        mailer = Mailer("localhost", "alain.meurant@affinitic.be")
         #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be, houtain@clps-bw.be" )
         mailer.setSubject(sujet)
-        mailer.setRecipients("alain.meurant@affinitic.be, houtain@clps-bw.be")
+        mailer.setRecipients("alain.meurant@affinitic.be")
         mail = message
         mailer.sendAllMail(mail)
 
@@ -218,10 +218,10 @@ class ManageInterClps(BrowserView):
         """
         envoi de mail à clpsbw admin
         """
-        mailer = Mailer("localhost", "houtain@clps-bw.be, alain.meurant@affinitic.be")
+        mailer = Mailer("localhost", "alain.meurant@affinitic.be")
         #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
         mailer.setSubject(sujet)
-        mailer.setRecipients("alain.meurant@affinitic.be, houtain@clps-bw.be")
+        mailer.setRecipients("alain.meurant@affinitic.be")
         mail = message
         mailer.sendAllMail(mail)
 
@@ -236,9 +236,9 @@ class ManageInterClps(BrowserView):
         auteurDescription = getattr(fields, 'auteur_description', None)
 
 
-        sujet = "[CLPSBW DB  :: demande d'inscription d'un auteur]"
+        sujet = "[ICLPS DB  :: demande d'inscription d'un auteur]"
         message = """<font color='#FF0000'><b>:: Ajout d'un nouvel auteur ::</b></font><br /><br />
-                  Bonjour Céline, <br />
+                  Bonjour Isabelle, <br />
                   Une personne vient de s'inscrire via le site pour devenir auteur d'un récit partagé.<br />
                   Il s'agit de :<br />
                   <ul>
@@ -278,9 +278,9 @@ class ManageInterClps(BrowserView):
         experience_institution_ressource_autre = getattr(fields, 'experience_institution_ressource_autre', None)
         experience_institution_outil_autre = getattr(fields, 'experience_institution_outil_autre', None)
 
-        sujet = "[CLPS DB :: nouvelle experience]"
+        sujet = "[ICLPS DB :: nouvelle experience]"
         message = """<font color='#FF0000'><b>:: Ajout d'une nouvelle expérience ::</b></font><br /><br />
-                  Bonjour Céline, <br />
+                  Bonjour Isabelle, <br />
                   Une nouvelle expérience est ajoutée dans la base via le site.<br />
                   Il s'agit de :<br />
                   <ul>
@@ -291,7 +291,7 @@ class ManageInterClps(BrowserView):
                   </ul>
                   <hr />
                   Modifier et publier l'expérience en cliquant sur ce
-                  <a href="http://www.clpsbw.be/admin-experience-modifier?experiencePk=%s">lien</a>.
+                  <a href="http://www.projets-partages.be/admin-experience-modifier?experiencePk=%s">lien</a>.
                   <hr />
                   <font size="1">
                   :: Autre public visé : <font color='#ff9c1b'><b>%s</b></font><br />
@@ -324,7 +324,7 @@ class ManageInterClps(BrowserView):
         experienceResume = getattr(fields, 'field.experience_resume', None)
 
 
-        sujet = "[CLPSBW to SISS  :: nouvelle experience]"
+        sujet = "[ICLPS to SISS  :: nouvelle experience]"
         message = """<font color='#FF0000'><b>:: Ajout d'une nouvelle expérience ::</b></font><br /><br />
                   Bonjour SISS, <br />
                   Une nouvelle expérience est publiée sur le site du CLPS-BW.<br />
@@ -345,7 +345,7 @@ class ManageInterClps(BrowserView):
                     experiencePk)
 
         #contact@siss.be, n.poelaert@siss.be
-        mailer = Mailer("localhost", "houtain@clps-bw.be, alain.meurant@affinitic.be, n.poelaert@siss.be")
+        mailer = Mailer("localhost", "alain.meurant@affinitic.be")
         #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
         mailer.setSubject(sujet)
         mailer.setRecipients("alain.meurant@affinitic.be")
@@ -368,9 +368,9 @@ class ManageInterClps(BrowserView):
         experience_institution_ressource_autre = getattr(fields, 'experience_institution_ressource_autre', None)
         experience_institution_outil_autre = getattr(fields, 'experience_institution_outil_autre', None)
 
-        sujet = "[CLPS DB :: modification de l'experience]"
+        sujet = "[ICLPS DB :: modification de l'experience]"
         message = """<font color='#FF0000'><b>:: Modification d'une expérience ::</b></font><br /><br />
-                  Bonjour Céline, <br />
+                  Bonjour Isabelle, <br />
                   L'expérience <font color='#ff9c1b'><b>%s</b></font> vient d'être modifiée.<br />
                   Il s'agit de :<br />
                   <ul>
@@ -428,7 +428,7 @@ class ManageInterClps(BrowserView):
 
         description = fields.description
 
-        sujet="[CLPS-BW] :: Experience : demande d'inscription via le site"
+        sujet="[ICLPS-BW] :: Experience : demande d'inscription via le site"
         message = """<font color='#FF0000'><b>:: DEMANDE D'INSCRIPTION ::</b></font>
                      <br /><br />
                      Un personne souhaite s'inscrire via le site.<br />
@@ -3044,8 +3044,9 @@ class ManageInterClps(BrowserView):
         institution_auteur_login = getattr(fields, 'institution_auteur_login', None)
         institution_creation_date = self.getTimeStamp()
         institution_modification_employe = self.getUserAuthenticated()
-        institution_commune_fk = getattr(fields, 'institution_commune_fk', None)
         institution_auteur = getattr(fields, 'institutionAuteur', None)
+        institution_commune_fk = getattr(fields, 'institution_commune_fk', None)
+        institution_clps_proprio_fk = getattr(fields, 'institutionClpsProprio', None)
         institution_institution_type_fk = getattr(fields, 'institution_institution_type_fk', None)
 
         institution_auteur_fk = self.getAuteurPkByName(institution_auteur)
@@ -3097,6 +3098,7 @@ class ManageInterClps(BrowserView):
                                      institution_etat = institution_etat, \
                                      institution_creation_date = institution_creation_date, \
                                      institution_modification_employe = institution_modification_employe, \
+                                     institution_clps_proprio_fk = institution_clps_proprio_fk, \
                                      institution_commune_fk = institution_commune_fk, \
                                      institution_auteur_fk = institution_auteur_fk, \
                                      institution_institution_type_fk = institution_institution_type_fk)

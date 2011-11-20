@@ -23,7 +23,7 @@ class SearchThesaurusAutoCompleteJSON(BrowserView):
 
     @memoize
     def getThesaurusXMLValues(self):
-        xmlDoc = etree.parse('/home/alain/buildouts/interclpsbw/src/interclpsbw.skin/interclpsbw/skin/browser/thesaurus_xml/thesaurus.xml')
+        xmlDoc = etree.parse('/home/alain/buildouts/interclps/src/interclps.skin/interclps/skin/browser/thesaurus_xml/thesaurus.xml')
         valueTags = xmlDoc.findall("//valeur")
         values = [tag.text.lower() for tag in valueTags]
         return values
