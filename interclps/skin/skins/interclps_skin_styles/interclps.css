@@ -22,7 +22,7 @@ border-top:1px solid #cfd9d7;
 }
 
 
-#main-clpsbw{
+#visual-portal-wrapper{
 border-left:3px solid #666;
 border-right:3px solid #666;
 width:1024px;
@@ -35,7 +35,7 @@ height:150px;
 }
 
 #portal-top {
-background-color:transparent;
+background-color:#ccc;
 padding:0pt;
 }
 
@@ -240,7 +240,7 @@ background-image:url(bckg_menu.png);
 border-collapse:collapse;
 padding:0 0 0 0px;
 vertical-align:top;
-width:175px;
+width:200px;
 border-right:2px solid #ddd;
 }
 
@@ -658,12 +658,12 @@ margin-top:0px;
 
 /*** PORTLET MENU DB ***/
 .portletHeaderDB {
-margin-left:15px;
-margin-top:2em;
-background-color:transparent;
+/*margin-left:-37px;*/
+margin-top:0px;
+background-color:#888;
 background-image:url(bg_hd_portlet_menu_db_2.png);
 background-repeat:no-repeat;
-width:199px;
+width:178px;
 height:33px;
 border:none;
 color:#8c103e;
@@ -674,6 +674,20 @@ padding-left:0px;
 padding-top:9px;
 text-transform:none;
 margin-bottom:-9px;
+
+border-color:#888;
+border-width:1px;
+border-style:solid;
+-moz-border-radius: 12px 12px 0px 0px;
+-webkit-border-radius: 12px 12px 0px 0px;
+-o-border-radius: 12px 12px 0px 0px;
+-ms-border-radius: 12px 12px 0px 0px;
+border-radius: 12px 12px 0px 0px;
+-moz-box-shadow:0px 0px 10px rgba(0,0,0,0.5);
+-webkit-box-shadow:0px 0px 10px rgba(0,0,0,0.5);
+-o-box-shadow:0px 0px 10px rgba(0,0,0,0.5);
+-ms-box-shadow:0px 0px 10px rgba(0,0,0,0.5);
+box-shadow:0px 0px 10px rgba(0,0,0,0.5);
 }
 
 /* une petite div pour limiter la taille de a href */
@@ -709,13 +723,13 @@ dt.portletItemDB{
 font-variant:small-caps;
 font-weight:bold;
 font-size:10pt;
-padding:5px 0px 5px 10px;
+padding:5px 0px 5px 1px;
 width:189px;
 }
 
 dd.portletItemDB{
 line-height:1em;
-padding:0px 0px 5px 15px;
+padding:0px 0px 5px 1px;
 width:185px;
 }
 
@@ -785,11 +799,29 @@ color:#fff;
 #Support, #MotCle, #Theme, #Public, #MilieuDeVie, #PlateForme{
 }
 
+#portlet-gestion-db{
+width:180px;
+margin-top:10px;
+font-size:0.7em;
+border-color:#000;
+border-width:2px;
+border-style:solid;
+-moz-border-radius: 12px 12px 12px 12px;
+-webkit-border-radius: 12px 12px 12px 12px;
+-o-border-radius: 12px 12px 12px 12px;
+-ms-border-radius: 12px 12px 12px 12px;
+border-radius: 12px 12px 12px 12px;
+-moz-box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+-webkit-box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+-o-box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+-ms-box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+}
+
 .portlet-gestion-db-separation{
 display:block;
 width:190px;
 margin:15px 0px 5px -14px;
-border-top:1px solid #8c103e;
 }
 
 /*** STYLE INTERNE ***/
