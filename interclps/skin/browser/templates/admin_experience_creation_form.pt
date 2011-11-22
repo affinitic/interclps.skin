@@ -257,22 +257,22 @@
                     <input type="checkbox"
                            name="experience_territoire_tout_brabant_wallon"
                            value="True" />
-                           Tout le Brabant wallon
+                           Tout le Luxembourg
                     <br />
                     <br />
-                    <img src="list_flch_rouge.png" /> Localité du Brabant wallon
+                    <img src="list_flch_rouge.png" /> Localité du Luxembourg
                     <tal:addremove define="errors python:{};">
                         <span metal:use-macro="python: view.getAddRemoveField('experience_commune_inbw_fk', ' ',
-                                                       view.getAllCommune((5,)),
+                                                       view.getAllCommune((4,)),
                                                        nameKey=['com_localite_cp', 'com_localite_nom'],
                                                        pkKey='com_pk')" />
                     </tal:addremove>
                     <br />
                     <br />
-                    <img src="list_flch_rouge.png" />Localité hors Brabant wallon
+                    <img src="list_flch_rouge.png" />Localité hors Luxembourg
                     <tal:addremove define="errors python:{};">
                         <span metal:use-macro="python: view.getAddRemoveField('experience_commune_outbw_fk', ' ',
-                                                       view.getAllCommune((1,2,3,4,11)),
+                                                       view.getAllCommune((1,2,3,5,11)),
                                                        nameKey=['com_localite_cp', 'com_localite_nom'],
                                                        pkKey='com_pk')" />
                     </tal:addremove>
@@ -645,46 +645,6 @@
                                              pkKey='theme_pk',
                                              canAddValues=True)" />
             </tal:addremove>
-            <br />
-        </fieldset>
-
-        <fieldset>
-            <legend class="legende">Plate-formes et sous plate-formes concernées</legend>
-            <input type="checkbox"
-                   name="experience_plate_forme_sante_ecole"
-                   value="True" />&nbsp;&nbsp;Point d'appui assuétudes
-            <br />
-            <input type="checkbox"
-                   name="experience_plate_forme_assuetude"
-                   value="True" />&nbsp;&nbsp;Santé à l'école
-            <br />
-            <input type="checkbox"
-                   name="experience_plate_forme_sante_famille"
-                   value="True" />&nbsp;&nbsp;Santé des familles
-            <br />
-            <input type="checkbox"
-                   name="experience_plate_forme_sante_environnement"
-                   value="True" />&nbsp;&nbsp;Santé et environnement
-            <!--
-            <tal:blok tal:define="plateformes python:view.getAllActivePlateForme()">
-                <tal:boucle tal:repeat="plateforme plateformes">
-
-                    &nbsp;&nbsp;<span tal:content="plateforme/plateforme_nom"></span>
-                    <span tal:define="sousplateformes python:view.getSousPlateFormeByPlateFormePk(plateforme.plateforme_pk)">
-                        <span tal:repeat="sousplateforme sousplateformes">
-                            <br />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="checkbox"
-                                   name="experience_sousplateforme_fk:list"
-                                   value=""
-                                   tal:attributes="value sousplateforme/sousplateforme_pk" />
-                            &nbsp;&nbsp;<span tal:content="sousplateforme/sousplateforme_nom"></span>
-                        </span>
-                    </span>
-                    <br /><br />
-                </tal:boucle>
-            </tal:blok>
-            -->
             <br />
         </fieldset>
 

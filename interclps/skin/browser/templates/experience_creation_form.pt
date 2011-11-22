@@ -248,13 +248,13 @@
                     <input type="checkbox"
                            name="experience_territoire_tout_brabant_wallon"
                            value="True" />
-                           Tout le Brabant wallon
+                           Tout le Luxembourg
                     <br />
                     <br />
-                    <img src="list_flch_rouge.png" /> Localité du Brabant wallon
+                    <img src="list_flch_rouge.png" /> Localité du Luxembourg
                     <tal:addremove define="errors python:{};">
                         <span metal:use-macro="python: view.getAddRemoveField('experience_commune_inbw_fk', ' ',
-                                                       view.getAllCommune((5,)),
+                                                       view.getAllCommune((4,)),
                                                        nameKey=['com_localite_cp', 'com_localite_nom'],
                                                        pkKey='com_pk')" />
                     </tal:addremove>
@@ -263,7 +263,7 @@
                     <img src="list_flch_rouge.png" />Localité hors Brabant wallon
                     <tal:addremove define="errors python:{};">
                         <span metal:use-macro="python: view.getAddRemoveField('experience_commune_outbw_fk', ' ',
-                                                       view.getAllCommune((1,2,3,4,11)),
+                                                       view.getAllCommune((1,2,3,5,11)),
                                                        nameKey=['com_localite_cp', 'com_localite_nom'],
                                                        pkKey='com_pk')" />
                     </tal:addremove>
