@@ -666,7 +666,7 @@ background-repeat:no-repeat;
 width:178px;
 height:33px;
 border:none;
-color:#8c103e;
+color:#F8A861;
 text-align:center;
 font-weight:bold;
 font-size:1.2em;
@@ -705,7 +705,7 @@ width:178px;
 
 dt.portletPresentationDB{
 font-size:1em;
-padding:5px 9px 5px 10px;
+padding:15px 9px 0px 10px;
 width:187px;
 font-weight:normal;
 }
@@ -799,9 +799,9 @@ color:#fff;
 #Support, #MotCle, #Theme, #Public, #MilieuDeVie, #PlateForme{
 }
 
-#portlet-gestion-db{
+#portlet-gestion-db, #portlet-db{
 width:180px;
-margin-top:10px;
+margin-top:20px;
 font-size:0.7em;
 border-color:#000;
 border-width:2px;
@@ -2176,5 +2176,3 @@ color:#660033;
 padding-left:12px;
 font-weight:bold;
 }
-
-
