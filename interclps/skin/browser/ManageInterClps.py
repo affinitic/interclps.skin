@@ -531,6 +531,7 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         AuteurTable = wrapper.getMapper('auteur')
         query = session.query(AuteurTable)
+        query = query.filter(AuteurTable.auteur_clps_fk == 2)
         query = query.order_by(AuteurTable.auteur_nom)
         allAuteur = query.all()
         return allAuteur
