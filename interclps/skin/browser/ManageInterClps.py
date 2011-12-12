@@ -2581,6 +2581,7 @@ class ManageInterClps(BrowserView):
         auteur_actif = getattr(fields, 'auteur_actif')
         auteur_for_experience = getattr(fields, 'auteur_for_experience', False)
         auteur_for_institution = getattr(fields, 'auteur_for_institution', False)
+        auteur_clps_fk = getattr(fields, 'auteur_clps_fk') 
         auteur_creation_date = self.getTimeStamp()
         auteur_modification_date = self.getTimeStamp()
         auteur_modification_employe = self.getUserAuthenticated()
@@ -2598,6 +2599,7 @@ class ManageInterClps(BrowserView):
                                 auteur_actif = auteur_actif, \
                                 auteur_for_experience = auteur_for_experience, \
                                 auteur_for_institution = auteur_for_institution, \
+                                auteur_clps_fk = auteur_clps_fk, \
                                 auteur_creation_date = auteur_creation_date, \
                                 auteur_modification_date = auteur_modification_date, \
                                 auteur_modification_employe = auteur_modification_employe)
