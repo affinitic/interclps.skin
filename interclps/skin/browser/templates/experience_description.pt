@@ -69,7 +69,7 @@
                         <span class="left-rubrique-db">Public </span>
                         <p><span tal:content="experience/experience_public_vise"></span></p>
                         <p tal:define="allPublics python: view.getAllActivePublic();
-                                       publicForExperience python: view.getPublicByExperiencePk(experience.experience_pk)"
+                                       publicForExperience python: view.getPublicByExperiencePk(experiencePk)"
                            class="discreet">
                             <span tal:condition="python:len(publicForExperience) > 0">
                                 &nbsp;&nbsp;&nbsp;(
@@ -84,7 +84,7 @@
                     </div>
                     <div id="milieu-de-vie-experience">
                         <span class="left-rubrique-db">Milieu de vie </span>
-                        <ul tal:define="milieudevies python:view.getMilieuDeVieByExperiencePk(experience.experience_pk, 'nom')">
+                        <ul tal:define="milieudevies python:view.getMilieuDeVieByExperiencePk(experiencePk, 'nom')">
                             <span tal:repeat="milieudevie milieudevies">
                                 <li tal:content="milieudevie">milieu de vie</li>
                             </span>
@@ -124,7 +124,7 @@
                 <div id="right-experience-header"></div>
                 <div id="right-experience-content">
                     <div id="institution-porteur-experience"
-                         tal:define="institutions python:view.getInstitutionPorteur(experience.experience_pk)"
+                         tal:define="institutions python:view.getInstitutionPorteur(experiencePk)"
                          tal:condition="python: len(institutions) > 0">
                         <span class="right-rubrique-db">Institution porteur(s) de l'expérience</span>
                         <br />
@@ -142,7 +142,7 @@
                         </span>
                     </div>
                     <div id="institution-partenaire-experience"
-                         tal:define="institutions python:view.getInstitutionPartenaire(experience.experience_pk)"
+                         tal:define="institutions python:view.getInstitutionPartenaire(experiencePk)"
                          tal:condition="python: len(institutions) > 0">
                         <span class="right-rubrique-db">Institution partenaire(s) de l'expérience</span>
                         <br />
@@ -160,7 +160,7 @@
                         </span>
                     </div>
                     <div id="institution-partenaire-experience"
-                         tal:define="institutions python:view.getInstitutionRessource(experience.experience_pk)"
+                         tal:define="institutions python:view.getInstitutionRessource(experiencePk)"
                          tal:condition="python: len(institutions) > 0">
                         <span class="right-rubrique-db">Institution ressource(s) de l'expérience</span>
                         <br />
@@ -193,14 +193,14 @@
                                 <span>Tout le Brabant wallon</span>
                                 <br />
                             </span>
-                            <tal:block tal:define="communes python:view.getCommuneNomByExperiencePk(experience.experience_pk)">
+                            <tal:block tal:define="communes python:view.getCommuneNomByExperiencePk(experiencePk)">
                                 <tal:boucle tal:repeat="commune communes">
                                     &#8226; <span tal:content="commune">commune</span><br />
                                 </tal:boucle>
                             </tal:block>
                     </div>
                     <div id="ressource-experience"
-                         tal:define="ressources python:view.getRessourceByExperiencePk(experience.experience_pk)"
+                         tal:define="ressources python:view.getRessourceByExperiencePk(experiencePk)"
                          tal:condition="python: len(ressources)>0">
                         <span class="right-rubrique-db">Outils</span>
                         <br />

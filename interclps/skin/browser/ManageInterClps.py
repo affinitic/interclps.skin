@@ -908,9 +908,10 @@ class ManageInterClps(BrowserView):
         query = session.query(LinkExperiencePublicTable)
         query = query.filter(LinkExperiencePublicTable.experience_fk.in_(experiencePk))
         publicPk = query.all()
-
+        
         listePublicForExperience = []
         listeAllPublic = self.getAllPublic()
+        
         for i in publicPk:
             for j in listeAllPublic:
                 if i.public_fk == j.public_pk:
