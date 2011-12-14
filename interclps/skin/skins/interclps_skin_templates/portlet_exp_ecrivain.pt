@@ -4,7 +4,7 @@
 
 <body>
 <div metal:define-macro="portlet"
-     tal:define="experiences context/@@manageClpsbw;
+     tal:define="experiences context/@@manageInterClps;
                  auteur python:experiences.getAuteurTypeByLogin()"
      tal:condition="python:user.has_role(['RecitExperience', 'Manager'], here)">
     <dl id="portlet-db-auteur">
