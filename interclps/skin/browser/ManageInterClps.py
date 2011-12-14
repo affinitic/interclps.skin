@@ -612,12 +612,12 @@ class ManageInterClps(BrowserView):
         auteur = query.one()
         return auteur
 
-    def getAuteurPkByName(self, institutionAuteur):
+    def getAuteurPkByName(self, auteurConnecte):
         """
         table pg auteur
         recuperation d'un auteur selon son login
         """
-        auteur = institutionAuteur.split()
+        auteur = auteurConnecte.split()
         auteurNom = auteur[0]
         auteurPrenom = auteur[1] 
         wrapper = getSAWrapper('clpsbw')
@@ -906,7 +906,7 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         LinkExperiencePublicTable = wrapper.getMapper('link_experience_public')
         query = session.query(LinkExperiencePublicTable)
-        query = query.filter(LinkExperiencePublicTable.experience_fk.in_(experiencePk))
+        query = query.filter(LinkExperiencePublicTable.experience_fk == experiencePk)               #.in_(experiencePk))
         publicPk = query.all()
         
         listePublicForExperience = []
@@ -3372,15 +3372,20 @@ class ManageInterClps(BrowserView):
         experience_etat = getattr(fields, 'experience_etat', None)
         experience_creation_date = self.getTimeStamp()
         experience_creation_employe = self.getUserAuthenticated()
-        experience_auteur = getattr(fields, 'experienceAuteur', None)
+        experience_auteur = getattr(fields, 'experienceAuteur', None)  #via formlaire admin_experience_creation_form
+        experience_auteur_fk = getattr(fields, 'experience_auteur_fk', None)
         experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
         experience_clps_proprio_fk = getattr(fields, 'experienceClpsProprio', None)
-        experience_auteur_fk = self.getAuteurPkByName(experience_auteur)
+        
 
+        
         if not experience_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue
             auteur = self.getAuteurByLogin()
             experience_auteur_fk= auteur.auteur_pk
-
+        
+        if experience_auteur:
+            experience_auteur_fk = self.getAuteurPkByName(experience_auteur) #via formlaire admin_experience_creation_form
+            experience_auteur_login = self.getAuteurLogin(experience_auteur_fk)
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
@@ -3417,8 +3422,8 @@ class ManageInterClps(BrowserView):
                                     experience_mission_reseau_echange = experience_mission_reseau_echange, \
                                     experience_mission_formation = experience_mission_formation, \
                                     experience_auteur_login = experience_auteur_login, \
-                                    experience_clps_proprio_fk = experience_clps_proprio_fk, \
                                     experience_auteur_fk = experience_auteur_fk, \
+                                    experience_clps_proprio_fk = experience_clps_proprio_fk, \
                                     experience_etat = experience_etat, \
                                     experience_creation_date = experience_creation_date, \
                                     experience_creation_employe = experience_creation_employe)

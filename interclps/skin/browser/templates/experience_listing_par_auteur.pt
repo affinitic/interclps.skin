@@ -46,7 +46,7 @@
                                 <span tal:content="experience/experience_public_vise"
                                       class="rep-qest" />
                                 <div tal:define="allPublics python: view.getAllActivePublic();
-                                                 publicForExperience python: view.getPublicByExperiencePk(experience.experience_pk)"
+                                                 publicForExperience python: view.getPublicByExperiencePk(experiencePk)"
                                      class="discreet">
                                     <span tal:condition="python:len(publicForExperience) > 0">
                                         &nbsp;&nbsp;&nbsp;(
