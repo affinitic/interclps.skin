@@ -137,7 +137,7 @@
                         <span class="right-rubrique-db">Territoire</span>
                         <br />
                         <p>
-                            <span tal:condition="python:experience.experience_territoire_tout_brabant_wallon">
+                            <span tal:condition="python:experience.experience_territoire_tout_luxembourg">
                                 <span>Tout le Brabant wallon</span>
                             </span>
                             <br />

@@ -165,23 +165,23 @@
                         <img src="list_flch_rouge.png" /> Localité(s) couverte(s) par cette institution
                         <br />
                         <br />
-                        <img src="list_flch_rouge.png" /> Localité du Brabant wallon
+                        <img src="list_flch_rouge.png" /> Localité du Luxembourg
                         <tal:addremove define="errors python:{};">
                             <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_inbw_fk', ' ',
-                                                           view.getAllCommune((5,)),
+                                                           view.getAllCommune((4,)),
                                                            nameKey=['com_localite_cp', 'com_localite_nom'],
                                                            pkKey='com_pk',
-                                                           selectedPks=view.getInstitutionCommuneCouvertePkInBw(institution.institution_pk))" />
+                                                           selectedPks=view.getInstitutionCommuneCouvertePkInLux(institution.institution_pk))" />
                         </tal:addremove>
                         <br />
                         <br />
-                        <img src="list_flch_rouge.png" />Localité hors Brabant wallon
+                        <img src="list_flch_rouge.png" />Localité hors Luxembourg
                         <tal:addremove define="errors python:{};">
                             <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_outbw_fk', ' ',
-                                                           view.getAllCommune((1,2,3,4,11)),
+                                                           view.getAllCommune((1,2,3,5,11)),
                                                            nameKey=['com_localite_cp', 'com_localite_nom'],
                                                            pkKey='com_pk',
-                                                           selectedPks=view.getInstitutionCommuneCouvertePkOutBw(institution.institution_pk))" />
+                                                           selectedPks=view.getInstitutionCommuneCouvertePkOutLux(institution.institution_pk))" />
                         </tal:addremove>
                         <br />
                         <!--
@@ -198,10 +198,10 @@
                     <li>
                         <img src="list_flch_rouge.png" />
                         <input type="checkbox"
-                               name="institution_territoire_tout_brabant_wallon"
+                               name="institution_territoire_tout_luxembourg"
                                value="True"
-                               tal:attributes="checked python:institution.institution_territoire_tout_brabant_wallon and 'checked' or None;" />
-                           Tout le Brabant wallon
+                               tal:attributes="checked python:institution.institution_territoire_tout_luxembourg and 'checked' or None;" />
+                           Tout le Luxembourg
                         <br />
                     </li>
                     <li>

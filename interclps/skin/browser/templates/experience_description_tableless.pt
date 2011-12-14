@@ -140,7 +140,7 @@
         
         <fieldset class="description-texte">
             <h5>Territoire</h5>
-            <span tal:condition="python:experience.experience_territoire_tout_brabant_wallon">
+            <span tal:condition="python:experience.experience_territoire_tout_luxembourg">
                 <p class="info-db">Tout le Brabant wallon</p>
             </span>
             <p class="info-db">

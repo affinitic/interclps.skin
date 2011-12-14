@@ -2212,6 +2212,51 @@ class ManageInterClps(BrowserView):
                     listeCommuneCouverteByInstitution.append(j.com_pk)
         return listeCommuneCouverteByInstitution
 
+    def getInstitutionCommuneCouvertePkInLux(self, institutionPk):
+        """
+        table pg link_institution_commune_couverte
+        recuperation de toutes les pk descommunes couvertes par une institution
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        communeCouverteInstitutionTable = wrapper.getMapper('link_institution_commune_couverte')
+        query = session.query(communeCouverteInstitutionTable)
+        query = query.filter(communeCouverteInstitutionTable.institution_fk == institutionPk)
+        communeCouvertePkByInstitution = query.all()
+
+        listeCommuneCouverteByInstitution = []
+        listeAllCommune = self.getAllCommune((4, ))
+        for i in communeCouvertePkByInstitution:
+            for j in listeAllCommune:
+                if i.commune_fk == j.com_pk:
+                    listeCommuneCouverteByInstitution.append(j.com_pk)
+        return listeCommuneCouverteByInstitution
+
+    def getInstitutionCommuneCouvertePkOutLux(self, institutionPk):
+        """
+        table pg link_institution_commune_couverte
+        recuperation de toutes les pk descommunes couvertes par une institution
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        communeCouverteInstitutionTable = wrapper.getMapper('link_institution_commune_couverte')
+        query = session.query(communeCouverteInstitutionTable)
+        query = query.filter(communeCouverteInstitutionTable.institution_fk == institutionPk)
+        communeCouvertePkByInstitution = query.all()
+
+        listeCommuneCouverteByInstitution = []
+        listeAllCommune = self.getAllCommune((1, 2, 3, 5, 11))
+        for i in communeCouvertePkByInstitution:
+            for j in listeAllCommune:
+                if i.commune_fk == j.com_pk:
+                    listeCommuneCouverteByInstitution.append(j.com_pk)
+        return listeCommuneCouverteByInstitution
+
+
+
+
+
+
     def isInstitutionTerritoireCouvert(self, institutionPk):
         """
         table pg institution
@@ -3022,7 +3067,7 @@ class ManageInterClps(BrowserView):
         institution_mission = getattr(fields, 'field.institution_mission', None)
         institution_activite = getattr(fields, 'field.institution_activite', None)
         institution_public = getattr(fields, 'field.institution_public', None)
-        institution_territoire_tout_brabant_wallon = getattr(fields, 'institution_territoire_tout_brabant_wallon', 'False')
+        institution_territoire_tout_luxembourg = getattr(fields, 'institution_territoire_tout_luxembourg', 'False')
         institution_zone_internationale = getattr(fields, 'institution_zone_internationale', 'False')
         institution_zone_internationale_info = getattr(fields, 'institution_zone_internationale_info')
         institution_zone_belgique = getattr(fields, 'institution_zone_belgique', 'False')
@@ -3076,7 +3121,7 @@ class ManageInterClps(BrowserView):
                                      institution_mission = institution_mission, \
                                      institution_activite = institution_activite, \
                                      institution_public = institution_public, \
-                                     institution_territoire_tout_brabant_wallon = institution_territoire_tout_brabant_wallon, \
+                                     institution_territoire_tout_luxembourg = institution_territoire_tout_luxembourg, \
                                      institution_zone_internationale = institution_zone_internationale, \
                                      institution_zone_internationale_info = institution_zone_internationale_info, \
                                      institution_zone_belgique = institution_zone_belgique, \
@@ -3304,7 +3349,7 @@ class ManageInterClps(BrowserView):
         experience_public_vise = getattr(fields, 'experience_public_vise', None)
         experience_demarche_actions = getattr(fields, 'field.experience_demarche_actions', None)
         experience_commune_international = getattr(fields, 'experience_commune_international', None)
-        experience_territoire_tout_brabant_wallon = getattr(fields, 'experience_territoire_tout_brabant_wallon', 'False')
+        experience_territoire_tout_luxembourg = getattr(fields, 'experience_territoire_tout_luxembourg', 'False')
         experience_periode_deroulement = getattr(fields, 'experience_periode_deroulement', None)
         experience_moyens = getattr(fields, 'field.experience_moyens', None)
         experience_evaluation_enseignement = getattr(fields, 'field.experience_evaluation_enseignement', None)
@@ -3351,7 +3396,7 @@ class ManageInterClps(BrowserView):
                                     experience_public_vise = experience_public_vise, \
                                     experience_demarche_actions = experience_demarche_actions, \
                                     experience_commune_international = experience_commune_international, \
-                                    experience_territoire_tout_brabant_wallon = experience_territoire_tout_brabant_wallon, \
+                                    experience_territoire_tout_luxembourg = experience_territoire_tout_luxembourg, \
                                     experience_periode_deroulement = experience_periode_deroulement, \
                                     experience_moyens = experience_moyens, \
                                     experience_evaluation_enseignement = experience_evaluation_enseignement, \
@@ -4146,7 +4191,7 @@ class ManageInterClps(BrowserView):
         institution_mission = getattr(fields, 'field.institution_mission', None)
         institution_activite = getattr(fields, 'field.institution_activite', None)
         institution_public = getattr(fields, 'field.institution_public', None)
-        institution_territoire_tout_brabant_wallon = getattr(fields, 'institution_territoire_tout_brabant_wallon', 'False')
+        institution_territoire_tout_luxembourg = getattr(fields, 'institution_territoire_tout_luxembourg', 'False')
         institution_zone_internationale = getattr(fields, 'institution_zone_internationale', 'False')
         institution_zone_internationale_info = getattr(fields, 'institution_zone_internationale_info')
         institution_zone_belgique = getattr(fields, 'institution_zone_belgique', 'False')
@@ -4196,7 +4241,7 @@ class ManageInterClps(BrowserView):
         institution.institution_mission = unicode(institution_mission, 'utf-8')
         institution.institution_activite = unicode(institution_activite, 'utf-8')
         institution.institution_public = unicode(institution_public, 'utf-8')
-        institution.institution_territoire_tout_brabant_wallon = institution_territoire_tout_brabant_wallon
+        institution.institution_territoire_tout_luxembourg = institution_territoire_tout_luxembourg
         institution.institution_zone_internationale = institution_zone_internationale
         institution.institution_zone_internationale_info = unicode(institution_zone_internationale_info, 'utf-8')
         institution.institution_zone_belgique = institution_zone_belgique
@@ -4316,7 +4361,7 @@ class ManageInterClps(BrowserView):
         experience_public_vise = getattr(fields, 'experience_public_vise', None)
         experience_demarche_actions = getattr(fields, 'field.experience_demarche_actions', None)
         experience_commune_international = getattr(fields, 'experience_commune_international', None)
-        experience_territoire_tout_brabant_wallon = getattr(fields, 'experience_territoire_tout_brabant_wallon', None)
+        experience_territoire_tout_luxembourg = getattr(fields, 'experience_territoire_tout_luxembourg', None)
         experience_periode_deroulement = getattr(fields, 'experience_periode_deroulement', None)
         experience_moyens = getattr(fields, 'field.experience_moyens', None)
         experience_evaluation_enseignement = getattr(fields, 'field.experience_evaluation_enseignement', None)
@@ -4369,7 +4414,7 @@ class ManageInterClps(BrowserView):
         experience.experience_public_vise = unicode(experience_public_vise, 'utf-8')
         experience.experience_demarche_actions = unicode(experience_demarche_actions, 'utf-8')
         experience.experience_commune_international = unicode(experience_commune_international, 'utf-8')
-        experience.experience_territoire_tout_brabant_wallon = experience_territoire_tout_brabant_wallon
+        experience.experience_territoire_tout_luxembourg = experience_territoire_tout_luxembourg
         experience.experience_periode_deroulement = unicode(experience_periode_deroulement, 'utf-8')
         experience.experience_moyens = unicode(experience_moyens, 'utf-8')
         experience.experience_evaluation_enseignement = unicode(experience_evaluation_enseignement, 'utf-8')

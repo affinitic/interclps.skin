@@ -59,8 +59,8 @@
                                 </tal:boucle>
                                 <br />
                             </div>
-                            <div tal:condition="python: institution.institution_territoire_tout_brabant_wallon==True">
-                                <div class="text-db">Tout le Brabant wallon</div>
+                            <div tal:condition="python: institution.institution_territoire_tout_luxembourg==True">
+                                <div class="text-db">Tout le Luxembourg</div>
                             </div>
                             <div tal:condition="python: institution.institution_zone_cfwb == True">
                                 <div class="text-db">Communauté française</div>

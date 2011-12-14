@@ -55,7 +55,7 @@ class PdfGenerator(BrowserView):
 
             #colonne de droite
             periodeDeroulement = experience.experience_periode_deroulement
-            #brabantWallon = experience.experience_territoire_tout_brabant_wallon
+            #brabantWallon = experience.experience_territoire_tout_luxembourg
             #communes = self.getCommuneNomByExperiencePk(experience.experience_pk)
             #outils = self.getRessourceByExperiencePk(experience.experience_pk)
             #autreOutil = ('%s')%(experience.experience_institution_outil_autre)

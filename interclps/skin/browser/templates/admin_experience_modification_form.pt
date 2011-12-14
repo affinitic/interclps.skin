@@ -274,9 +274,9 @@
                     <td class="form-experience-left-column">
                         <img src="list_flch_rouge.png" />
                         <input type="checkbox"
-                               name="experience_territoire_tout_brabant_wallon"
+                               name="experience_territoire_tout_luxembourg"
                                value="True"
-                               tal:attributes="checked python:experience.experience_territoire_tout_brabant_wallon and 'checked' or None;" />
+                               tal:attributes="checked python:experience.experience_territoire_tout_luxembourg and 'checked' or None;" />
                                Tout le Brabant wallon<br />
                         <br />
                         <img src="list_flch_rouge.png" />

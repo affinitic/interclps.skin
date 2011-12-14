@@ -179,9 +179,9 @@
             <li>
                 <img src="list_flch_rouge.png" />
                 <input type="checkbox"
-                       name="institution_territoire_tout_brabant_wallon"
+                       name="institution_territoire_tout_luxembourg"
                        value="True" />
-                   Tout le Brabant wallon
+                   Tout le Luxembourg
                 <br />
             </li>
             <li>
