@@ -3379,12 +3379,12 @@ class ManageInterClps(BrowserView):
         
 
         
-        if not experience_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue
+        if not experience_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue formulaire experience_creation_form
             auteur = self.getAuteurByLogin()
             experience_auteur_fk= auteur.auteur_pk
         
-        if experience_auteur:
-            experience_auteur_fk = self.getAuteurPkByName(experience_auteur) #via formlaire admin_experience_creation_form
+        if experience_auteur: #cas ou c'est un clpsmember qui se loggue via formulaire admin_experience_creation_form 
+            experience_auteur_fk = self.getAuteurPkByName(experience_auteur) 
             experience_auteur_login = self.getAuteurLogin(experience_auteur_fk)
 
         wrapper = getSAWrapper('clpsbw')

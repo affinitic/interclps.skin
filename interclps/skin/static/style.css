@@ -1,0 +1,419 @@
+/***
+Projet :projets partagés clps-lux & clps-bx
+Affinitic, décembre 2011
+***/
+
+html, body{
+height:100%;
+}
+
+body{
+margin:0px;
+padding:0px;
+background:url(images/bg01.jpg) repeat left top;
+font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+font-size:11px;
+color:#979797;
+}
+
+h1, h2, h3{
+margin:0px 0px 20px 0px;
+font-weight:normal;
+color:#4D4C4C;
+}
+
+h1{
+letter-spacing:0px;
+font-size:2.3em;
+}
+
+h2{
+letter-spacing:-2px;
+font-size:28px;
+}
+
+h3{
+font-size:14px;
+}
+
+p, ol, ul{
+margin-top:0px;
+margin-bottom:20px;
+line-height:22px;
+text-align:justify;
+}
+
+a{
+color:#D16700;
+}
+
+a:hover{
+text-decoration:none;
+}
+
+a img{
+border:none;
+}
+
+/*** WRAPPER ***/
+#wrapper{
+height:100%;
+min-height:100%;
+background:url(images/bg02.jpg) repeat-y center top;
+}
+
+html>body #wrapper{
+height:auto;
+}
+
+#body-bg-sup{
+background:url(images/bg03.jpg) repeat-x left top;
+}
+
+.container{
+width:850px;
+margin:0px auto;
+}
+
+/*** HEADER ***/
+#header{
+}
+
+/*** HEADER1 ***/
+#header1-bg{
+background:url(images/bg04.jpg) no-repeat center top;
+}
+
+#header1{
+height:52px;
+}
+
+/*** SITE ACTION ***/
+#site-action{
+float:left;
+margin:0px;
+padding:18px 0px 0px 0px;
+line-height:normal;
+color:#8b917d; 
+}
+
+#site-action p{
+}
+
+#site-action a{
+padding:0px 10px;
+text-decoration:none;
+color:#8b917d;
+}
+
+#site-action a:hover{
+text-decoration:underline;
+color:#bbc1ac;
+}
+
+/*** SEARCH ***/
+#search{
+float:right;
+width:240px;
+padding:17px 0px 0px 0px;
+}
+
+#search form{
+margin:0px;
+padding:0px;
+}
+
+#search fieldset{
+margin:0px;
+padding:0px;
+border:none;
+}
+
+#search input{
+float:left;
+}
+
+#search-query{
+width:200px;
+background:none;
+border:none;
+font:11px "Trebuchet MS", Arial, Helvetica, sans-serif;
+color:#8b917d;
+}
+
+#search-submit{
+display:none;
+}
+
+/*** HEADER 2 ***/
+#header2-bg{
+background:url(images/bg05.jpg) no-repeat center top;
+}
+
+#header2{
+height:80px;
+}
+
+/*** LOGO PROJET PARTAGE ***/
+#logo{
+position:relative;
+top:-21px;
+left:10px;
+width:400px;
+height:104px;
+background:url(images/logo_projet_partage.png) no-repeat left top;
+}
+#logo a{
+display:block;
+height:104px;
+}                   
+
+/*** MENU SUP ***/
+#menu{
+position:relative;
+top:-50px;
+left:530px;
+width:350px; 
+}
+
+#menu ul{
+margin:0px;
+padding:0px 0px 0px 0px;
+list-style:none;
+line-height:normal;
+text-align:right;
+
+}
+
+#menu li{ 
+display:inline;    
+border-left:1px solid #6E8446;
+color:#8B3D5A;
+}
+
+#menu a{
+padding:0px 15px;
+text-decoration:none;
+font-size:13px;
+color:#ACBC97;
+}
+
+#menu a:hover{
+text-decoration:underline;
+}
+
+#menu li.first{
+border:none;
+}
+
+#menu li.first a{
+padding-left:0px;
+}
+
+#menu li.last a{
+padding-right:0px;
+}
+
+
+/*** HEADER 3 ***/
+#header3-bg{
+background:url(images/bg06.jpg) no-repeat center top;
+}
+
+#header3{
+height:180px;
+padding:30px 0px 0px 20px;
+color:#CEE5B7;
+}
+
+#header3 h1{
+margin:0px;
+color:#FFFFFF;
+}
+
+#header3 p{
+margin-bottom:15px;
+letter-spacing:-1px;
+font-size:17px;
+color:#D8EDB4;
+width:400px;
+}
+
+#header3 img.alignright{
+margin-left:40px;
+}
+
+#text-intro{
+width:400px;
+float:left;
+margin-top:-10px;
+}
+
+#logo-clps{ 
+width:320px;
+float:right;
+margin-top:5px;
+background-color:rgba(144,184,144,0.4);
+border-radius:12px;
+}
+
+#logo-clps #logo-clpsbw{
+display:block; 
+width:150px;
+float:left;
+margin-left:15px;
+}
+
+#logo-clps #logo-clpslux{
+display:block; 
+width:150px;
+float:right;
+margin-top:27px;
+}
+
+
+
+/*** PAGE ***/
+#body-bg-center{
+background:url(images/bg07.jpg) repeat left top;
+}
+
+#page-bg{
+background:url(images/bg08.jpg) repeat-y center top;
+}
+
+#page{
+padding:40px 0px 20px 0px;
+}
+
+
+/*** LEFT-COLUMN ***/
+#left-column{
+float:left;
+width:210px;
+min-height:600px;
+border-right:2px solid #aaa;
+}
+
+
+/*** CONTENT ***/ 
+#main-column{
+float:right;
+width:620px;
+}
+
+#content{
+}
+
+
+/*** RIGHT-COLUMN ***/
+#right-column{
+float:right;
+width:0px;
+}
+
+
+
+
+
+
+/** BOX STYLE 1 */
+.box-style1{
+padding-bottom:30px;
+}
+
+.box-style1 .title{
+margin:0px;
+padding:10px 25px;
+background:#D57401;
+border-bottom:3px solid #DCCBB9;
+letter-spacing:normal;
+font-size:14px;
+font-weight:bold;
+color:#FFFFFF;
+}
+
+.box-style1 .content{
+padding:20px 25px 1px 25px;
+background:#F4F4F4;
+border-bottom:5px solid #E8E8E8;
+}
+
+/** BOX 1 */
+#box1{
+padding-bottom:20px;
+}
+
+/** BOX 2 */
+#box2{
+float:left;
+width:187px;
+}
+
+/** BOX 3 */
+#box3{
+float:left;
+width:187px;
+padding-left:50px;
+}
+
+/** BOX 4 */
+#box4{
+padding-bottom:30px;
+}
+
+/** BOX 5 */
+#box5{
+}
+
+/** BOX 6 */
+#box6{
+}
+
+
+
+/*** BODY BG INFERIEUR ***/
+#body-bg-inf{
+background:url(images/bg09.jpg) no-repeat center top;
+}
+
+#box-portlet{
+min-height:200px;
+padding:40px 0px 60px 0px;
+}
+
+#news, #experience, #event{
+float:left;
+margin:0px 38px;
+width:200px;
+height:230px;
+border:2px solid #0d1200;
+border-radius:15px;
+background-color:rgba(0, 72, 138, 0.5);
+}
+
+/*** FOOTER ***/
+#footer{
+height:80px;
+background:url(images/bg10.jpg) no-repeat center top;
+}
+
+#footer p{
+margin:0px;
+padding:5px 0px;
+text-align:center;
+color:#4D5045;
+}
+
+#footer a{
+color:#707367;    
+}
+
+#footer a:hover{
+color:#ff7000;
+}
+
+
+.break-float{
+clear:both;
+}

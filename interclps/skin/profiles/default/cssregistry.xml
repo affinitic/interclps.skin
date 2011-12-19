@@ -3,14 +3,15 @@
 
 <object name="portal_css">
  <stylesheet title=""
-             id="interclps.css"
+             id="++theme++interclps.skin/style.css"
              media="screen"
              rel="stylesheet"
-             rendering="import"
+             rendering="link"
              cacheable="True"
              compression="safe"
              cookable="True"
              enabled="1"
-             expression=""/>
+             applyPrefix="True"
+             expression="request/HTTP_X_THEME_ENABLED | nothing"/>
 
 </object>
