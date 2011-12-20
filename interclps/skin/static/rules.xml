@@ -22,7 +22,7 @@
             theme-children="/html/head"
             />
 
-        
+
         <copy attributes="class id dir" content="/html/body" theme="/html/body" />
 
         <!-- Logo link -->
@@ -36,18 +36,21 @@
 
         <replace css:content-children="#portal-siteactions"
                  css:theme-children="#site-action" />
-        
+
         <replace css:content-children="#portal-searchbox"
                  css:theme-children="#search-plone" />
 
-        <replace css:content=".navTreeLevel0"
-                 css:theme-children="#menu" />
+        <replace css:content="#portal-column-one"
+                 css:theme-children="#left-column" />
 
-        <replace css:content=".portletNews"
-                 css:theme-children=".portletNews" />
-                 
-        <replace css:content="#portlet-decouverte"
-                 css:theme-children="#decouverte" />
+        <copy css:content=".portletNews"
+              css:theme-children="#portlet-news" />
+
+        <copy css:content="#portlet-experience"
+              css:theme-children="#portlet-experience" />
+
+         <copy css:content=".portletEvent"
+               css:theme-children="#portlet-event" />
 
     </rules>
 

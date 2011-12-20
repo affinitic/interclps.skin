@@ -166,6 +166,15 @@ background:url(images/logo_projet_partage.png) no-repeat left top;
 #logo a{
 display:block;
 height:104px;
+}
+
+/*** BREADCRUMB ***/
+#breadcrumb{
+width:880px;
+margin:auto; 
+padding-left:70px;
+border-top:1px solid #aaa;
+border-bottom:1px solid #aaa;
 }                   
 
 /*** MENU SUP ***/
@@ -283,7 +292,7 @@ background:url(images/bg08.jpg) repeat-y center top;
 }
 
 #page{
-padding:40px 0px 20px 0px;
+padding:3px 0px 3px 0px;
 }
 
 
@@ -292,7 +301,7 @@ padding:40px 0px 20px 0px;
 float:left;
 width:210px;
 min-height:600px;
-border-right:2px solid #aaa;
+border-right:2px solid #ddd;
 }
 
 
@@ -416,4 +425,66 @@ color:#ff7000;
 
 .break-float{
 clear:both;
+}
+
+
+
+
+/*** PORLET PRESENTATION DB***/
+#portlet-db,
+#portlet-db-auteur,
+#portlet-gestion-db{
+border-radius:10px 0px 0px 10px;
+width:200px;
+min-height:100px;
+margin:2em 0px;
+}
+
+.portletHeaderDB{
+border-radius:10px 0px 0px 0px;
+background-color:#faa448;
+line-height:30px; 
+color:#fff;
+font-variant:small-caps;
+font-size:1.2em; 
+font-weight:bold;
+padding-left:15px;
+border-bottom:1px solid #e9953a;
+}
+
+.portletPresentationDB,
+.portletItemDB,
+#portlet-db-auteur p{
+border-left:1px solid #ccc;
+border-right:1px solid #ccc;
+background-color:#ffefdd;
+}
+
+.portletPresentationDB ul{
+margin:0px;
+}
+
+.portletPresentationDB li{
+display:block;
+margin-left:20px; 
+}
+
+.portletFooterDB{
+border-radius:0px 0px 0px 10px;
+border-left:1px solid #ccc;
+border-right:1px solid #ccc;
+border-bottom:1px solid #ccc;
+background-color:#f0e2cf;
+height:15px;
+}
+
+.portletItemDB{
+padding-left:20px;
+}
+
+.portletItemDB a{
+padding-left:20px;
+}
+
+.menu-bloc{
 }
