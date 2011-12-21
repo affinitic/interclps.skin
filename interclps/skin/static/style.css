@@ -478,13 +478,15 @@ background-color:#f0e2cf;
 height:15px;
 }
 
-.portletItemDB{
-padding-left:20px;
+#portlet-db-auteur .portletItemDB,
+#portlet-gestion-db .portletItemDB{
+padding:10px 0px 10px 20px;
 }
 
 .portletItemDB a{
 padding-left:20px;
 }
 
-.menu-bloc{
+.menu-titre{
+
 }
