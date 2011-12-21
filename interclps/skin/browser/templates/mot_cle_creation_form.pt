@@ -25,7 +25,7 @@
     <h1>Gestion des mots-clé</h1>
     <fieldset tal:define="motcles python: view.getAllMotCle()">
         <legend class="legende">Liste des mots-clé</legend>
-        <table width="50%"
+        <table width="90%"
                class="listing"
                align="center">
             <thead>
@@ -65,7 +65,7 @@
     <fieldset>
         <legend class="legende">Encoder un mot-clé</legend>
         <form action="mot-cle-inserer" method="post">
-            <div>
+            <div class="div_question">
                 <img src="list_flch_rouge.png" /> Mot-clé
                 <br />
                 <input type="text"
@@ -73,7 +73,7 @@
                        value=""
                        size="50" />
             </div>
-            <div>
+            <div class="div_question">
                 <img src="list_flch_rouge.png" /> Etat
                 <br />
                 <select name="motcle_actif">
@@ -81,7 +81,7 @@
                     <option value="False">Désactiver</option>
                 </select>
             </div>
-            <hr />
+           
             <div class="div_form_input">
                 <input type="hidden"
                        name="operation"
@@ -95,7 +95,7 @@
         <legend class="legende"> A partir du XML Rezo </legend>
         <br />
         <form action="mot-cle-inserer" method="post">
-            <div>
+            <div class="div_question">
                 <img src="list_flch_rouge.png" /> Mot-clé
                 <br />                                    
                 <input type="text"
@@ -105,7 +105,7 @@
                        size="50">
                 <br />
             </div>
-            <div>
+            <div class="div_question">
                 <img src="list_flch_rouge.png" /> Etat
                 <br />
                 <select name="motcle_actif">
@@ -113,13 +113,15 @@
                     <option value="False">Désactiver</option>
                 </select>
             </div>
-            <hr />
-            <input type="hidden"
-                   name="operation"
-                   value="insert" />
-            <input type="submit"
-                   value="Ajouter le mot-clé"
-                   class="search-button" />
+            
+            <div class="div_form_input">
+                <input type="hidden"
+                       name="operation"
+                       value="insert" />
+                <input type="submit"
+                       value="Ajouter le mot-clé"
+                       class="search-button" />
+            </div>
         </form>
     </fieldset>
 </div><!-- div metal-->

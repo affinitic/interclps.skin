@@ -20,18 +20,8 @@
 <body>
 <div metal:fill-slot="main">
     <div id="zone-titre-presentation-db">
-        <div>
-            <div  id="logo-projet-paratge">
-                <img src="titre_logo_presentation_db.png"
-                     width="185"
-                     height="35"
-                     title=" Projets partagés"
-                     alt="titre_logo_presentation_db.png" />
-            </div>
-        </div>
-        <div id="titre-presentation-db">
-            Présentation de la base de données
-        </div>
+        <h1>Présentation de la base de données</h1>
+        
         <div id="moteur-presentation-db">
             <a href="experience-recherche">Effectuer<br /> une recherche</a>
         </div>

@@ -25,209 +25,207 @@
     <h1>:: Encoder une institution ::</h1>
     <fieldset>
         <legend class="legende">Institution</legend>
-        <ul class="formulaire">
-            <li>
-                <img src="list_flch_rouge.png" /> Nom
-                <br />
-                <input type="text"
-                       name="institution_nom"
-                       value=""
-                   size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Sigle
-                <br />
-                <input type="text"
-                       name="institution_sigle"
-                       value=""
-                   size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Adresse
-                <br />
-                <input type="text"
-                       name="institution_adresse"
-                       value=""
-                   size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Localité
-                <br />
-                <select name="institution_commune_fk"
-                        tal:define="communes view/getAllCommune">
-                    <option value=''>...</option>
-                    <tal:boucle tal:repeat="commune communes">
-                      <option value=""
-                              tal:attributes="value commune/com_pk">
-                          <span tal:content="commune/com_localite_cp" />
-                          &nbsp;&nbsp;
-                          <span tal:content="commune/com_localite_nom" />
-                          &nbsp;&nbsp;
-                          [<span tal:content="commune/com_commune_nom" />]
-                      </option>
-                    </tal:boucle>
-                </select>
-            </li>
-            <li>
-                <div id="info-champs">
-                    <img src="info.png" />
-                    Attention pas du projet mais personne de contact
-                </div>
-                <br />
-                <img src="list_flch_rouge.png" /> Nom, Prénom de la personne de contact<br />
-                <input type="text"
-                        name="institution_nom_contact"
-                        value=""
-                        size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Fonction de la personne de contact<br />
-                <input type="text"
-                        name="institution_fonction_contact"
-                        value=""
-                        size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> E-mail de la personne de contact<br />
-                <input type="text"
-                        name="institution_email_contact"
-                        value=""
-                        size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Tél de la personne de contact<br />
-                <input type="text"
-                        name="institution_tel_contact"
-                        value=""
-                        size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Site web<br />
-                http://<input type="text"
-                              name="institution_url_site"
-                              value=""
-                              size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Lien SISS<br />
-                http://<input type="text"
-                              name="institution_lien_siss"
-                              value=""
-                              size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Autre Lien<br />
-                <input type="text"
-                        name="institution_lien_autre"
-                        value=""
-                        size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Autres informations<br />
-                <span tal:replace="structure python: view.getWysiwygField('institution_autre_info', '')" /> 
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Missions
-                <br />
-                <span tal:replace="structure python: view.getWysiwygField('institution_mission', '')" /> 
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Activités
-                <br />
-                <span tal:replace="structure python: view.getWysiwygField('institution_activite', '')" /> 
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Public
-                <br />
-                <span tal:replace="structure python: view.getWysiwygField('institution_public', '')" /> 
-            </li>
-            <li>
-                <br /><br />
-                Territoire couvert par cette institution.
-                <br />
-                <div id="info-champs">
-                    <img src="info.png" />
-                    &nbsp;&nbsp;
-                    Sur quel territoire l’institution mène-t-elle ses activités ? 
-                    Ce territoire n’est pas nécessairement le même que celui sur 
-                    lequel elle est implantée.
-                </div>
-                <br />
-                <br />
-                <img src="list_flch_rouge.png" /> Localité(s) couverte(s) par cette institution
-                <br />
-                <br />
-                <img src="list_flch_rouge.png" /> Localité du Luxembourg
-                <tal:addremove define="errors python:{};">
-                    <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_inbw_fk', ' ',
-                                                   view.getAllCommune((4,)),
-                                                   nameKey=['com_localite_cp', 'com_localite_nom'],
-                                                   pkKey='com_pk')" />
-                </tal:addremove>
-                <br />
-                <br />
-                <img src="list_flch_rouge.png" />Localité hors Luxembourg
-                <tal:addremove define="errors python:{};">
-                    <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_outbw_fk', ' ',
-                                                   view.getAllCommune((1,2,3,5,11)),
-                                                   nameKey=['com_localite_cp', 'com_localite_nom'],
-                                                   pkKey='com_pk')" />
-                </tal:addremove>
-                <br />
-                <br />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" />
-                <input type="checkbox"
-                       name="institution_territoire_tout_luxembourg"
-                       value="True" />
-                   Tout le Luxembourg
-                <br />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" />
-                <input type="checkbox"
-                       name="institution_zone_cfwb"
-                       value="True" /> Communauté française
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" />
-                <input type="checkbox"
-                       name="institution_zone_rw"
-                       value="True" /> Région wallonne
-           </li>
-           <li>
-               <img src="list_flch_rouge.png" />
-               <input type="checkbox"
-                      name="institution_zone_brxl"
-                      value="True" /> Région Bruxelles capitale
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" />
-                <input type="checkbox"
-                       name="institution_zone_belgique"
-                       value="True" /> Belgique
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" />
-                <input type="checkbox"
-                       name="institution_zone_internationale"
-                       value="True" /> International
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Nom du pays
-                <br />
-                <input type="text"
-                       size="40"
-                       name="institution_zone_internationale_info"
-                       value="" />
-            </li>
-           <li>
-                <img src="list_flch_rouge.png" /> Commentaires
-                <br />
-                <span tal:replace="structure python: view.getWysiwygField('institution_commentaire', '')" />
-            </li>
-        </ul>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Nom
+            <br />                                                      
+            <input type="text"
+                   name="institution_nom"
+                   value=""
+               size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Sigle
+            <br />
+            <input type="text"
+                   name="institution_sigle"
+                   value=""
+               size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Adresse
+            <br />
+            <input type="text"
+                   name="institution_adresse"
+                   value=""
+               size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Localité
+            <br />
+            <select name="institution_commune_fk"
+                    tal:define="communes view/getAllCommune">
+                <option value=''>...</option>
+                <tal:boucle tal:repeat="commune communes">
+                  <option value=""
+                          tal:attributes="value commune/com_pk">
+                      <span tal:content="commune/com_localite_cp" />
+                      &nbsp;&nbsp;
+                      <span tal:content="commune/com_localite_nom" />
+                      &nbsp;&nbsp;
+                      [<span tal:content="commune/com_commune_nom" />]
+                  </option>
+                </tal:boucle>
+            </select>
+        </div>
+        <div class="div_question">
+            <div id="info-champs">
+                <span class="info-logo">i</span>
+                Attention pas du projet mais personne de contact
+            </div>
+            <br />
+            <img src="list_flch_rouge.png" /> Nom, Prénom de la personne de contact<br />
+            <input type="text"
+                    name="institution_nom_contact"
+                    value=""
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Fonction de la personne de contact<br />
+            <input type="text"
+                    name="institution_fonction_contact"
+                    value=""
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> E-mail de la personne de contact<br />
+            <input type="text"
+                    name="institution_email_contact"
+                    value=""
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Tél de la personne de contact<br />
+            <input type="text"
+                    name="institution_tel_contact"
+                    value=""
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Site web<br />
+            http://<input type="text"
+                          name="institution_url_site"
+                          value=""
+                          size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Lien SISS<br />
+            http://<input type="text"
+                          name="institution_lien_siss"
+                          value=""
+                          size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Autre Lien<br />
+            <input type="text"
+                    name="institution_lien_autre"
+                    value=""
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Autres informations<br />
+            <span tal:replace="structure python: view.getWysiwygField('institution_autre_info', '')" /> 
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Missions
+            <br />
+            <span tal:replace="structure python: view.getWysiwygField('institution_mission', '')" /> 
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Activités
+            <br />
+            <span tal:replace="structure python: view.getWysiwygField('institution_activite', '')" /> 
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Public
+            <br />
+            <span tal:replace="structure python: view.getWysiwygField('institution_public', '')" /> 
+        </div>
+        <div class="div_question">
+            <br /><br />
+            Territoire couvert par cette institution.
+            <br />
+            <div id="info-champs">
+                <span class="info-logo">i</span>
+                &nbsp;&nbsp;
+                Sur quel territoire l’institution mène-t-elle ses activités ? 
+                Ce territoire n’est pas nécessairement le même que celui sur 
+                lequel elle est implantée.
+            </div>
+            <br />
+            <br />
+            <img src="list_flch_rouge.png" /> Localité(s) couverte(s) par cette institution
+            <br />
+            <br />
+            <img src="list_flch_rouge.png" /> Localité du Luxembourg
+            <tal:addremove define="errors python:{};">
+                <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_inbw_fk', ' ',
+                                               view.getAllCommune((4,)),
+                                               nameKey=['com_localite_cp', 'com_localite_nom'],
+                                               pkKey='com_pk')" />
+            </tal:addremove>
+            <br />
+            <br />
+            <img src="list_flch_rouge.png" />Localité hors Luxembourg
+            <tal:addremove define="errors python:{};">
+                <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_outbw_fk', ' ',
+                                               view.getAllCommune((1,2,3,5,11)),
+                                               nameKey=['com_localite_cp', 'com_localite_nom'],
+                                               pkKey='com_pk')" />
+            </tal:addremove>
+            <br />
+            <br />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" />
+            <input type="checkbox"
+                   name="institution_territoire_tout_luxembourg"
+                   value="True" />
+               Tout le Luxembourg
+            <br />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" />
+            <input type="checkbox"
+                   name="institution_zone_cfwb"
+                   value="True" /> Communauté française
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" />
+            <input type="checkbox"
+                   name="institution_zone_rw"
+                   value="True" /> Région wallonne
+       </div>
+       <div class="div_question">
+           <img src="list_flch_rouge.png" />
+           <input type="checkbox"
+                  name="institution_zone_brxl"
+                  value="True" /> Région Bruxelles capitale
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" />
+            <input type="checkbox"
+                   name="institution_zone_belgique"
+                   value="True" /> Belgique
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" />
+            <input type="checkbox"
+                   name="institution_zone_internationale"
+                   value="True" /> International
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Nom du pays
+            <br />
+            <input type="text"
+                   size="40"
+                   name="institution_zone_internationale_info"
+                   value="" />
+        </div>
+       <div class="div_question">
+            <img src="list_flch_rouge.png" /> Commentaires
+            <br />
+            <span tal:replace="structure python: view.getWysiwygField('institution_commentaire', '')" />
+        </div>
     </fieldset>
 
 
@@ -259,7 +257,7 @@
                     <td valign="top">
                         <br />
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             <br />
                             A quel niveau intervenez-vous en matière d’assuétudes :
                             plusieurs choix sont possibles. Si vous ne faites pas de
@@ -281,7 +279,7 @@
                     <td valign="top">
                         <br />
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             <br />
                             Vous voulez préciser vos activités (par exemple à quel public elles s’adressent) :
                         </div>
@@ -328,7 +326,7 @@
                     <td valign="top">
                         <br />
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             <br />
                             Quels types d’activités proposez-vous en matière d’assuétudes ?
                             Plusieurs choix sont possibles 
@@ -347,7 +345,7 @@
                     <td valign="top">
                         <br />
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             <br />
                             Vous voulez préciser vos activités (par exemple à quel public elles s’adressent) :
                         </div>
@@ -381,7 +379,7 @@
                     <td valign="top">
                         <br />
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             <br />
                             Y a-t-il une thématique que vous aborder plus particulièrement ?
                             Plusieurs choix possibles. Cochez la case même si un seul
@@ -401,7 +399,7 @@
                     <td valign="top">
                         <br />
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             <br />
                             Vous voulez préciser vos activités par rapport aux thématiques
                             (par exemple vers quels publics vous aborder quelles thématiques) :
@@ -423,7 +421,7 @@
                     <td valign="top">
                         <br />
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             <br />
                             Pouvez-vous expliquer en quelques mots de quelle
                             manière vous répondez à  un acteur scolaire qui
@@ -519,26 +517,22 @@
                    value="True" />&nbsp;&nbsp;Santé et environnement
             <br />
         </fieldset>
-
     </div>
 
-    <hr />
-    <ul class="formulaire">
-        <li>
-            <input type="hidden"
-                   name="institution_auteur_login"
-                   value=""
-                   tal:attributes="value auteur/auteur_login" />
-            <input type="hidden"
-                   name="institutionClpsProprio"
-                   value="2" />
-            <input type="hidden"
-                   name="operation"
-                   value="insert" />
-            <input type="submit"
-                   value="Enregistrer l'institution" />
-        </li>
-    </ul>
+    <div class="div_form_input">
+        <input type="hidden"
+               name="institution_auteur_login"
+               value=""
+               tal:attributes="value auteur/auteur_login" />
+        <input type="hidden"
+               name="institutionClpsProprio"
+               value="2" />
+        <input type="hidden"
+               name="operation"
+               value="insert" />
+        <input type="submit"
+               value="Enregistrer l'institution" />
+    </div>
 </form>
 </div><!-- div metal-->
 </body>

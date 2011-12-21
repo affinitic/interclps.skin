@@ -4,19 +4,19 @@
 
 <body>
 <div metal:define-macro="portlet">
-     <!--tal:condition="python:user.has_role(['Manager', 'VisiteurDb'], here)">-->
     <dl id="portlet-db">
-        <dt class="portletHeaderDB">
+        <dt class="portlePresentationtHeaderDB">
             <span class="portletTopLeft"></span>
             <span class="portletTopRight"></span>
             Projets partag&eacute;s.
         </dt>
         <dt class="portletPresentationDB">
-            <img src="puce_presentation_bd.png" /> <a href="presentation-db">Pr&eacute;sentation</a>
-            <br /><br />
-            <img src="puce_presentation_bd.png" /> <a href="experience-recherche">Effectuer une recherche</a><br />
+            <ul>
+                <li><a href="presentation-db">Pr&eacute;sentation</a></li>
+                <li><a href="experience-recherche">Effectuer une recherche</a></li>
+            </ul>
         </dt>
-        <dt class="portletFooterDB">
+        <dt class="portletPresentationFooterDB">
             <span class="portletBottomLeft"></span>
             <span class="portletBottomRight"></span>
         </dt>

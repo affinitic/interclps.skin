@@ -12,35 +12,8 @@ margin:0px;
 padding:0px;
 background:url(images/bg01.jpg) repeat left top;
 font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-font-size:11px;
+font-size:11pt;
 color:#979797;
-}
-
-h1, h2, h3{
-margin:0px 0px 20px 0px;
-font-weight:normal;
-color:#4D4C4C;
-}
-
-h1{
-letter-spacing:0px;
-font-size:2.3em;
-}
-
-h2{
-letter-spacing:-2px;
-font-size:28px;
-}
-
-h3{
-font-size:14px;
-}
-
-p, ol, ul{
-margin-top:0px;
-margin-bottom:20px;
-line-height:22px;
-text-align:justify;
 }
 
 a{
@@ -53,6 +26,18 @@ text-decoration:none;
 
 a img{
 border:none;
+}
+
+h1, h2, h3{
+color:#637388;
+}
+
+h1{
+border-bottom:1px dotted #ccd8e8;
+} 
+
+.gras{
+font-weight:bold;
 }
 
 /*** WRAPPER ***/
@@ -175,6 +160,7 @@ margin:auto;
 padding-left:70px;
 border-top:1px solid #aaa;
 border-bottom:1px solid #aaa;
+font-size:0.7em;
 }                   
 
 /*** MENU SUP ***/
@@ -253,7 +239,7 @@ margin-left:40px;
 }
 
 #text-intro{
-width:400px;
+width:450px;
 float:left;
 margin-top:-10px;
 }
@@ -323,64 +309,6 @@ width:0px;
 
 
 
-
-
-
-/** BOX STYLE 1 */
-.box-style1{
-padding-bottom:30px;
-}
-
-.box-style1 .title{
-margin:0px;
-padding:10px 25px;
-background:#D57401;
-border-bottom:3px solid #DCCBB9;
-letter-spacing:normal;
-font-size:14px;
-font-weight:bold;
-color:#FFFFFF;
-}
-
-.box-style1 .content{
-padding:20px 25px 1px 25px;
-background:#F4F4F4;
-border-bottom:5px solid #E8E8E8;
-}
-
-/** BOX 1 */
-#box1{
-padding-bottom:20px;
-}
-
-/** BOX 2 */
-#box2{
-float:left;
-width:187px;
-}
-
-/** BOX 3 */
-#box3{
-float:left;
-width:187px;
-padding-left:50px;
-}
-
-/** BOX 4 */
-#box4{
-padding-bottom:30px;
-}
-
-/** BOX 5 */
-#box5{
-}
-
-/** BOX 6 */
-#box6{
-}
-
-
-
 /*** BODY BG INFERIEUR ***/
 #body-bg-inf{
 background:url(images/bg09.jpg) no-repeat center top;
@@ -440,19 +368,50 @@ min-height:100px;
 margin:2em 0px;
 }
 
+.portlePresentationtHeaderDB{
+border-radius:10px 0px 0px 0px;
+background-color:#249c35;
+line-height:30px; 
+color:#fff;
+font-variant:small-caps;
+font-size:1.1em; 
+font-weight:bold;
+padding-left:15px;
+border-bottom:1px solid #186523;
+}
+
+.portletPresentationDB{
+background-color:#e5f5ca;
+border-left:1px solid #ccc;
+border-right:1px solid #ccc;
+font-size:0.9em;
+line-height:3em;
+}
+
+.portletPresentationFooterDB{
+border-radius:0px 0px 0px 10px;
+border-left:1px solid #ccc;
+border-right:1px solid #ccc;
+border-bottom:1px solid #ccc;
+background-color:#82a687;
+height:15px;
+}
+
+
+
+/*** PORTLET GESTION DB ***/
 .portletHeaderDB{
 border-radius:10px 0px 0px 0px;
 background-color:#faa448;
 line-height:30px; 
 color:#fff;
 font-variant:small-caps;
-font-size:1.2em; 
+font-size:1.1em; 
 font-weight:bold;
 padding-left:15px;
 border-bottom:1px solid #e9953a;
 }
 
-.portletPresentationDB,
 .portletItemDB,
 #portlet-db-auteur p{
 border-left:1px solid #ccc;
@@ -483,10 +442,130 @@ height:15px;
 padding:10px 0px 10px 20px;
 }
 
+.separation{
+width:180px;
+margin-left:-13px;
+margin-top:5px;    
+border-bottom:1px dotted #ccc;
+}
+
 .portletItemDB a{
 padding-left:20px;
+font-size:0.8em;
+}
+
+.portletItemDB a:hover{
+color:#41cff2;
 }
 
 .menu-titre{
+text-transform:capitalize;
+margin-top:10px;
+font-size:0.9em;
+}
 
+.small-comment{
+font-size:0.7em;
+color:#aaa;
+padding-left:2em;
+}
+
+.etatBase{
+margin-top:5px;    
+font-size:0.8em;
+background-color:rgba(225, 210, 192, 0.5);
+width:160px;
+border-radius:12px;
+padding:5px;
+}
+
+
+/**** FIELDSET PAGE DB ****/
+#content fieldset {
+border-color:#329FD7;
+border-style:solid;
+border-width:0.1em;
+border-radius:12px;
+}
+
+#content legend {
+font-size:1.3em;
+padding:0.8em;
+}
+
+#content a:link{
+text-decoration:none;
+border-bottom:none;
+}
+
+#content a:hover{
+}
+
+#footer-listing{
+border-top:1px dotted #ccc;
+margin-top:10px;
+}
+
+.info-champs{
+color:#888;
+border-left:1px dotted #ddd;
+padding-left:3px;
+}
+  
+.info-logo{
+font-size:14pt;
+font-weight:bold;
+font-style:italic;
+color:#fff;
+background-color:#00f;
+padding:2px 5px 0px 5px;
+}
+
+.form-experience-left-column{
+width:500px;
+vertical-align:top;
+}
+
+.form-experience-right-column{
+vertical-align:top;
+padding-top:2em;
+}
+
+.description-for-manager{
+border-top: 3px double #850864;
+border-bottom: 3px double #850864;
+border-left: 1px solid #850864;
+border-right: 1px solid #850864;
+background-color:#ffd6ff;
+padding:1em;
+}
+
+.description-for-manager fieldset{
+border: 1px solid #850864;
+}
+
+.description-for-manager legend{
+background-color:transparent;
+} 
+
+.div_form_input{
+margin-top:8px;
+padding-top:8px;
+padding-left:8px;
+border-top:1px solid #888;
+}
+
+.div_question{
+margin:10px 0px;
+}  
+
+/*** PLONE ***/
+div.managePortletsLink{
+background: none repeat scroll 0 0 #DDDDDD;
+border-radius: 0.5em 0.5em 0.5em 0.5em;
+font-size: 80%;
+margin: 0 auto 1em;
+padding: 0.25em 0.5em;
+text-align: center;
+width:170px;
 }

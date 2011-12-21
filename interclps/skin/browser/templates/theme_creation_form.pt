@@ -15,17 +15,17 @@
     <br />
     <h1>Encoder un theme</h1>
     <fieldset tal:define="themes python: view.getAllTheme()">
-        <table width="50%"
-                   align="center"
-                   class="listing">
-                <thead>
-                    <tr>
-                        <th> Thème </th>
-                        <th> Etat </th>
-                        <th class="nosort"> Modifier </th>
-                    </tr>
-                </thead>
-                <tbody>
+        <table width="90%"
+               align="center"
+               class="listing">
+            <thead>
+                <tr>
+                    <th> Thème </th>
+                    <th> Etat </th>
+                    <th class="nosort"> Modifier </th>
+                </tr>
+            </thead>
+            <tbody>
                 <tal:boucle tal:repeat="theme themes">
                     <span tal:define="odd repeat/theme/odd">
                         <tr tal:attributes="class python:odd and 'odd' or 'even'">
@@ -49,37 +49,34 @@
                         </tr>
                     </span>
                 </tal:boucle>
-                </tbody>
+            </tbody>
         </table>
     </fieldset>
     <fieldset>
-        <ul class="formulaire">
-            <li>
-                <img src="list_flch_rouge.png" /> Thème
-                <br />
-                <input type="text"
-                       name="theme_nom"
-                       value=""
-                       size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Etat
-                <br />
-                <select name="theme_actif"
-                        id="theme_actif">
-                    <option value="True" selected="selected">Activer</option>
-                    <option value="False">Désactiver</option>
-                </select>
-            </li>
-            <hr />
-            <li>
-                <input type="hidden"
-                       name="operation"
-                       value="insert" />
-                <input type="submit"
-                       value="Enregister le thème" />
-            </li>
-        </ul>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Thème
+            <br />
+            <input type="text"
+                   name="theme_nom"
+                   value=""
+                   size="50" />
+        </div>
+        <div class="div_question">       
+            <img src="list_flch_rouge.png" /> Etat
+            <br />
+            <select name="theme_actif"
+                    id="theme_actif">
+                <option value="True" selected="selected">Activer</option>
+                <option value="False">Désactiver</option>
+            </select>
+        </div>
+        <div class="div_form_input">
+            <input type="hidden"
+                   name="operation"
+                   value="insert" />
+            <input type="submit"
+                   value="Enregister le thème" />
+        </div>
     </fieldset>
 </form>
 </div><!-- div metal-->

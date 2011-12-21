@@ -13,39 +13,42 @@
             <span class="portletTopRight"></span>
             Mes donn&eacute;es
         </dt>
-        <div tal:condition="python: auteur.auteur_for_experience==True">
-        <dt id="Recits"
-            class="portletItemDB"><img src="puce_presentation_bd.png" /> experiences</dt>
-            <dd class="portletItemDB">
-                <a href=""
-                   tal:attributes="href string:${context/portal_url}/experience-creer">Cr&eacute;er</a>
-            </dd>
-            <dd class="portletItemDB">
-                <a href=""
-                   tal:attributes="href string:${context/portal_url}/experience-lister-auteur">Lister</a>
-            </dd>
-            <dd class="portletItemDB">
-                <a href=""
-                   tal:attributes="href string:${context/portal_url}/experience-gerer">Modifier</a>
-            </dd>
-        </div>
-
-
-        <div tal:condition="python: auteur.auteur_for_institution==True">
-        <dt id="Recits"
-            class="portletItemDB"><img src="puce_presentation_bd.png" /> institutions</dt>
-            <dd class="portletItemDB">
-                <a href=""
-                   tal:attributes="href string:${context/portal_url}/institution-creer">Cr&eacute;er</a>
-            </dd>
-            <dd class="portletItemDB">
-                <a href=""
-                   tal:attributes="href string:${context/portal_url}/institution_listing_par_login_auteur">Lister</a>
-            </dd>
-            <dd class="portletItemDB">
-                <a href=""
-                   tal:attributes="href string:${context/portal_url}/institution-gerer">Modifier</a>
-            </dd>
+        <div class="portletItemDB">
+            <div tal:condition="python: auteur.auteur_for_experience==True"
+                 class="menu-bloc">
+                <dt class="menu-titre">experiences</dt>
+                    <dd>
+                        <a href=""
+                           tal:attributes="href string:${context/portal_url}/experience-creer">Cr&eacute;er</a>
+                    </dd>
+                    <dd>
+                        <a href=""
+                           tal:attributes="href string:${context/portal_url}/experience-lister-auteur">Lister</a>
+                    </dd>
+                    <dd>
+                        <a href=""
+                           tal:attributes="href string:${context/portal_url}/experience-gerer">Modifier</a>
+                    </dd>
+            </div>
+            
+            <div class="separation"></div>
+        
+            <div tal:condition="python: auteur.auteur_for_institution==True"
+                 class="menu-bloc">
+                <dt class="menu-titre">institutions</dt>
+                    <dd>
+                        <a href=""
+                           tal:attributes="href string:${context/portal_url}/institution-creer">Cr&eacute;er</a>
+                    </dd>
+                    <dd>
+                        <a href=""
+                           tal:attributes="href string:${context/portal_url}/institution_listing_par_login_auteur">Lister</a>
+                    </dd>
+                    <dd>
+                        <a href=""
+                           tal:attributes="href string:${context/portal_url}/institution-gerer">Modifier</a>
+                    </dd>
+            </div>
         </div>
         <dt class="portletFooterDB">
             <span class="portletBottomLeft"></span>

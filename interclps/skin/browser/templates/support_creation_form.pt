@@ -15,18 +15,18 @@
     <br />
     <h1>Encoder un suppport</h1>
     <fieldset tal:define="supports python: view.getAllSupport()">
-        <table width="50%"
-                   align="center"
-                   class="listing">
-                <thead>
+        <table width="90%"
+               align="center"
+               class="listing">
+            <thead>
                 <tr>
                     <th> Support </th>
                     <th> Description </th>
                     <th> Etat </th>
                     <th class="nosort"> Modifier </th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
                 <tal:boucle tal:repeat="support supports">
                     <span tal:define="odd repeat/support/odd">
                         <tr tal:attributes="class python:odd and 'odd' or 'even'">
@@ -55,51 +55,49 @@
                         </tr>
                     </span>
                 </tal:boucle>
-                </tbody>
+            </tbody>
         </table>
     </fieldset>
     <fieldset>
         <form action="support-inserer" method="post">
-            <ul class="formulaire">
-                <li>
-                    <img src="list_flch_rouge.png" />
-                    <label for support_titre>Support</label>
-                    <br />
-                    <input type="text"
-                           name="support_titre"
-                           id="support_titre"
-                           value=""
-                           size="50" />
-                </li>
-                <li>
-                    <img src="list_flch_rouge.png" />
-                    <label for support_description>Description</label>
-                    <br />
-                    <input type="text"
-                           name="support_description"
-                           id="support_description"
-                           value=""
-                           size="50" />
-                </li>
-                <li>
-                    <img src="list_flch_rouge.png" />
-                    <label for support_etat>Etat</label>
-                    <br />
-                    <select name="support_actif"
-                            id="support_actif">
-                        <option value="True" selected="selected">Activer</option>
-                        <option value="False">Désactiver</option>
-                    </select>
-                </li>
-                <hr />
-                <li>
-                    <input type="hidden"
-                           name="operation"
-                           value="insert" />
-                    <input type="submit"
-                           value="Enregister le support" />
-                </li>
-            </ul>
+            <div class="div_question">
+                <img src="list_flch_rouge.png" />
+                <label for support_titre>Support</label>
+                <br />
+                <input type="text"
+                       name="support_titre"
+                       id="support_titre"
+                       value=""
+                       size="50" />
+            </div>
+            <div class="div_question"> 
+                <img src="list_flch_rouge.png" />
+                <label for support_description>Description</label>
+                <br />
+                <input type="text"
+                       name="support_description"
+                       id="support_description"
+                       value=""
+                       size="50" />
+            </div>
+            <div class="div_question">
+                <img src="list_flch_rouge.png" />
+                <label for support_etat>Etat</label>
+                <br />
+                <select name="support_actif"
+                        id="support_actif">
+                    <option value="True" selected="selected">Activer</option>
+                    <option value="False">Désactiver</option>
+                </select>
+            </div>
+            
+            <div class="div_form_input">
+                <input type="hidden"
+                       name="operation"
+                       value="insert" />
+                <input type="submit"
+                       value="Enregister le support" />
+            </div>
         </form>
     </fieldset>
 
