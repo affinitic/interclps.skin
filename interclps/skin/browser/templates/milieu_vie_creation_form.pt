@@ -15,17 +15,17 @@
     <br />
     <h1>:: Gestion des milieux de vie ::</h1>
     <fieldset tal:define="milieudevies python: view.getAllMilieuDeVie()">
-        <table width="50%"
-                   align="center"
-                   class="listing">
-                <thead>
+        <table width="90%"
+               align="center"
+               class="listing">
+            <thead>
                 <tr>
                     <th> Milieu de vie </th>
                     <th> Etat </th>
                     <th class="nosort"> Modifier </th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
                 <tal:boucle tal:repeat="milieudevie milieudevies">
                     <span tal:define="odd repeat/milieudevie/odd">
                         <tr tal:attributes="class python:odd and 'odd' or 'even'">
@@ -49,20 +49,19 @@
                         </tr>
                     </span>
                 </tal:boucle>
-                </tbody>
+            </tbody>
         </table>
     </fieldset>
     <fieldset>
-        <ul class="formulaire">
-            <li>
+            <div class="div_question">
                 <img src="list_flch_rouge.png" /> Milieu de vie
                 <br />
                 <input type="text"
                        name="milieudevie_nom"
                        value=""
                        size="50" />
-            </li>
-            <li>
+            </div>
+            <div class="div_question">
                 <img src="list_flch_rouge.png" /> Etat
                 <br />
                 <select name="milieudevie_actif"
@@ -70,16 +69,14 @@
                     <option value="True" selected="selected">Activer</option>
                     <option value="False">Désactiver</option>
                 </select>
-            </li>
-            <hr />
-            <li>
+            </div>
+            <div class="div_form_input">
                 <input type="hidden"
                        name="operation"
                        value="insert" />
                 <input type="submit"
                        value="Enregister le milieu de vie" />
-            </li>
-        </ul>
+            </div>
     </fieldset>
 </form>
 </div><!-- div metal-->

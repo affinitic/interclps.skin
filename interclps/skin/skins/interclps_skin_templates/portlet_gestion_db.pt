@@ -202,7 +202,7 @@
                 </dd>
 
             <div class="separation"></div>
-            
+            <!--
             <dt class="menu-titre">Plateforme</dt>
                 <dd>
                     <a href="" tal:attributes="href string:${context/portal_url}/plateforme-creer">
@@ -217,7 +217,7 @@
                 </dd>
             
              <div class="separation"></div>
-             
+             -->
              <dt class="menu-titre">Assu&eacute;tude </dt>
                 <dd class="small-comment">(pour les institutions)</dd>
                 <dd>

@@ -15,17 +15,17 @@
     <br />
     <h1>Encoder un public</h1>
     <fieldset tal:define="publics python: view.getAllPublic()">
-        <table width="50%"
+        <table width="90%"
                align="center"
                class="listing">
                 <thead>
-                    <tr>
-                        <th> Public </th>
-                        <th> Etat </th>
-                        <th class="nosort"> Modifier </th>
-                    </tr>
-                </thead>
-                <tbody>
+                <tr>
+                    <th> Public </th>
+                    <th> Etat </th>
+                    <th class="nosort"> Modifier </th>
+                </tr>
+            </thead>
+            <tbody>
                 <tal:boucle tal:repeat="public publics">
                     <span tal:define="odd repeat/public/odd">
                         <tr tal:attributes="class python:odd and 'odd' or 'even'">
@@ -49,38 +49,34 @@
                         </tr>
                     </span>
                 </tal:boucle>
-                </tbody>
+            </tbody>
         </table>
     </fieldset>
     <fieldset>
-        <ul class="formulaire">
-            <li>
-                <img src="list_flch_rouge.png" /> Public
-                <br />
-                <input type="text"
-                       name="public_nom"
-                       value=""
-                       size="50" />
-            </li>
-            <img src="info.png" />Information (texte Céline)
-            <li>
-                <img src="list_flch_rouge.png" /> Etat
-                <br />
-                <select name="public_actif"
-                        id="public_actif">
-                    <option value="True" selected="selected">Activer</option>
-                    <option value="False">Désactiver</option>
-                </select>
-            </li>
-            <hr />
-            <li>
-                <input type="hidden"
-                       name="operation"
-                       value="insert" />
-                <input type="submit"
-                       value="Enregister le public" />
-            </li>
-        </ul>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Public
+            <br />
+            <input type="text"
+                   name="public_nom"
+                   value=""
+                   size="50" />
+        </div>
+        <div class="div_question">  
+            <img src="list_flch_rouge.png" /> Etat
+            <br />
+            <select name="public_actif"
+                    id="public_actif">
+                <option value="True" selected="selected">Activer</option>
+                <option value="False">Désactiver</option>
+            </select>
+        </div>
+        <div class="div_question">
+            <input type="hidden"
+                   name="operation"
+                   value="insert" />
+            <input type="submit"
+                   value="Enregister le public" />
+        </div>
     </fieldset>
 </form>
 </div><!-- div metal-->
