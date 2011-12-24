@@ -906,7 +906,7 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         LinkExperiencePublicTable = wrapper.getMapper('link_experience_public')
         query = session.query(LinkExperiencePublicTable)
-        query = query.filter(LinkExperiencePublicTable.experience_fk == experiencePk)               #.in_(experiencePk))
+        query = query.filter(LinkExperiencePublicTable.experience_fk.in_(experiencePk))
         publicPk = query.all()
         
         listePublicForExperience = []
