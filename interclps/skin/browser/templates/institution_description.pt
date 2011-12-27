@@ -32,25 +32,25 @@
             </div>
             
             <div id="left-institution">
-                <div class="puzzle-jaune"
-                     tal:condition="python: institution.institution_public!=''">
-                    <span class="left-rubrique-db">Public</span>
+                <div tal:condition="python: institution.institution_public!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Public</h3>
                     <div class="text-db">
                         <span tal:replace="structure institution/institution_public"></span>
                     </div>
                 </div>
-                <div class="puzzle-vert"
-                     tal:condition="python: institution.institution_mission!=''">
-                    <span class="left-rubrique-db">Missions</span>
+                <div tal:condition="python: institution.institution_mission!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Missions</h3>
                     <div class="text-db">
                     <span tal:replace="structure institution/institution_mission" />
                     </div>
                 </div>
                 <tal:block tal:condition="exists: institutionPk">
                     <div tal:define="territoire python:view.isInstitutionTerritoireCouvert(institutionPk)">
-                        <div class="puzzle-gris"
-                             tal:condition="python: territoire==True">
-                            <span class="left-rubrique-db">Territoire couvert par institution.</span>
+                        <div tal:condition="python: territoire==True"
+                             class="description-left-content">
+                            <h3 class="left-rubrique-db">Territoire couvert par institution.</h3>
                             <br />
                             <div tal:define="communes python:view.getInstitutionCommuneCouverte(institution.institution_pk)"
                                  class="text-db">
@@ -75,32 +75,32 @@
                                 <div class="text-db">Belgique</div>
                             </div>
                         </div>
-                        <div class="puzzle-rouge"
-                             tal:condition="python: institution.institution_zone_internationale_info!=''">
-                            <span class="left-rubrique-db">International</span>
+                        <div tal:condition="python: institution.institution_zone_internationale_info!=''"
+                             class="description-left-content">
+                            <h3 class="left-rubrique-db">International</h3>
                             <div class="text-db">
                                 <span tal:content="institution/institution_zone_internationale_info" />
                             </div>
                         </div>
                     </div>
                 </tal:block>
-                <div class="puzzle-rouge"
-                     tal:condition="python: institution.institution_activite!=''">
-                    <span class="left-rubrique-db">Activités</span>
+                <div tal:condition="python: institution.institution_activite!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Activités</h3>
                     <div class="text-db">
                     <span tal:replace="structure institution/institution_activite" />
                     </div>
                 </div>
-                <div class="puzzle-vert"
-                     tal:condition="python: institution.institution_commentaire!=''">
-                    <span class="left-rubrique-db">Commentaire</span>
+                <div tal:condition="python: institution.institution_commentaire!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Commentaire</h3>
                     <div class="text-db">
                         <span tal:replace="structure institution/institution_commentaire" />
                     </div>
                 </div>
-                <div class="puzzle-gris"
-                     tal:condition="python: institution.institution_url_site!=''">
-                    <span class="left-rubrique-db">Site web</span>
+                <div tal:condition="python: institution.institution_url_site!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Site web</h3>
                     <div class="text-db">
                         <a href=""
                            target="_blank"
@@ -108,9 +108,9 @@
                             <span tal:content="institution/institution_url_site" /></a>
                     </div> 
                 </div>
-                <div class="puzzle-rouge"
-                     tal:condition="python: institution.institution_lien_siss!=''">
-                    <span class="left-rubrique-db">Lien SISS</span>
+                <div tal:condition="python: institution.institution_lien_siss!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Lien SISS</h3>
                     <div class="text-db">
                         <a href=""
                            target="_blank"
@@ -118,16 +118,16 @@
                             <span tal:content="institution/institution_lien_siss" /></a>
                     </div>
                 </div>
-                <div class="puzzle-vert"
-                     tal:condition="python: institution.institution_lien_autre!=''">
-                    <span class="left-rubrique-db">Autre lien</span>
+                <div tal:condition="python: institution.institution_lien_autre!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Autre lien</h3>
                     <div class="text-db">
                     <span tal:content="institution/institution_lien_autre" />
                     </div>
                 </div>
-                <div class="puzzle-gris"
-                     tal:condition="python: institution.institution_autre_info!=''">
-                    <span class="left-rubrique-db">Autre info</span>
+                <div tal:condition="python: institution.institution_autre_info!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Autre info</h3>
                     <div class="text-db">
                     <span tal:replace="structure institution/institution_autre_info" />
                     </div>
@@ -136,67 +136,65 @@
 
 
 <!-- === COLONNE DROITE =================================================================================================-->
-            <!-- portlet coordonnee instituion -->
             <div id="right-institution">
-                <div id="institution-coordonnee-assuetude">
-                    <div tal:condition="python: institution.institution_sigle!=''">
-                        <h4>Sigle</h4>
-                        <div class="textdb">
-                            <span tal:content="institution/institution_sigle" />
+                <!-- portlet coordonnee instituion -->
+                <div id="right-institution-coordonnee">
+                    <div id="institution-coordonnee-assuetude">
+                        <div tal:condition="python: institution.institution_sigle!=''">
+                            <h4>Sigle</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/institution_sigle" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div tal:condition="python: institution.institution_adresse!=''">
-                        <h4>Adresse</h4>
-                        <div class="textdb">
-                            <span tal:content="institution/institution_adresse" />
+                        <div tal:condition="python: institution.institution_adresse!=''">
+                            <h4>Adresse</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/institution_adresse" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div tal:condition="python: institution.commune.com_localite_nom!=''">
-                        <h4>Localité</h4>
-                        <div class="textdb">
-                            <span tal:content="institution/commune/com_localite_cp" />
-                            <span tal:content="institution/commune/com_localite_nom" />
+                        <div tal:condition="python: institution.commune.com_localite_nom!=''">
+                            <h4>Localité</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/commune/com_localite_cp" />
+                                <span tal:content="institution/commune/com_localite_nom" />
+                            </div>
                         </div>
-                    </div>
                 
-                    <hr class="hr-grise" />
+                        <hr class="search-ligne-bleue" />
                 
-                    <div tal:condition="python: institution.institution_nom_contact!=''">
-                        <h4>Personne ressource</h4>
-                        <div class="textdb">
-                            <span tal:content="institution/institution_nom_contact" />
+                        <div tal:condition="python: institution.institution_nom_contact!=''">
+                            <h4>Personne ressource</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/institution_nom_contact" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div tal:condition="python: institution.institution_fonction_contact!=''">
-                        <h4>Fonction</h4>
-                        <div class="textdb">
-                            <span tal:content="institution/institution_fonction_contact" />
+                        <div tal:condition="python: institution.institution_fonction_contact!=''">
+                            <h4>Fonction</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/institution_fonction_contact" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div tal:condition="python: institution.institution_email_contact!=''">
-                        <h4>E-mail</h4>
-                        <div class="textdb">
-                            <span tal:content="institution/institution_email_contact" />
+                        <div tal:condition="python: institution.institution_email_contact!=''">
+                            <h4>E-mail</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/institution_email_contact" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div tal:condition="python: institution.institution_tel_contact!=''">
-                        <h4>Tél</h4>
-                        <div class="textdb">
-                        <span tal:content="institution/institution_tel_contact" />
+                        <div tal:condition="python: institution.institution_tel_contact!=''">
+                            <h4>Tél</h4>
+                            <div class="textdb">
+                            <span tal:content="institution/institution_tel_contact" />
+                            </div>
                         </div>
-                    </div>
-                
-                    <hr class="hr-grise" />
-                
-                    
-                </div>
+                    </div><!--institution-coordonnee-assuetude-->
+                </div><!--right-institution-coordonnée-->    
 
-         <!-- portlet assuetude projets partagés -->
+                <!-- portlet assuetude projets partagés -->
                 <div id="projet-partage-institution"
                      tal:define="experiences python:view.getExperienceFromInstitutionPorteur(institutionPk)"
                      tal:condition="python: len(experiences)>0">
@@ -214,7 +212,7 @@
                             </span>
                         </tal:boucle>
                     </tal:block>
-                    
+                
                     <tal:block tal:define="experiences python:view.getExperienceFromInstitutionPartenaire(institutionPk)"
                                tal:condition="python: len(experiences)>0">
                         <h4>Partenaire</h4>
@@ -228,7 +226,7 @@
                            </span>
                         </tal:boucle>
                     </tal:block>
-                    
+                
                     <tal:block tal:define="experiences python:view.getExperienceFromInstitutionRessource(institutionPk)"
                                tal:condition="python: len(experiences)>0">
                         <h4>Ressource</h4>
@@ -242,11 +240,11 @@
                             </span>
                         </tal:boucle>
                     </tal:block>
-                    <br /><br />
-                </div>
-            </div><!--right-->
-
-            <div id="clearboth"></div>
+                </div><!--projet-assuetude-institution-->
+            </div><!--right-institution-->
+            
+            <div class="break-float"></div>
+            <div id="institution-footer"></div>
 
 <!-- ASSUETUDE INSTITUION --> 
             <div id="institution-description-assuetude"
@@ -408,44 +406,6 @@
                            name="institution_plate_forme_sante_environnement"
                            value="True"
                            tal:attributes="checked python:institution.institution_plate_forme_sante_environnement and 'checked' or None;" />&nbsp;&nbsp;Santé et environnement
-                    
-                    
-                    <!--
-                    <tal:blok tal:define="plateformes python:view.getAllActivePlateForme()">
-                        <tal:boucle tal:repeat="plateforme plateformes">
-                            <input type="checkbox"
-                                   name="plateformeFk"
-                                   value=""
-                                   checked=""
-                                   tal:attributes="value plateforme/plateforme_pk" />
-                            &nbsp;&nbsp;<span tal:content="plateforme/plateforme_nom"></span>
-                            
-                            <br /><br />
-                        </tal:boucle>
-                    </tal:blok>
-                    
-                    
-                    
-                            <span tal:define="sousplateformes python:view.getSousPlateFormeByPlateFormePk(plateforme.plateforme_pk);
-                                              sousPlateFormeFroInstitution python:view.getInstitutionSousPlateForme(institutionPk)">
-                                <span tal:repeat="sousplateforme sousplateformes">
-                                    <br />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="checkbox"
-                                           name="institution_sousplateforme_fk:list"
-                                           value=""
-                                           checked=""
-                                           tal:attributes="value sousplateforme/sousplateforme_pk;
-                                                           checked python:sousplateforme.sousplateforme_pk in sousPlateFormeFroInstitution and 'checked' or None" />
-                                    &nbsp;&nbsp;<span tal:content="sousplateforme/sousplateforme_nom"></span>
-                                </span>
-                            </span>
-                    -->
-                    <!--
-                    passser la clé institution à la table sousplateforme
-                    recupere la sous plateforme_nom
-                    recuperer la plateforme_nom
-                    -->
                     <br />
                 </fieldset>
                 

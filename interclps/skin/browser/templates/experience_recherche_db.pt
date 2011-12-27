@@ -19,60 +19,53 @@
 
 <body>
 <div metal:fill-slot="main">
-    <div>
-        <div  id="logo-projet-paratge">
-             <img src="titre_logo_presentation_db.png"
-                  width="185"
-                  height="35"
-                  title=" Projets partagés"
-                  alt="titre_logo_presentation_db.png" />
-        </div>
-    </div>
     <div id="zone-titre-moteur-recherche">
-        <div class="search-titre">
-            Effectuer une recherche
-        </div>
+        <h1>Effectuer une recherche</h1>
         <br />
         <div class="search-text-intro">Plusieurs types de recherche sont possibles.</div>
     </div>
 
     <div id="zone-moteur-recherche">
-
         <fieldset class="search-zone-nom">
-            <legend class="search-legend-titre"> A partir du titre d'une expérience </legend>
+            <legend class="search-legend"> A partir du titre d'une expérience </legend>
             <div id="info-champs">
             </div>
-            <br />
             <form action="experience-decrire" method="post">
-                <input type="text"
-                       id="titre_experience"
-                       name="titreExperience"
-                       value=""
-                       size="50">
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                <div class="div_question">
+                    <input type="text"
+                           id="titre_experience"
+                           name="titreExperience"
+                           value=""
+                           size="50">
+                </div>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" /> 
+                </div>
             </form>
 
-            <hr class="search-ligne-blanche"/>
+            <hr class="search-ligne-bleue"/>
 
             <form action="experience-decrire" method="post">
                 Ci-dessous, la liste des différents titres des expériences encodées dans notre base.
-                <tal:block tal:define="experiences python:view.getAllExperienceByEtat('publish')">
-                    <select name="experiencePk">
-                        <tal:boucle tal:repeat="experience experiences">
-                            <option value=""
-                                    tal:attributes="value experience/experience_pk">
-                                <span tal:content="experience/experience_titre">titre experience</span>
-                            </option>
-                        </tal:boucle>
-                    </select>
-                </tal:block>
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                <div class="div_question">
+                    <tal:block tal:define="experiences python:view.getAllExperienceByEtat('publish')">
+                        <select name="experiencePk">
+                            <tal:boucle tal:repeat="experience experiences">
+                                <option value=""
+                                        tal:attributes="value experience/experience_pk">
+                                    <span tal:content="experience/experience_titre">titre experience</span>
+                                </option>
+                            </tal:boucle>
+                        </select>
+                    </tal:block>
+                </div>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
             </form>
         </fieldset><!--search-zone-nom-->
 
@@ -84,30 +77,32 @@
                     <legend class="search-legend"> A destination d'un milieu de vie </legend>
                     <div id="info-champs">
                     </div>
-                    <br />
                     <form action="experience-resultat-recherche-milieu-vie" method="post">
                         <tal:block tal:define="milieuxDeViePk python:view.getMilieuDeVieForSearchEngine();
                                                milieuxDeVie python:view.getMilieuDeVieByPk(milieuxDeViePk)">
-                            <select name="milieudeviePk:list">
-                                <tal:boucle tal:repeat="milieudevie milieuxDeVie">
-                                    <option value=""
-                                            tal:attributes="value milieudevie/milieudevie_pk">
-                                        <span tal:content="milieudevie/milieudevie_nom">milieu de vie</span>
-                                    </option>
-                                </tal:boucle>
-                            </select>
+                            <div class="div_question">
+                                <select name="milieudeviePk:list">
+                                    <tal:boucle tal:repeat="milieudevie milieuxDeVie">
+                                        <option value=""
+                                                tal:attributes="value milieudevie/milieudevie_pk">
+                                            <span tal:content="milieudevie/milieudevie_nom">milieu de vie</span>
+                                        </option>
+                                    </tal:boucle>
+                                </select>  
+                            </div>
                         </tal:block>
-                        <br />
-                        <input type="submit"
-                               value="lancer la recherche"
-                               class="search-button" />
+                        <div class="div_question">
+                            <input type="submit"
+                                   value="lancer la recherche"
+                                   class="search-button" />
+                        </div>
                     </form>
                 </fieldset>
             </td>
         </tr>
         <tr>
             <td class="search-ou">
-                <b>OU</b>
+                OU
             </td>
        </tr>
        <tr>
@@ -116,23 +111,25 @@
                     <legend class="search-legend"> Recherche selon un thème </legend>
                     <div id="info-champs">
                     </div>
-                    <br />
                     <form action="experience-resultat-recherche-theme" method="post">
                         <tal:block tal:define="themesPk python:view.getThemeForSearchEngine();
                                                themes python:view.getThemeByPk(themesPk)">
-                            <select name="themePk:list">
-                                <tal:boucle tal:repeat="theme themes">
-                                    <option value=""
-                                            tal:attributes="value theme/theme_pk">
-                                        <span tal:content="theme/theme_nom">theme</span>
-                                    </option>
-                                </tal:boucle>
-                            </select>
+                            <div class="div_question">
+                                <select name="themePk:list">
+                                    <tal:boucle tal:repeat="theme themes">
+                                        <option value=""
+                                                tal:attributes="value theme/theme_pk">
+                                            <span tal:content="theme/theme_nom">theme</span>
+                                        </option>
+                                    </tal:boucle>
+                                </select>  
+                            <div class="div_question">
                         </tal:block>
-                        <br />
-                        <input type="submit"
-                               value="lancer la recherche"
-                               class="search-button" />
+                        <div class="div_question">
+                            <input type="submit"
+                                   value="lancer la recherche"
+                                   class="search-button" />
+                        </div>
                     </form>
                 </fieldset>
             </td>
@@ -148,23 +145,25 @@
                     <legend class="search-legend"> Recherche selon un public </legend>
                     <div id="info-champs">
                     </div>
-                    <br />
                     <form action="experience-resultat-recherche-public" method="post">
                         <tal:block tal:define="publicsPk python:view.getPublicForSearchEngine();
                                                publics python:view.getPublicByPk(publicsPk)">
-                            <select name="publicPk:list">
-                                <tal:boucle tal:repeat="public publics">
-                                    <option value=""
-                                            tal:attributes="value public/public_pk">
-                                        <span tal:content="public/public_nom">public</span>
-                                    </option>
-                                </tal:boucle>
-                            </select>
+                            <div class="div_question">
+                                <select name="publicPk:list">
+                                    <tal:boucle tal:repeat="public publics">
+                                        <option value=""
+                                                tal:attributes="value public/public_pk">
+                                            <span tal:content="public/public_nom">public</span>
+                                        </option>
+                                    </tal:boucle>
+                                </select>  
+                            </div>
                         </tal:block>
-                        <br />
-                        <input type="submit"
-                               value="lancer la recherche"
-                               class="search-button" />
+                        <div class="div_question">
+                            <input type="submit"
+                                   value="lancer la recherche"
+                                   class="search-button" />
+                        </div>
                     </form>
                 </fieldset>
             </td>

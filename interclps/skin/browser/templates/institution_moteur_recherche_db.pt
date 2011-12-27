@@ -20,15 +20,12 @@
 <body>
 <div metal:fill-slot="main">
     <div id="zone-titre-moteur-recherche">
-        <div class="search-titre">
-            Rechercher une institution
-        </div>
+        <h1>Rechercher une institution</h1>
         <br />
         <div class="search-text-intro">Plusieurs types de recherche sont possibles.</div>
     </div>
 
     <div id="zone-moteur-recherche">
-
         <fieldset class="search-zone-nom">
             <legend class="search-legend-titre"> A partir du titre d'une institution </legend>
             <div id="info-champs">
@@ -36,31 +33,37 @@
             <br />
             <form action="institution-decrire"
                   method="post">
-                <input type="text"
-                       id="nom_institution"
-                       name="nomInstitution"
-                       value=""
-                       size="50">
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                <div class="div_question">
+                    <input type="text"
+                           id="nom_institution"
+                           name="nomInstitution"
+                           value=""
+                           size="50"> 
+                </div>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" /> 
+                </div>
             </form>
         </fieldset>
 
         <fieldset class="search-zone-nom">
             <legend class="search-legend-titre"> A partir de la PK d'une institution </legend>
             <form action="institution-decrire" method="post">
-                Pk de l'institution<br />
-                <input type="text"
-                       id="institutionPk"
-                       name="institutionPk"
-                       value=""
-                       size="10">
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                <div class="div_question">
+                    Pk de l'institution<br />
+                    <input type="text"
+                           id="institutionPk"
+                           name="institutionPk"
+                           value=""
+                           size="10">  
+                </div>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />  
+                </div>
             </form>
         </fieldset>
 
@@ -69,19 +72,22 @@
             <form action="institution-decrire" method="post">
                 Ci-dessous, la liste des différentes institution encodées dans la base.
                 <tal:block tal:define="institutions python:view.getAllInstitution()">
-                    <select name="institutionPk">
-                        <tal:boucle tal:repeat="institution institutions">
-                            <option value=""
-                                    tal:attributes="value institution/institution_pk">
-                                <span tal:content="institution/institution_nom">nom institution</span>
-                            </option>
-                        </tal:boucle>
-                    </select>
+                    <div class="div_question">
+                        <select name="institutionPk">
+                            <tal:boucle tal:repeat="institution institutions">
+                                <option value=""
+                                        tal:attributes="value institution/institution_pk">
+                                    <span tal:content="institution/institution_nom">nom institution</span>
+                                </option>
+                            </tal:boucle>
+                        </select>
+                    </div>
                 </tal:block>
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
             </form>
         </fieldset><!--search-zone-nom-->
         
@@ -92,24 +98,26 @@
                 Ci-dessous, la liste des différents auteurs d'institution encodées dans la base.
                 <br />
                 <tal:block tal:define="auteurs python:view.getAllAuteurFromInstitution()">
-                    <select name="auteurPk">
-                        <tal:boucle tal:repeat="auteur auteurs">
-                            <option value=""
-                                    tal:attributes="value auteur/auteur_pk">
-                                <span tal:content="auteur/auteur_nom">nom auteur</span>
-                                <span tal:content="auteur/auteur_prenom">prenom auteur</span>
-                            </option>
-                        </tal:boucle>
-                    </select>
+                    <div class="div_question">
+                        <select name="auteurPk">
+                            <tal:boucle tal:repeat="auteur auteurs">
+                                <option value=""
+                                        tal:attributes="value auteur/auteur_pk">
+                                    <span tal:content="auteur/auteur_nom">nom auteur</span>
+                                    <span tal:content="auteur/auteur_prenom">prenom auteur</span>
+                                </option>
+                            </tal:boucle>
+                        </select>  
+                    </div>
                 </tal:block>
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
             </form>
         </fieldset><!--search-zone-nom-->
-
-</div><!--id moteur-recherche-->
+    </div><!--id moteur-recherche-->
 </div><!-- div metal-->
 </body>
 </html>

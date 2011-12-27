@@ -14,16 +14,6 @@
      tal:define="experiencePk request/experiencePk | nothing;
                  experiences python:view.getActiveExperience(experiencePk)">
     <tal:boucle tal:repeat="experience experiences">
-        <div>
-            <div  id="logo-projet-paratge">
-                <img src="titre_logo_presentation_db.png"
-                     width="185"
-                     height="35"
-                     title=" Projets partagés"
-                     alt="titre_logo_presentation_db.png" />
-            </div>
-        </div>
-
         <div id="main-experience">
             <div id="alerte"
                  tal:condition="python: experience.experience_etat=='pending_for_review'">
@@ -32,7 +22,7 @@
             <div id="title-experience">
                 <div id="title-experience-left"></div>
                 <div class="titre-top">
-                    <p><span tal:content="experience/experience_titre"></span></p>
+                    <span tal:content="experience/experience_titre"></span>
                 </div>
                 <div id="title-experience-right"
                       tal:define="experiencePk experience/experience_pk">
@@ -50,23 +40,27 @@
                 </div>
                 <div id="border-experience">
                     <div id="resume-experience"
+                         class="description-left-content"
                          tal:condition="python: experience.experience_resume!=''">
-                        <span class="left-rubrique-db">Resumé</span>
+                        <h3 class="left-rubrique-db">Resumé</h3>
                         <p><span tal:replace="structure experience/experience_resume"></span></p>
                     </div>
                     <div id="contexte-experience"
+                         class="description-left-content"
                          tal:condition="python: experience.experience_element_contexte!=''">
-                        <span class="left-rubrique-db">Elements de contexte</span>
+                        <h3 class="left-rubrique-db">Elements de contexte</h3>
                         <p><span tal:replace="structure experience/experience_element_contexte"></span></p>
                     </div>
                     <div id="objectif-experience"
+                         class="description-left-content"
                          tal:condition="python: experience.experience_objectif!=''">
-                        <span class="left-rubrique-db">Objectifs</span>
+                        <h3 class="left-rubrique-db">Objectifs</h3>
                         <p><span tal:replace="structure experience/experience_objectif"></span></p>
                     </div>
                     <div id="public-experience"
+                         class="description-left-content"
                          tal:condition="python: experience.experience_public_vise!=''">
-                        <span class="left-rubrique-db">Public </span>
+                        <h3 class="left-rubrique-db">Public </h3>
                         <p><span tal:content="experience/experience_public_vise"></span></p>
                         <p tal:define="allPublics python: view.getAllActivePublic();
                                        publicForExperience python: view.getPublicByExperiencePk(experiencePk)"
@@ -82,37 +76,45 @@
                             </span>
                         </p> 
                     </div>
-                    <div id="milieu-de-vie-experience">
-                        <span class="left-rubrique-db">Milieu de vie </span>
-                        <ul tal:define="milieudevies python:view.getMilieuDeVieByExperiencePk(experiencePk, 'nom')">
+                    <div id="milieu-de-vie-experience"
+                         class="description-left-content"
+                         tal:define="milieudevies python:view.getMilieuDeVieByExperiencePk(experiencePk, 'nom')"
+                         tal:condition="python: milieudevies">
+                        <h3 class="left-rubrique-db">Milieu de vie </h3>
+                        <ul>
                             <span tal:repeat="milieudevie milieudevies">
                                 <li tal:content="milieudevie">milieu de vie</li>
                             </span>
                         </ul>
                     </div>
                     <div id="demarche-experience"
+                         class="description-left-content"
                          tal:condition="python: experience.experience_demarche_actions!=''">
-                        <span class="left-rubrique-db">Démarches et actions</span>
+                        <h3 class="left-rubrique-db">Démarches et actions</h3>
                         <p><span tal:replace="structure experience/experience_demarche_actions"></span></p>
                     </div>
                     <div id="moyen-experience"
+                         class="description-left-content"
                          tal:condition="python: experience.experience_moyens!=''">
-                        <span class="left-rubrique-db">Moyens</span>
+                        <h3 class="left-rubrique-db">Moyens</h3>
                         <p><span tal:replace="structure experience/experience_moyens"></span></p>
                     </div>
                     <div id="evaluation-experience"
+                         class="description-left-content"
                          tal:condition="python: experience.experience_evaluation_enseignement!=''">
-                        <span class="left-rubrique-db">Evaluation et enseignements</span>
+                        <h3 class="left-rubrique-db">Evaluation et enseignements</h3>
                         <p><span tal:replace="structure experience/experience_evaluation_enseignement"></span></p>
                     </div>
                     <div id="perspective-envisagee"
-                          tal:condition="python: experience.experience_perspective_envisagee!=''">
-                         <span class="left-rubrique-db">Perspectives envisagées</span>
+                         class="description-left-content"
+                         tal:condition="python: experience.experience_perspective_envisagee!=''">
+                         <h3 class="left-rubrique-db">Perspectives envisagées</h3>
                          <p><span tal:replace="structure experience/experience_perspective_envisagee"></span></p>
                      </div>
                     <div id="pour-aller-loin-experience"
+                         class="description-left-content"
                          tal:condition="python: experience.experience_aller_plus_loin!=''">
-                        <span class="left-rubrique-db">Pour aller plus loin</span>
+                        <h3 class="left-rubrique-db">Pour aller plus loin</h3>
                         <p><span tal:replace="structure experience/experience_aller_plus_loin"></span></p>
                     </div>
                 </div><!--border-experience-->
@@ -236,9 +238,6 @@
                     <div id="pdf-experience"
                          tal:condition="python: experience.experience_etat=='publish'">
                          <span class="right-rubrique-db">Télécharger la fiche en PDF</span>
-                         <br />
-                         :: <span tal:content="experiencePk" />:: 
-                         <br />
                          <a href=""
                             tal:attributes="href string:@@pdfGenerator/printExperience?experiencePk=${experiencePk}">
                             <img src="logo_pdf.png"></a>
@@ -247,8 +246,9 @@
                 </div><!--content-->
                 <div id="right-experience-footer"></div>
             </div><!--right-->
-            <div id="clearboth"></div>
-        </div>
+            <div class="break-float"></div>
+            <div id="experience-footer"></div>
+        </div><!--main experience-->
     </tal:boucle>
 </div><!-- div metal-->
 </body>

@@ -142,7 +142,7 @@ height:80px;
 /*** LOGO PROJET PARTAGE ***/
 #logo{
 position:relative;
-top:-21px;
+top:-13px;
 left:10px;
 width:400px;
 height:104px;
@@ -557,7 +557,285 @@ border-top:1px solid #888;
 
 .div_question{
 margin:10px 0px;
-}  
+}
+
+#moteur-recherche{
+width:100%;
+margin:auto;
+margin-top:60px;
+border:0px solid #eee;
+}
+
+.search-zone-nom, .search-legend{
+color:#329FD7;    
+}
+
+.search-ligne-bleue{
+background-color:#329FD7;
+border:0 none;
+height:1px;
+margin:0.5em 0 1em;
+}
+
+.search-ou{
+font-size:2em;
+font-weight:bold;
+color:#555;
+text-align:center;
+}
+
+/*** DESCRIPTION DB ***/
+#main-experience{
+}
+
+/** colonne gauche **/
+#left-experience{
+float:left;
+width:395px;
+padding:0px 5px;
+color:#51686d;
+}
+
+#border-experience{
+/*border-left:1px solid #eee;
+border-right:1px solid #eee;
+padding-right:30px;
+/*border-bottom:1px solid #eee;*/
+}
+
+#title-experience{
+/*margin-top:45px;*/
+margin-bottom:20px;
+font-weight:bold;
+font-size:2em;
+text-align:center;
+height:73px;
+width:100%;
+background-color:#d0e9f5;
+text-align:center;
+border-radius:12px 12px 0px 0px;
+}
+
+.description-left-content{
+margin-bottom:3em;
+}
+
+#title-experience-left{
+float:left;
+background-image:url(titre_description_border_left.png);
+background-repeat:no-repeat;
+background-position:left top;
+width:28px;
+height:73px;
+}
+
+.titre-top{ 
+float:left;
+color:#184860;
+width:90%;
+line-height:73px;
+}
+
+#title-experience-right{
+float:right;
+background-image:url(titre_description_border_right.png);
+background-repeat:no-repeat;
+background-position:right top;
+width:28px;
+height:73px;
+}
+
+.left-rubrique-db{
+color:#329FD7;
+}
+
+/** COLONNE DROITE DESCRIPTION EXPERIENCE **/
+#right-experience{
+float:right;
+width:205px;
+color:#111;
+font-size:0.8em;
+margin-top:0px;
+border:1px solid #329FD7;
+border-radius:12px;
+background-color:#d0e9f5;
+}
+
+#right-experience-header{
+height:30px;
+/*width:216px;
+background-image:url(des_exp_right_header.png);
+background-repeat:no-repeat;*/
+}
+
+#right-experience-content{
+width:216px;
+background-image:url(des_exp_right_bckgrnd.png);
+background-repeat:repeat-y;
+}
+
+#right-experience-content p{
+background-image:url(puce-carre-noir.png);
+background-repeat:no-repeat;
+background-position:left 5px;
+text-indent: 6px;
+}
+
+#right-experience-content a{
+text-decoration:none;
+color:#3c5057;
+}
+
+#right-experience-content a:hover{
+text-decoration:underline;
+color:#15292f;
+}
+
+
+#right-experience-footer{
+width:216px;
+height:39px;
+background-image:url(des_exp_right_footer.png);
+background-repeat:no-repeat;
+}
+
+.right-rubrique-db{
+background-image:url(images/flch_bleue.png);
+background-repeat:no-repeat;
+background-position:left center;
+color:#184860;
+padding-left:12px;
+font-weight:bold;
+}
+
+#institution-porteur-experience,
+#institution-partenaire-experience,
+#periode-deroulement-experience,
+#territoire-experience,
+#ressource-experience{
+padding:0px 15px 0px 15px;
+margin-bottom:8px;
+}
+
+#personne-contact-experience{
+padding:0px 15px 0px 15px;
+/*margin-bottom:8px;*/
+}
+
+#pdf-experience{
+padding:0px 15px 0px 15px; 
+}
+.pdf-file{
+display: block;
+padding-left: 36px;
+padding-top: 5px;}
+  
+#experience-footer{
+/*margin-top:45px;*/
+height:13px;
+width:100%;
+background-color:#d0e9f5;
+border-radius:0px 0px 12px 12px;
+}
+
+/*** DESCRIPTION INSTITUTION ***/
+#left-institution{
+float:left;
+width:390px;
+padding:0px 5px;
+color:#51686d;
+}
+
+#right-institution{
+float:right;
+width:205px;
+}
+
+  
+#right-institution-coordonnee,
+#projet-partage-institution{
+color:#111;
+font-size:0.8em;
+margin-top:0px;
+border:1px solid #329FD7;
+border-radius:12px;
+background-color:#d0e9f5;
+margin-bottom:10px;
+}
+
+#alerte{
+background-color:#fd7b00;
+width:90%;
+height:30px;
+line-height:30px;
+font-size:0.8em;
+font-weight:bold;
+color:#fff;
+margin:auto;  
+margin-bottom:10px;
+padding-left:10px;
+}
+ 
+#title-institution{
+margin-bottom:20px;
+font-weight:bold;
+font-size:1.6em;
+text-align:center;
+color:#fff;
+line-height:73px;
+height:73px;
+width:100%;
+background-color:#003088;
+border-width:1px 1px 0px 1px;
+border-style:solid; 
+border-color:#021330;
+border-radius: 12px 12px 0px 0px;
+box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+}
+
+#institution-coordonnee-assuetude,
+#projet-partage-institution{
+padding:5px 15px 5px 15px;
+margin-bottom:8px;
+}
+
+#projet-partage-institution h3{
+line-height:28px;
+}
+
+#institution-description-assuetude{
+color:#275b39;
+background-color:#d6fae3;
+border-width:1px;
+border-style:solid; 
+border-color:#0c5425;
+border-radius:12px 0px 12px 0px;
+box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+padding:5px 15px 5px 15px;    
+margin:2em 0px;
+}
+
+#institution-description-assuetude h3{
+font-variant:small-caps;
+font-size:1.4em;
+border-bottom:1px dotted #58b076;
+}
+
+
+
+
+#institution-footer{
+height:13px;
+width:100%;
+background-color:#003088;
+border-width:0px 1px 1px 1px;
+border-style:solid; 
+border-color:#021330;
+border-radius:0px 0px 12px 12px;
+box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+}
+
+
 
 /*** PLONE ***/
 div.managePortletsLink{

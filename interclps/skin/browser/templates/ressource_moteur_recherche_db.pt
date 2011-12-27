@@ -19,33 +19,31 @@
 
 <body>
 <div metal:fill-slot="main">
-    <div metal:use-macro="here/document_actions/macros/document_actions">
     <div id="zone-titre-moteur-recherche">
-        <div class="search-titre">
-            Rechercher une ressource
-        </div>
+        <h1>Rechercher une ressource</h1>
         <br />
         <div class="search-text-intro">Plusieurs types de recherche sont possibles.</div>
     </div>
 
     <div id="zone-moteur-recherche">
-
         <fieldset class="search-zone-nom">
             <legend class="search-legend-titre"> A partir du titre d'une ressource </legend>
             <div id="info-champs">
             </div>
-            <br />
             <form action="ressource-decrire"
                   method="post">
-                <input type="text"
-                       id="ressource_titre"
-                       name="titreRessource"
-                       value=""
-                       size="50">
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                <div class="div_question">
+                    <input type="text"
+                           id="ressource_titre"
+                           name="titreRessource"
+                           value=""
+                           size="50">
+                </div>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
             </form>
         </fieldset>
 
@@ -53,16 +51,19 @@
             <legend class="search-legend-titre"> A partir de la PK de la ressouce </legend>
             <form action="ressource-decrire"
                   method="post">
-                Pk de la ressource<br />
-                <input type="text"
-                       id="ressourcePk"
-                       name="ressourcePk"
-                       value=""
-                       size="10">
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                <div class="div_question">
+                    Pk de la ressource<br />
+                    <input type="text"
+                           id="ressourcePk"
+                           name="ressourcePk"
+                           value=""
+                           size="10">
+                </div>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
             </form>
         </fieldset>
 
@@ -73,22 +74,25 @@
                   method="post">
                 Ci-dessous, la liste des différentes institution encodées dans la base.
                 <tal:block tal:define="ressources python:view.getAllRessource()">
-                    <select name="ressourcePk">
-                        <tal:boucle tal:repeat="ressource ressources">
-                            <option value=""
-                                    tal:attributes="value ressource/ressource_pk">
-                                <span tal:content="ressource/ressource_titre">titre ressource</span>
-                            </option>
-                        </tal:boucle>
-                    </select>
+                    <div class="div_question">
+                        <select name="ressourcePk">
+                            <tal:boucle tal:repeat="ressource ressources">
+                                <option value=""
+                                        tal:attributes="value ressource/ressource_pk">
+                                    <span tal:content="ressource/ressource_titre">titre ressource</span>
+                                </option>
+                            </tal:boucle>
+                        </select>
+                    </div>
                 </tal:block>
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
             </form>
         </fieldset><!--search-zone-nom-->
-</div><!--id moteur-recherche-->
+    </div><!--id moteur-recherche-->
 </div><!-- div metal-->
 </body>
 </html>

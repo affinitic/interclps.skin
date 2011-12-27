@@ -27,34 +27,30 @@
 
 <body>
 <div metal:fill-slot="main">
-     <div metal:use-macro="here/document_actions/macros/document_actions">
-            
     <div id="zone-titre-moteur-recherche">
-        <div class="search-titre">
-            Rechercher un auteur
-        </div>
-        <br />
+        <h1>Rechercher un auteur</h1>
         <div class="search-text-intro">Plusieurs types de recherche sont possibles.</div>
     </div>
-
+    
     <div id="zone-moteur-recherche">
-
         <fieldset class="search-zone-nom">
-            <legend class="search-legend-titre"> A partir du nom d'un auteur</legend>
+            <legend class="search-legend"> A partir du nom d'un auteur</legend>
             <div id="info-champs">
             </div>
-            <br />
             <form action="admin-auteur-modifier"
                   method="post">
-                <input type="text"
-                       id="auteur_nom"
-                       name="nomAuteur"
-                       value=""
+                <div class="div_question">
+                    <input type="text"
+                           id="auteur_nom"
+                           name="nomAuteur"
+                           value=""
                        size="50">
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                </div>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
             </form>
         </fieldset>
 
@@ -62,40 +58,45 @@
             <legend class="search-legend-titre"> A partir de la PK de l'auteur</legend>
             <form action="admin-auteur-modifier"
                   method="post">
-                Pk de l'auteur<br />
-                <input type="text"
-                       id="auteurPk"
-                       name="auteurPk"
-                       value=""
-                       size="10">
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                <div class="div_question">  
+                    Pk de l'auteur<br />
+                    <input type="text"
+                           id="auteurPk"
+                           name="auteurPk"
+                           value=""
+                           size="10">
+                </div>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
             </form>
         </fieldset>
 
 
         <fieldset  class="search-zone-nom">
-            <legend class="search-legend-titre"> Toutes les auteurs de la DB </legend>
+            <legend class="search-legend-titre"> Tous les auteurs de la DB </legend>
             <form action="admin-auteur-modifier"
                   method="post">
                 Ci-dessous, la liste des différents auteurs encodés dans la base.
-                <br />
                 <tal:block tal:define="auteurs python:view.getAllAuteur()">
-                    <select name="auteurPk">
-                        <tal:boucle tal:repeat="auteur auteurs">
-                            <option value=""
-                                    tal:attributes="value auteur/auteur_pk">
-                                <span tal:content="auteur/auteur_nom">nom auteur</span>
-                            </option>
-                        </tal:boucle>
-                    </select>
+                    <div class="div_question">
+                        <select name="auteurPk">
+                            <tal:boucle tal:repeat="auteur auteurs">
+                                <option value=""
+                                        tal:attributes="value auteur/auteur_pk">
+                                    <span tal:content="auteur/auteur_nom">nom auteur</span>
+                                </option>
+                            </tal:boucle>
+                        </select>
+                    </div>
                 </tal:block>
-                <br />
-                <input type="submit"
-                       value="lancer la recherche"
-                       class="search-button" />
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" /> 
+                </div>
             </form>
         </fieldset><!--search-zone-nom-->
 </div><!--id moteur-recherche-->
