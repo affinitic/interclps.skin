@@ -906,7 +906,9 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         LinkExperiencePublicTable = wrapper.getMapper('link_experience_public')
         query = session.query(LinkExperiencePublicTable)
-        query = query.filter(LinkExperiencePublicTable.experience_fk.in_(experiencePk))
+        query = query.filter(LinkExperiencePublicTable.experience_fk.in_(experiencePk,))
+        
+        query = query.filter(LinkExperiencePublicTable.experience_fk == experiencePk)
         publicPk = query.all()
         
         listePublicForExperience = []
@@ -917,6 +919,29 @@ class ManageInterClps(BrowserView):
                 if i.public_fk == j.public_pk:
                     listePublicForExperience.append(j.public_pk)
         return listePublicForExperience
+
+    def getPublicByExperiencePkFromAuteur(self, experiencePk):
+        """
+        table pg link_experience_public
+        recuperation des publics selon experiencePk d'un auteur
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        LinkExperiencePublicTable = wrapper.getMapper('link_experience_public')
+        query = session.query(LinkExperiencePublicTable)
+        query = query.filter(LinkExperiencePublicTable.experience_fk == experiencePk)
+        publicPk = query.all()
+        
+        listePublicForExperience = []
+        listeAllPublic = self.getAllPublic()
+        
+        for i in publicPk:
+            for j in listeAllPublic:
+                if i.public_fk == j.public_pk:
+                    listePublicForExperience.append(j.public_pk)
+        return listePublicForExperience
+
+
 
     def getPublicForSearchEngine(self):
         """

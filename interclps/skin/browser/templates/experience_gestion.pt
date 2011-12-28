@@ -14,79 +14,76 @@
    <h1>:: Modifier une experience ::</h1>
 
     <div tal:define="experiences python:view.getExperienceByAuteurLogin();">
-        <fieldset>
-            <legend class="legende">Experience</legend>
-            <tal:boucle tal:repeat="experience experiences">
-                <tal:block tal:define="experiencePk experience/experience_pk">
-                    <fieldset>
-                        <legend>
-                            <img src="carre_orange.gif"
-                                 widht="50%"/>
-                            <a href=""
-                               tal:content="experience/experience_titre"
-                               tal:attributes="href string:experience-modifier?experiencePk=${experiencePk}"
-                               class="titre_formation">titre de l'expérience</a>
-                        </legend>
-                        <div id="experience-etat"
-                             tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
-                             tal:condition="python:user.has_role(['Manager'], here)">
-                             <span tal:content="experienceEtat" />
-                             &Xi;
-                             <span tal:content="experience/experience_pk" />
-                        </div>
-                        <span tal:replace="structure experience/experience_resume"
-                              class="rep-qest" />
-                        <ul>
-                            <li>
-                               <span class="grasbrun">Objectif:</span>
-                               <span tal:replace="structure experience/experience_objectif"
-                                     class="rep-qest" />
-                            </li>
-                            <li>
-                               <span class="grasbrun">Public visé:</span>
-                               <span tal:replace="structure experience/experience_public_vise"
-                                     class="rep-qest" />
-                               <div class="discreet"
-                                     tal:define="allPublics python: view.getAllActivePublic();
-                                                 publicForExperience python: view.getPublicByExperiencePk(experience.experience_pk)">
-                                    <span tal:condition="python:len(publicForExperience) > 0">
-                                        &nbsp;&nbsp;&nbsp;(
-                                        <tal:boucle tal:repeat="public allPublics">
-                                            <span tal:condition="python:public.public_pk in publicForExperience">
-                                                <span tal:content="public/public_nom">public</span>&nbsp;
-                                            </span>
-                                        </tal:boucle>
-                                        )
-                                    </span>
-                                </div>
-                            </li>
-                        </ul>
+        <tal:boucle tal:repeat="experience experiences">
+            <tal:block tal:define="experiencePk experience/experience_pk">
+                <fieldset>
+                    <legend>
+                        <img src="carre_orange.gif"
+                             widht="50%"/>
+                        <a href=""
+                           tal:content="experience/experience_titre"
+                           tal:attributes="href string:experience-modifier?experiencePk=${experiencePk}"
+                           class="titre_formation">titre de l'expérience</a>
+                    </legend>
+                    <div id="experience-etat"
+                         tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
+                         tal:condition="python:user.has_role(['Manager'], here)">
+                         <span tal:content="experienceEtat" />
+                         &Xi;
+                         <span tal:content="experience/experience_pk" />
+                    </div>
+                    <span tal:replace="structure experience/experience_resume"
+                          class="rep-qest" />
+                    <ul>
+                        <li>
+                           <span class="grasbrun">Objectif:</span>
+                           <span tal:replace="structure experience/experience_objectif"
+                                 class="rep-qest" />
+                        </li>
+                        <li>
+                           <span class="grasbrun">Public visé:</span>
+                           <span tal:replace="structure experience/experience_public_vise"
+                                 class="rep-qest" />
+                           <div class="discreet"
+                                 tal:define="allPublics python: view.getAllActivePublic();
+                                             publicForExperience python: view.getPublicByExperiencePkFromAuteur(experiencePk)">
+                                <span tal:condition="python:len(publicForExperience) > 0">
+                                    &nbsp;&nbsp;&nbsp;(
+                                    <tal:boucle tal:repeat="public allPublics">
+                                        <span tal:condition="python:public.public_pk in publicForExperience">
+                                            <span tal:content="public/public_nom">public</span>&nbsp;
+                                        </span>
+                                    </tal:boucle>
+                                    )
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
 
-                        <div id="footer-listing">
-                            <table width="100%">
-                                <tr>
-                                    <td align="left" class="discreet" valign="bottom">
-                                        par 
-                                        <span tal:content="experience/auteurFromExperience/auteur_prenom | nothing" />
-                                        <span tal:content="experience/auteurFromExperience/auteur_nom | nothing" /> -
-                                        <span tal:content="experience/experience_auteur_login" />
-                                        <br />
-                                        Dernière modification :
-                                        <span tal:content="experience/experience_modification_date" />
-                                    </td>
-                                    <td align="right">
-                                        <div class="btn-modifier">
-                                            <a href=""
-                                               tal:attributes="href string: experience-modifier?experiencePk=${experiencePk}">&nbsp;</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        <div>
-                    </fieldset>
-                </tal:block>
-            </tal:boucle>
-        </fieldset>
+                    <div id="footer-listing">
+                        <table width="100%">
+                            <tr>
+                                <td align="left" class="discreet" valign="bottom">
+                                    par 
+                                    <span tal:content="experience/auteurFromExperience/auteur_prenom | nothing" />
+                                    <span tal:content="experience/auteurFromExperience/auteur_nom | nothing" /> -
+                                    <span tal:content="experience/experience_auteur_login" />
+                                    <br />
+                                    Dernière modification :
+                                    <span tal:content="experience/experience_modification_date" />
+                                </td>
+                                <td align="right">
+                                    <div class="btn-modifier">
+                                        <a href=""
+                                           tal:attributes="href string: experience-modifier?experiencePk=${experiencePk}">&nbsp;</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    <div>
+                </fieldset>
+            </tal:block>
+        </tal:boucle>
     </div><!--define-->
 </div><!--metal-->
 </body>

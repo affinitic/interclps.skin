@@ -19,7 +19,7 @@
     
     <h1>Encoder votre expérience</h1>
     <div class="discreet">
-        Les <img src="info.png" /> situés à droite de l’écran sont là pour vous soutenir
+        Les <span class="info-logo">i</span> situés à droite de l’écran sont là pour vous soutenir
         dans la structuration ou la rédaction, il n’est pas nécessaire
         de les suivre au mot près.
     </div>
@@ -37,8 +37,8 @@
                            size="50" />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Quel nom avez-vous donné au projet ?
                     </div>
                 </td>
@@ -52,8 +52,8 @@
                     <span tal:replace="structure python: view.getWysiwygField('experience_resume', '')" />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Pouvez-vous résumer le projet en quelques lignes ?
                     </div>
                 </td>
@@ -99,8 +99,8 @@
                             size="50" />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Quelle personne peut-on contacter pour un renseignement
                         au sujet de ce projet ?
                     </div>
@@ -118,8 +118,8 @@
                     <span tal:replace="structure python: view.getWysiwygField('experience_element_contexte', '')" />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Quelle situation – quelles observations sont à l’origine du projet / de l’action ?
                     </div>
                 </td>
@@ -135,8 +135,8 @@
                     <span tal:replace="structure python: view.getWysiwygField('experience_objectif', '')" />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Quels objectifs poursuivez vous en mettant ce projet 
                         en place ? Quel(s) changement(s) attendez-vous ?
                     </div>
@@ -159,8 +159,8 @@
                     </tal:addremove>
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Quel est le public visé par le projet ?
                         <ul>
                             <li>Public final (touché au final par les
@@ -178,8 +178,8 @@
                               cols="70"></textarea> 
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" /> Si vous le souhaitez, vous 
+                    <div class="info-champs">
+                        <span class="info-logo">i</span> Si vous le souhaitez, vous 
                         pouvez ici apporter des précisions concernant le public.
                     </div>
                 </td>
@@ -201,8 +201,8 @@
                     </tal:addremove>
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         <ul>
                             <li>
                                 Quel est le milieu, l’espace de vie partagé 
@@ -227,8 +227,8 @@
                     <span tal:replace="structure python: view.getWysiwygField('experience_demarche_actions', '')" />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         En quoi a consisté le projet ? Qu’est-ce qui a été fait ?
                         Par qui ? Comment ?<br />
                         Le(s) public(s) ont-ils été associés au projet ?
@@ -275,8 +275,8 @@
                               cols="50"></textarea>
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Quelles communes sont concernées ?
                     </div>
                 </td>
@@ -295,8 +295,8 @@
                               cols="50"></textarea>
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Quand s’est déroulé le projet ?
                     </div>
                 </td>
@@ -313,8 +313,8 @@
                     <span tal:replace="structure python: view.getWysiwygField('experience_moyens', '')" />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         <ul>
                             <li>De quoi avez-vous (eu) besoin pour mettre ce
                                 projet en place ?</li> 
@@ -342,8 +342,8 @@
                     <span tal:replace="structure python: view.getWysiwygField('experience_evaluation_enseignement', '')" />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Qu’est-ce que le projet a apporté ?
                         <ul>
                             <li>Au public</li>
@@ -371,8 +371,8 @@
                     <span tal:replace="structure python: view.getWysiwygField('experience_perspective_envisagee', '')" />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Y a-t-il des suites prévues à ce projet ? 
                         Une reconduction ? Une réorientation... ?
                     </div>
@@ -398,8 +398,8 @@
                     </tal:addremove>
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Quelles sont les personnes ou institutions qui ont
                         construit et/ou porté le projet avec vous?
                         <br />
@@ -419,8 +419,8 @@
                     <br />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Il peut s’agir d’une personne, de plusieurs personnes,
                         d’une association, d’une institution… qui ne figurent
                         pas dans la liste déroulante ci-dessus.
@@ -449,8 +449,8 @@
                     </tal:addremove>
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Quelles sont les personnes ou institutions qui ont
                         construit et/ou porté le projet avec vous?
                         <br />
@@ -470,8 +470,8 @@
                     <br />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Il peut s’agir d’une personne, de plusieurs personnes,
                         d’une association, d’une institution… qui ne figurent
                         pas dans la liste déroulante ci-dessus.
@@ -499,8 +499,8 @@
                     </tal:addremove>
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Y a-t-il des personnes qui sont intervenus à l’un ou
                         l’autre moment du projet, mais qui n’ont pas participé à
                         l’ensemble du projet ?
@@ -515,8 +515,8 @@
                               rows="8"></textarea>
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Il peut s’agir d’une personne, de plusieurs personnes,
                         d’une association, d’une institution… qui ne figurent
                         pas dans la liste déroulante ci-dessus.
@@ -539,8 +539,8 @@
                     </tal:addremove>
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Y a-t-il des outils qui vous ont soutenu, aidé ?
                     </div>
                 </td>
@@ -553,8 +553,8 @@
                               rows="8"></textarea>
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Outils qui ne figurent pas dans le menu déroulant ci-dessus
                     </div>
                 </td>
@@ -568,8 +568,8 @@
                     <span tal:replace="structure python: view.getWysiwygField('experience_formation_suivie', '')" />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Y a-t-il des formations qui vous ont aidé ?
                     </div>
                 </td>
@@ -586,8 +586,8 @@
                     <span tal:replace="structure python: view.getWysiwygField('experience_aller_plus_loin', '')" />
                 </td>
                 <td class="form-experience-right-column">
-                    <div id="info-champs">
-                        <img src="info.png" />
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
                         Si quelqu’un souhaitait mener le même type de projets,
                         vous lui conseilleriez de contacter qui ? de commencer
                         par où ?
@@ -596,9 +596,7 @@
             </tr>
         </table>
     </fieldset>
-
-    <hr />
-
+    
     <div class="div_form_input">
         <input type="hidden"
                name="experience_etat"

@@ -11,7 +11,8 @@
 
 <body>
 <div metal:fill-slot="main"
-     tal:define="experiences python:view.getExperienceByPk(experiencePk=request.experiencePk)"
+     tal:define="experiencePk request/experiencePk;
+                 experiences python:view.getExperienceByPk(experiencePk)"
      tal:condition="python:user.has_role(['RecitExperience'], here)">
 <form action="experience-inserer"
       method="post">

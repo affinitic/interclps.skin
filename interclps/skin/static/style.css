@@ -56,7 +56,7 @@ background:url(images/bg03.jpg) repeat-x left top;
 }
 
 .container{
-width:850px;
+width:910px;
 margin:0px auto;
 }
 
@@ -151,6 +151,16 @@ background:url(images/logo_projet_partage.png) no-repeat left top;
 #logo a{
 display:block;
 height:104px;
+}
+
+#username{
+position:relative;
+top:181px;
+left:310px;
+font-size:0.7em;
+color:#aaa;
+text-align:right;
+padding:0px;
 }
 
 /*** BREADCRUMB ***/
@@ -294,7 +304,7 @@ border-right:2px solid #ddd;
 /*** CONTENT ***/ 
 #main-column{
 float:right;
-width:620px;
+width:680px;
 }
 
 #content{
@@ -319,7 +329,9 @@ min-height:200px;
 padding:40px 0px 60px 0px;
 }
 
-#news, #experience, #event{
+#news,
+#experience,
+#event{
 float:left;
 margin:0px 38px;
 width:200px;
@@ -509,7 +521,7 @@ margin-top:10px;
 .info-champs{
 color:#888;
 border-left:1px dotted #ddd;
-padding-left:3px;
+padding-left:10px;
 }
   
 .info-logo{
@@ -546,7 +558,14 @@ border: 1px solid #850864;
 
 .description-for-manager legend{
 background-color:transparent;
-} 
+}
+
+.merci-text{
+margin-top:2em;
+font-size:2em;
+text-align:center;
+line-height:2.1em;
+}  
 
 .div_form_input{
 margin-top:8px;
@@ -584,6 +603,23 @@ color:#555;
 text-align:center;
 }
 
+.btn-modifier{
+width:25px;
+height:25px;
+}
+
+.btn-modifier a {
+display:block;
+text-decoration:none;
+background-image:url(images/modifier_off.png);
+background-repeat:no-repeat;
+}
+
+.btn-modifier a:hover {
+background-image:url(images/modifier_on.png);
+}
+
+
 /*** DESCRIPTION DB ***/
 #main-experience{
 }
@@ -613,7 +649,11 @@ height:73px;
 width:100%;
 background-color:#d0e9f5;
 text-align:center;
-border-radius:12px 12px 0px 0px;
+border-width:1px 1px 0px 1px;
+border-style:solid; 
+border-color:#184860;
+border-radius: 12px 12px 0px 0px;
+box-shadow:4px 4px 10px rgba(0,0,0,0.5);
 }
 
 .description-left-content{
@@ -735,7 +775,11 @@ padding-top: 5px;}
 height:13px;
 width:100%;
 background-color:#d0e9f5;
-border-radius:0px 0px 12px 12px;
+border-width:0px 1px 1px 1px;
+border-style:solid; 
+border-color:#184860;
+border-radius: 0px 0px 12px 12px;
+box-shadow:4px 4px 10px rgba(0,0,0,0.5);
 }
 
 /*** DESCRIPTION INSTITUTION ***/
@@ -821,9 +865,6 @@ font-size:1.4em;
 border-bottom:1px dotted #58b076;
 }
 
-
-
-
 #institution-footer{
 height:13px;
 width:100%;
@@ -834,6 +875,7 @@ border-color:#021330;
 border-radius:0px 0px 12px 12px;
 box-shadow:4px 4px 10px rgba(0,0,0,0.5);
 }
+
 
 
 
