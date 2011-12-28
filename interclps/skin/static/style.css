@@ -891,5 +891,5 @@ width:170px;
 }
 
 .ploneSkin .mceExternalToolbar {
-position: relative;
+position: relative !important;
 }
