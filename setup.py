@@ -27,6 +27,7 @@ setup(name='interclps.skin',
           'setuptools',
           'Products.AddRemoveWidget',
           'reportlab',
+          'Plone',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
