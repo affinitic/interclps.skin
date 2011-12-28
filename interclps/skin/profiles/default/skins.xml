@@ -3,10 +3,10 @@
 <object name="portal_skins" allow_any="False" cookie_persistence="False"
    default_skin="interclps">
 
- <object name="interclps_skin_custom_images"
+ <object name="interclps_skin_images"
     meta_type="Filesystem Directory View"
     directory="interclps.skin:skins/interclps_skin_images"/>
- <object name="interclps_skin_custom_templates"
+ <object name="interclps_skin_templates"
     meta_type="Filesystem Directory View"
     directory="interclps.skin:skins/interclps_skin_templates"/>
  <object name="interclps_skin_styles"
