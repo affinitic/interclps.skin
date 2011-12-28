@@ -21,4 +21,8 @@ box-shadow:4px 4px 10px rgba(0,0,0,0.5);
 display:block;
 width:190px;
 margin:15px 0px 5px -14px;
-}                          
+}
+
+.ploneSkin .mceExternalToolbar {
+position: relative;
+}
