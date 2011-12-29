@@ -146,7 +146,6 @@
                     <legend class="search-legend"> Recherche selon un public </legend>
                     <div id="info-champs">
                     </div>
-                    <!--
                     <form action="experience-resultat-recherche-public" method="post">
                         <tal:block tal:define="publicsPk python:view.getPublicForSearchEngine();
                                                publics python:view.getPublicByPk(publicsPk)">
@@ -167,7 +166,6 @@
                                    class="search-button" />
                         </div>
                     </form>
-                    -->
                 </fieldset>
             </td>
         </tr>

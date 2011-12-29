@@ -473,6 +473,14 @@ class ManageInterClps(BrowserView):
         properties['fullname']=userName
         getToolByName(self, 'plone_utils').setMemberProperties(member, **properties)
 
+    def getTuple(self, data):
+        dataTuple=()
+        if type(data) is int:
+            dataTuple = (data,)
+        if type(data) is list:
+            dataTuple = tuple(data)
+        return(dataTuple)
+
     def getToDayDate(self):
         toDay = datetime.date.today()
         toDayString = ('%s')%(toDay)
@@ -862,16 +870,18 @@ class ManageInterClps(BrowserView):
         allPublics = query.all()
         return allPublics
 
-    def getPublicByPk(self, public_pk):
+    def getPublicByPk(self, publicPk):
         """
         table pg public
         recuperation d'un public selon la pk
         """
+        publicPk = self.getTuple(publicPk)
+
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         PublicTable = wrapper.getMapper('public')
         query = session.query(PublicTable)
-        query = query.filter(PublicTable.public_pk.in_(public_pk))
+        query = query.filter(PublicTable.public_pk.in_(publicPk))
         query = query.order_by(PublicTable.public_nom)
         public = query.all()
         return public
@@ -896,14 +906,6 @@ class ManageInterClps(BrowserView):
                     listePublicForRessource.append(j.public_nom)
         return listePublicForRessource
 
-    def getTuple(self, data):
-        dataTuple=()
-        if type(data) is int:
-            dataTuple = (data,)
-        if type(data) is list:
-            dataTuple = tuple(data)
-        return(dataTuple)
-
     def getPublicByExperiencePk(self, experiencePk):
         """
         table pg link_experience_public
@@ -916,8 +918,6 @@ class ManageInterClps(BrowserView):
         LinkExperiencePublicTable = wrapper.getMapper('link_experience_public')
         query = session.query(LinkExperiencePublicTable)
         query = query.filter(LinkExperiencePublicTable.experience_fk.in_(experiencePk,))
-
-        query = query.filter(LinkExperiencePublicTable.experience_fk == experiencePk)
         publicPk = query.all()
 
         listePublicForExperience = []
