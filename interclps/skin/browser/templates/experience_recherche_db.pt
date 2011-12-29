@@ -41,7 +41,7 @@
                 <div class="div_question">
                     <input type="submit"
                            value="lancer la recherche"
-                           class="search-button" /> 
+                           class="search-button" />
                 </div>
             </form>
 
@@ -67,6 +67,7 @@
                            class="search-button" />
                 </div>
             </form>
+
         </fieldset><!--search-zone-nom-->
 
 
@@ -88,7 +89,7 @@
                                             <span tal:content="milieudevie/milieudevie_nom">milieu de vie</span>
                                         </option>
                                     </tal:boucle>
-                                </select>  
+                                </select>
                             </div>
                         </tal:block>
                         <div class="div_question">
@@ -122,7 +123,7 @@
                                             <span tal:content="theme/theme_nom">theme</span>
                                         </option>
                                     </tal:boucle>
-                                </select>  
+                                </select>
                             <div class="div_question">
                         </tal:block>
                         <div class="div_question">
@@ -145,6 +146,7 @@
                     <legend class="search-legend"> Recherche selon un public </legend>
                     <div id="info-champs">
                     </div>
+                    <!--
                     <form action="experience-resultat-recherche-public" method="post">
                         <tal:block tal:define="publicsPk python:view.getPublicForSearchEngine();
                                                publics python:view.getPublicByPk(publicsPk)">
@@ -156,7 +158,7 @@
                                             <span tal:content="public/public_nom">public</span>
                                         </option>
                                     </tal:boucle>
-                                </select>  
+                                </select>
                             </div>
                         </tal:block>
                         <div class="div_question">
@@ -165,6 +167,7 @@
                                    class="search-button" />
                         </div>
                     </form>
+                    -->
                 </fieldset>
             </td>
         </tr>
