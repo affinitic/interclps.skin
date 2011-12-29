@@ -128,17 +128,17 @@
         <div class="div_question">
             <img src="list_flch_rouge.png" /> Missions
             <br />
-            <span tal:replace="structure python: view.getWysiwygField('institution_mission', '')" /> 
+            <span tal:replace="structure python: view.getWysiwygField('institution_mission', '')" />
         </div>
         <div class="div_question">
             <img src="list_flch_rouge.png" /> Activités
             <br />
-            <span tal:replace="structure python: view.getWysiwygField('institution_activite', '')" /> 
+            <span tal:replace="structure python: view.getWysiwygField('institution_activite', '')" />
         </div>
         <div class="div_question">
             <img src="list_flch_rouge.png" /> Public
             <br />
-            <span tal:replace="structure python: view.getWysiwygField('institution_public', '')" /> 
+            <span tal:replace="structure python: view.getWysiwygField('institution_public', '')" />
         </div>
         <div class="div_question">
             <br /><br />

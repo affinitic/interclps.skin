@@ -11,7 +11,7 @@
 <body>
 <div metal:fill-slot="main"
      tal:condition="python:user.has_role(['Manager'], here)">
-    
+
     <h1>Liste des experiences</h1>
 
     <div tal:define="experiences python:view.getAllExperience();">

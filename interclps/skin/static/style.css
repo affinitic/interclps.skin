@@ -881,7 +881,7 @@ box-shadow:4px 4px 10px rgba(0,0,0,0.5);
 
 /*** PLONE ***/
 div.managePortletsLink{
-background: none repeat scroll 0 0 #DDDDDD;
+background: none repeat scroll 0 0 #F00;
 border-radius: 0.5em 0.5em 0.5em 0.5em;
 font-size: 80%;
 margin: 0 auto 1em;
@@ -890,6 +890,15 @@ text-align: center;
 width:170px;
 }
 
-.ploneSkin .mceExternalToolbar {
-position: relative !important;
+.ploneSkin .mceExternalToolbar{
+background-color: #DDDDDD;
+border-color: #444444;
+border-style: solid;
+border-width: 0 0 1px;
+display: none;
+left: 0;
+position:relative !important;
+top: 0;
+width:100%;
+z-index:3;
 }

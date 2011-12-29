@@ -24,8 +24,7 @@ from collective.captcha.browser.captcha import Captcha
 class ManageInterClps(BrowserView):
     implements(IManageInterClps)
 
-# ### gestion des widgets kupu addRemoveList ###
-
+    ### gestion des widgets kupu addRemoveList ###
     def getWysiwygField(self, name, value):
         """
         generates a WYSIWYG field containing value
@@ -897,23 +896,33 @@ class ManageInterClps(BrowserView):
                     listePublicForRessource.append(j.public_nom)
         return listePublicForRessource
 
+    def getTuple(self, data):
+        dataTuple=()
+        if type(data) is int:
+            dataTuple = (data,)
+        if type(data) is list:
+            dataTuple = tuple(data)
+        return(dataTuple)
+
     def getPublicByExperiencePk(self, experiencePk):
         """
         table pg link_experience_public
         recuperation des publics selon experiencePk
         """
+        experiencePk = self.getTuple(experiencePk)
+
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         LinkExperiencePublicTable = wrapper.getMapper('link_experience_public')
         query = session.query(LinkExperiencePublicTable)
         query = query.filter(LinkExperiencePublicTable.experience_fk.in_(experiencePk,))
-        
+
         query = query.filter(LinkExperiencePublicTable.experience_fk == experiencePk)
         publicPk = query.all()
-        
+
         listePublicForExperience = []
         listeAllPublic = self.getAllPublic()
-        
+
         for i in publicPk:
             for j in listeAllPublic:
                 if i.public_fk == j.public_pk:
@@ -931,10 +940,10 @@ class ManageInterClps(BrowserView):
         query = session.query(LinkExperiencePublicTable)
         query = query.filter(LinkExperiencePublicTable.experience_fk == experiencePk)
         publicPk = query.all()
-        
+
         listePublicForExperience = []
         listeAllPublic = self.getAllPublic()
-        
+
         for i in publicPk:
             for j in listeAllPublic:
                 if i.public_fk == j.public_pk:
