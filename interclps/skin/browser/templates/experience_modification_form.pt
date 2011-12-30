@@ -12,15 +12,17 @@
 <body>
 <div metal:fill-slot="main"
      tal:define="experiencePk request/experiencePk;
-                 experiences python:view.getExperienceByPk(experiencePk)"
-     tal:condition="python:user.has_role(['RecitExperience'], here)">
+                 experiences python:view.getExperienceByPk(experiencePk)">
+     <!--tal:condition="python:user.has_role(['RecitExperience'], here)">-->
+     <span tal:content="experiencePk"></span>
+     
 <form action="experience-inserer"
       method="post">
     <tal:boucle tal:repeat="experience experiences">
         <br />
         <h1>:: Modifier l'expérience <span tal:content="experience/experience_titre" class="rouge-titre" /> ::</h1>
         <div class="discreet">
-            Les <img src="info.png" /> situés à droite de l’écran sont là pour vous soutenir 
+            Les <span class="info-logo">i</span> situés à droite de l’écran sont là pour vous soutenir 
             dans la structuration ou la rédaction, il n’est pas nécessaire
             de les suivre au mot près.
         </div>
@@ -41,7 +43,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Quel nom avez-vous donné au projet ?
                         </div>
                     </td>
@@ -56,7 +58,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Pouvez-vous résumer le projet en quelques lignes ?
                         </div>
                     </td>
@@ -111,7 +113,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Quelle personne peut-on contacter pour un renseignement
                             au sujet de ce projet ?
                         </div>
@@ -130,7 +132,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Quelle situation – quelles observations sont à l’origine du projet / de l’action ?
                         </div>
                     </td>
@@ -147,7 +149,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Quels objectifs poursuivez vous en mettant ce projet
                             en place ? Quel(s) changement(s) attendez-vous ?
                         </div>
@@ -172,7 +174,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Quel est le public visé par le projet ?
                             <ul>
                                 <li>Public final (touché au final par les
@@ -193,7 +195,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" /> Si vous le souhaitez, vous 
+                            <span class="info-logo">i</span> Si vous le souhaitez, vous 
                             pouvez ici apporter des précisions concernant le public.
                         </div>
                     </td>  
@@ -217,7 +219,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             <ul>
                                 <li>
                                     Quel est le milieu, l’espace de vie partagé 
@@ -243,7 +245,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             En quoi a consisté le projet ? Qu’est-ce qui a été fait ?
                             Par qui ? Comment ?<br />
                             Le(s) public(s) ont-ils été associés au projet ?
@@ -296,7 +298,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Quelles communes sont concernées ?
                         </div>
                     </td>
@@ -318,7 +320,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Quand s’est déroulé le projet ?
                         </div>
                     </td>
@@ -336,7 +338,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             <ul>
                                 <li>De quoi avez-vous (eu) besoin pour mettre ce
                                     projet en place ?</li>
@@ -365,7 +367,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Qu’est-ce que le projet a apporté ?
                             <ul>
                                 <li>Au public</li>
@@ -394,7 +396,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Y a-t-il des suites prévues à ce projet ? 
                             Une reconduction ? Une réorientation... ? 
                         </div>
@@ -436,7 +438,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Quelles sont les personnes ou institutions qui ont
                             construit et/ou porté le projet avec vous?
                             <br />
@@ -459,7 +461,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Il peut s’agir d’une personne, de plusieurs personnes,
                             d’une association, d’une institution… qui ne figurent
                             pas dans la liste déroulante ci-dessus.
@@ -487,7 +489,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Quelles sont les personnes ou institutions qui ont
                             construit et/ou porté le projet avec vous?
                             <br />
@@ -510,7 +512,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Il peut s’agir d’une personne, de plusieurs personnes,
                             d’une association, d’une institution… qui ne figurent
                             pas dans la liste déroulante ci-dessus.
@@ -537,7 +539,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Y a-t-il des personnes qui sont intervenus à l’un ou
                             l’autre du projet, mais qui n’ont pas participé à
                             l’ensemble du projet ?
@@ -555,7 +557,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Il peut s’agir d’une personne, de plusieurs personnes,
                             d’une association, d’une institution… qui ne figurent
                             pas dans la liste déroulante ci-dessus.
@@ -578,7 +580,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Y a-t-il des outils qui vous ont soutenu, aidé ?
                         </div>
                     </td>
@@ -594,7 +596,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Outils qui ne figurent pas dans le menu déroulant ci-dessus
                         </div>
                     </td>
@@ -608,7 +610,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Y a-t-il des formations qui vous ont aidé ?
                         </div>
                     </td>
@@ -626,7 +628,7 @@
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <img src="info.png" />
+                            <span class="info-logo">i</span>
                             Si quelqu’un souhaitait mener le même type de projets,
                             vous lui conseilleriez de contacter qui ? de commencer
                             par où ?

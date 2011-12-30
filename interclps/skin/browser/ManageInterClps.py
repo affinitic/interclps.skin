@@ -18,13 +18,14 @@ from Products.Archetypes.atapi import LinesField
 from Products.Archetypes.Renderer import renderer
 from Products.Archetypes.atapi import BaseContent
 from interfaces import IManageInterClps
-from collective.captcha.browser.captcha import Captcha  
+from collective.captcha.browser.captcha import Captcha
 
 
 class ManageInterClps(BrowserView):
     implements(IManageInterClps)
 
     ### gestion des widgets kupu addRemoveList ###
+
     def getWysiwygField(self, name, value):
         """
         generates a WYSIWYG field containing value
@@ -36,7 +37,7 @@ class ManageInterClps(BrowserView):
             default = value
             missing_value = None
             title = None
-            description = None 
+            description = None
 
         request = self.request
         request.form = {}
@@ -50,7 +51,9 @@ class ManageInterClps(BrowserView):
         nameKey and pkKey are used for the display value and the record pk to
         save
         """
+
         class MyContext(BaseContent):
+
             def getSelectedValues(self):
                 return selectedPks
         if not isinstance(nameKey, list):
@@ -475,8 +478,10 @@ class ManageInterClps(BrowserView):
 
     def getTuple(self, data):
         dataTuple=()
+        if type(data) is str:
+            data=int(data)
         if type(data) is int:
-            dataTuple = (data,)
+            dataTuple = (data, )
         if type(data) is list:
             dataTuple = tuple(data)
         return(dataTuple)
@@ -626,7 +631,7 @@ class ManageInterClps(BrowserView):
         """
         auteur = auteurConnecte.split()
         auteurNom = auteur[0]
-        auteurPrenom = auteur[1] 
+        auteurPrenom = auteur[1]
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         AuteurTable = wrapper.getMapper('auteur')
@@ -636,7 +641,6 @@ class ManageInterClps(BrowserView):
         auteur = query.one()
         auteurPk = auteur.auteur_pk
         return auteurPk
-
 
     def getAuteurTypeByLogin(self):
         """
@@ -917,7 +921,7 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         LinkExperiencePublicTable = wrapper.getMapper('link_experience_public')
         query = session.query(LinkExperiencePublicTable)
-        query = query.filter(LinkExperiencePublicTable.experience_fk.in_(experiencePk,))
+        query = query.filter(LinkExperiencePublicTable.experience_fk.in_(experiencePk, ))
         publicPk = query.all()
 
         listePublicForExperience = []
@@ -949,8 +953,6 @@ class ManageInterClps(BrowserView):
                 if i.public_fk == j.public_pk:
                     listePublicForExperience.append(j.public_pk)
         return listePublicForExperience
-
-
 
     def getPublicForSearchEngine(self):
         """
@@ -1274,6 +1276,8 @@ class ManageInterClps(BrowserView):
         table pg experience
         recuperation d'un recit selon experience_pk
         """
+        experiencePk = self.getTuple(experiencePk)
+
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         ExperienceTable = wrapper.getMapper('experience')
@@ -2286,11 +2290,6 @@ class ManageInterClps(BrowserView):
                     listeCommuneCouverteByInstitution.append(j.com_pk)
         return listeCommuneCouverteByInstitution
 
-
-
-
-
-
     def isInstitutionTerritoireCouvert(self, institutionPk):
         """
         table pg institution
@@ -2662,7 +2661,7 @@ class ManageInterClps(BrowserView):
         auteur_actif = getattr(fields, 'auteur_actif')
         auteur_for_experience = getattr(fields, 'auteur_for_experience', False)
         auteur_for_institution = getattr(fields, 'auteur_for_institution', False)
-        auteur_clps_fk = getattr(fields, 'auteur_clps_fk') 
+        auteur_clps_fk = getattr(fields, 'auteur_clps_fk')
         auteur_creation_date = self.getTimeStamp()
         auteur_modification_date = self.getTimeStamp()
         auteur_modification_employe = self.getUserAuthenticated()
