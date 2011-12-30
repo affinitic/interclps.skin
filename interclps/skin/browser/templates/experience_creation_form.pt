@@ -16,7 +16,7 @@
 <form action="experience-inserer"
       method="post">
     <br />
-    
+
     <h1>Encoder votre expérience</h1>
     <div class="discreet">
         Les <span class="info-logo">i</span> situés à droite de l’écran sont là pour vous soutenir
@@ -175,11 +175,11 @@
                 <td class="form-experience-left-column">
                     <textarea name="experience_public_vise"
                               rows="3"
-                              cols="70"></textarea> 
+                              cols="70"></textarea>
                 </td>
                 <td class="form-experience-right-column">
                     <div class="info-champs">
-                        <span class="info-logo">i</span> Si vous le souhaitez, vous 
+                        <span class="info-logo">i</span> Si vous le souhaitez, vous
                         pouvez ici apporter des précisions concernant le public.
                     </div>
                 </td>
@@ -205,11 +205,11 @@
                         <span class="info-logo">i</span>
                         <ul>
                             <li>
-                                Quel est le milieu, l’espace de vie partagé 
+                                Quel est le milieu, l’espace de vie partagé
                                 par les personnes visées par ce projet ?
                             </li>
                             <li>
-                                Y a-t-il un lieu que les personnes visées 
+                                Y a-t-il un lieu que les personnes visées
                                 par ce projet ont en commun ?
                             </li>
                         </ul>
@@ -317,7 +317,7 @@
                         <span class="info-logo">i</span>
                         <ul>
                             <li>De quoi avez-vous (eu) besoin pour mettre ce
-                                projet en place ?</li> 
+                                projet en place ?</li>
                             <li>De quels moyens humains : combien de personnes
                                 ont travaillé à ce projet ? A quelle fréquence ?
                                 Combien d’heures de travail a-t-il nécessité ?</li>
@@ -373,7 +373,7 @@
                 <td class="form-experience-right-column">
                     <div class="info-champs">
                         <span class="info-logo">i</span>
-                        Y a-t-il des suites prévues à ce projet ? 
+                        Y a-t-il des suites prévues à ce projet ?
                         Une reconduction ? Une réorientation... ?
                     </div>
                 </td>
@@ -431,7 +431,6 @@
             </tr>
         </table>
     </fieldset>
-
 
     <fieldset>
         <legend class="legende">Partenaire(s)</legend>
@@ -596,7 +595,7 @@
             </tr>
         </table>
     </fieldset>
-    
+
     <div class="div_form_input">
         <input type="hidden"
                name="experience_etat"

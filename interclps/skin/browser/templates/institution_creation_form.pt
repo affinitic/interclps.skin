@@ -11,7 +11,7 @@
     </metal:js>
     <metal:css fill-slot="style_slot">
         <link href="++resource++collective.javascript.jqueryui/css/ui-lightness/jquery-ui.css" type="text/css" rel="stylesheet" />
-    </metal:css>    
+    </metal:css>
     <metal:noborder fill-slot="top_slot"
                  tal:define="dummy python:request.set('disable_border',1)" />
 </head>
@@ -27,7 +27,7 @@
         <legend class="legende">Institution</legend>
         <div class="div_question">
             <img src="list_flch_rouge.png" /> Nom
-            <br />                                                      
+            <br />
             <input type="text"
                    name="institution_nom"
                    value=""
@@ -147,8 +147,8 @@
             <div id="info-champs">
                 <span class="info-logo">i</span>
                 &nbsp;&nbsp;
-                Sur quel territoire l’institution mène-t-elle ses activités ? 
-                Ce territoire n’est pas nécessairement le même que celui sur 
+                Sur quel territoire l’institution mène-t-elle ses activités ?
+                Ce territoire n’est pas nécessairement le même que celui sur
                 lequel elle est implantée.
             </div>
             <br />
@@ -286,9 +286,9 @@
                         <br />
                     </td>
                 </tr>
-                
+
                 <tr><td colspan="2"></td></tr>
-                
+
                 <tr class="info-institution-assuetude-even">
                     <td valign="top">
                         <br />
@@ -329,7 +329,7 @@
                             <span class="info-logo">i</span>
                             <br />
                             Quels types d’activités proposez-vous en matière d’assuétudes ?
-                            Plusieurs choix sont possibles 
+                            Plusieurs choix sont possibles
                         </div>
                         <br />
                     </td>
@@ -352,9 +352,9 @@
                         <br />
                     </td>
                 </tr>
-                
+
                 <tr><td colspan="2"></td></tr>
-                
+
                 <tr class="info-institution-assuetude-odd">
                     <td valign="top">
                         <br />
@@ -390,7 +390,7 @@
                 </tr>
                 <tr class="info-institution-assuetude-odd">
                     <td valign="top">
-                        <br /> 
+                        <br />
                         <span class="gras">Précision par rapport aux thématiques</span>
                         <br />
                         <span tal:replace="structure python: view.getWysiwygField('institution_assuet_thematique_precision', '')" />
@@ -407,9 +407,9 @@
                         <br />
                     </td>
                 </tr>
-                
+
                 <tr><td colspan="2"></td></tr>
-                
+
                 <tr class="info-institution-assuetude-even">
                     <td valign="top">
                         <br />
@@ -458,7 +458,7 @@
                    name="institutionAuteur"
                    value=""
                    size="50">
- 
+
         </fieldset>
 
         <fieldset>
@@ -496,7 +496,7 @@
                    value="True" />&nbsp;&nbsp;Santé et environnement
             <br />
         </fieldset>
-        
+
         <fieldset>
             <legend class="legende">Listing des ressources dans les plate-formes</legend>
             <p>Permet d'afficher une institution dans la liste des organismes des ressources d'une plate-forme</p>
@@ -524,6 +524,10 @@
                name="institution_auteur_login"
                value=""
                tal:attributes="value auteur/auteur_login" />
+        <input type="hidden"
+               name="institution_auteur_fk"
+               value=""
+               tal:attributes="value auteur/auteur_pk" />
         <input type="hidden"
                name="institutionClpsProprio"
                value="2" />

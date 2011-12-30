@@ -3127,11 +3127,18 @@ class ManageInterClps(BrowserView):
         institution_creation_date = self.getTimeStamp()
         institution_modification_employe = self.getUserAuthenticated()
         institution_auteur = getattr(fields, 'institutionAuteur', None)
+        institution_auteur_fk = getattr(fields, 'institution_auteur_fk', None)
         institution_commune_fk = getattr(fields, 'institution_commune_fk', None)
         institution_clps_proprio_fk = getattr(fields, 'institutionClpsProprio', None)
         institution_institution_type_fk = getattr(fields, 'institution_institution_type_fk', None)
 
-        institution_auteur_fk = self.getAuteurPkByName(institution_auteur)
+        if not institution_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue
+            auteur = self.getAuteurByLogin()
+            institution_auteur_fk= auteur.auteur_pk
+
+        if institution_auteur:    #cas ou c'est un clpsmemeber qui se loggue via le formulaire insitution_creation_form
+            institution_auteur_fk = self.getAuteurPkByName(institution_auteur)
+            institution_auteur_login = self.getAuteurLogin(institution_auteur_fk)
 
         if not institution_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue
             auteur = self.getAuteurByLogin()
@@ -3409,15 +3416,13 @@ class ManageInterClps(BrowserView):
         experience_auteur_fk = getattr(fields, 'experience_auteur_fk', None)
         experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
         experience_clps_proprio_fk = getattr(fields, 'experienceClpsProprio', None)
-        
 
-        
         if not experience_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue formulaire experience_creation_form
             auteur = self.getAuteurByLogin()
             experience_auteur_fk= auteur.auteur_pk
-        
+
         if experience_auteur: #cas ou c'est un clpsmember qui se loggue via formulaire admin_experience_creation_form 
-            experience_auteur_fk = self.getAuteurPkByName(experience_auteur) 
+            experience_auteur_fk = self.getAuteurPkByName(experience_auteur)
             experience_auteur_login = self.getAuteurLogin(experience_auteur_fk)
 
         wrapper = getSAWrapper('clpsbw')
