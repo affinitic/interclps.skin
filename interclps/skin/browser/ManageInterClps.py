@@ -51,6 +51,7 @@ class ManageInterClps(BrowserView):
         nameKey and pkKey are used for the display value and the record pk to
         save
         """
+        selectedPks = [str(pk) for pk in selectedPks]
 
         class MyContext(BaseContent):
 
