@@ -830,6 +830,8 @@ class ManageInterClps(BrowserView):
         table pg link_experience_theme
         recuperation des theme selon experience_pk
         """
+        experiencePk = self.getTuple(experiencePk)
+
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         LinkExperienceThemeTable = wrapper.getMapper('link_experience_theme')
@@ -1893,6 +1895,8 @@ class ManageInterClps(BrowserView):
         table pg link_experience_milieudevie
         recuperation des milieudevies selon experiencePk
         """
+        experiencePk = self.getTuple(experiencePk)
+
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         LinkExperienceMilieuDeVieTable = wrapper.getMapper('link_experience_milieudevie')
@@ -3651,7 +3655,7 @@ class ManageInterClps(BrowserView):
                                       recherchelog_public_fk = publicPk, \
                                       recherchelog_motcle_fk = motclePk, \
                                       recherchelog_date = recherchelog_date)
-        session.save(newEntry)
+        session.add(newEntry) #session.save(newEntry)
         session.flush()
         return {'status': 1}
 
