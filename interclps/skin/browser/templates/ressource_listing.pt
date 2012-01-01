@@ -16,48 +16,73 @@
             <tal:block tal:define="ressourcePk ressource/ressource_pk">
                 <fieldset>
                     <legend>
-                        <img src="carre_orange.gif"
-                             widht="50%"/>
                           <a href=""
                              tal:content="ressource/ressource_titre"
                              tal:attributes="href string:ressource-decrire?ressourcePk=${ressourcePk}"
                              class="titre_formation">titre de la ressource</a>
                     </legend>
-                    <div id="experience-etat"
-                         tal:define="ressourceEtat python:view.getRessourceEtat(ressourcePk)"
-                         tal:condition="python:user.has_role(['Manager'], here)">
-                        <span tal:content="ressourceEtat" />
-                        &Xi;
-                        <span tal:content="ressource/ressource_pk" />
-                    </div>
                     <ul class="description">
                         <li>
-                            <span class="brun"><img src="list_flch_rouge.png" /> Description :</span><br />
+                            <span class="brun"> Description :</span><br />
                             <span tal:replace="structure ressource/ressource_description"
                                    class="rubrique-db" />
                         </li>
                         <li>
-                            <span class="brun"><img src="list_flch_rouge.png" /> Auteur :</span><br />
+                            <span class="brun"> Auteur :</span><br />
                             <span tal:content="ressource/ressource_auteur"
                                    class="rubrique-db" />
                         </li>
                         <li>
-                            <span class="brun"><img src="list_flch_rouge.png" /> Année de parution :</span><br />
+                            <span class="brun"> Année de parution :</span><br />
                             <span tal:content="ressource/ressource_date_edition"
                                    class="rubrique-db" />
                         </li>
                         <li>
-                            <span class="brun"><img src="list_flch_rouge.png" /> Public :</span><br />
+                            <span class="brun"> Public :</span><br />
                             <span tal:content="ressource/ressource_public"
                                    class="rubrique-db" />
                         </li>
 
                     </ul>
-                    <div align="right">
-                        <a href=""
-                           tal:attributes="href
-                           string:ressource-decrire?ressourcePk=${ressourcePk}">
-                           <img src="btn_suivant.png" /></a>
+                    
+                    <div id="footer-listing">
+                        <table width="100%">
+                            <tr>
+                                <td align="left" class="discreet" valign="bottom">
+                                    <div>
+                                      par
+                                      <span tal:content="ressource/ressource_modification_employe | nothing" />
+                                      <br />
+                                      Dernière modification :
+                                      <span tal:content="ressource/ressource_modification_date" />
+                                    </div>
+                                    <div id="experience-etat"
+                                         tal:define="ressourceEtat python:view.getRessourceEtat(ressourcePk)"
+                                         tal:condition="python:user.has_role(['Manager'], here)">
+                                        <span tal:content="ressourceEtat" />
+                                            &Xi;
+                                        PK : <span tal:content="ressource/ressource_pk" />
+                                    </div>
+                                </td>
+                                <td align="right">
+                                      <div class="btn-modifier"
+                                           tal:condition="python:user.has_role(['Manager'], here)">
+                                           <a href=""
+                                              tal:attributes="href string: ressource-modifier?ressourcePk=${ressourcePk}"
+                                              title="Modifier la ressource"
+                                              alt="Modifier la ressource">&nbsp;</a>
+                                      </div> 
+                                </td>
+                                <td align="right">
+                                    <div align="right">
+                                        <a href=""
+                                           tal:attributes="href
+                                           string:ressource-decrire?ressourcePk=${ressourcePk}">
+                                           <img src="btn_suivant.png" /></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </fieldset>
             </tal:block>
