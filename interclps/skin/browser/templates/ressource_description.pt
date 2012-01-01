@@ -32,14 +32,14 @@
             </div>
 
 
+<!-- === COLONNE GAUCHE =================================================================================================-->
             <div id="left-ressource">
-                <div class="puzzle-vert">
-                    <span class="left-rubrique-db">Public</span>
+                <div>
+                    <h3 class="left-rubrique-db">Public</h3>
                     <div class="text-db">
                         <tal:block tal:define="publics python:view.getPublicByRessourcePk(ressource.ressource_pk)">
                             <tal:boucle tal:repeat="public publics">
-                                <span tal:content="public"
-                                      class="rubrique-db">public</span><br />
+                                <span class="text-db">public</span>
                             </tal:boucle>
                         </tal:block>
                     </div>
@@ -49,51 +49,43 @@
                     </div>
                 </div>
 
-                <div class="puzzle-rouge"
-                     tal:condition="python: ressource.ressource_objectif!=''">
-                    <span class="left-rubrique-db">Objectif(s)</span>
+                <div tal:condition="python: ressource.ressource_objectif!=''">
+                    <h3 class="left-rubrique-db">Objectif(s)</h3>
                     <div class="text-db">
                         <span tal:replace="structure ressource/ressource_objectif"></span>
                     </div>
                 </div>
 
-                <div class="puzzle-vert"
-                     tal:condition="python: ressource.ressource_description!=''">
-                    <span class="left-rubrique-db">Description</span>
+                <div tal:condition="python: ressource.ressource_description!=''">
+                    <h3 class="left-rubrique-db">Description</h3>
                     <div class="text-db">
                         <span tal:replace="structure ressource/ressource_description" />
                     </div>
                 </div>
             
-                <div class="puzzle-jaune"
-                     tal:condition="python: ressource.ressource_utilisation!=''">
-                    <span class="left-rubrique-db">Utilisation</span>
+                <div tal:condition="python: ressource.ressource_utilisation!=''">
+                    <h3 class="left-rubrique-db">Utilisation</h3>
                     <div class="text-db">
                         <span tal:replace="structure ressource/ressource_utilisation" />
                     </div>
                 </div>
             
-                <div class="puzzle-rouge"
-                     tal:condition="python: ressource.ressource_avis_clps!=''">
-                    <span class="left-rubrique-db">Avis du CLPS</span>
+                <div tal:condition="python: ressource.ressource_avis_clps!=''">
+                    <h3 class="left-rubrique-db">Avis du CLPS</h3>
                     <div class="text-db">
                         <span tal:replace="structure ressource/ressource_avis_clps" />
                     </div>
                 </div>
-                <div class="puzzle-vert"
-                     tal:condition="python: ressource.ressource_lien_pipsa!=''">
-                    <span class="left-rubrique-db">Lien pipsa</span>
-                    <br />
+                <div tal:condition="python: ressource.ressource_lien_pipsa!=''">
+                    <h3 class="left-rubrique-db">Lien pipsa</h3>
                     <a href=""
                        target="_blank"
                        tal:attributes="href ressource/ressource_lien_pipsa">
                         <span tal:content="ressource/ressource_lien_pipsa" /></a>
                 </div>
     
-                <div class="puzzle-gris"
-                     tal:condition="python: ressource.ressource_autre_lien!=''">
-                    <span class="left-rubrique-db">Autre lien</span>
-                    <br />
+                <div tal:condition="python: ressource.ressource_autre_lien!=''">
+                    <h3 class="left-rubrique-db">Autre lien</h3>
                     <a href=""
                        target="_blank"
                        tal:attributes="href ressource/ressource_autre_lien">
@@ -102,68 +94,62 @@
             </div><!--left-->
 
 
-            
+<!-- === COLONNE DROITE =================================================================================================-->            
             <div id="right-ressource">
-                <div id="right-ressource-header"></div>
                 <div id="right-ressource-content">
                     <div tal:condition="python: ressource.ressource_auteur!=''">
-                        <span class="right-rubrique-db">Auteur(s)</span>
-                        <br />
+                        <h4>Auteur(s)</h4>
                         &#8226; 
                         <span tal:content="ressource/ressource_auteur" />
                     </div>
                     
                     <div tal:condition="python: ressource.ressource_edition!=''">
-                        <span class="right-rubrique-db">Editeur</span>
-                        <br />
+                        <h4>Editeur</h4>
                         &#8226; 
                         <span tal:content="ressource/ressource_edition" />
                     </div>
                     
                     <div tal:condition="python: ressource.ressource_lieu_edition!=''">
-                        <span class="right-rubrique-db">Lieu d'édition</span>
-                        <br />
+                        <h4>Lieu d'édition</h4>
                         &#8226; 
                         <span tal:content="ressource/ressource_lieu_edition" />
                     </div>
                     
                     <div tal:condition="python: ressource.ressource_date_edition!=''">
-                        <span class="right-rubrique-db">Date d'édition</span>
-                        <br />
+                        <h4>Date d'édition</h4>
                         &#8226; 
                         <span tal:content="ressource/ressource_date_edition" />
                     </div>
                     
                     <div tal:condition="python: ressource.ressource_collection!=''">
-                        <span class="right-rubrique-db">Collection</span>
-                        <br />
+                        <h4>Collection</h4>
                         &#8226; 
                         <span tal:content="ressource/ressource_collection" />
                     </div>
                     
                     <div>
-                        <span class="right-rubrique-db">Disponible au CLPS</span>
-                        <br /> 
+                        <h4>Disponible au CLPS</h4>
                         <span tal:condition="python:ressource.ressource_disponible_clps==True">
+                            &#8226;
                             <span class="rubrique-db">Oui</span>
                         </span>
                         <span tal:condition="python:ressource.ressource_disponible_clps==False">
+                            &#8226;
                             <span class="rubrique-db">Non</span>
                         </span>
                     </div>
 
                     <div tal:condition="python: ressource.ressource_disponible_autre!=''">
-                        <span class="right-rubrique-db">Autre disponibilité</span>
-                        <br />
+                        <h4>Autre disponibilité</h4>
                         &#8226; 
                         <span tal:content="ressource/ressource_disponible_autre" />
                     </div>
 
                     <div>
-                        <span class="right-rubrique-db">Support</span>
-                        <br />
+                        <h4>Support</h4>
                         <tal:block tal:define="supports python:view.getSupportByRessourcePk(ressource.ressource_pk, 'titre')">
                             <tal:boucle tal:repeat="support supports">
+                                &#8226;
                                 <span tal:content="support"
                                       class="rubrique-db">support</span><br />
                             </tal:boucle>
@@ -171,24 +157,25 @@
                     </div>
                 </div><!--content-->
                 <div id="right-ressource-footer"></div>
-                
-                <tal:block tal:define="experiences python:view.getExperienceByRessource(ressource.ressource_pk)">
-                    <div tal:condition="python: len(experiences) > 0"
-                         class="portlet-experience-pour-ressource">
-                        <h3><img src="logo_projet_partage.png" /> Projets partagés</h3>
-                        <tal:boucle tal:repeat="experience experiences">
-                            <p>
+                 
+                <!-- portlet assuetude projets partagés -->
+                <div id="projet-partage-ressource"
+                     tal:define="experiences python:view.getExperienceByRessource(ressource.ressource_pk)"
+                     tal:condition="python: len(experiences) > 0">
+                    <h3><img src="logo_projet_partage.png" /> Projets partagés</h3>
+                    <tal:boucle tal:repeat="experience experiences">
+                        <p>
                             &#8226;
                             <a href=""
                                tal:attributes="href string:${context/portal_url}/experience-decrire?experiencePk=${experience/experience_pk}">
-                                <span tal:content="experience/experience_titre"></span></a>
-                            </p>
-                        </tal:boucle>
-                    </div>
-                </tal:block>
+                               <span tal:content="experience/experience_titre"></span></a>
+                        </p>
+                    </tal:boucle>
+                </div>
             </div><!--right-->
             
-            <div id="clearboth"></div>
+            <div class="break-float"></div>
+            <div id="ressource-footer"></div>
 
 
 <!--gestion admin-->            

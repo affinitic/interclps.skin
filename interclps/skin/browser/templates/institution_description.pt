@@ -24,13 +24,13 @@
                       tal:define="institutionPk institution/institution_pk">
                     <div class="btn-modifier"
                          tal:condition="python:user.has_role(['Manager'], here)">
-                        <br />
                         <a href=""
                            tal:attributes="href string: admin-institution-modifier?institutionPk=${institutionPk}">&nbsp;</a>
                     </div>
                 </div>
             </div>
-            
+
+<!-- === COLONNE GAUCHE =================================================================================================-->            
             <div id="left-institution">
                 <div tal:condition="python: institution.institution_public!=''"
                      class="description-left-content">

@@ -29,7 +29,7 @@
         </a>
     </div>
     <div class="btn-nouvelle-recherche">
-        <a href="ressource-rechercher">
+        <a href="ressource-chercher">
             Rechercher une ressource
         </a>
     </div>
@@ -39,7 +39,7 @@
         </a>
     </div>
     <div class="btn-nouvelle-recherche">
-        <a href="ressource-rechercher">
+        <a href="ressource-chercher">
             Modifier une ressource
         </a>
     </div>

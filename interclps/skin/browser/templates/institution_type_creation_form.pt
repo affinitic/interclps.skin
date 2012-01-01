@@ -16,17 +16,17 @@
     
     <h1>:: Gestion des types d'institution ::</h1>
     <fieldset tal:define="institutiontypes python: view.getAllInstitutionType()">
-        <table width="50%"
-                   align="center"
-                   class="listing">
-                <thead>
+        <table width="90%"
+               align="center"
+               class="listing">
+            <thead>
                 <tr>
                     <th> Type </th>
                     <th> Etat </th>
                     <th class="nosort"> Modifier </th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
                 <tal:boucle tal:repeat="institutiontype institutiontypes">
                     <span tal:define="odd repeat/institutiontype/odd">
                         <tr tal:attributes="class python:odd and 'odd' or 'even'">
@@ -50,37 +50,34 @@
                         </tr>
                     </span>
                 </tal:boucle>
-                </tbody>
+            </tbody>
         </table>
     </fieldset>
     <fieldset>
-        <ul class="formulaire">
-            <li>
-                <img src="list_flch_rouge.png" /> Type d'institution
-                <br />
-                <input type="text"
-                       name="institution_type_nom"
-                       value=""
-                       size="50" />
-            </li>
-            <li>
-                <img src="list_flch_rouge.png" /> Etat
-                <br />
-                <select name="institution_type_actif"
-                        id="institution_type_actif">
-                    <option value="True" selected="selected">Activer</option>
-                    <option value="False">Désactiver</option>
-                </select>
-            </li>
-            <hr />
-            <li>
-                <input type="hidden"
-                       name="operation"
-                       value="insert" />
-                <input type="submit"
-                       value="Enregister le type d'institution" />
-            </li>
-        </ul>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Type d'institution
+            <br />
+            <input type="text"
+                   name="institution_type_nom"
+                   value=""
+                   size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Etat
+            <br />
+            <select name="institution_type_actif"
+                    id="institution_type_actif">
+                <option value="True" selected="selected">Activer</option>
+                <option value="False">Désactiver</option>
+            </select>
+        </div>
+        <div class="div_question">
+            <input type="hidden"
+                   name="operation"
+                   value="insert" />
+            <input type="submit"
+                   value="Enregister le type d'institution" />
+        </div>
     </fieldset>
 </form>
 </div><!-- div metal-->

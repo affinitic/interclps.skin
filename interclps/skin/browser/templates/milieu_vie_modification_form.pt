@@ -19,7 +19,7 @@
         <legend class="legende">Modifier un milieu de vie</legend>
         <tal:boucle tal:repeat="milieudevie milieudevies">
             <form action="milieu-de-vie-inserer" method="post">
-                <div>
+                <div class="div_question">
                     <img src="list_flch_rouge.png" /> Milieu de vie
                     <br />
                     <input type="text"
@@ -29,7 +29,7 @@
                            class="grasorange"
                            tal:attributes="value milieudevie/milieudevie_nom" />
                 </div>
-                <div>
+                <div class="div_question">
                     <img src="list_flch_rouge.png" /> Etat
                     <br />
                     <select name="milieudevie_actif">
@@ -39,7 +39,6 @@
                                 tal:attributes="selected python:not milieudevie.milieudevie_actif and 'selected' or None;">Désactiver</option>
                     </select>
                 </div>
-                <hr />
                 <div class="div_form_input">
                     <input type="hidden"
                            name="operation"

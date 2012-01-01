@@ -17,11 +17,11 @@ public
     <br />
     <h1>Gestion des publics</h1>
     <fieldset>
-        <legend class="legende">Modifier un thème</legend>
+        <legend class="legende">Modifier un public</legend>
         <tal:boucle tal:repeat="public publics">
             <form action="public-inserer" method="post">
-                <div>
-                    <img src="list_flch_rouge.png" /> Thème
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Public
                     <br />
                     <input type="text"
                            name="public_nom"
@@ -30,7 +30,7 @@ public
                            class="grasorange"
                            tal:attributes="value public/public_nom" />
                 </div>
-                <div>
+                <div class="div_question">
                     <img src="list_flch_rouge.png" /> Etat
                     <br />
                     <select name="public_actif">
@@ -40,7 +40,6 @@ public
                                 tal:attributes="selected python:not public.public_actif and 'selected' or None;">Désactiver</option>
                     </select>
                 </div>
-                <hr />
                 <div class="div_form_input">
                     <input type="hidden"
                            name="operation"

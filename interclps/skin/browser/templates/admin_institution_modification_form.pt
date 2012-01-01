@@ -23,236 +23,224 @@
 
             <fieldset>
                 <legend class="legende">Institution</legend>
-                <ul class="formulaire">
-                    <li>
-                        <img src="list_flch_rouge.png" /> Nom
-                        <br />
-                        <input type="text"
-                               name="institution_nom"
-                               value=""
-                               size="50"
-                               tal:attributes="value institution/institution_nom"
-                               class="grasorange" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Sigle
-                        <br />
-                        <input type="text"
-                               name="institution_sigle"
-                               value=""
-                               size="50"
-                               tal:attributes="value institution/institution_sigle"
-                               class="grasorange" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Adresse
-                        <br />
-                        <input type="text"
-                               name="institution_adresse"
-                               value=""
-                               size="50"
-                               tal:attributes="value institution/institution_adresse"
-                               class="grasorange" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Localité
-                        <br />
-                        <select name="institution_commune_fk"
-                                tal:define="communes view/getAllCommune">
-                            <tal:boucle tal:repeat="commune communes">
-                              <option value=""
-                                      tal:attributes="value commune/com_pk;
-                                                      selected python:commune.com_pk==institution.institution_commune_fk">
-                                  <span tal:content="commune/com_localite_cp" />
-                                  &nbsp;&nbsp;
-                                  <span tal:content="commune/com_localite_nom" />
-                              </option>
-                            </tal:boucle>
-                        </select>
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Nom, Prénom de la personne ressource<br />
-                        <input type="text"
-                               name="institution_nom_contact"
-                               value=""
-                               size="50"
-                               tal:attributes="value institution/institution_nom_contact"
-                               class="grasorange" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Fonction de la personne de contact<br />
-                        <input type="text"
-                               name="institution_fonction_contact"
-                               value=""
-                               size="50"
-                               tal:attributes="value institution/institution_fonction_contact"
-                               class="grasorange" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> E-mail de la personne ressource<br />
-                        <input type="text"
-                               name="institution_email_contact"
-                               value=""
-                               size="50"
-                               tal:attributes="value institution/institution_email_contact"
-                               class="grasorange" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Tél de la personne ressource<br />
-                        <input type="text"
-                               name="institution_tel_contact"
-                               value=""
-                               size="50"
-                               tal:attributes="value institution/institution_tel_contact"
-                               class="grasorange" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Site web<br />
-                        <input type="text"
-                               name="institution_url_site"
-                               value=""
-                               size="50"
-                               tal:attributes="value institution/institution_url_site"
-                               class="grasorange" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Lien SISS<br />
-                        <input type="text"
-                               name="institution_lien_siss"
-                               value=""
-                               size="50"
-                               tal:attributes="value institution/institution_lien_siss"
-                               class="grasorange" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Autre Lien<br />
-                        <input type="text"
-                               name="institution_lien_autre"
-                               value=""
-                               size="50"
-                               tal:attributes="value institution/institution_lien_autre"
-                               class="grasorange" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Autres informations
-                        <br />
-                        <span tal:replace="structure python: view.getWysiwygField('institution_autre_info', institution.institution_autre_info)" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Mission
-                        <br />
-                        <span tal:replace="structure python: view.getWysiwygField('institution_mission', institution.institution_mission)" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Activités
-                        <br />
-                        <span tal:replace="structure python: view.getWysiwygField('institution_activite', institution.institution_activite)" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Public
-                        <br />
-                        <span tal:replace="structure python: view.getWysiwygField('institution_public', institution.institution_public)" />
-                    </li>
-                    <li>
-                        <br /><br />
-                        Territoire couvert par institution.
-                        <br />
-                        <img src="info.png" />
-                        &nbsp;&nbsp; Sur quel territoire l’institution mène-t-elle ses activités ? 
-                        Ce territoire n’est pas nécessairement le même que celui sur lequel elle est implantée.
-                        <br />
-                        <br />
-                        <img src="list_flch_rouge.png" /> Localité(s) couverte(s) par cette institution
-                        <br />
-                        <br />
-                        <img src="list_flch_rouge.png" /> Localité du Luxembourg
-                        <tal:addremove define="errors python:{};">
-                            <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_inbw_fk', ' ',
-                                                           view.getAllCommune((4,)),
-                                                           nameKey=['com_localite_cp', 'com_localite_nom'],
-                                                           pkKey='com_pk',
-                                                           selectedPks=view.getInstitutionCommuneCouvertePkInLux(institution.institution_pk))" />
-                        </tal:addremove>
-                        <br />
-                        <br />
-                        <img src="list_flch_rouge.png" />Localité hors Luxembourg
-                        <tal:addremove define="errors python:{};">
-                            <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_outbw_fk', ' ',
-                                                           view.getAllCommune((1,2,3,5,11)),
-                                                           nameKey=['com_localite_cp', 'com_localite_nom'],
-                                                           pkKey='com_pk',
-                                                           selectedPks=view.getInstitutionCommuneCouvertePkOutLux(institution.institution_pk))" />
-                        </tal:addremove>
-                        <br />
-                        <!--
-                        <tal:addremove define="errors python:{};">
-                            <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_fk', ' ',
-                                                           view.getAllCommune(),
-                                                           nameKey=['com_localite_cp', 'com_localite_nom'],
-                                                           pkKey='com_pk',
-                                                           selectedPks=view.getInstitutionCommuneCouvertePk(institution.institution_pk))" />
-                        </tal:addremove>
-                        -->
-                        <br />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="institution_territoire_tout_luxembourg"
-                               value="True"
-                               tal:attributes="checked python:institution.institution_territoire_tout_luxembourg and 'checked' or None;" />
-                           Tout le Luxembourg
-                        <br />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="institution_zone_cfwb"
-                               value="True"
-                               tal:attributes="checked python:institution.institution_zone_cfwb and 'checked' or None;" /> Communauté française
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="institution_zone_rw"
-                               value="True"
-                               tal:attributes="checked python:institution.institution_zone_rw and 'checked' or None;" /> Région wallonne
-                   </li>
-                   <li>
-                       <img src="list_flch_rouge.png" />
-                       <input type="checkbox"
-                              name="institution_zone_brxl"
-                              value="True"
-                              tal:attributes="checked python:institution.institution_zone_brxl and 'checked' or None;" /> Région Bruxelles capitale
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="institution_zone_belgique"
-                               value="True"
-                               tal:attributes="checked python:institution.institution_zone_belgique and 'checked' or None;" /> Belgique
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="institution_zone_internationale"
-                               value="True"
-                               tal:attributes="checked python:institution.institution_zone_internationale and 'checked' or None;" /> International
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Nom du pays
-                        <br />
-                        <input type="text"
-                               name="institution_zone_internationale_info"
-                               value=""
-                               tal:attributes="value institution/institution_zone_internationale_info" />
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" /> Commentaires
-                        <br />
-                        <span tal:replace="structure python: view.getWysiwygField('institution_commentaire', institution.institution_commentaire)" />
-                    </li>
-                </ul>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Nom
+                    <br />
+                    <input type="text"
+                           name="institution_nom"
+                           value=""
+                           size="50"
+                           tal:attributes="value institution/institution_nom"
+                           class="grasorange" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Sigle
+                    <br />
+                    <input type="text"
+                           name="institution_sigle"
+                           value=""
+                           size="50"
+                           tal:attributes="value institution/institution_sigle"
+                           class="grasorange" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Adresse
+                    <br />
+                    <input type="text"
+                           name="institution_adresse"
+                           value=""
+                           size="50"
+                           tal:attributes="value institution/institution_adresse"
+                           class="grasorange" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Localité
+                    <br />
+                    <select name="institution_commune_fk"
+                            tal:define="communes view/getAllCommune">
+                        <tal:boucle tal:repeat="commune communes">
+                          <option value=""
+                                  tal:attributes="value commune/com_pk;
+                                                  selected python:commune.com_pk==institution.institution_commune_fk">
+                              <span tal:content="commune/com_localite_cp" />
+                              &nbsp;&nbsp;
+                              <span tal:content="commune/com_localite_nom" />
+                          </option>
+                        </tal:boucle>
+                    </select>
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Nom, Prénom de la personne ressource<br />
+                    <input type="text"
+                           name="institution_nom_contact"
+                           value=""
+                           size="50"
+                           tal:attributes="value institution/institution_nom_contact"
+                           class="grasorange" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Fonction de la personne de contact<br />
+                    <input type="text"
+                           name="institution_fonction_contact"
+                           value=""
+                           size="50"
+                           tal:attributes="value institution/institution_fonction_contact"
+                           class="grasorange" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> E-mail de la personne ressource<br />
+                    <input type="text"
+                           name="institution_email_contact"
+                           value=""
+                           size="50"
+                           tal:attributes="value institution/institution_email_contact"
+                           class="grasorange" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Tél de la personne ressource<br />
+                    <input type="text"
+                           name="institution_tel_contact"
+                           value=""
+                           size="50"
+                           tal:attributes="value institution/institution_tel_contact"
+                           class="grasorange" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Site web<br />
+                    <input type="text"
+                           name="institution_url_site"
+                           value=""
+                           size="50"
+                           tal:attributes="value institution/institution_url_site"
+                           class="grasorange" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Lien SISS<br />
+                    <input type="text"
+                           name="institution_lien_siss"
+                           value=""
+                           size="50"
+                           tal:attributes="value institution/institution_lien_siss"
+                           class="grasorange" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Autre Lien<br />
+                    <input type="text"
+                           name="institution_lien_autre"
+                           value=""
+                           size="50"
+                           tal:attributes="value institution/institution_lien_autre"
+                           class="grasorange" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Autres informations
+                    <br />
+                    <span tal:replace="structure python: view.getWysiwygField('institution_autre_info', institution.institution_autre_info)" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Mission
+                    <br />
+                    <span tal:replace="structure python: view.getWysiwygField('institution_mission', institution.institution_mission)" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Activités
+                    <br />
+                    <span tal:replace="structure python: view.getWysiwygField('institution_activite', institution.institution_activite)" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Public
+                    <br />
+                    <span tal:replace="structure python: view.getWysiwygField('institution_public', institution.institution_public)" />
+                </div>
+                <div class="div_question">
+                    <br /><br />
+                    Territoire couvert par institution.
+                    <br />
+                    <img src="info.png" />
+                    &nbsp;&nbsp; Sur quel territoire l’institution mène-t-elle ses activités ? 
+                    Ce territoire n’est pas nécessairement le même que celui sur lequel elle est implantée.
+                    <br />
+                    <br />
+                    <img src="list_flch_rouge.png" /> Localité(s) couverte(s) par cette institution
+                    <br />
+                    <br />
+                    <img src="list_flch_rouge.png" /> Localité du Luxembourg
+                    <tal:addremove define="errors python:{};">
+                        <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_inbw_fk', ' ',
+                                                       view.getAllCommune((4,)),
+                                                       nameKey=['com_localite_cp', 'com_localite_nom'],
+                                                       pkKey='com_pk',
+                                                       selectedPks=view.getInstitutionCommuneCouvertePkInLux(institution.institution_pk))" />
+                    </tal:addremove>
+                    <br />
+                    <br />
+                    <img src="list_flch_rouge.png" />Localité hors Luxembourg
+                    <tal:addremove define="errors python:{};">
+                        <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_outbw_fk', ' ',
+                                                       view.getAllCommune((1,2,3,5,11)),
+                                                       nameKey=['com_localite_cp', 'com_localite_nom'],
+                                                       pkKey='com_pk',
+                                                       selectedPks=view.getInstitutionCommuneCouvertePkOutLux(institution.institution_pk))" />
+                    </tal:addremove>
+                    <br />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_territoire_tout_luxembourg"
+                           value="True"
+                           tal:attributes="checked python:institution.institution_territoire_tout_luxembourg and 'checked' or None;" />
+                       Tout le Luxembourg
+                    <br />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_zone_cfwb"
+                           value="True"
+                           tal:attributes="checked python:institution.institution_zone_cfwb and 'checked' or None;" /> Communauté française
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_zone_rw"
+                           value="True"
+                           tal:attributes="checked python:institution.institution_zone_rw and 'checked' or None;" /> Région wallonne
+               </div>
+               <div class="div_question">
+                   <img src="list_flch_rouge.png" />
+                   <input type="checkbox"
+                          name="institution_zone_brxl"
+                          value="True"
+                          tal:attributes="checked python:institution.institution_zone_brxl and 'checked' or None;" /> Région Bruxelles capitale
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_zone_belgique"
+                           value="True"
+                           tal:attributes="checked python:institution.institution_zone_belgique and 'checked' or None;" /> Belgique
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_zone_internationale"
+                           value="True"
+                           tal:attributes="checked python:institution.institution_zone_internationale and 'checked' or None;" /> International
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Nom du pays
+                    <br />
+                    <input type="text"
+                           name="institution_zone_internationale_info"
+                           value=""
+                           tal:attributes="value institution/institution_zone_internationale_info" />
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" /> Commentaires
+                    <br />
+                    <span tal:replace="structure python: view.getWysiwygField('institution_commentaire', institution.institution_commentaire)" />
+                </div>
             </fieldset>
             
             <div id="info-institution-assuetude">
@@ -617,20 +605,17 @@
                 </fieldset>
             </div>
 
-            <hr />
-            <ul class="formulaire">
-                <li>
-                    <input type="hidden"
-                           name="operation"
-                           value="update" />
-                    <input type="hidden"
-                           name="institution_pk"
-                           value=""
-                           tal:attributes="value institutionPk" />
-                    <input type="submit"
-                           value="Modifier l'institution" />
-                </li>
-            </ul>
+            <div class="div_form_input">    
+                <input type="hidden"
+                       name="operation"
+                       value="update" />
+                <input type="hidden"
+                       name="institution_pk"
+                       value=""
+                       tal:attributes="value institutionPk" />
+                <input type="submit"
+                       value="Modifier l'institution" />
+            </div>
         </tal:block>
     </tal:boucle>
 </form>

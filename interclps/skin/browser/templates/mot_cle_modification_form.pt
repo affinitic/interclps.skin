@@ -20,7 +20,7 @@
         <legend class="legende">Modifier un mot-clé</legend>
         <tal:boucle tal:repeat="motcle motcles">
         <form action="motcle-inserer" method="post">
-            <div>
+            <div class="div_question">
                 <img src="list_flch_rouge.png" /> Mot-clé
                 <br />
                 <input type="text"
@@ -30,7 +30,7 @@
                        class="grasorange"
                        tal:attributes="value motcle/motcle_mot"/>
             </div>
-            <div>
+            <div class="div_question">
                 <img src="list_flch_rouge.png" /> Etat
                 <br />
                 <select name="motcle_actif">
@@ -44,7 +44,6 @@
                     </span>
                 </select>
             </div>
-            <hr />
             <div class="div_form_input">
                 <input type="hidden"
                        name="motcle_pk"

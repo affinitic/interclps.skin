@@ -19,55 +19,52 @@
     <fieldset>
         <legend class="legende">Modifier un support</legend>
         <tal:boucle tal:repeat="support supports">
-            <ul class="formulaire">
-                <li>
-                    <img src="list_flch_rouge.png" />
-                    <label for support_titre>Support</label>
-                    <br />
-                    <input type="text"
-                           name="support_titre"
-                           id="support_titre"
-                           value=""
-                           size="50"
-                           class="grasorange"
-                           tal:attributes="value support/support_titre" />
-                </li>
-                <li>
-                    <img src="list_flch_rouge.png" />
-                    <label for support_description>Description</label>
-                    <br />
-                    <input type="text"
-                           name="support_description"
-                           id="support_description"
-                           value=""
-                           size="50"
-                           class="grasorange"
-                           tal:attributes="value support/support_description" />
-                </li>
-                <li>
-                    <img src="list_flch_rouge.png" />
-                    <label for support_actif>Etat</label>
-                    <br />
-                    <select name="support_actif">
-                        <option value="True"
-                                tal:attributes="selected python:support.support_actif and 'selected' or None;">Activer</option>
-                        <option value="False"
-                                tal:attributes="selected python:not support.support_actif and 'selected' or None;">Désactiver</option>
-                    </select>
-                </li>
-            </ul>
-                <hr />
-                <div class="div_form_input">
-                    <input type="hidden"
-                           name="operation"
-                           value="update" />
-                    <input type="hidden"
-                           name="support_pk"
-                           value=""
-                           tal:attributes="value support/support_pk" />
-                    <input type="submit"
-                           value="Modifier le support" />
-                </div>
+             <div class="div_question">
+                <img src="list_flch_rouge.png" />
+                <label for support_titre>Support</label>
+                <br />
+                <input type="text"
+                       name="support_titre"
+                       id="support_titre"
+                       value=""
+                       size="50"
+                       class="grasorange"
+                       tal:attributes="value support/support_titre" />
+             </div>
+             <div class="div_question"> 
+                <img src="list_flch_rouge.png" />
+                <label for support_description>Description</label>
+                <br />
+                <input type="text"
+                       name="support_description"
+                       id="support_description"
+                       value=""
+                       size="50"
+                       class="grasorange"
+                       tal:attributes="value support/support_description" />
+             </div>
+             <div class="div_question"> 
+                <img src="list_flch_rouge.png" />
+                <label for support_actif>Etat</label>
+                <br />
+                <select name="support_actif">
+                    <option value="True"
+                            tal:attributes="selected python:support.support_actif and 'selected' or None;">Activer</option>
+                    <option value="False"
+                            tal:attributes="selected python:not support.support_actif and 'selected' or None;">Désactiver</option>
+                </select>
+            </div>
+            <div class="div_form_input">
+                <input type="hidden"
+                       name="operation"
+                       value="update" />
+                <input type="hidden"
+                       name="support_pk"
+                       value=""
+                       tal:attributes="value support/support_pk" />
+                <input type="submit"
+                       value="Modifier le support" />
+            </div>
         </tal:boucle>
     </fieldset>
 </form>

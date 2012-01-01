@@ -1882,6 +1882,7 @@ class ManageInterClps(BrowserView):
         table pg milieu de vie
         recuperation d'un vie milieu selon milieudevie_pk
         """
+        milieuDeViePk = self.getTuple(milieuDeViePk)
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         MilieuDeVieTable = wrapper.getMapper('milieudevie')

@@ -929,6 +929,42 @@ border-top:1px dashed #aaa;
 
 
 /*** DESCRIPTION INSTITUTION ***/
+#title-institution{
+margin-bottom:20px;
+font-weight:bold;
+font-size:1.6em;
+text-align:center;
+color:#fff;
+line-height:73px;
+height:73px;
+width:100%;
+background-color:#003088;
+border-width:1px 1px 0px 1px;
+border-style:solid;
+border-color:#021330;
+border-radius: 12px 12px 0px 0px;
+box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+}
+
+#title-institution-left{
+float:left;
+width:28px;
+height:73px;
+}
+
+.titre-institution-top{ 
+float:left;
+color:#fff;
+width:90%;
+}
+
+#title-institution-right{
+float:right;
+width:28px;
+padding-top:28px;
+}
+
+/* colonne de gauche */
 #left-institution{
 float:left;
 width:390px;
@@ -936,6 +972,7 @@ padding:0px 5px;
 color:#51686d;
 }
 
+/*colonne de droite */
 #right-institution{
 float:right;
 width:205px;
@@ -964,23 +1001,6 @@ color:#fff;
 margin:auto;
 margin-bottom:10px;
 padding-left:10px;
-}
-
-#title-institution{
-margin-bottom:20px;
-font-weight:bold;
-font-size:1.6em;
-text-align:center;
-color:#fff;
-line-height:73px;
-height:73px;
-width:100%;
-background-color:#003088;
-border-width:1px 1px 0px 1px;
-border-style:solid;
-border-color:#021330;
-border-radius: 12px 12px 0px 0px;
-box-shadow:4px 4px 10px rgba(0,0,0,0.5);
 }
 
 #institution-coordonnee-assuetude,
@@ -1020,7 +1040,123 @@ border-style:solid;
 border-color:#021330;
 border-radius:0px 0px 12px 12px;
 box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+margin-bottom:30px;
 }
+
+
+/*** RDESCRIPTION RESSOURCE ***/
+#title-ressource{
+margin-bottom:20px;
+font-weight:bold;
+font-size:1.6em;
+text-align:center;
+height:73px;
+width:100%;
+text-align:center;
+background-color:#548962;
+border-width:1px 1px 0px 1px;
+border-style:solid;
+border-color:#27442f;
+border-radius: 12px 12px 0px 0px;
+box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+}
+
+#title-ressource-left{
+float:left;
+width:28px;
+height:73px;
+}
+
+.titre-ressource-top{ 
+float:left;
+color:#fff;
+width:90%;
+margin-top:10px;
+}
+
+#title-ressource-right{
+float:right;
+width:28px;
+height:73px;
+}
+
+#left-ressource{
+float:left;
+width:390px;
+padding:0px 5px;
+color:#51686d;
+}
+
+#right-ressource{
+float:right;
+width:205px;
+color:#111;
+margin-top:0px;
+}
+
+#right-ressource-content, 
+#projet-partage-ressource {
+background-color: #D0E9F5;
+border: 1px solid #329FD7;
+border-radius: 12px 12px 12px 12px;
+color: #111111;
+font-size: 0.8em;
+margin-bottom: 10px;
+margin-top: 0;
+}
+
+#right-ressource-content,
+#projet-partage-ressource{
+padding:5px 15px 5px 15px;
+margin-bottom:8px;
+}
+
+#projet-partage-ressource h3{
+line-height:28px;
+}
+
+#right-ressource-content{
+padding:3px 12px;
+}
+
+#right-ressource-content div{
+margin:15px 0px;
+}
+
+#right-ressource-content a{
+text-decoration:none;
+color:#3c5057;
+}
+
+#right-ressource-content a:hover{
+text-decoration:underline;
+color:#15292f;
+}
+
+#right-ressource-footer{
+}
+
+.right-rubrique-db{
+background-image:url(flch_blanche.png);
+background-repeat:no-repeat;
+background-position:left center;
+color:#660033;
+padding-left:12px;
+font-weight:bold;
+} 
+
+#ressource-footer{
+height:13px;
+width:100%;
+background-color:#548962;
+border-width:0px 1px 1px 1px;
+border-style:solid;
+border-color:#27442f;
+border-radius:0px 0px 12px 12px;
+box-shadow:4px 4px 10px rgba(0,0,0,0.5);
+margin-bottom:30px;
+}
+
 
 /*** ECRAN MERCI INSERTION ***/
 .merci-text{

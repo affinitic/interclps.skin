@@ -12,7 +12,7 @@
                      status result/status">
 
         <fieldset tal:define="milieudevies python: view.getAllMilieuDeVie()">
-            <table width="50%"
+            <table width="90%"
                    align="center"
                    class="listing">
                 <thead>
@@ -59,10 +59,8 @@
             Un erreur est survenue.
         </div>
     </div>
-    <div>
-        <br />
+    <div class="btn-nouvelle-recherche">
         <a href="milieu-de-vie-creer">
-            <img src="btn_retour_vert.png" />
             Ajouter un milieu de vie.
         </a>
     </div>
