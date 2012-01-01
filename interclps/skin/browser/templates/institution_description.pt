@@ -328,7 +328,7 @@
 
 <!-- ZONE ROSE ADMIN -->
             <div tal:condition="python:user.has_role(['Manager'], here)"
-                 class="description-for-manager">
+                 id="description-for-manager">
 
                 <div class="titre-for-manage">
                     &Xi; Administration &Xi;

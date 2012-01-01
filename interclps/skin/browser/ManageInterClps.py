@@ -2688,7 +2688,7 @@ class ManageInterClps(BrowserView):
                                 auteur_creation_date = auteur_creation_date, \
                                 auteur_modification_date = auteur_modification_date, \
                                 auteur_modification_employe = auteur_modification_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
         return {'status': 1}
 

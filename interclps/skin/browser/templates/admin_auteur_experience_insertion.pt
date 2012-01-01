@@ -35,7 +35,14 @@
                             <td><span tal:content="auteur/auteur_email" /></td>
                             <td><span tal:content="auteur/auteur_institution" /></td>
                             <td><span tal:content="auteur/auteur_id_filemaker" /></td>
-                            <td><span tal:content="auteur/auteur_actif" /></td>
+                            <td>
+                                <span tal:condition="python: auteur.auteur_actif">
+                                    <span class="vert-actif">Actif</span>
+                                </span>
+                                <span tal:condition="python: auteur.auteur_actif==False">
+                                    <span class="rouge-non-actif">Non-actif</span>
+                                </span>
+                            </td>
                         </tr>
                     </tal:boucle>
                 </table>

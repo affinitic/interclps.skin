@@ -367,7 +367,39 @@ color:#ff7000;
 clear:both;
 }
 
+.vert-actif{
+color:#00aa00;
+font-size:0.8em;
+}
 
+.rouge-non-actif{
+color:#ff0000;
+font-size:0.8em;
+}
+
+.grasbrun{
+font-weight:bold;
+color:#b93f00;
+}
+
+.grasorange{
+font-weight:bold;
+color:#ff6f00;
+}
+
+.grasrouge{
+font-weight:bold;
+color:#ff0000;
+}
+
+.grasvert{
+font-weight:bold;
+color:#00aa00;
+}
+
+.gras{
+font-weight:bold;
+}              
 
 
 /*** PORLET PRESENTATION DB***/
@@ -498,6 +530,7 @@ border-color:#329FD7;
 border-style:solid;
 border-width:0.1em;
 border-radius:12px;
+background-color:#fff;
 }
 
 #content legend {
@@ -541,9 +574,10 @@ vertical-align:top;
 .form-experience-right-column{
 vertical-align:top;
 padding-top:2em;
+padding-left:7px;
 }
 
-.description-for-manager{
+#description-for-manager{
 border-top: 3px double #850864;
 border-bottom: 3px double #850864;
 border-left: 1px solid #850864;
@@ -552,19 +586,13 @@ background-color:#ffd6ff;
 padding:1em;
 }
 
-.description-for-manager fieldset{
+#description-for-manager fieldset{
 border: 1px solid #850864;
-}
-
-.description-for-manager legend{
 background-color:transparent;
 }
 
-.merci-text{
-margin-top:2em;
-font-size:2em;
-text-align:center;
-line-height:2.1em;
+#description-for-manager legend{
+background-color:transparent;
 }
 
 .div_form_input{
@@ -604,15 +632,16 @@ text-align:center;
 }
 
 .btn-modifier{
-width:25px;
-height:25px;
 }
 
 .btn-modifier a {
 display:block;
+width:25px;
+height:25px;
 text-decoration:none;
 background-image:url(images/modifier_off.png);
 background-repeat:no-repeat;
+
 }
 
 .btn-modifier a:hover {
@@ -993,7 +1022,57 @@ border-radius:0px 0px 12px 12px;
 box-shadow:4px 4px 10px rgba(0,0,0,0.5);
 }
 
+/*** ECRAN MERCI INSERTION ***/
+.merci-text{
+margin-top:2em;
+font-size:2em;
+text-align:center;
+line-height:2.1em;
+}
 
+.btn-nouvelle-recherche{
+color:#000;
+margin:auto;
+margin-top:3em;
+font-size:1.2em;
+width:260px;
+height:43px;
+line-height:42px; /*permet le centrage vertical*/
+text-align:center;
+background:#444;
+background:-moz-linear-gradient(top,#fff,#bdb);                   /*(top,#777,#333);*/
+background:-webkit-gradient(linear, left top, left bottom, from(#572d00), to(#895600));
+border-radius:8px;
+/*effet incriste ombre blanche*/
+text-shadow:0px 1px 0px rgba(255,255,255);
+text-shadow:0px 1px 0px rgba(255,255,255,0.3);
+box-shadow:0 0 5px rgba(0,0,0,0.5), 0 -1px 0 rgba(255,255,255,0.4);
+}
+
+.btn-nouvelle-recherche a{
+text-decoration:none;
+display:block;
+width:260px;
+height:43px;
+}
+
+.btn-nouvelle-recherche:hover{
+color:#000;
+background: rgb(208,234,214);
+background: -moz-linear-gradient(top, rgba(208,234,214,1) 0%, rgba(170,221,181,1) 17%, rgba(97,198,109,1) 50%,
+rgba(75,191,57,1) 51%, rgba(68,214,66,1) 59%, rgba(75,237,81,1) 71%, rgba(96,188,56,1) 84%, rgba(35,127,41,1)
+100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(208,234,214,1)),
+color-stop(17%,rgba(170,221,181,1)), color-stop(50%,rgba(97,198,109,1)), color-stop(51%,rgba(75,191,57,1)),
+color-stop(59%,rgba(68,214,66,1)), color-stop(71%,rgba(75,237,81,1)), color-stop(84%,rgba(96,188,56,1)),
+color-stop(100%,rgba(35,127,41,1)));
+background: -webkit-linear-gradient(top, rgba(208,234,214,1) 0%,rgba(170,221,181,1) 17%,rgba(97,198,109,1)
+50%,rgba(75,191,57,1) 51%,rgba(68,214,66,1) 59%,rgba(75,237,81,1) 71%,rgba(96,188,56,1) 84%,rgba(35,127,41,1)
+100%);
+background: -o-linear-gradient(top, rgba(208,234,214,1) 0%,rgba(170,221,181,1) 17%,rgba(97,198,109,1)
+50%,rgba(75,191,57,1) 51%,rgba(68,214,66,1) 59%,rgba(75,237,81,1) 71%,rgba(96,188,56,1) 84%,rgba(35,127,41,1)
+100%);                
+}
 
 
 /*** PLONE ***/

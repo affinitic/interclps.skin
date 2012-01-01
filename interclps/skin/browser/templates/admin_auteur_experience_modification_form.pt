@@ -128,8 +128,6 @@
                                    tal:attributes="checked python:auteur.auteur_for_institution and 'checked' or None;" /> Auteur d'une institution.
                         </div>
 
-                        <hr />
-
                         <div class="div_form_input">
                             <input type="hidden"
                                    name="operation"

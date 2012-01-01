@@ -44,7 +44,7 @@
                            id="auteur_nom"
                            name="nomAuteur"
                            value=""
-                       size="50">
+                           size="50">
                 </div>
                 <div class="div_question">
                     <input type="submit"
