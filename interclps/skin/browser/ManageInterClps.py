@@ -1385,6 +1385,25 @@ class ManageInterClps(BrowserView):
             query = query.limit(5)
         experience = query.all()
         return experience
+    
+    def getLastExperience(self, limite=None):
+        """
+        table pg experience
+        recuperation d'une experience selon 
+           la date de modification
+           une limite de 5
+           l'etat publish
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        ExperienceTable = wrapper.getMapper('experience')
+        query = session.query(ExperienceTable)
+        query = query.filter(ExperienceTable.experience_etat == 'publish')
+        query = query.order_by(ExperienceTable.experience_modification_date)
+        if limite:
+            query = query.limit(5)
+        experience = query.all()
+        return experience
 
     def getExperienceByCommune(self, communePk):
         """

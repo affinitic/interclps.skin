@@ -50,8 +50,8 @@
         <copy css:content=".portletNews"
               css:theme-children="#portlet-news" />
 
-        <copy css:content="#portlet-experience"
-              css:theme-children="#portlet-experience" />
+        <replace css:content-children=".portlet-experience-links"
+              css:theme-children="#portlet-last-experience-content" />
 
          <copy css:content=".portletEvent"
                css:theme-children="#portlet-event" />

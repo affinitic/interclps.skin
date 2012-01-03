@@ -173,8 +173,14 @@ class IManageInterClps(Interface):
         """
         recuperation d'une experience selon une ressource
         """
-
-
+    def getLastExperience(self, limite=None):
+        """
+        table pg experience
+        recuperation d'une experience selon 
+           la date de modification
+           une limite de 5
+           l'etat publish
+        """
 
     def getCountExperienceByEtat(self, etatExperience):
         """

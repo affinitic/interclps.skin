@@ -330,7 +330,7 @@ padding:22px 0px 60px 210px;
 }
 
 #portlet-news,
-#portlet-experience,
+#portlet-last-experience,
 #portlet-event{
 border:1px solid #aaa;
 border-radius:12px;
@@ -342,7 +342,7 @@ background-color:rgba(210, 210, 210, 0.3);
 }
 
 #portlet-news h3,
-#portlet-experience h3,
+#portlet-last-experience h3,
 #portlet-event h3{
 font-size:0.8em;
 color:#aaa;
@@ -352,7 +352,19 @@ border-bottom:1px solid #666;
 width:90%;
 padding-top:5px;
 }
-
+ 
+#portlet-last-experience-content{
+padding:8px;
+}
+#portlet-last-experience a{
+display:block;
+color:#aaa;
+font-size:0.8em;
+padding-bottom:12px;
+}
+#portlet-last-experience a:hover{
+color:#fff;               
+}
 /*** FOOTER ***/
 #footer{
 height:80px;
