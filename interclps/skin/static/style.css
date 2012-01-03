@@ -319,32 +319,45 @@ width:0px;
 
 
 
-/*** BODY BG INFERIEUR ***/
+/*** PORLET DANS FOOTER ***/
 #body-bg-inf{
 background:url(images/bg09.jpg) no-repeat center top;
 }
 
 #box-portlet{
 min-height:200px;
-padding:40px 0px 60px 0px;
+padding:22px 0px 60px 210px;
 }
 
-#news,
-#experience,
-#event{
-float:left;
-margin:0px 38px;
+#portlet-news,
+#portlet-experience,
+#portlet-event{
+border:1px solid #aaa;
+border-radius:12px;
 width:200px;
-height:230px;
-border:2px solid #0d1200;
-border-radius:15px;
-background-color:rgba(0, 72, 138, 0.5);
+height:250px;
+float:left;
+margin:0px 15px;
+background-color:rgba(210, 210, 210, 0.3);
+}
+
+#portlet-news h3,
+#portlet-experience h3,
+#portlet-event h3{
+font-size:0.8em;
+color:#aaa;
+font-variant:small-caps;
+text-align:center;
+border-bottom:1px solid #666;
+width:90%;
+padding-top:5px;
 }
 
 /*** FOOTER ***/
 #footer{
 height:80px;
 background:url(images/bg10.jpg) no-repeat center top;
+margin-top:20px;
 }
 
 #footer p{
@@ -1209,6 +1222,7 @@ background: -o-linear-gradient(top, rgba(208,234,214,1) 0%,rgba(170,221,181,1) 1
 50%,rgba(75,191,57,1) 51%,rgba(68,214,66,1) 59%,rgba(75,237,81,1) 71%,rgba(96,188,56,1) 84%,rgba(35,127,41,1)
 100%);                
 }
+
 
 
 /*** PLONE ***/
