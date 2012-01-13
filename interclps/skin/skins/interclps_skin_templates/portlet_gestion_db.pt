@@ -6,7 +6,7 @@
 <div metal:define-macro="portlet"
      tal:define="experiences context/@@manageInterClps;
                  institutions context/@@manageInterClps"
-     tal:condition="python:user.has_role(['Manager'], here)">
+     tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
     <dl id="portlet-gestion-db">
         <dt class="portletHeaderDB">
             <span class="portletTopLeft"></span>
