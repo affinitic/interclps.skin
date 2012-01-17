@@ -431,7 +431,7 @@ class ManageInterClps(BrowserView):
 
         description = fields.description
 
-        sujet="[ICLPS-BW] :: Experience : demande d'inscription via le site"
+        sujet="[ICLPS-LUX] :: Experience : demande d'inscription via le site"
         message = """<font color='#FF0000'><b>:: DEMANDE D'INSCRIPTION ::</b></font>
                      <br /><br />
                      Un personne souhaite s'inscrire via le site.<br />
@@ -612,7 +612,7 @@ class ManageInterClps(BrowserView):
         recuperation d'un auteur selon son login
         """
         userLogin = self.getUserAuthenticated()
-        sujet = "[CLPS DB :: connection externe par %s]"%(userLogin, )
+        sujet = "[ICLPS DB :: connection externe par %s]"%(userLogin, )
         message="%s en mode création"%(userLogin, )
         self.sendMailWhenLoginByAuteur(sujet, message)
 

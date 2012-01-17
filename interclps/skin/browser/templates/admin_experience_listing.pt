@@ -10,7 +10,7 @@
 
 <body>
 <div metal:fill-slot="main"
-     tal:condition="python:user.has_role(['Manager'], here)">
+     tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
 
     <h1>Liste des experiences</h1>
 
@@ -73,7 +73,7 @@
                             <tr>
                                 <td>
                                     <div tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
-                                         tal:condition="python:user.has_role(['Manager'], here)">
+                                         tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                                         <tal:alerte tal:condition="python: experience.experience_etat=='pending_for_review'">
                                             <img src="alerte.png" />
                                         </tal:alerte>

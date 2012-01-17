@@ -35,7 +35,7 @@
                   Cr&eacute;er une nouvelle institution</a>
           </div> 
           <div class="btn-nouvelle-recherche"
-               tal:condition="python:user.has_role(['Manager'], here)">
+               tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                 <a href=""
                    tal:attributes="href string:${context/portal_url}/institution-chercher">
                     Modifier une institution</a>

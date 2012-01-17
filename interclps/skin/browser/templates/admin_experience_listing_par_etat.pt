@@ -12,7 +12,7 @@
 <div metal:fill-slot="main"
      tal:define="etatExperience request/etat;
                  etat python: view.getTranslationExperienceEtat(etatExperience)"
-     tal:condition="python:user.has_role(['Manager'], here)">
+     tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
    <h1>:: Listing des expériences selon l'état "<span tal:content="etat" />" ::</h1>
    
     <div tal:define="etatExperience request/etat;
@@ -32,7 +32,7 @@
                         </legend>
                         <div id="experience-etat"
                              tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
-                             tal:condition="python:user.has_role(['Manager'], here)">
+                             tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                              <span tal:content="experienceEtat" />
                              &Xi;
                              PK : <span tal:content="experience/experience_pk" />

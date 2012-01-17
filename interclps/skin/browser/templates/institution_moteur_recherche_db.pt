@@ -91,7 +91,7 @@
             </form>
         </fieldset><!--search-zone-nom-->
         
-        <fieldset tal:condition="python:user.has_role(['Manager'], here)"
+        <fieldset tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
                   class="search-zone-nom">
             <legend class="search-legend-titre"> Recherche par auteur </legend>
             <form action="institution-lister-auteur-pk" method="post">

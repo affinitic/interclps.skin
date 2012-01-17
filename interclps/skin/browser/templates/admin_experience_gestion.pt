@@ -10,7 +10,7 @@
 
 <body>
 <div metal:fill-slot="main"
-     tal:condition="python:user.has_role(['Manager'], here)">
+     tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
    <h1>:: Modifier une experience ::</h1>
 
     <div tal:define="experiences python:view.getAllExperience();">
@@ -29,7 +29,7 @@
                         </legend>
                         <div id="experience-etat"
                              tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
-                             tal:condition="python:user.has_role(['Manager'], here)">
+                             tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                              <span tal:content="experienceEtat" />
                              &Xi;
                              <span tal:content="experience/experience_pk" />

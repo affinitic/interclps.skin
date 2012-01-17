@@ -12,7 +12,7 @@
 <body>
 <div metal:fill-slot="main"
      tal:define="ressources python:view.getRessourceByPk(ressourcePk=request.ressourcePk)"
-     tal:condition="python:user.has_role(['Manager'], here)">
+     tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
 <form action="ressource-inserer" method="post">
     <tal:boucle tal:repeat="ressource ressources">
         <br />
@@ -170,7 +170,7 @@
                 <span tal:replace="structure python: view.getWysiwygField('ressource_avis_clps', ressource.ressource_avis_clps)" />
             </div>
         </fieldset>
-        <div tal:condition="python:user.has_role(['Manager'], here)"
+        <div tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
              id="description-for-manager">
             <div class="titre-for-manage">
                 &Xi; Administration &Xi; 

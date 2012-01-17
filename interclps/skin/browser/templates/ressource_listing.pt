@@ -58,7 +58,7 @@
                                     </div>
                                     <div id="experience-etat"
                                          tal:define="ressourceEtat python:view.getRessourceEtat(ressourcePk)"
-                                         tal:condition="python:user.has_role(['Manager'], here)">
+                                         tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                                         <span tal:content="ressourceEtat" />
                                             &Xi;
                                         PK : <span tal:content="ressource/ressource_pk" />
@@ -66,7 +66,7 @@
                                 </td>
                                 <td align="right">
                                       <div class="btn-modifier"
-                                           tal:condition="python:user.has_role(['Manager'], here)">
+                                           tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                                            <a href=""
                                               tal:attributes="href string: ressource-modifier?ressourcePk=${ressourcePk}"
                                               title="Modifier la ressource"

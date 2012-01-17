@@ -23,7 +23,7 @@
                 <div id="title-institution-right"
                       tal:define="institutionPk institution/institution_pk">
                     <div class="btn-modifier"
-                         tal:condition="python:user.has_role(['Manager'], here)">
+                         tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                         <a href=""
                            tal:attributes="href string: admin-institution-modifier?institutionPk=${institutionPk}">&nbsp;</a>
                     </div>
@@ -327,7 +327,7 @@
 
 
 <!-- ZONE ROSE ADMIN -->
-            <div tal:condition="python:user.has_role(['Manager'], here)"
+            <div tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
                  id="description-for-manager">
 
                 <div class="titre-for-manage">

@@ -436,7 +436,7 @@
     </div>
 
 
-    <div tal:condition="python:user.has_role(['Manager'], here)"
+    <div tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
          id="description-for-manager">
         <div class="titre-for-manage">
             &Xi; Administration &Xi;

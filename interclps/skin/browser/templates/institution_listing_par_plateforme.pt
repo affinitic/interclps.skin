@@ -11,7 +11,7 @@
 <body>
 <div metal:fill-slot="main"
      tal:define="plateForme request/plateForme"
-     tal:condition="python:user.has_role(['Manager'], here)">
+     tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
     <h1>Liste des institutions</h1>
     <div tal:define="institutions python:view.getInstitutionByPlateForme(plateForme);">
         <tal:boucle tal:repeat="institution institutions">
@@ -28,7 +28,7 @@
                    </legend>
                    <div id="experience-etat"
                         tal:define="institutionEtat python:view.getInstitutionEtat(institutionPk)"
-                        tal:condition="python:user.has_role(['Manager'], here)">
+                        tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                         <span tal:content="institutionEtat" />
                         &Xi;
                         <span tal:content="institutionPk" />

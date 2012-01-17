@@ -14,7 +14,7 @@
      tal:define="institutionPk request/institutionPk; 
                  institutions python:view.getInstitutionByPk(institutionPk);
                  utranslate nocall:here/utranslate;"
-     tal:condition="python:user.has_role(['Manager'], here)">
+     tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
 <form action="institution-inserer" method="post">
     <tal:boucle tal:repeat="institution institutions">
         <tal:block tal:define="institutionPk institution/institution_pk">
@@ -460,7 +460,7 @@
                 </fieldset>
             </div>
 
-            <div tal:condition="python:user.has_role(['Manager'], here)"
+            <div tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
                  id="description-for-manager">
                 <div class="titre-for-manage">
                     &Xi; Administration &Xi;

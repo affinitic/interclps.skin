@@ -11,7 +11,7 @@
 
 <body>
 <div metal:fill-slot="main"
-     tal:condition="python:user.has_role(['Manager'], here)">
+     tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
     <br />
     
     <h1>:: Gestion des auteurs d'expériences ::</h1>
