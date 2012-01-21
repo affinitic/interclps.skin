@@ -256,24 +256,26 @@ margin-top:-10px;
 
 #logo-clps{ 
 width:320px;
+height:160px;
 float:right;
-margin-top:5px;
 background-color:rgba(144,184,144,0.4);
 border-radius:12px;
 }
 
-#logo-clps #logo-clpsbw{
+#logo-clps #logo-clpsbw{ 
 display:block; 
 width:150px;
 float:left;
-margin-left:15px;
+margin-left:6px;
+margin-top:13px;
 }
 
 #logo-clps #logo-clpslux{
 display:block; 
 width:150px;
 float:right;
-margin-top:27px;
+margin-right:1px;
+margin-top:13px;
 }
 
 
