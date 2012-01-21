@@ -63,6 +63,15 @@
                         &Xi;
                         <span tal:content="experience/experience_pk" />
                     </div>
+                    <div tal:define="proprio experience/experience_clps_proprio_fk"
+                         class="listing-experience-clps-proprio">
+                        <span tal:condition="python: proprio==1">
+                            <img src="exp_by_clps_bw.png" />
+                        </span>
+                        <span tal:condition="python: proprio==2">
+                            <img src="exp_by_clps_lux.png" />
+                        </span>
+                    </div>
                     <div class="listing-experience-bouton">
                         <a href=""
                            tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}">
