@@ -178,7 +178,7 @@ font-size:0.7em;
 position:relative;
 top:-50px;
 left:530px;
-width:350px; 
+width:385px; 
 }
 
 #menu ul{
@@ -1259,4 +1259,12 @@ position:relative !important;
 top: 0;
 width:100%;
 z-index:3;
+}
+
+table.listing{
+background-color:#fff;
+}
+
+#portlet-prefs{
+width:200px;
 }
