@@ -234,7 +234,7 @@
                         &#8226; <span tal:content="experience/experience_personne_contact_telephone"></span><br />
                         <br />
                     </div>
-                    <span tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                    <!--<span tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">-->
                     <div id="pdf-experience"
                          tal:condition="python: experience.experience_etat=='publish'">
                          <span class="right-rubrique-db">Télécharger la fiche en PDF</span>
@@ -242,7 +242,7 @@
                             tal:attributes="href string:@@pdfGenerator/printExperience?experiencePk=${experiencePk}">
                             <img src="logo_pdf.png"></a>
                     </div>
-                    </span>
+                    <!--</span>-->
                 </div><!--content-->
                 <div id="right-experience-footer"></div>
             </div><!--right-->
