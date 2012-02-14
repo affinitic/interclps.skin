@@ -156,11 +156,12 @@ height:104px;
 #username{
 position:relative;
 top:181px;
-left:310px;
+left:0px;
 font-size:0.7em;
 color:#aaa;
 text-align:right;
 padding:0px;
+border-bottom:1px solid #aaa;
 }
 
 /*** BREADCRUMB ***/
@@ -291,6 +292,7 @@ background:url(images/bg08.jpg) repeat-y center top;
 
 #page{
 padding:3px 0px 3px 0px;
+margin-top:10px;
 }
 
 

@@ -29,15 +29,16 @@
         <copy attributes="href" css:content="#portal-logo" css:theme="#logo .logo-link" />
 
         <!-- Document content -->
-        <replace css:content-children="#content"
-                 css:theme-children="#content" />
+        <replace css:content-children="#portal-column-content"
+                 css:theme-children="#content-texte" />
         
         <replace css:content-children="#user-name"
                  css:theme-children="#username" />
-                 
+        
+        <!--         
         <replace css:content-children="#portal-breadcrumbs"
                  css:theme-children="#breadcrumb" />
-
+        -->
         <replace css:content-children="#portal-siteactions"
                  css:theme-children="#site-action" />
 
