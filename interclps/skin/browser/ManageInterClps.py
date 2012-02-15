@@ -256,7 +256,7 @@ class ManageInterClps(BrowserView):
                   En modifiant l'auteur, tu peux l'activer et lui donner un dentifiant "FileMaker"
                   <br />
                   Voir la liste des auteurs en cliquant sur ce
-                  <a href="http://www.clpsbw.be/admin-auteur-creer">lien</a>.
+                  <a href="http://www.projets-partages.be/admin-auteur-creer">lien</a>.
                   <hr />
                   """ \
                   %(auteurNom, \
