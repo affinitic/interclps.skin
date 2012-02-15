@@ -12,7 +12,7 @@
 <body>
 <div metal:fill-slot="main"
      tal:define="institutions python:view.getInstitutionByPk(institutionPk=request.institutionPk);
-                 auteur python:view.getAuteurByLogin()"
+                 auteur python:view.getAuteurByLogin('institution')"
      tal:condition="python:user.has_role(['RecitExperience'], here)">
 <form action="institution-inserer" method="post">
     <tal:boucle tal:repeat="institution institutions">

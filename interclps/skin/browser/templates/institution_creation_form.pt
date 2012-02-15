@@ -18,7 +18,7 @@
 
 <body>
 <div metal:fill-slot="main"
-     tal:define="auteur python:view.getAuteurByLogin()">
+     tal:define="auteur python:view.getAuteurByLogin('institution')">
 
 <form action="institution-inserer" method="post">
     <br />
