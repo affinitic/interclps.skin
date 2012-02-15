@@ -208,7 +208,7 @@ class ManageInterClps(BrowserView):
 
     def sendMail(self, sujet, message):
         """
-        envoi de mail à clpsbw admin
+        envoi de mail à iclps admin
         """
         mailer = Mailer("localhost", "alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
         #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be, houtain@clps-bw.be" )
@@ -219,7 +219,7 @@ class ManageInterClps(BrowserView):
 
     def sendMailWhenLoginByAuteur(self, sujet, message):
         """
-        envoi de mail à clpsbw admin
+        envoi de mail à iclps admin lorsqu'un auteur se loggue
         """
         mailer = Mailer("localhost", "alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
         #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
@@ -371,7 +371,7 @@ class ManageInterClps(BrowserView):
         experience_institution_ressource_autre = getattr(fields, 'experience_institution_ressource_autre', None)
         experience_institution_outil_autre = getattr(fields, 'experience_institution_outil_autre', None)
 
-        sujet = "[ICLPS DB :: modification de l'experience]"
+        sujet = "[ICLPS-LUX DB :: modification de l'experience]"
         message = """<font color='#FF0000'><b>:: Modification d'une expérience ::</b></font><br /><br />
                   Bonjour Isabelle, <br />
                   L'expérience <font color='#ff9c1b'><b>%s</b></font> vient d'être modifiée.<br />
@@ -606,14 +606,14 @@ class ManageInterClps(BrowserView):
         auteurLogin = auteur.auteur_login
         return auteurLogin
 
-    def getAuteurByLogin(self):
+    def getAuteurByLogin(self, typeCreation):
         """
         table pg auteur
         recuperation d'un auteur selon son login
         """
         userLogin = self.getUserAuthenticated()
-        sujet = "[ICLPS DB :: connection externe par %s]"%(userLogin, )
-        message="%s en mode création"%(userLogin, )
+        sujet = "[ICLPS-LUX DB :: connection externe par %s]"%(userLogin, )
+        message="%s en mode création d'une %s"%(userLogin, typeCreation)
         self.sendMailWhenLoginByAuteur(sujet, message)
 
         wrapper = getSAWrapper('clpsbw')
@@ -3158,7 +3158,7 @@ class ManageInterClps(BrowserView):
         institution_institution_type_fk = getattr(fields, 'institution_institution_type_fk', None)
 
         if not institution_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue
-            auteur = self.getAuteurByLogin()
+            auteur = self.getAuteurByLogin('institution')
             institution_auteur_fk= auteur.auteur_pk
 
         if institution_auteur:    #cas ou c'est un clpsmemeber qui se loggue via le formulaire insitution_creation_form
@@ -3166,7 +3166,7 @@ class ManageInterClps(BrowserView):
             institution_auteur_login = self.getAuteurLogin(institution_auteur_fk)
 
         if not institution_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue
-            auteur = self.getAuteurByLogin()
+            auteur = self.getAuteurByLogin('institution')
             institution_auteur_fk= auteur.auteur_pk
 
         wrapper = getSAWrapper('clpsbw')
@@ -3443,7 +3443,7 @@ class ManageInterClps(BrowserView):
         experience_clps_proprio_fk = getattr(fields, 'experienceClpsProprio', None)
 
         if not experience_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue formulaire experience_creation_form
-            auteur = self.getAuteurByLogin()
+            auteur = self.getAuteurByLogin('expérience')
             experience_auteur_fk= auteur.auteur_pk
 
         if experience_auteur: #cas ou c'est un clpsmember qui se loggue via formulaire admin_experience_creation_form 
