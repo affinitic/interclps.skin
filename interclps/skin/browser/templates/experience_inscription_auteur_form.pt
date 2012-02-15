@@ -41,8 +41,7 @@
        recontacterons rapidement.
        </p>
        <hr />
-       <!--experience-inscription/demandeInscription-->
-       <form action="experience-inscription-auteur/checkCaptchaDemandeInscription"
+       <form action="checkCaptchaDemandeInscription"
              method="post"><!--onsubmit="return validate(this);"-->
         <div class="div_question">
             <span class="etiquette">Nom de votre institution</span>

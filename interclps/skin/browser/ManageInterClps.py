@@ -210,7 +210,7 @@ class ManageInterClps(BrowserView):
         """
         envoi de mail à clpsbw admin
         """
-        mailer = Mailer("localhost", "alain.meurant@affinitic.be")
+        mailer = Mailer("localhost", "alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
         #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be, houtain@clps-bw.be" )
         mailer.setSubject(sujet)
         mailer.setRecipients("alain.meurant@affinitic.be")
@@ -221,7 +221,7 @@ class ManageInterClps(BrowserView):
         """
         envoi de mail à clpsbw admin
         """
-        mailer = Mailer("localhost", "alain.meurant@affinitic.be")
+        mailer = Mailer("localhost", "alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
         #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
         mailer.setSubject(sujet)
         mailer.setRecipients("alain.meurant@affinitic.be")
@@ -239,7 +239,7 @@ class ManageInterClps(BrowserView):
         auteurDescription = getattr(fields, 'auteur_description', None)
 
 
-        sujet = "[ICLPS DB  :: demande d'inscription d'un auteur]"
+        sujet = "[ICLPS-LUX DB  :: demande d'inscription d'un auteur]"
         message = """<font color='#FF0000'><b>:: Ajout d'un nouvel auteur ::</b></font><br /><br />
                   Bonjour Isabelle, <br />
                   Une personne vient de s'inscrire via le site pour devenir auteur d'un récit partagé.<br />
@@ -267,7 +267,7 @@ class ManageInterClps(BrowserView):
 
     def sendMailForInsertExperience(self, experiencePk):
         """
-        envoi d'un mail a Celine lors de la creation d'une experience
+        envoi d'un mail a Isabelle lors de la creation d'une experience
         """
         fields = self.context.REQUEST
         experience_pk = experiencePk
@@ -281,7 +281,7 @@ class ManageInterClps(BrowserView):
         experience_institution_ressource_autre = getattr(fields, 'experience_institution_ressource_autre', None)
         experience_institution_outil_autre = getattr(fields, 'experience_institution_outil_autre', None)
 
-        sujet = "[ICLPS DB :: nouvelle experience]"
+        sujet = "[ICLPS-LUX DB :: nouvelle experience]"
         message = """<font color='#FF0000'><b>:: Ajout d'une nouvelle expérience ::</b></font><br /><br />
                   Bonjour Isabelle, <br />
                   Une nouvelle expérience est ajoutée dans la base via le site.<br />
@@ -327,10 +327,10 @@ class ManageInterClps(BrowserView):
         experienceResume = getattr(fields, 'field.experience_resume', None)
 
 
-        sujet = "[ICLPS to SISS  :: nouvelle experience]"
+        sujet = "[ICLPS-LUX to SISS  :: nouvelle experience]"
         message = """<font color='#FF0000'><b>:: Ajout d'une nouvelle expérience ::</b></font><br /><br />
                   Bonjour SISS, <br />
-                  Une nouvelle expérience est publiée sur le site du CLPS-BW.<br />
+                  Une nouvelle expérience est publiée sur le site du CLPS-LUX.<br />
                   Il s'agit de :<br />
                   <ul>
                   <li>Titre : <font color='#ff9c1b'><b>%s</b></font></li>
@@ -2686,7 +2686,7 @@ class ManageInterClps(BrowserView):
         auteur_actif = getattr(fields, 'auteur_actif')
         auteur_for_experience = getattr(fields, 'auteur_for_experience', False)
         auteur_for_institution = getattr(fields, 'auteur_for_institution', False)
-        auteur_clps_fk = getattr(fields, 'auteur_clps_fk')
+        auteur_clps_fk = 2
         auteur_creation_date = self.getTimeStamp()
         auteur_modification_date = self.getTimeStamp()
         auteur_modification_employe = self.getUserAuthenticated()
@@ -4945,7 +4945,7 @@ class ManageInterClps(BrowserView):
             if experience_etat == 'publish':
                 etatPublicationForSiss = self.getExperienceStatutPublicationForSiss(experienceFk)
                 if etatPublicationForSiss != True:
-                    self.sendMailForSissWhenExperienceIsPublish(experienceFk, experienceInstitutionPorteurFk)
+                    #self.sendMailForSissWhenExperienceIsPublish(experienceFk, experienceInstitutionPorteurFk)
                     self.setExperienceStatutPublicationForSissToTrue(experienceFk)
 
             return {'status': 1}

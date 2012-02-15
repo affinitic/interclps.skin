@@ -24,7 +24,7 @@
                                  Auteur python:view.getAuteurByPk(auteurPk);">
             <tal:block tal:condition="python: experience==False and institution==False">
                 <tal:boucle tal:repeat="auteur Auteur">
-                    <form action="admin-auteur-supprimer/deleteAuteurByPk"
+                    <form action="deleteAuteurByPk"
                           method="post">                    
                         <div class="div_question">
                             <img src="list_flch_rouge.png" />

@@ -89,6 +89,14 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
+          name="deleteAuteurByPk"
+          for="*"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          attribute="deleteAuteurByPk"
+          />
+    <browser:page
           name="checkCaptchaDemandeInscription"
           for="*"
           permission="zope.Public"
@@ -96,7 +104,6 @@
           allowed_interface=".interfaces.IManageInterClps"
           attribute="checkCaptchaDemandeInscription"
           />
-
     <browser:page
           name="experience-inscription-auteur-merci"
           for="*"
