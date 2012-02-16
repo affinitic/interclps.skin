@@ -213,7 +213,7 @@ class ManageInterClps(BrowserView):
         mailer = Mailer("localhost", "alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
         #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be, houtain@clps-bw.be" )
         mailer.setSubject(sujet)
-        mailer.setRecipients("alain.meurant@affinitic.be")
+        mailer.setRecipients("alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be ")
         mail = message
         mailer.sendAllMail(mail)
 
@@ -224,7 +224,7 @@ class ManageInterClps(BrowserView):
         mailer = Mailer("localhost", "alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
         #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
         mailer.setSubject(sujet)
-        mailer.setRecipients("alain.meurant@affinitic.be")
+        mailer.setRecipients("alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
         mail = message
         mailer.sendAllMail(mail)
 
@@ -351,7 +351,7 @@ class ManageInterClps(BrowserView):
         mailer = Mailer("localhost", "alain.meurant@affinitic.be")
         #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
         mailer.setSubject(sujet)
-        mailer.setRecipients("alain.meurant@affinitic.be")
+        mailer.setRecipients("alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
         mail = message
         mailer.sendAllMail(mail)
 

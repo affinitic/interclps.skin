@@ -164,15 +164,6 @@ padding:0px;
 border-bottom:1px solid #aaa;
 }
 
-/*** BREADCRUMB ***/
-#breadcrumb{
-width:880px;
-margin:auto; 
-padding-left:70px;
-border-top:1px solid #aaa;
-border-bottom:1px solid #aaa;
-font-size:0.7em;
-}                   
 
 /*** MENU SUP ***/
 #menu{
@@ -296,19 +287,40 @@ margin-top:10px;
 }
 
 
+/*** USER-INFO ***/
+#user-info{
+/*width:880px;*/
+/*margin:auto; */
+padding-left:70px;
+border-top:1px solid #ddd;
+border-bottom:1px solid #ddd;
+font-size:0.7em;
+text-align:right;
+}                   
+
+
 /*** LEFT-COLUMN ***/
 #left-column{
 float:left;
 width:210px;
 min-height:600px;
-border-right:2px solid #ddd;
 }
 
 
 /*** CONTENT ***/ 
-#main-column{
+#portal-breadcrumbs {
+border-bottom: 1px solid #DDDDDD;
+font-size: 80%;
+margin-bottom: 1em;
+margin-left: 0.25em;
+}
+
+
+#column-centre{
 float:right;
 width:680px;
+border-left:2px solid #ddd;
+padding-left:10px;    
 }
 
 #content{
