@@ -3,7 +3,7 @@
 import datetime
 #import time
 #import random
-from sqlalchemy import select, func
+from sqlalchemy import select, func, and_
 from mailer import Mailer
 #from LocalFS import LocalFS
 from Products.Five import BrowserView
@@ -1311,6 +1311,34 @@ class ManageInterClps(BrowserView):
         experience = query.all()
         return experience
 
+    def getExperienceByClps(self, clpsPk):
+        """
+        table pg experience
+        recuperation d'une experience selon experience_clps_proprio_fk
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        ExperienceTable = wrapper.getMapper('experience')
+        query = session.query(ExperienceTable)
+        query = query.filter(ExperienceTable.experience_clps_proprio_fk == clpsPk)
+        experienceByClps = query.all()
+        return experienceByClps
+
+    def getExperienceByClpsByEtat(self, clpsPk, experienceEtat):
+        """
+        table pg experience
+        recuperation d'une experience selon experience_clps_proprio_fk
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        ExperienceTable = wrapper.getMapper('experience')
+        query = session.query(ExperienceTable)
+        query = query.filter(and_(ExperienceTable.experience_clps_proprio_fk == clpsPk,
+                                  ExperienceTable.experience_etat == experienceEtat))
+        experienceByClps = query.all()
+        return experienceByClps
+
+
     def getExperienceByLeffeSearch(self, searchString):
         """
         table pg experience
@@ -1409,19 +1437,6 @@ class ManageInterClps(BrowserView):
             query = query.limit(5)
         experience = query.all()
         return experience
-    
-    def getExperienceByClps(self, clpsPk):
-        """
-        table pg experience
-        recuperation d'une experience selon experience_clps_proprio_fk
-        """
-        wrapper = getSAWrapper('clpsbw')
-        session = wrapper.session
-        ExperienceTable = wrapper.getMapper('experience')
-        query = session.query(ExperienceTable)
-        query = query.filter(ExperienceTable.experience_clps_proprio_fk == clpsPk)
-        experienceByClps = query.all()
-        return experienceByClps
 
     def getExperienceByCommune(self, communePk):
         """

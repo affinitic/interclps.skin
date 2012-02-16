@@ -50,16 +50,30 @@
             <form action="experience-decrire" method="post">
                 Ci-dessous, la liste des différents titres des expériences encodées dans notre base.
                 <div class="div_question">
-                    <tal:block tal:define="experiences python:view.getAllExperienceByEtat('publish')">
-                        <select name="experiencePk">
-                            <tal:boucle tal:repeat="experience experiences">
-                                <option value=""
-                                        tal:attributes="value experience/experience_pk">
-                                    <span tal:content="experience/experience_titre">titre experience</span>
-                                </option>
-                            </tal:boucle>
-                        </select>
-                    </tal:block>
+                    <select name="experiencePk">
+                        <tal:block tal:define="experiences python:view.getExperienceByClpsByEtat(1,'publish')">
+                            <option></option>
+                            <optgroup label="CLPS-BW">
+                                <tal:boucle tal:repeat="experience experiences">
+                                    <option value=""
+                                            tal:attributes="value experience/experience_pk">
+                                        <span tal:content="experience/experience_titre">titre experience</span>
+                                    </option>
+                                </tal:boucle>
+                            </optgroup>
+                        </tal:block>
+                        <tal:block tal:define="experiences python:view.getExperienceByClpsByEtat(2,'publish')">
+                            <option></option>
+                            <optgroup label="CLPS-LUX">
+                                <tal:boucle tal:repeat="experience experiences">
+                                    <option value=""
+                                            tal:attributes="value experience/experience_pk">
+                                        <span tal:content="experience/experience_titre">titre experience</span>
+                                    </option>
+                                </tal:boucle>
+                            </optgroup>
+                        </tal:block> 
+                    </select>
                 </div>
                 <div class="div_question">
                     <input type="submit"
