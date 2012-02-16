@@ -1409,6 +1409,19 @@ class ManageInterClps(BrowserView):
             query = query.limit(5)
         experience = query.all()
         return experience
+    
+    def getExperienceByClps(self, clpsPk):
+        """
+        table pg experience
+        recuperation d'une experience selon experience_clps_proprio_fk
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        ExperienceTable = wrapper.getMapper('experience')
+        query = session.query(ExperienceTable)
+        query = query.filter(ExperienceTable.experience_clps_proprio_fk == clpsPk)
+        experienceByClps = query.all()
+        return experienceByClps
 
     def getExperienceByCommune(self, communePk):
         """

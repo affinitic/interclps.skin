@@ -49,27 +49,38 @@
 
             <form action="experience-decrire" method="post">
                 Ci-dessous, la liste des différents titres des expériences encodées dans notre base.
-                <tal:block tal:define="experiences python:view.getAllExperience()">
+                
                     <div class="div_question">
                         <select name="experiencePk" size="1">
-                            <tal:boucle tal:repeat="experience experiences">
-                                <option value=""
-                                        tal:attributes="value experience/experience_pk">
-                                    <span tal:content="experience/experience_titre">titre experience</span>
-                                    &nbsp;&nbsp;&nbsp;
-                                    [<span tal:content="experience/experience_etat"  style="color:blue;">etat experience</span>]
-                                    &nbsp;&nbsp;&nbsp;
-                                    <span tal:condition="python: experience.experience_clps_proprio_fk==2">
-                                        ::CLPS-LUX::
-                                    </span>
-                                    <span tal:condition="python: experience.experience_clps_proprio_fk==1">
-                                        ::CLPS-BW::
-                                    </span>
-                                </option>
-                            </tal:boucle>
+                            <tal:block tal:define="experiences python:view.getExperienceByClps(1)">
+                                <option></option>
+                                <optgroup label="CLPS-BW">
+                                    <tal:boucle tal:repeat="experience experiences">
+                                            <option value=""
+                                                    tal:attributes="value experience/experience_pk">
+                                                <span tal:content="experience/experience_titre">titre experience</span>
+                                                &nbsp;&nbsp;&nbsp;
+                                                [<span tal:content="experience/experience_etat"  style="color:blue;">etat experience</span>]
+                                            </option>
+                                    </tal:boucle>
+                                </optgroup>  
+                            </tal:block>
+                            <tal:block tal:define="experiences python:view.getExperienceByClps(2)">
+                                <option></option>
+                                <optgroup label="CLPS-LUX">
+                                    <tal:boucle tal:repeat="experience experiences">
+                                            <option value=""
+                                                    tal:attributes="value experience/experience_pk">
+                                                <span tal:content="experience/experience_titre">titre experience</span>
+                                                &nbsp;&nbsp;&nbsp;
+                                                [<span tal:content="experience/experience_etat"  style="color:blue;">etat experience</span>]
+                                            </option> 
+                                    </tal:boucle>  
+                                </optgroup>
+                            </tal:block>
                         </select>
                     </div>
-                </tal:block>
+                
                 <div class="div_question">
                     <input type="submit"
                            value="lancer la recherche"

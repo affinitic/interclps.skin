@@ -168,7 +168,13 @@ class IManageInterClps(Interface):
         recuperation d'un recit selon experience_pk
         private pending publish
         """
-
+    
+    def getExperienceByClps(self, clpsPk):
+        """
+        table pg experience
+        recuperation d'une experience selon experience_clps_proprio_fk
+        """
+        
     def getExperienceByRessource(self, ressourcePk):
         """
         recuperation d'une experience selon une ressource
