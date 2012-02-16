@@ -192,7 +192,7 @@
                         <span class="right-rubrique-db">Territoire</span>
                             <br />
                             <span tal:condition="python:experience.experience_territoire_tout_luxembourg">
-                                <span>Tout le Brabant wallon</span>
+                                <span>Tout le Luxembourg</span>
                                 <br />
                             </span>
                             <tal:block tal:define="communes python:view.getCommuneNomByExperiencePk(experiencePk)">

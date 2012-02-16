@@ -260,7 +260,7 @@
                     </tal:addremove>
                     <br />
                     <br />
-                    <img src="list_flch_rouge.png" />Localité hors Brabant wallon
+                    <img src="list_flch_rouge.png" />Localité hors Luxembourg
                     <tal:addremove define="errors python:{};">
                         <span metal:use-macro="python: view.getAddRemoveField('experience_commune_outbw_fk', ' ',
                                                        view.getAllCommune((1,2,3,5,11)),

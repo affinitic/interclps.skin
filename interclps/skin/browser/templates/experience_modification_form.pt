@@ -266,10 +266,10 @@
                                name="experience_territoire_tout_luxembourg"
                                value="True"
                                tal:attributes="checked python:experience.experience_territoire_tout_luxembourg and 'checked' or None;" />
-                               Tout le Brabant wallon<br />
+                               Tout le Luxembourg<br />
                         <br />
                         <img src="list_flch_rouge.png" />
-                        Localité du Brabant wallon<br />
+                        Localité du Luxembourg<br />
                         <tal:addremove define="errors python:{};">
                             <span metal:use-macro="python: view.getAddRemoveField('experience_commune_inbw_fk', ' ',
                                                            view.getAllCommune((5,)),

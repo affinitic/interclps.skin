@@ -58,6 +58,13 @@
                                     <span tal:content="experience/experience_titre">titre experience</span>
                                     &nbsp;&nbsp;&nbsp;
                                     [<span tal:content="experience/experience_etat"  style="color:blue;">etat experience</span>]
+                                    &nbsp;&nbsp;&nbsp;
+                                    <span tal:condition="python: experience.experience_territoire_tout_luxembourg">
+                                        ::CLPS-LUX::
+                                    </span>
+                                    <span tal:condition="python: experience.experience_territoire_tout_brabant_wallon">
+                                        ::CLPS-BW::
+                                    </span>
                                 </option>
                             </tal:boucle>
                         </select>
