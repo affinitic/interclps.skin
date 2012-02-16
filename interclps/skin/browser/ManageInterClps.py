@@ -606,23 +606,28 @@ class ManageInterClps(BrowserView):
         auteurLogin = auteur.auteur_login
         return auteurLogin
 
-    def getAuteurByLogin(self, typeCreation):
+    def getAuteurByLogin(self, typeElement):
         """
         table pg auteur
         recuperation d'un auteur selon son login
         """
-        userLogin = self.getUserAuthenticated()
-        sujet = "[ICLPS-LUX DB :: connection externe par %s]"%(userLogin, )
-        message="%s en mode création d'une %s"%(userLogin, typeCreation)
-        self.sendMailWhenLoginByAuteur(sujet, message)
-
+        auteurLogin = self.getUserAuthenticated()
+        
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         AuteurTable = wrapper.getMapper('auteur')
         query = session.query(AuteurTable)
-        query = query.filter(AuteurTable.auteur_login == userLogin)
+        query = query.filter(AuteurTable.auteur_login == auteurLogin)
         query = query.order_by(AuteurTable.auteur_nom)
         auteur = query.one()
+
+        auteurNom = auteur.auteur_nom
+        auteurPrenom = auteur.auteur_prenom
+        auteurInstitution = auteur.auteur_institution        
+        sujet = "[ICLPS-LUX DB :: connection externe par %s]"%(auteurLogin, )
+        message="%s %s (%s) de %s en mode creation d'une %s"%(auteurPrenom, auteurNom, auteurLogin, auteurInstitution, typeElement)
+        self.sendMailWhenLoginByAuteur(sujet, message)
+
         return auteur
 
     def getAuteurPkByName(self, auteurConnecte):
@@ -3443,7 +3448,7 @@ class ManageInterClps(BrowserView):
         experience_clps_proprio_fk = getattr(fields, 'experienceClpsProprio', None)
 
         if not experience_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue formulaire experience_creation_form
-            auteur = self.getAuteurByLogin('expérience')
+            auteur = self.getAuteurByLogin('institution')
             experience_auteur_fk= auteur.auteur_pk
 
         if experience_auteur: #cas ou c'est un clpsmember qui se loggue via formulaire admin_experience_creation_form 
