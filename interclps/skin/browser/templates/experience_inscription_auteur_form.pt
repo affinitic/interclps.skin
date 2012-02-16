@@ -163,7 +163,7 @@
             </span>
             <br />
             <textarea name="auteur_description"
-                      cols="80"
+                      cols="70"
                       raws="5"
                       class="string required"><span tal:replace="request/description | nothing"></span></textarea>
         </div>
