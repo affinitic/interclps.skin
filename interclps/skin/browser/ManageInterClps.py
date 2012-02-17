@@ -1481,10 +1481,9 @@ class ManageInterClps(BrowserView):
         LinkExperienceThemeTable = wrapper.getMapper('link_experience_theme')
         query = session.query(LinkExperienceThemeTable)
         for pk in themePk:
-            query = query.filter(LinkExperienceThemeTable.theme_fk.in_(pk))
+            query = query.filter(LinkExperienceThemeTable.theme_fk == pk)
             self.addRechercheLog(themePk = pk)
         query = query.all()
-
         experiencePkByTheme = []
         for pk in query:
             experiencePkByTheme.append(pk.experience_fk)
