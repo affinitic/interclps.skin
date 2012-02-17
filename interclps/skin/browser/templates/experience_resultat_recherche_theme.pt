@@ -13,15 +13,9 @@
      tal:define="themePk request/themePk;
                  experiences python:view.getExperienceByTheme(themePk)">
     
-
-    
-    <div id="listing-titre">
-        <h1>
-            Liste des experiences correspondant
-            <br /> 
-            à votre recherche
-        </h1>
-    </div>
+    <h1>
+        Liste des experiences correspondant à votre recherche
+    </h1>
     <div id="bg_listing_bord_sup"><img src="bg_listing_bord_sup.png"></div>
     <div  id="listing-experience-main">
         <div id="listing-nbre-experience">
@@ -30,27 +24,29 @@
                 expérience qui correspond à votre recherche.
             </span>
             <span tal:condition="python: len(experiences)==1">
-                Il y a <span tal:content="python: len(experiences)" class="grasrouge" /> 
+                Il y a 
+                <span tal:content="python: len(experiences)"
+                      class="grasrouge" /> 
                 expérience qui correspond à votre recherche.
             </span>
             <span tal:condition="python: len(experiences)>1">
-                Il y a <span tal:content="python: len(experiences)" class="grasrouge" /> 
+                Il y a 
+                <span tal:content="python: len(experiences)"
+                      class="grasrouge" /> 
                 expériences qui correspondent à votre recherche.
             </span>
         </div>
     
         <tal:boucle tal:repeat="experience experiences">
             <tal:block tal:define="experiencePk experience/experience_pk">
-                <div class="listing-experience">
-                    <div id="listing-experience-bord-sup">    
-                        <div class="listing-zone-titre">
-                            <a href=""
-                               tal:content="experience/experience_titre"
-                               tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}"
-                               class="listing-titre-experience">titre de l'expérience</a>
-                        </div><!--listing-titre-experience-->
-                    </div><!--listing-experience-bord-sup-->
-                    <div class="listing-texte-experience">
+                <fieldset>
+                    <legend class="titre_formation">
+                    <a href=""
+                       tal:content="experience/experience_titre"
+                       tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}">
+                       titre de l'expérience</a>
+                   </legend>
+                   <div class="listing-texte-experience">
                         <span tal:replace="structure experience/experience_resume"
                               class="rep-qest" />
                         <ul>
@@ -65,23 +61,31 @@
                                       class="rep-qest" />
                             </li>
                         </ul>
-                    </div><!--listing texte experience--> 
-                    <div id="footer-listing">
-                        <div class="listing-experience-etat"
-                             tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
-                             tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-                            <span tal:content="experienceEtat" />
-                            &Xi;
-                            <span tal:content="experience/experience_pk" />
-                        </div>
-                        <div class="listing-experience-bouton">
-                            <a href=""
-                               tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}">
-                               <img src="btn_suivant.png" /></a>
-                        </div>
-                    </div><!--footer listing-->
-                    <div id="listing-experience-bord-inf"></div>              
-                </div><!--listing-experience-->
+                   </div><!--listing texte experience--> 
+                   <div id="footer-listing">
+                       <div class="listing-experience-etat"
+                            tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
+                            tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                           <span tal:content="experienceEtat" />
+                           &Xi;
+                           <span tal:content="experience/experience_pk" />
+                       </div>
+                       <div tal:define="proprio experience/experience_clps_proprio_fk"
+                            class="listing-experience-clps-proprio">
+                           <span tal:condition="python: proprio==1">
+                               <img src="exp_by_clps_bw.png" />
+                           </span>
+                           <span tal:condition="python: proprio==2">
+                               <img src="exp_by_clps_lux.png" />
+                           </span>
+                       </div>
+                       <div class="listing-experience-bouton">
+                           <a href=""
+                              tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}">
+                              <img src="btn_suivant.png" /></a>
+                       </div>
+                   </div><!--footer listing-->
+                </fieldset>
             </tal:block>
         </tal:boucle>
     </div><!--listing-experience-main-->
