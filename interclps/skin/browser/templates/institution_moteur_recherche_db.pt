@@ -71,18 +71,32 @@
             <legend class="search-legend-titre"> Toutes les institutions de la DB </legend>
             <form action="institution-decrire" method="post">
                 Ci-dessous, la liste des différentes institution encodées dans la base.
-                <tal:block tal:define="institutions python:view.getAllInstitution()">
                     <div class="div_question">
                         <select name="institutionPk">
-                            <tal:boucle tal:repeat="institution institutions">
-                                <option value=""
-                                        tal:attributes="value institution/institution_pk">
-                                    <span tal:content="institution/institution_nom">nom institution</span>
-                                </option>
-                            </tal:boucle>
+                            <tal:block tal:define="institutions python:view.getAllInstitutionByClpsProprio(1)">
+                                <option></option>
+                                <optgroup label="CLPS-BW">
+                                    <tal:boucle tal:repeat="institution institutions">
+                                        <option value=""
+                                                tal:attributes="value institution/institution_pk">
+                                            <span tal:content="institution/institution_nom">nom institution</span>
+                                        </option>
+                                    </tal:boucle>
+                                </optgroup>
+                            </tal:block>
+                            <tal:block tal:define="institutions python:view.getAllInstitutionByClpsProprio(2)">
+                                <option></option>
+                                <optgroup label="CLPS-LUX">
+                                    <tal:boucle tal:repeat="institution institutions">
+                                        <option value=""
+                                                tal:attributes="value institution/institution_pk">
+                                            <span tal:content="institution/institution_nom">nom institution</span>
+                                        </option>
+                                    </tal:boucle>
+                                </optgroup>
+                            </tal:block>  
                         </select>
                     </div>
-                </tal:block>
                 <div class="div_question">
                     <input type="submit"
                            value="lancer la recherche"

@@ -34,7 +34,7 @@ color:#637388;
 
 h1{
 border-bottom:1px dotted #ccd8e8;
-} 
+}
 
 .gras{
 font-weight:bold;
@@ -170,7 +170,7 @@ border-bottom:1px solid #aaa;
 position:relative;
 top:-50px;
 left:530px;
-width:385px; 
+width:385px;
 }
 
 #menu ul{
@@ -182,8 +182,8 @@ text-align:right;
 
 }
 
-#menu li{ 
-display:inline;    
+#menu li{
+display:inline;
 border-left:1px solid #6E8446;
 color:#8B3D5A;
 }
@@ -246,7 +246,7 @@ float:left;
 margin-top:-10px;
 }
 
-#logo-clps{ 
+#logo-clps{
 width:320px;
 height:160px;
 float:right;
@@ -254,8 +254,8 @@ background-color:rgba(144,184,144,0.4);
 border-radius:12px;
 }
 
-#logo-clps #logo-clpsbw{ 
-display:block; 
+#logo-clps #logo-clpsbw{
+display:block;
 width:150px;
 float:left;
 margin-left:6px;
@@ -263,7 +263,7 @@ margin-top:13px;
 }
 
 #logo-clps #logo-clpslux{
-display:block; 
+display:block;
 width:150px;
 float:right;
 margin-right:1px;
@@ -296,7 +296,7 @@ border-top:1px solid #ddd;
 border-bottom:1px solid #ddd;
 font-size:0.7em;
 text-align:right;
-}                   
+}
 
 
 /*** LEFT-COLUMN ***/
@@ -307,7 +307,7 @@ min-height:600px;
 }
 
 
-/*** CONTENT ***/ 
+/*** CONTENT ***/
 #portal-breadcrumbs {
 border-bottom: 1px solid #DDDDDD;
 font-size: 80%;
@@ -320,7 +320,7 @@ margin-left: 0.25em;
 float:right;
 width:670px;
 border-left:2px solid #ddd;
-padding-left:10px;    
+padding-left:10px;
 }
 
 #content{
@@ -368,7 +368,7 @@ border-bottom:1px solid #666;
 width:90%;
 padding-top:5px;
 }
- 
+
 #portlet-last-experience-content{
 padding:8px;
 }
@@ -379,8 +379,10 @@ font-size:0.8em;
 padding-bottom:12px;
 }
 #portlet-last-experience a:hover{
-color:#fff;               
+color:#fff;
 }
+
+
 /*** FOOTER ***/
 #footer{
 height:80px;
@@ -396,13 +398,12 @@ color:#4D5045;
 }
 
 #footer a{
-color:#707367;    
+color:#707367;
 }
 
 #footer a:hover{
 color:#ff7000;
 }
-
 
 .break-float{
 clear:both;
@@ -410,12 +411,12 @@ clear:both;
 
 .vert-actif{
 color:#00aa00;
-font-size:0.8em;
+font-size:1em;
 }
 
 .rouge-non-actif{
 color:#ff0000;
-font-size:0.8em;
+font-size:1em;
 }
 
 .grasbrun{
@@ -440,7 +441,7 @@ color:#00aa00;
 
 .gras{
 font-weight:bold;
-}              
+}
 
 
 /*** PORLET PRESENTATION DB***/
@@ -456,10 +457,10 @@ margin:2em 0px;
 .portlePresentationtHeaderDB{
 border-radius:10px 0px 0px 0px;
 background-color:#249c35;
-line-height:30px; 
+line-height:30px;
 color:#fff;
 font-variant:small-caps;
-font-size:1.1em; 
+font-size:1.1em;
 font-weight:bold;
 padding-left:15px;
 border-bottom:1px solid #186523;
@@ -488,10 +489,10 @@ height:15px;
 .portletHeaderDB{
 border-radius:10px 0px 0px 0px;
 background-color:#faa448;
-line-height:30px; 
+line-height:30px;
 color:#fff;
 font-variant:small-caps;
-font-size:1.1em; 
+font-size:1.1em;
 font-weight:bold;
 padding-left:15px;
 border-bottom:1px solid #e9953a;
@@ -510,7 +511,7 @@ margin:0px;
 
 .portletPresentationDB li{
 display:block;
-margin-left:20px; 
+margin-left:20px;
 }
 
 .portletFooterDB{
@@ -530,7 +531,7 @@ padding:10px 0px 10px 20px;
 .separation{
 width:180px;
 margin-left:-13px;
-margin-top:5px;    
+margin-top:5px;
 border-bottom:1px dotted #ccc;
 }
 
@@ -888,16 +889,16 @@ margin:auto;
 margin-top:4em;
 border-left:2px solid #da9000;
 border-right:2px solid #da9000;
-width:693px;    
+width:693px;
 }
 
-#listing-experience-bord-sup{ 
+#listing-experience-bord-sup{
 position:relative;
 left:-4px;
 width:702px;
 height:23px;
 background-image:url(listing_bord_sup.png);
-background-repeat:no-repeat;    
+background-repeat:no-repeat;
 }
 
 #listing-experience-bord-inf{
@@ -924,7 +925,7 @@ margin:auto;
 margin-top:-10px;
 }
 
-.listing-titre-experience{ 
+.listing-titre-experience{
 position:relative;
 top:-5px;
 background-color:#fffdee;
@@ -1001,7 +1002,7 @@ width:28px;
 height:73px;
 }
 
-.titre-institution-top{ 
+.titre-institution-top{
 float:left;
 color:#fff;
 width:90%;
@@ -1116,7 +1117,7 @@ width:28px;
 height:73px;
 }
 
-.titre-ressource-top{ 
+.titre-ressource-top{
 float:left;
 color:#fff;
 width:90%;
@@ -1143,7 +1144,7 @@ color:#111;
 margin-top:0px;
 }
 
-#right-ressource-content, 
+#right-ressource-content,
 #projet-partage-ressource {
 background-color: #D0E9F5;
 border: 1px solid #329FD7;
@@ -1192,7 +1193,7 @@ background-position:left center;
 color:#660033;
 padding-left:12px;
 font-weight:bold;
-} 
+}
 
 #ressource-footer{
 height:13px;
@@ -1256,7 +1257,7 @@ background: -webkit-linear-gradient(top, rgba(208,234,214,1) 0%,rgba(170,221,181
 100%);
 background: -o-linear-gradient(top, rgba(208,234,214,1) 0%,rgba(170,221,181,1) 17%,rgba(97,198,109,1)
 50%,rgba(75,191,57,1) 51%,rgba(68,214,66,1) 59%,rgba(75,237,81,1) 71%,rgba(96,188,56,1) 84%,rgba(35,127,41,1)
-100%);                
+100%);
 }
 
 

@@ -2076,6 +2076,20 @@ class ManageInterClps(BrowserView):
         allActiveInstitution = query.all()
         return allActiveInstitution
 
+    def getAllInstitutionByClpsProprio(self, clpsProprio):
+        """
+        table pg institution
+        recuperation de toutes les institutions
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        InstitutionTable = wrapper.getMapper('institution')
+        query = session.query(InstitutionTable)
+        query = query.order_by(InstitutionTable.institution_nom)
+        query = query.filter(InstitutionTable.institution_clps_proprio_fk == clpsProprio)
+        allActiveInstitutionByClpsProprio = query.all()
+        return allActiveInstitutionByClpsProprio
+
     def getAllActiveInstitutionByInstitutionTypePk(self, institutionTypePk, etat=None):
         """
         table pg institution
