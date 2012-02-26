@@ -530,6 +530,29 @@ class ManageInterClps(BrowserView):
         allClps = query.all()
         return allClps
 
+    def getClpsProprioForRessource(self, ressourcePk, retour):
+        """
+        table pg ressource et link_ressource_clps
+        recuperation des clpsProprio d'ne ressource
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        LinkRessourceClpsTable = wrapper.getMapper('link_ressource_clps')
+        query = session.query(LinkRessourceClpsTable)
+        query = query.filter(LinkRessourceClpsTable.ressource_fk == ressourcePk)
+        ressources = query.all()
+
+        clpsProprioListe=[]
+        allClps = self.getAllClps()
+        for ressource in ressources:
+            for clps in allClps:
+                if ressource.clps_fk == clps.clps_pk:
+                    if retour == 'nom':
+                        clpsProprioListe.append(clps.clps_nom)
+                    if retour == 'pk':
+                        clpsProprioListe.append(clps.clps_pk)
+        return clpsProprioListe
+
 
 ### commune ###
 

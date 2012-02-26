@@ -11,7 +11,8 @@
 
 <body>
 <div metal:fill-slot="main"
-     tal:define="ressources python:view.getRessourceByPk(ressourcePk=request.ressourcePk)"
+     tal:define="ressourcePk request/ressourcePk;
+                 ressources python:view.getRessourceByPk(ressourcePk=ressourcePk)"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
 <form action="ressource-inserer" method="post">
     <tal:boucle tal:repeat="ressource ressources">
@@ -200,25 +201,18 @@
             <fieldset>
                 <legend class="legende">Plate-formes et sous plate-formes concernées</legend>
                 <tal:blok tal:define="plateformes python:view.getAllActivePlateForme()">
-                    <tal:boucle tal:repeat="plateforme plateformes">
-                        <input type="checkbox"
-                               name="plateformeFk"
-                               value=""
-                               tal:attributes="value plateforme/plateforme_pk" />
-                        &nbsp;&nbsp;<span tal:content="plateforme/plateforme_nom"></span>
-                        <span tal:define="sousplateformes python:view.getSousPlateFormeByPlateFormePk(plateforme.plateforme_pk)">
-                            <span tal:repeat="sousplateforme sousplateformes">
-                                <br />
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <ul>
+                        <tal:boucle tal:repeat="plateforme plateformes">
+                            <li>
+                                <img src="list_flch_rouge.png" />
                                 <input type="checkbox"
-                                       name="institution_sousplateforme_fk:list"
+                                       name="plateformeFk"
                                        value=""
-                                       tal:attributes="value sousplateforme/sousplateforme_pk" />
-                                &nbsp;&nbsp;<span tal:content="sousplateforme/sousplateforme_nom"></span>
-                            </span>
-                        </span>
-                        <br /><br />
+                                       tal:attributes="value plateforme/plateforme_pk" />
+                                &nbsp;&nbsp;<span tal:content="plateforme/plateforme_nom"></span>
+                            </li>
                     </tal:boucle>
+                    </ul>
                 </tal:blok>
             </fieldset>
 
@@ -258,6 +252,27 @@
                          &nbsp;&nbsp;Formation
                     </li>
                 </ul>
+            </fieldset>
+            <fieldset>
+                <legend>Propriétaire</legend>
+                <tal:block tal:define="allClps python: view.getAllClps();
+                                   selectedClpsProprio python:view.getClpsProprioForRessource(ressourcePk, 'pk')">
+                    <ul class="formulaire">
+                        <tal:boucle tal:repeat="clps allClps">
+                            <li>
+                              <img src="list_flch_rouge.png" />
+                              <input type="checkbox"
+                                 name="ressource_clps_fk:list"
+                                 checked=""
+                                 value=""
+                                 tal:attributes="value clps/clps_pk;
+                                                 checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
+                              &nbsp;&nbsp;
+                              <span tal:content="clps/clps_nom" />
+                            </li>
+                        </tal:boucle>
+                    </ul>
+                </tal:block>
             </fieldset>
         </div>
 
