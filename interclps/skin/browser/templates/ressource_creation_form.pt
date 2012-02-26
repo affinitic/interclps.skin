@@ -173,7 +173,7 @@
         <fieldset>
             <legend>Thème</legend>
             <tal:addremove define="errors python:{};">
-                <span metal:use-macro="python: view.getAddRemoveField('theme_pk', ' ',
+                <span metal:use-macro="python: view.getAddRemoveField('ressource_theme_fk', ' ',
                                                view.getAllActiveTheme(),
                                                nameKey='theme_nom',
                                                pkKey='theme_pk')" />
@@ -240,10 +240,38 @@
                 <li>
                     <img src="list_flch_rouge.png" /> 
                     <input type="checkbox"
-                       name="ressource_mission_formation"
-                       value="True" />
+                           name="ressource_mission_formation"
+                           value="True" />
                      &nbsp;&nbsp;Formation
                 </li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Propriétaire</legend>
+            <ul tal:define="allClps python: view.getAllClps()"
+                class="formulaire">
+                <tal:block tal:repeat="clps allClps">
+                    <li>
+                      <img src="list_flch_rouge.png" />
+                      <span tal:condition="python: clps.clps_pk==2"> 
+                          <input type="checkbox"
+                                 name="ressource_clps_fk:list"
+                                 checked="checked"
+                                 value=""
+                                 tal:attributes="value clps/clps_pk" />
+                          &nbsp;&nbsp;
+                          <span tal:content="clps/clps_nom" />
+                      </span>
+                      <span tal:condition="python: clps.clps_pk!=2"> 
+                          <input type="checkbox"
+                                 name="ressource_clps_fk:list"
+                                 value=""
+                                 tal:attributes="value clps/clps_pk" />
+                          &nbsp;&nbsp;
+                          <span tal:content="clps/clps_nom" />
+                      </span>
+                    </li>
+                </tal:block>
             </ul>
         </fieldset>
     </div>

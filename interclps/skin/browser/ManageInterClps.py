@@ -515,6 +515,22 @@ class ManageInterClps(BrowserView):
         return userRole
 
 
+### clps-proprio ###
+
+    def getAllClps(self):
+        """
+        table pg clps
+        recuperation de toutes les clps
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        ClpsTable = wrapper.getMapper('clps')
+        query = session.query(ClpsTable)
+        query = query.order_by(ClpsTable.clps_nom)
+        allClps = query.all()
+        return allClps
+
+
 ### commune ###
 
     def getAllCommune(self, province=None):
@@ -3098,6 +3114,20 @@ class ManageInterClps(BrowserView):
             session.delete(ressourceFk)
         session.flush()
 
+    def deleteLinkRessourceClps(self, ressourceFk):
+        """
+        table pg link_ressource_clps
+        suppression des proprio des ressources
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        deleteLinkRessourceClps = wrapper.getMapper('link_ressource_clps')
+        query = session.query(deleteLinkRessourceClps)
+        query = query.filter(deleteLinkRessourceClps.ressource_fk == ressourceFk)
+        for ressourceFk in query.all():
+            session.delete(ressourceFk)
+        session.flush()
+
     def addLinkRessourcePublic(self, ressourceFk):
         """
         table pg link_ressource_public
@@ -3126,6 +3156,22 @@ class ManageInterClps(BrowserView):
         query = query.filter(deleteLinkRessourcePublic.ressource_fk == ressourceFk)
         for ressourceFk in query.all():
             session.delete(ressourceFk)
+        session.flush()
+
+    def addLinkRessourceClps(self, ressourceFk):
+        """
+        table pg link_ressource_clps
+        ajout des clps proprietaire de la ressource
+        """
+        fields = self.context.REQUEST
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        insertLinkRessourceClps = wrapper.getMapper('link_ressource_clps')
+        ressourceClps = getattr(fields, 'ressource_clps_fk', None)
+        for clpsFk in ressourceClps:
+            newEntry = insertLinkRessourceClps(ressource_fk = ressourceFk,
+                                               clps_fk = clpsFk)
+            session.save(newEntry)
         session.flush()
 
     def addInstitutionType(self):
@@ -4795,6 +4841,9 @@ class ManageInterClps(BrowserView):
         ressourcePublicFk = getattr(fields, 'ressource_public_fk', None)
         ressourceSupportFk = getattr(fields, 'ressource_support_fk', None)
         ressourceThemeFk = getattr(fields, 'ressource_theme_fk', None)
+        ressourceClpsFk = getattr(fields, 'ressource_clps_fk', None)
+
+        
 
         if operation =="insert":
             self.addRessource()
@@ -4805,7 +4854,10 @@ class ManageInterClps(BrowserView):
                 self.addLinkRessourceTheme(ressourceFk)
             if ressourcePublicFk > 0:
                 self.addLinkRessourcePublic(ressourceFk)
+            if ressourceClpsFk:
+                self.addLinkRessourceClps(ressourceFk)
             return {'status': 1}
+
 
         if operation == "update":
             ressourceFk = getattr(fields, 'ressource_pk')
@@ -4818,6 +4870,10 @@ class ManageInterClps(BrowserView):
             self.deleteLinkRessourceTheme(ressourceFk)
             if ressourceThemeFk > 0:
                 self.addLinkRessourceTheme(ressourceFk)
+
+            self.deleteLinkRessourceClps(ressourceFk)
+            if ressourceClpsFk:
+                self.addLinkRessourceClps(ressourceFk)
             return {'status': 1}
 
     def manageSupport(self):
