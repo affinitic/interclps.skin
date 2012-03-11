@@ -12,7 +12,12 @@
 <body>
 <div metal:fill-slot="main"
      tal:define="ressourcePk request/ressourcePk;
-                 ressources python:view.getRessourceByPk(ressourcePk=ressourcePk)"
+                 ressources python:view.getRessourceByPk(ressourcePk=ressourcePk);
+                 publics python:view.getPublicByRessourcePk(ressourcePk);
+                 supports python:view.getSupportByRessourcePk(ressourcePk, 'titre');
+                 allClps python:view.getAllClps();
+                 clpsDispo python:view.getClpsDispoByRessourcePk(ressourcePk, 'cle');
+                 selectedClpsProprio python:view.getClpsProprioForRessource(ressourcePk, 'pk')"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
 <form action="ressource-inserer" method="post">
     <tal:boucle tal:repeat="ressource ressources">
@@ -131,14 +136,17 @@
             </div>
             <div class="div_question">
                 <img src="list_flch_rouge.png" /> Disponible au CLPS<br />
-                <input type="radio"
-                       name="ressource_disponible_clps"
-                       value="True" 
-                       tal:attributes="checked python:ressource.ressource_disponible_clps and 'checked' or None;" /> Oui
-                <input type="radio"
-                       name="ressource_disponible_clps"
-                       value="False"
-                       tal:attributes="checked python:ressource.ressource_disponible_clps== False and 'checked' or None;" /> Non
+                <tal:boucle tal:repeat="clps allClps">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox"
+                           name="ressource_clps_dispo_fk:list"
+                           value=""
+                           checked=""
+                           tal:attributes="value clps/clps_pk;
+                                           checked python:clps.clps_pk in clpsDispo and 'selected' or None" />
+                        <span tal:content="clps/clps_nom"></span>
+                        <br />
+                </tal:boucle>
             </div>
             <div class="div_question">
                 <img src="list_flch_rouge.png" /> Autre disponibilité
@@ -171,6 +179,10 @@
                 <span tal:replace="structure python: view.getWysiwygField('ressource_avis_clps', ressource.ressource_avis_clps)" />
             </div>
         </fieldset>
+
+
+
+
         <div tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
              id="description-for-manager">
             <div class="titre-for-manage">
@@ -255,24 +267,21 @@
             </fieldset>
             <fieldset>
                 <legend>Propriétaire</legend>
-                <tal:block tal:define="allClps python: view.getAllClps();
-                                   selectedClpsProprio python:view.getClpsProprioForRessource(ressourcePk, 'pk')">
-                    <ul class="formulaire">
-                        <tal:boucle tal:repeat="clps allClps">
-                            <li>
-                              <img src="list_flch_rouge.png" />
-                              <input type="checkbox"
-                                 name="ressource_clps_fk:list"
-                                 checked=""
-                                 value=""
-                                 tal:attributes="value clps/clps_pk;
-                                                 checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
-                              &nbsp;&nbsp;
-                              <span tal:content="clps/clps_nom" />
-                            </li>
-                        </tal:boucle>
-                    </ul>
-                </tal:block>
+                <ul class="formulaire">
+                    <tal:boucle tal:repeat="clps allClps">
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="ressource_clps_proprio_fk:list"
+                                   checked=""
+                                   value=""
+                                   tal:attributes="value clps/clps_pk;
+                                                   checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
+                            &nbsp;&nbsp;
+                            <span tal:content="clps/clps_nom" />
+                        </li>
+                    </tal:boucle>
+                </ul>
             </fieldset>
         </div>
 

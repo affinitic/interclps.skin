@@ -124,15 +124,22 @@
                 <img src="list_flch_rouge.png" /> Objectif(s)
                 <br />
                 <span tal:replace="structure python: view.getWysiwygField('ressource_objectif', '')" />
-                <img src="list_flch_rouge.png" /> Disponible au CLPS<br />
-                <input type="radio"
-                       name="ressource_disponible_clps"
-                       value="True" /> Oui
-                <input type="radio"
-                       name="ressource_disponible_clps"
-                       value="False"
-                       checked="checked" /> Non
-                <br /><br />
+            </div>
+            <div class="div_form_input">    
+                <tal:block tal:define="allClps python:view.getAllClps()">
+                    <tal:boucle tal:repeat="clps allClps">
+                        <img src="list_flch_rouge.png" />
+                        <input type="checkbox"
+                               name="ressource_clps_dispo_fk:list"
+                               value=""
+                               tal:attributes="value clps/clps_pk" />
+                        Disponible au 
+                        <span tal:content="clps/clps_nom" />
+                        <br /><br />
+                    </tal:boucle>
+                </tal:block>
+                
+                
                 <div id="info-champs">
                     <span class="info-logo">i</span>
                     Autre disponibilté.
@@ -158,6 +165,10 @@
                 </tal:addremove>
             </div>       
     </fieldset>
+
+
+
+
 
     <div tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
          id="description-for-manager">
@@ -255,7 +266,7 @@
                       <img src="list_flch_rouge.png" />
                       <span tal:condition="python: clps.clps_pk==2"> 
                           <input type="checkbox"
-                                 name="ressource_clps_fk:list"
+                                 name="ressource_clps_proprio_fk:list"
                                  checked="checked"
                                  value=""
                                  tal:attributes="value clps/clps_pk" />
@@ -264,7 +275,7 @@
                       </span>
                       <span tal:condition="python: clps.clps_pk!=2"> 
                           <input type="checkbox"
-                                 name="ressource_clps_fk:list"
+                                 name="ressource_clps_proprio_fk:list"
                                  value=""
                                  tal:attributes="value clps/clps_pk" />
                           &nbsp;&nbsp;

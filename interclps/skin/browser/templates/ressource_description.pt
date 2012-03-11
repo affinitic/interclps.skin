@@ -12,7 +12,10 @@
 <body>
 <div metal:fill-slot="main"
      tal:define="ressourcePk request/ressourcePk | nothing;
-                 ressources python:view.getAllRessource(ressourcePk)">
+                 ressources python:view.getAllRessource(ressourcePk);
+                 publics python:view.getPublicByRessourcePk(ressourcePk);
+                 supports python:view.getSupportByRessourcePk(ressourcePk, 'titre');
+                 clpsDispo python:view.getClpsDispoByRessourcePk(ressourcePk, 'titre')">
     <tal:boucle tal:repeat="ressource ressources">
         <tal:block tal:define="ressourcePk ressource/ressource_pk">
             <div id="title-ressource">
@@ -37,11 +40,9 @@
                 <div>
                     <h3 class="left-rubrique-db">Public</h3>
                     <div class="text-db">
-                        <tal:block tal:define="publics python:view.getPublicByRessourcePk(ressource.ressource_pk)">
-                            <tal:boucle tal:repeat="public publics">
-                                <span class="text-db">public</span>
-                            </tal:boucle>
-                        </tal:block>
+                        <tal:boucle tal:repeat="public publics">
+                            <span class="text-db">public</span>
+                        </tal:boucle>
                     </div>
                     <div class="text-db">
                         <span tal:content="ressource/ressource_autre_info"
@@ -128,15 +129,12 @@
                     </div>
                     
                     <div>
-                        <h4>Disponible au CLPS</h4>
-                        <span tal:condition="python:ressource.ressource_disponible_clps==True">
-                            &#8226;
-                            <span class="rubrique-db">Oui</span>
-                        </span>
-                        <span tal:condition="python:ressource.ressource_disponible_clps==False">
-                            &#8226;
-                            <span class="rubrique-db">Non</span>
-                        </span>
+                        <h4>Disponibilité</h4>
+                        <tal:boucle tal:repeat="clps clpsDispo">
+                            &#8226; 
+                            <span tal:content="clps"
+                                  class="rubrique-db">clps ou est disponible la ressource</span><br />
+                        </tal:boucle>                         
                     </div>
 
                     <div tal:condition="python: ressource.ressource_disponible_autre!=''">
@@ -147,13 +145,11 @@
 
                     <div>
                         <h4>Support</h4>
-                        <tal:block tal:define="supports python:view.getSupportByRessourcePk(ressource.ressource_pk, 'titre')">
-                            <tal:boucle tal:repeat="support supports">
-                                &#8226;
-                                <span tal:content="support"
-                                      class="rubrique-db">support</span><br />
-                            </tal:boucle>
-                        </tal:block>
+                        <tal:boucle tal:repeat="support supports">
+                            &#8226;
+                            <span tal:content="support"
+                                  class="rubrique-db">support</span><br />
+                        </tal:boucle>
                     </div>
                 </div><!--content-->
                 <div id="right-ressource-footer"></div>
