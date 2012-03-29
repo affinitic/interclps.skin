@@ -10,7 +10,8 @@
 </head>
 
 <body>
-<div metal:fill-slot="main">
+<div metal:fill-slot="main"
+     tal:define="allClps python:view.getAllClps()">
    <h1>Vous souhaitez partager votre expérience, quelle bonne idée !</h1>
    <fieldset>
        <legend class="legende">Envoyer une demande d'inscription</legend>
@@ -43,6 +44,19 @@
        <hr />
        <form action="checkCaptchaDemandeInscription"
              method="post"><!--onsubmit="return validate(this);"-->
+        <div class="div_question">
+            <span class="etiquette">Avec quel CLPS souhaitez-vous travailler ?</span>
+            <br />
+            <select name="clpsDestinationPk">
+                <option></option>
+                <tal:boucle tal:repeat="clps allClps">
+                    <option value=""
+                            tal:attributes="value clps/clps_pk">
+                        <span tal:content="clps/clps_nom">nom clps</span>
+                    </option>
+                </tal:boucle>
+            </select>
+        </div>
         <div class="div_question">
             <span class="etiquette">Nom de votre institution</span>
             <br />

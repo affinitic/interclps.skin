@@ -206,14 +206,13 @@ class ManageInterClps(BrowserView):
 
 ### gestion des mails ###
 
-    def sendMail(self, sujet, message):
+    def sendMail(self, sujet, message, clpsEmailContact):
         """
         envoi de mail à iclps admin
         """
-        mailer = Mailer("localhost", "alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
-        #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be, houtain@clps-bw.be" )
+        mailer = Mailer("localhost", "alain.meurant@affinitic.be, %s"%clpsEmailContact)
         mailer.setSubject(sujet)
-        mailer.setRecipients("alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be ")
+        mailer.setRecipients("alain.meurant@affinitic.be, %s"%clpsEmailContact)
         mail = message
         mailer.sendAllMail(mail)
 
@@ -237,14 +236,21 @@ class ManageInterClps(BrowserView):
         auteurPrenom = getattr(fields, 'auteur_prenom', None)
         auteurInstitution = getattr(fields, 'auteur_institution', None)
         auteurDescription = getattr(fields, 'auteur_description', None)
-
-
-        sujet = "[ICLPS-LUX DB  :: demande d'inscription d'un auteur]"
-        message = """<font color='#FF0000'><b>:: Ajout d'un nouvel auteur ::</b></font><br /><br />
-                  Bonjour Isabelle, <br />
+        clpsDestinationPk = getattr(fields, 'clpsDestinationPk')
+        clpsDestinationPk = int(clpsDestinationPk)
+        
+        clpsInfo = self.getClpsByPk(clpsDestinationPk)
+        clpsSigle = clpsInfo.clps_sigle
+        clpsPrenomContact = clpsInfo.clps_prenom_contact
+        clpsEmailContact = clpsInfo.clps_email_contact
+        
+        sujet = "[PROJETS PARATGES  :: demande d'inscription d'un auteur]"
+        message = u"""<font color='#FF0000'><b>:: Ajout d'un nouvel auteur ::</b></font><br /><br />
+                  Bonjour, %s <br />
                   Une personne vient de s'inscrire via le site pour devenir auteur d'un récit partagé.<br />
                   Il s'agit de :<br />
                   <ul>
+                    <li>CLPS : <font color='#ff9c1b'><b>%s</b></font></li> 
                     <li>Nom : <font color='#ff9c1b'><b>%s</b></font></li>
                     <li>Prénom : <font color='#ff9c1b'><b>%s</b></font></li>
                     <li>Organisme :  <font color='#ff9c1b'><b>%s</b></font></li>
@@ -259,11 +265,13 @@ class ManageInterClps(BrowserView):
                   <a href="http://www.projets-partages.be/admin-auteur-creer">lien</a>.
                   <hr />
                   """ \
-                  %(auteurNom, \
+                  %(clpsPrenomContact, \
+                    clpsSigle, \
+                    auteurNom, \
                     auteurPrenom, \
                     auteurInstitution, \
                     auteurDescription)
-        self.sendMail(sujet, message)
+        self.sendMail(sujet, message, clpsEmailContact)
 
     def sendMailForInsertExperience(self, experiencePk):
         """
@@ -280,10 +288,16 @@ class ManageInterClps(BrowserView):
         experience_institution_partenaire_autre = getattr(fields, 'experience_institution_partenaire_autre', None)
         experience_institution_ressource_autre = getattr(fields, 'experience_institution_ressource_autre', None)
         experience_institution_outil_autre = getattr(fields, 'experience_institution_outil_autre', None)
-
-        sujet = "[ICLPS-LUX DB :: nouvelle experience]"
-        message = """<font color='#FF0000'><b>:: Ajout d'une nouvelle expérience ::</b></font><br /><br />
-                  Bonjour Isabelle, <br />
+        
+        clpsDestinationPk = 2
+        clpsInfo = self.getClpsByPk(clpsDestinationPk)
+        clpsPrenomContact = clpsInfo.clps_prenom_contact
+        clpsEmailContact = clpsInfo.clps_email_contact
+        
+        
+        sujet = "[PROJETS PARTAGES :: nouvelle experience]"
+        message = u"""<font color='#FF0000'><b>:: Ajout d'une nouvelle expérience ::</b></font><br /><br />
+                  Bonjour %s, <br />
                   Une nouvelle expérience est ajoutée dans la base via le site.<br />
                   Il s'agit de :<br />
                   <ul>
@@ -304,7 +318,8 @@ class ManageInterClps(BrowserView):
                   :: Autre institution outil : <font color='#ff9c1b'><b>%s</b></font><br />
                   </font>
                   """ \
-                  %(experience_titre, \
+                  %(clpsPrenomContact, \
+                    experience_titre, \
                     experience_personne_contact, \
                     experience_creation_employe, \
                     experience_etat, \
@@ -314,46 +329,7 @@ class ManageInterClps(BrowserView):
                     experience_institution_partenaire_autre, \
                     experience_institution_ressource_autre, \
                     experience_institution_outil_autre)
-        self.sendMail(sujet, message)
-
-    def sendMailForSissWhenExperienceIsPublish(self, experiencePk, experienceInstitutionPorteurFk):
-        """
-        envoi d'un mail SISS Province Brabant Wallon  n.poelaert@siss.be
-        copie d'un mail a celine
-        """
-        fields = self.context.REQUEST
-        experiencePk = experiencePk
-        experienceTitre = getattr(fields, 'experience_titre', None)
-        experienceResume = getattr(fields, 'field.experience_resume', None)
-
-
-        sujet = "[ICLPS-LUX to SISS  :: nouvelle experience]"
-        message = """<font color='#FF0000'><b>:: Ajout d'une nouvelle expérience ::</b></font><br /><br />
-                  Bonjour SISS, <br />
-                  Une nouvelle expérience est publiée sur le site du CLPS-LUX.<br />
-                  Il s'agit de :<br />
-                  <ul>
-                  <li>Titre : <font color='#ff9c1b'><b>%s</b></font></li>
-                  <li>
-                    Resumé :<br />
-                    <font color='#ff9c1b'><b>%s</b></font>
-                  </ul>
-                  <hr />
-                  Voir la description de l'expérience en cliquant sur ce
-                  <a href="http://www.clpsbw.be/experience-decrire?experiencePk=%s">lien</a>.
-                  <hr />
-                  """ \
-                  %(experienceTitre, \
-                    experienceResume, \
-                    experiencePk)
-
-        #contact@siss.be, n.poelaert@siss.be
-        mailer = Mailer("localhost", "alain.meurant@affinitic.be")
-        #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
-        mailer.setSubject(sujet)
-        mailer.setRecipients("alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
-        mail = message
-        mailer.sendAllMail(mail)
+        self.sendMail(sujet, message, clpsEmailContact)
 
     def sendMailForUpdateExperience(self):
         #envoi d'un mail a Celine lors de la mise a jour d'une experience
@@ -370,10 +346,15 @@ class ManageInterClps(BrowserView):
         experience_institution_partenaire_autre = getattr(fields, 'experience_institution_partenaire_autre', None)
         experience_institution_ressource_autre = getattr(fields, 'experience_institution_ressource_autre', None)
         experience_institution_outil_autre = getattr(fields, 'experience_institution_outil_autre', None)
-
-        sujet = "[ICLPS-LUX DB :: modification de l'experience]"
-        message = """<font color='#FF0000'><b>:: Modification d'une expérience ::</b></font><br /><br />
-                  Bonjour Isabelle, <br />
+        
+        clpsDestinationPk = 2
+        clpsInfo = self.getClpsByPk(clpsDestinationPk)
+        clpsPrenomContact = clpsInfo.clps_prenom_contact
+        clpsEmailContact = clpsInfo.clps_email_contact
+        
+        sujet = "[PROJETS PARTAGES :: modification de l'experience]"
+        message = u"""<font color='#FF0000'><b>:: Modification d'une expérience ::</b></font><br /><br />
+                  Bonjour %s, <br />
                   L'expérience <font color='#ff9c1b'><b>%s</b></font> vient d'être modifiée.<br />
                   Il s'agit de :<br />
                   <ul>
@@ -397,7 +378,8 @@ class ManageInterClps(BrowserView):
                   :: Autre institution outil : <font color='#ff9c1b'><b>%s</b></font><br />
                   </font>
                   """ \
-                  %(experience_titre, \
+                  %(clpsPrenomContact, \
+                    experience_titre, \
                     experience_pk, \
                     experience_titre, \
                     experience_personne_contact, \
@@ -411,51 +393,7 @@ class ManageInterClps(BrowserView):
                     experience_institution_partenaire_autre, \
                     experience_institution_ressource_autre, \
                     experience_institution_outil_autre)
-        self.sendMail(sujet, message)
-
-    def demandeInscription(self):
-        """
-        Envoi d'une demande d'inscription
-        """
-        fields = self.context.REQUEST
-        organisme = fields.organisme
-        nom = fields.nom_contact
-        prenom = fields.prenom_contact
-        adresse = fields.adresse
-        cp = fields.cp
-        localite = fields.localite
-        telephone = fields.telephone
-        email = fields.email
-        login = fields.login
-        password = fields.password
-
-        description = fields.description
-
-        sujet="[ICLPS-LUX] :: Experience : demande d'inscription via le site"
-        message = """<font color='#FF0000'><b>:: DEMANDE D'INSCRIPTION ::</b></font>
-                     <br /><br />
-                     Un personne souhaite s'inscrire via le site.<br />
-                     Il s'agit de :<br />
-                     <ul>
-                        <li>Nom : <font color='#ff9c1b'><b>%s</b></font></li>
-                        <li>Prenom : <font color='#ff9c1b'><b>%s</b></font></li>
-                        <li>Institution : <font color='#ff9c1b'><b>%s</b></font></li>
-                        <li>Adresse : <font color='#ff9c1b'><b>%s</b></font></li>
-                        <li>CP : <font color='#ff9c1b'><b>%s</b></font></li>
-                        <li>Localite : <font color='#ff9c1b'><b>%s</b></font></li>
-                        <li>Telephone : <font color='#ff9c1b'><b>%s</b></font></li>
-                        <li>Email : <font color='#ff9c1b'><b>%s</b></font></li>
-                        <li>Login : <font color='#ff9c1b'><b>%s</b></font></li>
-                        <li>Password : <font color='#ff9c1b'><b>%s</b></font></li>
-                     </ul>
-                     Description :<br />
-                     <i>
-                     %s
-                     </i>"""%(organisme, nom, prenom, adresse, cp, localite, telephone, email, login, password, description)
-        self.sendMail(sujet, message)
-        cible = "%s/experience-inscription-merci" % (self.context.portal_url(), )
-        self.context.REQUEST.RESPONSE.redirect(cible)
-        return
+        self.sendMail(sujet, message, clpsEmailContact)
 
     def addLoginAuteur(self, login, passw, role):
         """
@@ -516,7 +454,7 @@ class ManageInterClps(BrowserView):
 
 
 ### clps-proprio ###
-
+  
     def getAllClps(self):
         """
         table pg clps
@@ -530,10 +468,24 @@ class ManageInterClps(BrowserView):
         allClps = query.all()
         return allClps
 
+    def getClpsByPk(self, clpsPk):
+        """
+        table pg clps
+        recuperation des infos d'un clps selon sa pk
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        ClpsTable = wrapper.getMapper('clps')
+        query = session.query(ClpsTable)
+        query = query.filter(ClpsTable.clps_pk == clpsPk)
+        query = query.order_by(ClpsTable.clps_nom)
+        clpsInfo = query.one()
+        return clpsInfo
+
     def getClpsProprioForRessource(self, ressourcePk, retour):
         """
         table pg ressource et link_ressource_clps
-        recuperation des clpsProprio d'ne ressource
+        recuperation des clpsProprio d'une ressource
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
@@ -2792,6 +2744,7 @@ class ManageInterClps(BrowserView):
         auteur_institution = getattr(fields, 'auteur_institution')
         auteur_id_filemaker = getattr(fields, 'auteur_id_filemaker', None)
         auteur_actif = getattr(fields, 'auteur_actif')
+
         auteur_for_experience = getattr(fields, 'auteur_for_experience', False)
         auteur_for_institution = getattr(fields, 'auteur_for_institution', False)
         auteur_clps_fk = 2
@@ -5129,7 +5082,6 @@ class ManageInterClps(BrowserView):
             if experience_etat == 'publish':
                 etatPublicationForSiss = self.getExperienceStatutPublicationForSiss(experienceFk)
                 if etatPublicationForSiss != True:
-                    #self.sendMailForSissWhenExperienceIsPublish(experienceFk, experienceInstitutionPorteurFk)
                     self.setExperienceStatutPublicationForSissToTrue(experienceFk)
 
             return {'status': 1}

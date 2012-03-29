@@ -15,7 +15,9 @@
                  ressources python:view.getAllRessource(ressourcePk);
                  publics python:view.getPublicByRessourcePk(ressourcePk);
                  supports python:view.getSupportByRessourcePk(ressourcePk, 'titre');
-                 clpsDispo python:view.getClpsDispoByRessourcePk(ressourcePk, 'titre')">
+                 clpsDispo python:view.getClpsDispoByRessourcePk(ressourcePk, 'titre');
+                 allClps python: view.getAllClps();
+                 selectedClpsProprio python:view.getClpsProprioForRessource(ressourcePk, 'pk')">
     <tal:boucle tal:repeat="ressource ressources">
         <tal:block tal:define="ressourcePk ressource/ressource_pk">
             <div id="title-ressource">
@@ -275,9 +277,7 @@
                     </ul>
                 </fieldset>
                 <fieldset>
-                <legend>Propriétaire</legend>
-                <tal:block tal:define="allClps python: view.getAllClps();
-                                   selectedClpsProprio python:view.getClpsProprioForRessource(ressourcePk, 'pk')">
+                    <legend>Propriétaire</legend>
                     <ul class="formulaire">
                         <tal:boucle tal:repeat="clps allClps">
                             <li>
@@ -289,12 +289,11 @@
                                  tal:attributes="value clps/clps_pk;
                                                  checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
                               &nbsp;&nbsp;
-                              <span tal:content="clps/clps_nom" />
+                              <span tal:content="clps/clps_sigle" />
                             </li>
                         </tal:boucle>
                     </ul>
-                </tal:block>
-            </fieldset>
+                </fieldset>
             </div>
             <hr />
         </tal:block>
