@@ -211,8 +211,10 @@ class ManageInterClps(BrowserView):
         envoi de mail à iclps admin
         """
         mailer = Mailer("localhost", "alain.meurant@affinitic.be, %s"%clpsEmailContact)
+        #mailer = Mailer("relay.skynet.be", "alain.meurant@skynet.be")
         mailer.setSubject(sujet)
         mailer.setRecipients("alain.meurant@affinitic.be, %s"%clpsEmailContact)
+        #mailer.setRecipients("alain.meurant@skynet.be")
         mail = message
         mailer.sendAllMail(mail)
 
@@ -220,10 +222,10 @@ class ManageInterClps(BrowserView):
         """
         envoi de mail à iclps admin lorsqu'un auteur se loggue
         """
-        mailer = Mailer("localhost", "alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
-        #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
+        mailer = Mailer("localhost", "alain.meurant@affinitic.be")
+        #mailer = Mailer("relay.skynet.be", "alain.meurant@skynet.be")
         mailer.setSubject(sujet)
-        mailer.setRecipients("alain.meurant@affinitic.be, isa.toussaint@province.luxembourg.be")
+        mailer.setRecipients("alain.meurant@skynet.be")
         mail = message
         mailer.sendAllMail(mail)
 
@@ -244,13 +246,12 @@ class ManageInterClps(BrowserView):
         clpsPrenomContact = clpsInfo.clps_prenom_contact
         clpsEmailContact = clpsInfo.clps_email_contact
         
-        sujet = "[PROJETS PARATGES  :: demande d'inscription d'un auteur]"
-        message = u"""<font color='#FF0000'><b>:: Ajout d'un nouvel auteur ::</b></font><br /><br />
-                  Bonjour, %s <br />
+        sujet = "[PROJETS PARTAGES  :: demande d'inscription d'un auteur]"
+        message = u"""<font color='#FF0000'><b>:: Ajout d'un nouvel auteur pour %s ::</b></font><br /><br />
+                  Bonjour %s, <br />
                   Une personne vient de s'inscrire via le site pour devenir auteur d'un récit partagé.<br />
                   Il s'agit de :<br />
                   <ul>
-                    <li>CLPS : <font color='#ff9c1b'><b>%s</b></font></li> 
                     <li>Nom : <font color='#ff9c1b'><b>%s</b></font></li>
                     <li>Prénom : <font color='#ff9c1b'><b>%s</b></font></li>
                     <li>Organisme :  <font color='#ff9c1b'><b>%s</b></font></li>
@@ -265,12 +266,13 @@ class ManageInterClps(BrowserView):
                   <a href="http://www.projets-partages.be/admin-auteur-creer">lien</a>.
                   <hr />
                   """ \
-                  %(clpsPrenomContact, \
-                    clpsSigle, \
+                  %(clpsSigle, \
+                    clpsPrenomContact, \
                     auteurNom, \
                     auteurPrenom, \
                     auteurInstitution, \
                     auteurDescription)
+        message = message.encode('utf-8') 
         self.sendMail(sujet, message, clpsEmailContact)
 
     def sendMailForInsertExperience(self, experiencePk):
@@ -291,12 +293,13 @@ class ManageInterClps(BrowserView):
         
         clpsDestinationPk = 2
         clpsInfo = self.getClpsByPk(clpsDestinationPk)
+        clpsSigle = clpsInfo.clps_sigle
         clpsPrenomContact = clpsInfo.clps_prenom_contact
         clpsEmailContact = clpsInfo.clps_email_contact
-        
+        clpsPrenomContact = clpsPrenomContact.encode('utf-8') 
         
         sujet = "[PROJETS PARTAGES :: nouvelle experience]"
-        message = u"""<font color='#FF0000'><b>:: Ajout d'une nouvelle expérience ::</b></font><br /><br />
+        message = u"""<font color='#FF0000'><b>:: Ajout d'une nouvelle expérience pour %s::</b></font><br /><br />
                   Bonjour %s, <br />
                   Une nouvelle expérience est ajoutée dans la base via le site.<br />
                   Il s'agit de :<br />
@@ -318,7 +321,8 @@ class ManageInterClps(BrowserView):
                   :: Autre institution outil : <font color='#ff9c1b'><b>%s</b></font><br />
                   </font>
                   """ \
-                  %(clpsPrenomContact, \
+                  %(clpsSigle, \
+                    clpsPrenomContact, \
                     experience_titre, \
                     experience_personne_contact, \
                     experience_creation_employe, \
@@ -329,6 +333,7 @@ class ManageInterClps(BrowserView):
                     experience_institution_partenaire_autre, \
                     experience_institution_ressource_autre, \
                     experience_institution_outil_autre)
+        message = message.encode('utf-8')            
         self.sendMail(sujet, message, clpsEmailContact)
 
     def sendMailForUpdateExperience(self):
@@ -349,11 +354,12 @@ class ManageInterClps(BrowserView):
         
         clpsDestinationPk = 2
         clpsInfo = self.getClpsByPk(clpsDestinationPk)
+        clpsSigle = clpsInfo.clps_sigle
         clpsPrenomContact = clpsInfo.clps_prenom_contact
         clpsEmailContact = clpsInfo.clps_email_contact
         
         sujet = "[PROJETS PARTAGES :: modification de l'experience]"
-        message = u"""<font color='#FF0000'><b>:: Modification d'une expérience ::</b></font><br /><br />
+        message = u"""<font color='#FF0000'><b>:: Modification d'une expérience pour %s::</b></font><br /><br />
                   Bonjour %s, <br />
                   L'expérience <font color='#ff9c1b'><b>%s</b></font> vient d'être modifiée.<br />
                   Il s'agit de :<br />
@@ -378,7 +384,8 @@ class ManageInterClps(BrowserView):
                   :: Autre institution outil : <font color='#ff9c1b'><b>%s</b></font><br />
                   </font>
                   """ \
-                  %(clpsPrenomContact, \
+                  %(clpsSigle, \
+                    clpsPrenomContact, \
                     experience_titre, \
                     experience_pk, \
                     experience_titre, \
@@ -393,6 +400,7 @@ class ManageInterClps(BrowserView):
                     experience_institution_partenaire_autre, \
                     experience_institution_ressource_autre, \
                     experience_institution_outil_autre)
+        message = message.encode('utf-8')
         self.sendMail(sujet, message, clpsEmailContact)
 
     def addLoginAuteur(self, login, passw, role):
@@ -615,8 +623,9 @@ class ManageInterClps(BrowserView):
         auteurNom = auteur.auteur_nom
         auteurPrenom = auteur.auteur_prenom
         auteurInstitution = auteur.auteur_institution        
-        sujet = "[ICLPS-LUX DB :: connection externe par %s]"%(auteurLogin, )
+        sujet = "[PROJETS PARTAGES :: connection externe par %s]"%(auteurLogin, )
         message="%s %s (%s) de %s en mode creation d'une %s"%(auteurPrenom, auteurNom, auteurLogin, auteurInstitution, typeElement)
+        message = message.encode('utf-8')
         self.sendMailWhenLoginByAuteur(sujet, message)
 
         return auteur
