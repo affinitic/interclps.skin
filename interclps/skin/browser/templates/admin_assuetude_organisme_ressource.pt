@@ -23,7 +23,6 @@
                 <tal:test tal:condition="python: len(institutions) > 0">
                     <fieldset tal:condition="python: type.institution_type_pk != 0">
                         <legend class="legende">
-                            <img src="carre_orange.gif" widht="50%"/>
                             <span tal:content="type/institution_type_nom">type institution</span>
                         </legend>
                         <tal:boucle tal:repeat="institution institutions">

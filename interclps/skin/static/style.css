@@ -354,14 +354,18 @@ width:200px;
 height:250px;
 float:left;
 margin:0px 15px;
-background-color:rgba(210, 210, 210, 0.3);
+background-color:rgba(180, 180, 180, 0.3);
+text-shadow:0px 1px 0px rgba(0,0,0);
+text-shadow:0px 1px 0px rgba(0,0,0,0.9);
 }
 
 #portlet-news h3,
 #portlet-last-experience h3,
 #portlet-event h3{
-font-size:0.8em;
-color:#aaa;
+font-size:0.9em;
+color:#000;
+text-shadow:0px 1px 0px rgba(255,255,255);
+text-shadow:0px 1px 0px rgba(255,255,255,0.3);
 font-variant:small-caps;
 text-align:center;
 border-bottom:1px solid #666;
@@ -1217,7 +1221,6 @@ line-height:2.1em;
 }
 
 .btn-nouvelle-recherche{
-color:#000;
 margin:auto;
 margin-top:3em;
 font-size:1.2em;
@@ -1227,7 +1230,7 @@ line-height:42px; /*permet le centrage vertical*/
 text-align:center;
 background:#444;
 background:-moz-linear-gradient(top,#fff,#bdb);                   /*(top,#777,#333);*/
-background:-webkit-gradient(linear, left top, left bottom, from(#572d00), to(#895600));
+background:-webkit-gradient(linear, left top, left bottom, from(#fff), to(#bdb));
 border-radius:8px;
 /*effet incriste ombre blanche*/
 text-shadow:0px 1px 0px rgba(255,255,255);
@@ -1235,15 +1238,7 @@ text-shadow:0px 1px 0px rgba(255,255,255,0.3);
 box-shadow:0 0 5px rgba(0,0,0,0.5), 0 -1px 0 rgba(255,255,255,0.4);
 }
 
-.btn-nouvelle-recherche a{
-text-decoration:none;
-display:block;
-width:260px;
-height:43px;
-}
-
 .btn-nouvelle-recherche:hover{
-color:#000;
 background: rgb(208,234,214);
 background: -moz-linear-gradient(top, rgba(208,234,214,1) 0%, rgba(170,221,181,1) 17%, rgba(97,198,109,1) 50%,
 rgba(75,191,57,1) 51%, rgba(68,214,66,1) 59%, rgba(75,237,81,1) 71%, rgba(96,188,56,1) 84%, rgba(35,127,41,1)
@@ -1258,6 +1253,25 @@ background: -webkit-linear-gradient(top, rgba(208,234,214,1) 0%,rgba(170,221,181
 background: -o-linear-gradient(top, rgba(208,234,214,1) 0%,rgba(170,221,181,1) 17%,rgba(97,198,109,1)
 50%,rgba(75,191,57,1) 51%,rgba(68,214,66,1) 59%,rgba(75,237,81,1) 71%,rgba(96,188,56,1) 84%,rgba(35,127,41,1)
 100%);
+}
+
+#content .btn-nouvelle-recherche a{
+color:#1c650f !important;
+text-decoration:none;
+display:block;
+width:260px;
+height:43px;
+}
+
+#content .btn-nouvelle-recherche a:hover{
+color:#000 !important;
+}
+
+
+
+
+.formulaire li{
+list-style-type: none;
 }
 
 

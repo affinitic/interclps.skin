@@ -12,7 +12,9 @@
 <body>
 <div metal:fill-slot="main"
      tal:define="institutionPk request/institutionPk | nothing;
-                 institutions python:view.getAllInstitution(institutionPk)">
+                 institutions python:view.getAllInstitution(institutionPk);
+                 allClps python: view.getAllClps();
+                 selectedClpsProprio python:view.getClpsProprioForInstitution(institutionPk, 'pk')">
     <tal:boucle tal:repeat="institution institutions">
         <tal:block tal:define="institutionPk institution/institution_pk">
             <div id="title-institution">
@@ -446,7 +448,24 @@
                     &nbsp;&nbsp;Santé et environnement
                     <br />
                 </fieldset>
-        
+                <fieldset>
+                    <legend>Propriétaire</legend>
+                    <ul class="formulaire">
+                        <tal:boucle tal:repeat="clps allClps">
+                            <li>
+                              <img src="list_flch_rouge.png" />
+                              <input type="checkbox"
+                                 name="institution_clps_fk:list"
+                                 checked=""
+                                 value=""
+                                 tal:attributes="value clps/clps_pk;
+                                                 checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
+                              &nbsp;&nbsp;
+                              <span tal:content="clps/clps_sigle" />
+                            </li>
+                        </tal:boucle>
+                    </ul>
+                </fieldset>
             </div>
         </tal:block>
     </tal:boucle>

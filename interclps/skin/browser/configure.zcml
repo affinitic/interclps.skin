@@ -377,7 +377,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="institution_listing_par_login_auteur"
+          name="institution-listing-par-login-auteur"
           for="*"
           template="templates/institution_listing_par_login_auteur.pt"
           permission="zope.Public"

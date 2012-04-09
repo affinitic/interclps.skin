@@ -18,7 +18,11 @@
 
 <body>
 <div metal:fill-slot="main"
-     tal:define="experiences python:view.getExperienceByPk(experiencePk=request.experiencePk)"
+     tal:define="experiencePk request/experiencePk;
+                 experiences python:view.getExperienceByPk(experiencePk);
+                 allClps python:view.getAllClps();
+                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk');
+                 "
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
 <form action="admin-experience-inserer"
       method="post">
@@ -48,7 +52,7 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Quel nom avez-vous donné au projet ?
+                            Quel nom avez-vous donné au projet ?
                         </div>
                     </td>
                 </tr>
@@ -63,7 +67,7 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Pouvez-vous résumer le projet en quelques lignes ?
+                            Pouvez-vous résumer le projet en quelques lignes ?
                         </div>
                     </td>
                 </tr>
@@ -119,7 +123,7 @@
                         <div id="info-champs">
                             <span class="info-logo">i</span>
                             Quelle personne peut-on contacter pour un renseignement
-                            au sujet de ce projet ?
+                            au sujet de ce projet ?
                         </div>
                     </td>
                 </tr>
@@ -137,7 +141,7 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Quelle situation – quelles observations sont à l’origine du projet / de l’action ?
+                            Quelle situation – quelles observations sont à l’origine du projet / de l’action ?
                         </div>
                     </td>
                 </tr>
@@ -155,7 +159,7 @@
                         <div id="info-champs">
                             <span class="info-logo">i</span>
                             Quels objectifs poursuivez vous en mettant ce projet
-                            en place ? Quel(s) changement(s) attendez-vous ?
+                            en place ? Quel(s) changement(s) attendez-vous ?
                         </div>
                     </td>
                 </tr>
@@ -257,10 +261,10 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            En quoi a consisté le projet ? Qu’est-ce qui a été fait ?
-                            Par qui ? Comment ?<br />
-                            Le(s) public(s) ont-ils été associés au projet ?
-                            à sa construction ?
+                            En quoi a consisté le projet ? Qu’est-ce qui a été fait ?
+                            Par qui ? Comment ?<br />
+                            Le(s) public(s) ont-ils été associés au projet ?
+                            à sa construction ?
                         </div>
                     </td>
                 </tr>
@@ -310,7 +314,7 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Quelles communes sont concernées ?
+                            Quelles communes sont concernées ?
                         </div>
                     </td>
                 </tr>
@@ -352,15 +356,15 @@
                             <span class="info-logo">i</span>
                             <ul>
                                 <li>De quoi avez-vous (eu) besoin pour mettre ce
-                                    projet en place ?</li>
-                                <li>De quels moyens humains : combien de personnes
-                                    ont travaillé à ce projet ? A quelle fréquence ?
-                                    Combien d’heures de travail a-t-il nécessité ?</li>
-                                <li>De quels moyens matériels : salles, papeterie,
+                                    projet en place ?</li>
+                                <li>De quels moyens humains : combien de personnes
+                                    ont travaillé à ce projet ? A quelle fréquence ?
+                                    Combien d’heures de travail a-t-il nécessité ?</li>
+                                <li>De quels moyens matériels : salles, papeterie,
                                     photocopies, outils, matériel informatique et
-                                    multimédia, matériel de bricolage… Les ouvrages
+                                    multimédia, matériel de bricolage... Les ouvrages
                                     et jeux seront abordés dans le champ ressources.</li>
-                                <li>De quels moyens financiers ?</li>
+                                <li>De quels moyens financiers ?</li>
                             </ul>
                         </div>
                     </td>
@@ -384,7 +388,7 @@
                                 <li>Au public</li>
                                 <li>A vous</li>
                                 <li>Aux partenaires</li>
-                                <li>Autres ?</li>
+                                <li>Autres ?</li>
                             </ul>
                             Qu’est-ce qui a été facile ? Pourquoi ?<br />
                             Qu’est-ce qui a été difficile ? Pourquoi ?<br />
@@ -431,21 +435,6 @@
                                                            pkKey='institution_pk',
                                                            selectedPks=view.getInstitutionPorteurByExperiencePk(experience.experience_pk))" />
                         </tal:addremove>
-                        <!--
-                        <select tal:define="allInstitutions python: view.getAllInstitution();
-                                            institutionsPorteurForExperience python: view.getInstitutionPorteurByExperiencePk(experience.experience_pk)"
-                                    name="experience_institution_porteur_fk:list"
-                                    multiple="multiple"
-                                    size="5">
-                            <tal:boucle tal:repeat="institution allInstitutions">
-                                  <option value=""
-                                          tal:attributes="value institution/institution_pk;
-                                                          selected python:institution.institution_nom in institutionsPorteurForExperience and 'selected' or None;">
-                                    <span tal:content="institution/institution_nom">institution porteur</span>
-                                  </option>
-                            </tal:boucle>
-                        </select>
-                        -->
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
@@ -510,7 +499,7 @@
                             construit et/ou porté le projet avec vous?
                             <br />
                             Il peut s’agir d’une personne, de plusieurs personnes,
-                            d’une association, d’une institution… qui ne figurent
+                            d’une association, d’une institution... qui ne figurent
                             pas dans la liste déroulante ci-dessus.
                         </div>
                     </td>
@@ -535,7 +524,7 @@
                         <div id="info-champs">
                             <span class="info-logo">i</span>
                             Il peut s’agir d’une personne, de plusieurs personnes,
-                            d’une association, d’une institution… qui ne figurent
+                            d’une association, d’une institution... qui ne figurent
                             pas dans la liste déroulante ci-dessus.
                         </div>
                     </td>
@@ -563,7 +552,7 @@
                             <span class="info-logo">i</span>
                             Y a-t-il des personnes qui sont intervenus à l’un ou
                             l’autre du projet, mais qui n’ont pas participé à
-                            l’ensemble du projet ?
+                            l’ensemble du projet ?
                         </div>
                     </td>
                 </tr>
@@ -586,7 +575,7 @@
                         <div id="info-champs">
                             <span class="info-logo">i</span>
                             Il peut s’agir d’une personne, de plusieurs personnes,
-                            d’une association, d’une institution… qui ne figurent
+                            d’une association, d’une institution... qui ne figurent
                             pas dans la liste déroulante ci-dessus.
                         </div>
                     </td>
@@ -607,7 +596,7 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Y a-t-il des outils qui vous ont soutenu, aidé ?
+                            Y a-t-il des outils qui vous ont soutenu, aidé ?
                         </div>
                     </td>
                 </tr>
@@ -643,7 +632,7 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Y a-t-il des formations qui vous ont aidé ?
+                            Y a-t-il des formations qui vous ont aidé ?
                         </div>
                     </td>
                 </tr>
@@ -662,8 +651,8 @@
                         <div id="info-champs">
                             <span class="info-logo">i</span>
                             Si quelqu’un souhaitait mener le même type de projets,
-                            vous lui conseilleriez de contacter qui ? de commencer
-                            par où ?
+                            vous lui conseilleriez de contacter qui ? de commencer
+                            par où ?
                         </div>
                     </td>
                 </tr>
@@ -747,101 +736,121 @@
 
             <fieldset>
                 <legend class="legende">Plate-formes et sous plate-formes concernées</legend>
-                <input type="checkbox"
-                       name="experience_plate_forme_assuetude"
-                       value="True"
-                       tal:attributes="checked python:experience.experience_plate_forme_assuetude and 'checked' or None;" />&nbsp;&nbsp;Point d'appui assuétudes
-                <br />
-                <input type="checkbox"
-                       name="experience_plate_forme_sante_ecole"
-                       value="True"
-                       tal:attributes="checked python:experience.experience_plate_forme_sante_ecole and 'checked' or None;" />&nbsp;&nbsp;Santé à l'école
-                <br />
-                <input type="checkbox"
-                       name="experience_plate_forme_sante_famille"
-                       value="True"
-                       tal:attributes="checked python:experience.experience_plate_forme_sante_famille and 'checked' or None;" />&nbsp;&nbsp;Santé des familles
-                <br />
-                <input type="checkbox"
-                       name="experience_plate_forme_sante_environnement"
-                       value="True"
-                       tal:attributes="checked python:experience.experience_plate_forme_sante_environnement and 'checked' or None;" />&nbsp;&nbsp;Santé et environnement
-                <!--
-                <tal:blok tal:define="plateformes python:view.getAllActivePlateForme()">
-                    <tal:boucle tal:repeat="plateforme plateformes">
+                <ul class="formulaire">
+                    <li>
+                        <img src="list_flch_rouge.png" />
                         <input type="checkbox"
-                               name="plateformeFk"
-                               value=""
-                               tal:attributes="value plateforme/plateforme_pk" />
-                        &nbsp;&nbsp;<span tal:content="plateforme/plateforme_nom"></span>
-                        <span tal:define="sousplateformes python:view.getSousPlateFormeByPlateFormePk(plateforme.plateforme_pk)">
-                            <span tal:repeat="sousplateforme sousplateformes">
-                                <br />
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="checkbox"
-                                       name="institution_sousplateforme_fk:list"
-                                       value=""
-                                       tal:attributes="value sousplateforme/sousplateforme_pk" />
-                                &nbsp;&nbsp;<span tal:content="sousplateforme/sousplateforme_nom"></span>
-                            </span>
-                        </span>
-                        <br /><br />
-                    </tal:boucle>
-                </tal:blok>
-
-                passser la clé institution à la table sousplateforme
-                recupere la sous plateforme_nom
-                recuperer la plateforme_nom
-                -->
-                <br />
+                               name="experience_plate_forme_assuetude"
+                               value="True"
+                              tal:attributes="checked python:experience.experience_plate_forme_assuetude and 'checked' or None;" />
+                        &nbsp;&nbsp;Point d'appui assuétudes
+                    </li>
+                    <li>
+                        <img src="list_flch_rouge.png" />
+                        <input type="checkbox"
+                               name="experience_plate_forme_sante_ecole"
+                               value="True"
+                               tal:attributes="checked python:experience.experience_plate_forme_sante_ecole and 'checked' or None;" />
+                        &nbsp;&nbsp;Santé à l'école
+                    </li>
+                    <li>
+                        <img src="list_flch_rouge.png" />
+                        <input type="checkbox"
+                               name="experience_plate_forme_sante_famille"
+                               value="True"
+                               tal:attributes="checked python:experience.experience_plate_forme_sante_famille and 'checked' or None;" />
+                        &nbsp;&nbsp;Santé des familles
+                    </li>
+                    <li>
+                        <img src="list_flch_rouge.png" />
+                        <input type="checkbox"
+                               name="experience_plate_forme_sante_environnement"
+                               value="True"
+                               tal:attributes="checked python:experience.experience_plate_forme_sante_environnement and 'checked' or None;" />
+                        &nbsp;&nbsp;Santé et environnement
+                    </li>
+                </ul>
             </fieldset>
 
             <fieldset>
                 <legend class="legende">Mission concernée</legend>
-                <span class="discreet">Ici les notes explicatives</span>
-                <br />
-                <input type="checkbox"
-                       name="experience_mission_centre_documentation"
-                       value="True"
-                       tal:attributes="checked python:experience.experience_mission_centre_documentation and 'checked' or None;" />
-                &nbsp;&nbsp;Centre documentation
-                <br />
-                <input type="checkbox"
-                       name="experience_mission_accompagnement_projet"
-                       value="True"
-                       tal:attributes="checked python:experience.experience_mission_accompagnement_projet and 'checked' or None;" />
-                &nbsp;&nbsp;Accompagnement de projet
-                <br />
-                <input type="checkbox"
-                       name="experience_mission_reseau_echange"
-                       value="True"
-                       tal:attributes="checked python:experience.experience_mission_reseau_echange and 'checked' or None;" />
-                &nbsp;&nbsp;Mise en réseau, échanges
-                <br />
-                <input type="checkbox"
-                       name="experience_mission_formation"
-                       value="True"
-                       tal:attributes="checked python:experience.experience_mission_formation and 'checked' or None;" />
-                &nbsp;&nbsp;Formation
-                <br />
+                <span class="discreet"></span>
+                <ul class="formulaire">
+                    <li>
+                        <img src="list_flch_rouge.png" />
+                        <input type="checkbox"
+                               name="experience_mission_centre_documentation"
+                               value="True"
+                               tal:attributes="checked python:experience.experience_mission_centre_documentation and 'checked' or None;" />
+                        &nbsp;&nbsp;Centre documentation
+                    </li>
+                    <li>
+                        <img src="list_flch_rouge.png" />
+                        <input type="checkbox"
+                               name="experience_mission_accompagnement_projet"
+                               value="True"
+                              tal:attributes="checked python:experience.experience_mission_accompagnement_projet and 'checked' or None;" />
+                        &nbsp;&nbsp;Accompagnement de projet
+                    </li>
+                    <li>
+                        <img src="list_flch_rouge.png" />
+                        <input type="checkbox"
+                               name="experience_mission_reseau_echange"
+                               value="True"
+                               tal:attributes="checked python:experience.experience_mission_reseau_echange and 'checked' or None;" />
+                        &nbsp;&nbsp;Mise en réseau, échanges
+                    </li>
+                    <li>
+                        <img src="list_flch_rouge.png" />
+                        <input type="checkbox"
+                               name="experience_mission_formation"
+                               value="True"
+                               tal:attributes="checked python:experience.experience_mission_formation and 'checked' or None;" />
+                        &nbsp;&nbsp;Formation
+                    </li>
+                </ul>
+            </fieldset>
+
+            <fieldset>
+                <legend>Propriétaire</legend>
+                <ul class="formulaire">
+                    <tal:boucle tal:repeat="clps allClps">
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="experience_clps_proprio_fk:list"
+                                   checked=""
+                                   value=""
+                                   tal:attributes="value clps/clps_pk;
+                                                   checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
+                            &nbsp;&nbsp;
+                            <span tal:content="clps/clps_sigle" />
+                        </li>
+                    </tal:boucle>
+                </ul>
             </fieldset>
 
             <fieldset>
                 <legend class="legende">Niveau visibilité</legend>
-                <select name="experience_etat">
-                    <option value="private"
-                            selected=""
-                            tal:attributes="selected python:experience.experience_etat=='private' and 'selected' or None;">Privé</option>
-                    <option value="pending"
-                            selected=""
-                            tal:attributes="selected python:experience.experience_etat=='pending' and 'selected' or None;">Attente</option>
-                    <option value="pending_for_review"
-                            selected=""
-                            tal:attributes="selected python:experience.experience_etat=='pending_for_review' and 'selected' or None;">En cours de validation</option>
-                    <option value="publish"
-                            selected=""
-                            tal:attributes="selected python:experience.experience_etat=='publish' and 'selected' or None;">Publié</option>
-                </select>
+                <ul class="formulaire">
+                    <li>
+                        <img src="list_flch_rouge.png" />
+                        <select name="experience_etat">
+                            <option value="private"
+                                    selected=""
+                                    tal:attributes="selected python:experience.experience_etat=='private' and 'selected' or None;">Privé</option>
+                            <option value="pending"
+                                    selected=""
+                                    tal:attributes="selected python:experience.experience_etat=='pending' and 'selected' or None;">Attente</option>
+                            <option value="pending_for_review"
+                                    selected=""
+                                    tal:attributes="selected python:experience.experience_etat=='pending_for_review' and 'selected' or None;">En cours de validation</option>
+                            <option value="publish"
+                                    selected=""
+                                    tal:attributes="selected python:experience.experience_etat=='publish' and 'selected' or None;">Publié</option>
+                        </select>
+                    </li>
+                </ul>
             </fieldset>
         </div>
 
@@ -863,4 +872,3 @@
 </div><!-- div metal-->
 </body>
 </html>
-

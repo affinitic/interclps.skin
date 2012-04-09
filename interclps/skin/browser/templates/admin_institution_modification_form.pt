@@ -11,8 +11,21 @@
 
 <body>
 <div metal:fill-slot="main"
-     tal:define="institutionPk request/institutionPk; 
+     tal:define="institutionPk request/institutionPk;
                  institutions python:view.getInstitutionByPk(institutionPk);
+                 communes view/getAllCommune;
+                 allInterventions view/getAllInstitutionAssuetudeIntervention;
+                 selectedInterventions python:view.getAssuetudeInterventionForInstituion(institutionPk, 'pk');
+                 allActivites python:view.getAllInstitutionAssuetudeActiviteProposee('public');
+                 selectedActivitesProposees python:view.getAssuetudeActiviteProposeePublicForInstituion(institutionPk, 'pk');
+                 allActivites python:view.getAllInstitutionAssuetudeActiviteProposee('pro');
+                 selectedActivitesProposees python:view.getAssuetudeActiviteProposeeProForInstituion(institutionPk, 'pk');
+                 allThematiques view/getAllInstitutionAssuetudeThematique;
+                 selectedThematiques python:view.getAssuetudeThematiqueForInstituion(institutionPk, 'pk');
+                 auteurs python:view.getAllActiveAuteur();
+                 typeInstitutions python:view.getAllActiveInstitutionType();
+                 allClps python:view.getAllClps();
+                 selectedClpsProprio python:view.getClpsProprioForInstitution(institutionPk, 'pk');
                  utranslate nocall:here/utranslate;"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
 <form action="institution-inserer" method="post">
@@ -56,8 +69,7 @@
                 <div class="div_question">
                     <img src="list_flch_rouge.png" /> Localité
                     <br />
-                    <select name="institution_commune_fk"
-                            tal:define="communes view/getAllCommune">
+                    <select name="institution_commune_fk">
                         <tal:boucle tal:repeat="commune communes">
                           <option value=""
                                   tal:attributes="value commune/com_pk;
@@ -157,7 +169,7 @@
                     Territoire couvert par institution.
                     <br />
                     <img src="info.png" />
-                    &nbsp;&nbsp; Sur quel territoire l’institution mène-t-elle ses activités ? 
+                    &nbsp;&nbsp; Sur quel territoire l’institution mène-t-elle ses activités ?
                     Ce territoire n’est pas nécessairement le même que celui sur lequel elle est implantée.
                     <br />
                     <br />
@@ -242,7 +254,7 @@
                     <span tal:replace="structure python: view.getWysiwygField('institution_commentaire', institution.institution_commentaire)" />
                 </div>
             </fieldset>
-            
+
             <div id="info-institution-assuetude">
                 <fieldset>
                     <h3> Informations pour la plate-forme assuétudes</h3>
@@ -253,20 +265,17 @@
                                 <br/>
                                 <img src="list_flch_rouge.png" /> <span class="gras">Intervention</span>
                                 <br />
-                                <tal:block tal:define="allInterventions view/getAllInstitutionAssuetudeIntervention;
-                                                       selectedInterventions python:view.getAssuetudeInterventionForInstituion(institutionPk, 'pk')">
-                                    <tal:boucle tal:repeat="intervention allInterventions">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox"
-                                               name="assuetude_intervention_fk:list"
-                                               value=""
-                                               checked=""
-                                               tal:attributes="value intervention/assuetude_intervention_pk;
-                                                               checked python:intervention.assuetude_intervention_pk in selectedInterventions and 'selected' or None" />
-                                        <span tal:content="intervention/assuetude_intervention_nom"></span>
-                                        <br />
-                                    </tal:boucle>
-                                </tal:block>
+                                <tal:boucle tal:repeat="intervention allInterventions">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox"
+                                           name="assuetude_intervention_fk:list"
+                                           value=""
+                                           checked=""
+                                           tal:attributes="value intervention/assuetude_intervention_pk;
+                                                           checked python:intervention.assuetude_intervention_pk in selectedInterventions and 'selected' or None" />
+                                    <span tal:content="intervention/assuetude_intervention_nom"></span>
+                                    <br />
+                                </tal:boucle>
                                 <br />
                             </td>
                             <td valign="top">
@@ -301,9 +310,9 @@
                                 <br />
                             </td>
                         </tr>
-                
+
                         <tr><td colspan="2"></td></tr>
-                        
+
                         <tr class="info-institution-assuetude-even">
                             <td valign="top">
                                 <br />
@@ -311,37 +320,31 @@
                                 <br /><br />
                                 <span class="gras">Pour le public final :</span>
                                 <br />
-                                <tal:block tal:define="allActivites python:view.getAllInstitutionAssuetudeActiviteProposee('public');
-                                                       selectedActivitesProposees python:view.getAssuetudeActiviteProposeePublicForInstituion(institutionPk, 'pk')">
-                                    <tal:boucle tal:repeat="activite allActivites">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox"
-                                               value=""
-                                               checked=""
-                                               name="assuetude_activite_proposee_public_fk:list"
-                                               tal:attributes="value activite/assuetude_activite_proposee_pk;
-                                                               checked python:activite.assuetude_activite_proposee_pk in selectedActivitesProposees and 'selected' or None;" />
-                                        <span tal:content="activite/assuetude_activite_proposee_nom"></span>
-                                        <br />
-                                    </tal:boucle>
-                                </tal:block>
+                                <tal:boucle tal:repeat="activite allActivites">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox"
+                                           value=""
+                                           checked=""
+                                           name="assuetude_activite_proposee_public_fk:list"
+                                           tal:attributes="value activite/assuetude_activite_proposee_pk;
+                                                           checked python:activite.assuetude_activite_proposee_pk in selectedActivitesProposees and 'selected' or None;" />
+                                    <span tal:content="activite/assuetude_activite_proposee_nom"></span>
+                                    <br />
+                                </tal:boucle>
                                 <br /><br />
                                 <span class="gras">Pour des professionnels :</span>
                                 <br />
-                                <tal:block tal:define="allActivites python:view.getAllInstitutionAssuetudeActiviteProposee('pro');
-                                                   selectedActivitesProposees python:view.getAssuetudeActiviteProposeeProForInstituion(institutionPk, 'pk')">
-                                    <tal:boucle tal:repeat="activite allActivites">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox"
-                                               value=""
-                                               checked=""
-                                               name="assuetude_activite_proposee_pro_fk:list"
-                                               tal:attributes="value activite/assuetude_activite_proposee_pk;
-                                                               checked python:activite.assuetude_activite_proposee_pk in selectedActivitesProposees and 'selected' or None;" />
-                                        <span tal:content="activite/assuetude_activite_proposee_nom"></span>
-                                        <br />
-                                    </tal:boucle>
-                                </tal:block>
+                                <tal:boucle tal:repeat="activite allActivites">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox"
+                                           value=""
+                                           checked=""
+                                           name="assuetude_activite_proposee_pro_fk:list"
+                                           tal:attributes="value activite/assuetude_activite_proposee_pk;
+                                                           checked python:activite.assuetude_activite_proposee_pk in selectedActivitesProposees and 'selected' or None;" />
+                                    <span tal:content="activite/assuetude_activite_proposee_nom"></span>
+                                    <br />
+                                </tal:boucle>
                                 <br />
                             </td>
                             <td valign="top">
@@ -373,9 +376,9 @@
                                 <br />
                             </td>
                         </tr>
-                
+
                         <tr><td colspan="2"></td></tr>
-                    
+
                         <tr class="info-institution-assuetude-odd">
                             <td valign="top">
                                 <br />
@@ -384,20 +387,17 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 Y a-t-il une thématique que vous aborder plus particulièrement ?
                                 <br />
-                                <tal:block tal:define="allThematiques view/getAllInstitutionAssuetudeThematique;
-                                                   selectedThematiques python:view.getAssuetudeThematiqueForInstituion(institutionPk, 'pk')">
-                                    <tal:boucle tal:repeat="thematique allThematiques">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox"
-                                               value=""
-                                               checked=""
-                                               name="assuetude_thematique_fk"
-                                               tal:attributes="value thematique/assuetude_thematique_pk;
-                                                               checked python:thematique.assuetude_thematique_pk in selectedThematiques and 'selected' or None;" />
-                                        <span tal:content="thematique/assuetude_thematique_nom"></span>
-                                        <br />
-                                    </tal:boucle>
-                                </tal:block>
+                                <tal:boucle tal:repeat="thematique allThematiques">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox"
+                                           value=""
+                                           checked=""
+                                           name="assuetude_thematique_fk"
+                                           tal:attributes="value thematique/assuetude_thematique_pk;
+                                                           checked python:thematique.assuetude_thematique_pk in selectedThematiques and 'selected' or None;" />
+                                    <span tal:content="thematique/assuetude_thematique_nom"></span>
+                                    <br />
+                                </tal:boucle>
                                 <br />
                             </td>
                             <td valign="top">
@@ -412,7 +412,7 @@
                                 <br />
                             </td>
                         </tr>
-                       
+
                        <tr class="info-institution-assuetude-odd">
                             <td valign="top">
                                 <br /> 
@@ -432,9 +432,9 @@
                                 <br />
                             </td>
                         </tr>
-                
+
                         <tr><td colspan="2"></td></tr>
-                
+
                         <tr class="info-institution-assuetude-even">
                             <td valign="top">
                                 <br />
@@ -481,131 +481,133 @@
                 <fieldset>
                     <legend class="legende">Auteur - Editeur</legend>
                     Nom, prénom et identifiant de la personne qui pourra modifier le contenu de cette expérience<br />
-                    <tal:blok tal:define="auteurs python:view.getAllActiveAuteur()">
-                        <select name="institution_auteur_fk">
-                            <option>...</option>
-                            <tal:boucle tal:repeat="auteur auteurs">
-                                <option value=""
-                                        selected=""
-                                        tal:attributes="value auteur/auteur_pk;
-                                                        selected python:institution.institution_auteur_fk==auteur.auteur_pk and 'selected' or None;">
-                                    <span tal:content="auteur/auteur_nom" />
-                                    <span tal:content="auteur/auteur_prenom" />
-                                    &nbsp;
-                                    (<span tal:content="auteur/auteur_login" />)
-                                </option>
-                            </tal:boucle>
-                        </select>
-                    </tal:blok>
+                    <select name="institution_auteur_fk">
+                        <option>...</option>
+                        <tal:boucle tal:repeat="auteur auteurs">
+                            <option value=""
+                                    selected=""
+                                    tal:attributes="value auteur/auteur_pk;
+                                                    selected python:institution.institution_auteur_fk==auteur.auteur_pk and 'selected' or None;">
+                                <span tal:content="auteur/auteur_nom" />
+                                <span tal:content="auteur/auteur_prenom" />
+                                &nbsp;
+                                (<span tal:content="auteur/auteur_login" />)
+                            </option>
+                        </tal:boucle>
+                    </select>
                 </fieldset>
 
                 <fieldset>
                     <legend class="legende">Type d'institution</legend>
                     Permet de classer les instituions afin de les afficher correctement dans la zone ressources d'une plate-forme<br />
-                    <tal:blok tal:define="typeInstitutions python:view.getAllActiveInstitutionType()">
-                        <select name="institution_institution_type_fk">
-                            <option value="0">...</option>
-                            <tal:boucle tal:repeat="typeInstitution typeInstitutions">
-                                <option value=""
-                                        selected=""
-                                        tal:attributes="value typeInstitution/institution_type_pk;
-                                                        selected python:institution.institution_institution_type_fk==typeInstitution.institution_type_pk and 'selected' or None;">
+                    <select name="institution_institution_type_fk">
+                        <option value="0">...</option>
+                        <tal:boucle tal:repeat="typeInstitution typeInstitutions">
+                            <option value=""
+                                    selected=""
+                                    tal:attributes="value typeInstitution/institution_type_pk;
+                                                    selected python:institution.institution_institution_type_fk==typeInstitution.institution_type_pk and 'selected' or None;">
                                     <span tal:content="typeInstitution/institution_type_nom" />
-                                </option>
-                            </tal:boucle>
-                        </select>
-                    </tal:blok>
+                            </option>
+                        </tal:boucle>
+                    </select>
                 </fieldset>
 
 
                 <fieldset>
                     <legend class="legende">Plate-formes et sous plate-formes concernées</legend>
-                    <input type="checkbox"
-                           name="institution_plate_forme_sante_ecole"
-                           value="True"
-                           tal:attributes="checked python:institution.institution_plate_forme_sante_ecole and 'checked' or None;" />&nbsp;&nbsp;Point d'appui assuétudes
-                    <br />
-                    <input type="checkbox"
-                           name="institution_plate_forme_assuetude"
-                           value="True"
-                           tal:attributes="checked python:institution.institution_plate_forme_assuetude and 'checked' or None;" />&nbsp;&nbsp;Santé à l'école
-                    <br />
-                    <input type="checkbox"
-                           name="institution_plate_forme_sante_famille"
-                           value="True"
-                           tal:attributes="checked python:institution.institution_plate_forme_sante_famille and 'checked' or None;" />&nbsp;&nbsp;Santé des familles
-                    <br />
-                    <input type="checkbox"
-                           name="institution_plate_forme_sante_environnement"
-                           value="True"
-                           tal:attributes="checked python:institution.institution_plate_forme_sante_environnement and 'checked' or None;" />&nbsp;&nbsp;Santé et environnement
-                    <!--
-                    <tal:blok tal:define="plateformes python:view.getAllActivePlateForme()">
-                        <tal:boucle tal:repeat="plateforme plateformes">
+                    <ul class="formulaire">
+                        <li>
+                            <img src="list_flch_rouge.png" />
                             <input type="checkbox"
-                                   name="plateformeFk"
-                                   value=""
-                                   checked=""
-                                   tal:attributes="value plateforme/plateforme_pk" />
-                            &nbsp;&nbsp;<span tal:content="plateforme/plateforme_nom"></span>
-                            <span tal:define="sousplateformes python:view.getSousPlateFormeByPlateFormePk(plateforme.plateforme_pk);
-                                              sousPlateFormeFroInstitution python:view.getInstitutionSousPlateForme(institutionPk)">
-                                <span tal:repeat="sousplateforme sousplateformes">
-                                    <br />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="checkbox"
-                                           name="institution_sousplateforme_fk:list"
-                                           value=""
-                                           checked=""
-                                           tal:attributes="value sousplateforme/sousplateforme_pk;
-                                                           checked python:sousplateforme.sousplateforme_pk in sousPlateFormeFroInstitution and 'selected' or None" />
-                                    &nbsp;&nbsp;<span tal:content="sousplateforme/sousplateforme_nom"></span>
-                                </span>
-                            </span>
-                            <br /><br />
-                        </tal:boucle>
-                    </tal:blok>
-
-                    passser la clé institution à la table sousplateforme
-                    recupere la sous plateforme_nom
-                    recuperer la plateforme_nom
-                    -->
-
-                    <br />
+                                   name="institution_plate_forme_sante_ecole"
+                                   value="True"
+                                   tal:attributes="checked python:institution.institution_plate_forme_sante_ecole and 'checked' or None;" />&nbsp;&nbsp;Point d'appui assuétudes
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="institution_plate_forme_assuetude"
+                                   value="True"
+                                   tal:attributes="checked python:institution.institution_plate_forme_assuetude and 'checked' or None;" />&nbsp;&nbsp;Santé à l'école
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="institution_plate_forme_sante_famille"
+                                   value="True"
+                                   tal:attributes="checked python:institution.institution_plate_forme_sante_famille and 'checked' or None;" />&nbsp;&nbsp;Santé des familles
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="institution_plate_forme_sante_environnement"
+                                   value="True"
+                                   tal:attributes="checked python:institution.institution_plate_forme_sante_environnement and 'checked' or None;" />&nbsp;&nbsp;Santé et environnement
+                        </li>
+                    </ul>
                 </fieldset>
-                
+
                 <fieldset>
                     <legend class="legende">Listing des ressources dans les plate-formes</legend>
                     Permet d'afficher une institution dans la liste des organismes des ressources d'une plate-forme
-                    <br />
-                    <input type="checkbox"
-                           name="institution_listing_ressource_plate_forme_assuetude"
-                           value="True"
-                           tal:attributes="checked python:institution.institution_listing_ressource_plate_forme_assuetude and 'checked' or None;" />
-                    &nbsp;&nbsp;Point d'appui assuétudes
-                    <br />
-                    <input type="checkbox"
-                           name="institution_listing_ressource_plate_forme_sante_ecole"
-                           value="True"
-                           tal:attributes="checked python:institution.institution_listing_ressource_plate_forme_sante_ecole and 'checked' or None;" />
-                    &nbsp;&nbsp;Santé à l'école
-                    <br />
-                    <input type="checkbox"
-                           name="institution_listing_ressource_plate_forme_sante_famille"
-                           value="True"
-                           tal:attributes="checked python:institution.institution_listing_ressource_plate_forme_sante_famille and 'checked' or None;" />
-                    &nbsp;&nbsp;Santé des familles
-                    <br />
-                    <input type="checkbox"
-                           name="institution_listing_ressource_plate_forme_sante_environnement"
-                           value="True"
-                           tal:attributes="checked python:institution.institution_listing_ressource_plate_forme_sante_environnement and 'checked' or None;" />
-                    &nbsp;&nbsp;Santé et environnement
-                    <br />
+                    <ul class="formulaire">
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="institution_listing_ressource_plate_forme_assuetude"
+                                   value="True"
+                                   tal:attributes="checked python:institution.institution_listing_ressource_plate_forme_assuetude and 'checked' or None;" />
+                            &nbsp;&nbsp;Point d'appui assuétudes
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="institution_listing_ressource_plate_forme_sante_ecole"
+                                   value="True"
+                                   tal:attributes="checked python:institution.institution_listing_ressource_plate_forme_sante_ecole and 'checked' or None;" />
+                            &nbsp;&nbsp;Santé à l'école
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="institution_listing_ressource_plate_forme_sante_famille"
+                                   value="True"
+                                   tal:attributes="checked python:institution.institution_listing_ressource_plate_forme_sante_famille and 'checked' or None;" />
+                            &nbsp;&nbsp;Santé des familles
+                        </li>
+                        <li>
+                            <img src="list_flch_rouge.png" />
+                            <input type="checkbox"
+                                   name="institution_listing_ressource_plate_forme_sante_environnement"
+                                   value="True"
+                                   tal:attributes="checked python:institution.institution_listing_ressource_plate_forme_sante_environnement and 'checked' or None;" />
+                            &nbsp;&nbsp;Santé et environnement
+                        </li>
+                    </ul>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Propriétaire</legend>
+                    <ul class="formulaire">
+                        <tal:boucle tal:repeat="clps allClps">
+                            <li>
+                                <img src="list_flch_rouge.png" />
+                                <input type="checkbox"
+                                       name="institution_clps_proprio_fk:list"
+                                       checked=""
+                                       value=""
+                                       tal:attributes="value clps/clps_pk;
+                                                       checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
+                                &nbsp;&nbsp;
+                                <span tal:content="clps/clps_sigle" />
+                            </li>
+                        </tal:boucle>
+                    </ul>
                 </fieldset>
             </div>
 
-            <div class="div_form_input">    
+            <div class="div_form_input">
                 <input type="hidden"
                        name="operation"
                        value="update" />

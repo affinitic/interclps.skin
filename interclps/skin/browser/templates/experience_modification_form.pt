@@ -12,17 +12,15 @@
 <body>
 <div metal:fill-slot="main"
      tal:define="experiencePk request/experiencePk;
-                 experiences python:view.getExperienceByPk(experiencePk)">
-     <!--tal:condition="python:user.has_role(['RecitExperience'], here)">-->
-     <span tal:content="experiencePk"></span>
-     
+                 experiences python:view.getExperienceByPk(experiencePk)"
+     tal:condition="python:user.has_role(['RecitExperience'], here)">
+
 <form action="experience-inserer"
       method="post">
     <tal:boucle tal:repeat="experience experiences">
-        <br />
         <h1>:: Modifier l'expérience <span tal:content="experience/experience_titre" class="rouge-titre" /> ::</h1>
         <div class="discreet">
-            Les <span class="info-logo">i</span> situés à droite de l’écran sont là pour vous soutenir 
+            Les <span class="info-logo">i</span> situés à droite de l’écran sont là pour vous soutenir
             dans la structuration ou la rédaction, il n’est pas nécessaire
             de les suivre au mot près.
         </div>
@@ -44,7 +42,7 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Quel nom avez-vous donné au projet ?
+                            Quel nom avez-vous donné au projet ?
                         </div>
                     </td>
                 </tr>
@@ -59,7 +57,7 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Pouvez-vous résumer le projet en quelques lignes ?
+                            Pouvez-vous résumer le projet en quelques lignes ?
                         </div>
                     </td>
                 </tr>
@@ -115,7 +113,7 @@
                         <div id="info-champs">
                             <span class="info-logo">i</span>
                             Quelle personne peut-on contacter pour un renseignement
-                            au sujet de ce projet ?
+                            au sujet de ce projet ?
                         </div>
                     </td>
                 </tr>
@@ -133,7 +131,7 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Quelle situation – quelles observations sont à l’origine du projet / de l’action ?
+                            Quelle situation – quelles observations sont à l’origine du projet / de l’action ?
                         </div>
                     </td>
                 </tr>
@@ -151,7 +149,7 @@
                         <div id="info-champs">
                             <span class="info-logo">i</span>
                             Quels objectifs poursuivez vous en mettant ce projet
-                            en place ? Quel(s) changement(s) attendez-vous ?
+                            en place ? Quel(s) changement(s) attendez-vous ?
                         </div>
                     </td>
                 </tr>
@@ -169,13 +167,13 @@
                                                            view.getAllActivePublic(),
                                                            nameKey='public_nom',
                                                            pkKey='public_pk',
-                                                           selectedPks=view.getPublicByExperiencePk(experience.experience_pk))" /> 
+                                                           selectedPks=view.getPublicByExperiencePk(experience.experience_pk))" />
                         </tal:addremove>
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Quel est le public visé par le projet ?
+                            Quel est le public visé par le projet ?
                             <ul>
                                 <li>Public final (touché au final par les
                                     actions mises en place)</li>
@@ -191,14 +189,14 @@
                                   rows="3"
                                   cols="70"
                                   tal:content="experience/experience_public_vise"
-                                  class="grasorange"></textarea> 
+                                  class="grasorange"></textarea>
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
-                            <span class="info-logo">i</span> Si vous le souhaitez, vous 
+                            <span class="info-logo">i</span> Si vous le souhaitez, vous
                             pouvez ici apporter des précisions concernant le public.
                         </div>
-                    </td>  
+                    </td>
                 </tr>
             </table>
         </fieldset>
@@ -214,7 +212,7 @@
                                                            view.getAllActiveMilieuDeVie(),
                                                            nameKey='milieudevie_nom',
                                                            pkKey='milieudevie_pk',
-                                                           selectedPks=view.getMilieuDeVieByExperiencePk(experience.experience_pk, 'cle'))" /> 
+                                                           selectedPks=view.getMilieuDeVieByExperiencePk(experience.experience_pk, 'cle'))" />
                         </tal:addremove>
                     </td>
                     <td class="form-experience-right-column">
@@ -222,15 +220,15 @@
                             <span class="info-logo">i</span>
                             <ul>
                                 <li>
-                                    Quel est le milieu, l’espace de vie partagé 
+                                    Quel est le milieu, l’espace de vie partagé
                                     par les personnes visées par ce projet ?
                                 </li>
                                 <li>
-                                    Y a-t-il un lieu que les personnes visées 
-                                    par ce projet ont en commun ?
+                                    Y a-t-il un lieu que les personnes visées
+                                    par ce projet ont en commun ?
                                 </li>
-                            </ul>    
-                        </div> 
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -246,10 +244,10 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            En quoi a consisté le projet ? Qu’est-ce qui a été fait ?
-                            Par qui ? Comment ?<br />
-                            Le(s) public(s) ont-ils été associés au projet ?
-                            à sa construction ?
+                            En quoi a consisté le projet ? Qu’est-ce qui a été fait ?
+                            Par qui ? Comment ?<br />
+                            Le(s) public(s) ont-ils été associés au projet ?
+                            à sa construction ?
                         </div>
                     </td>
                 </tr>
@@ -275,7 +273,7 @@
                                                            view.getAllCommune((5,)),
                                                            nameKey=['com_localite_cp', 'com_localite_nom'],
                                                            pkKey='com_pk',
-                                                           selectedPks=view.getCommunePkInBwByExperiencePk(experience.experience_pk))" /> 
+                                                           selectedPks=view.getCommunePkInBwByExperiencePk(experience.experience_pk))" />
                         </tal:addremove>
                         <br />
                         <img src="list_flch_rouge.png" />
@@ -285,7 +283,7 @@
                                                            view.getAllCommune((1,2,3,4,11)),
                                                            nameKey=['com_localite_cp', 'com_localite_nom'],
                                                            pkKey='com_pk',
-                                                           selectedPks=view.getCommunePkOutBwByExperiencePk(experience.experience_pk))" /> 
+                                                           selectedPks=view.getCommunePkOutBwByExperiencePk(experience.experience_pk))" />
                         </tal:addremove>
                         <br /><br/>
                         <img src="list_flch_rouge.png" />
@@ -299,7 +297,7 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Quelles communes sont concernées ?
+                            Quelles communes sont concernées ?
                         </div>
                     </td>
                 </tr>
@@ -341,15 +339,15 @@
                             <span class="info-logo">i</span>
                             <ul>
                                 <li>De quoi avez-vous (eu) besoin pour mettre ce
-                                    projet en place ?</li>
-                                <li>De quels moyens humains : combien de personnes
-                                    ont travaillé à ce projet ? A quelle fréquence ?
-                                    Combien d’heures de travail a-t-il nécessité ?</li>
-                                <li>De quels moyens matériels : salles, papeterie,
+                                    projet en place ?</li>
+                                <li>De quels moyens humains : combien de personnes
+                                    ont travaillé à ce projet ? A quelle fréquence ?
+                                    Combien d’heures de travail a-t-il nécessité ?</li>
+                                <li>De quels moyens matériels : salles, papeterie,
                                     photocopies, outils, matériel informatique et
                                     multimédia, matériel de bricolage… Les ouvrages
                                     et jeux seront abordés dans le champ ressources.</li>
-                                <li>De quels moyens financiers ?</li>
+                                <li>De quels moyens financiers ?</li>
                             </ul>
                         </div>
                     </td>
@@ -373,13 +371,13 @@
                                 <li>Au public</li>
                                 <li>A vous</li>
                                 <li>Aux partenaires</li>
-                                <li>Autres ?</li>
+                                <li>Autres ?</li>
                             </ul>
                             Qu’est-ce qui a été facile ? Pourquoi ?<br />
                             Qu’est-ce qui a été difficile ? Pourquoi ?<br />
                             Qu’est-ce qui a été soutenant ?<br />
                             Et si c’était à refaire, que garderiez-vous ?
-                            Que changeriez vous?<br />
+                            Que changeriez vous ?<br />
                         </div>
                     </td>
                 </tr>
@@ -397,8 +395,8 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Y a-t-il des suites prévues à ce projet ? 
-                            Une reconduction ? Une réorientation... ? 
+                            Y a-t-il des suites prévues à ce projet ?
+                            Une reconduction ? Une réorientation... ?
                         </div>
                     </td>
                 </tr>
@@ -418,23 +416,8 @@
                                                            view.getAllInstitution(),
                                                            nameKey='institution_nom',
                                                            pkKey='institution_pk',
-                                                           selectedPks=view.getInstitutionPorteurByExperiencePk(experience.experience_pk))" /> 
+                                                           selectedPks=view.getInstitutionPorteurByExperiencePk(experience.experience_pk))" />
                         </tal:addremove>
-                        <!--
-                        <select tal:define="allInstitutions python: view.getAllInstitution();
-                                            institutionsPorteurForExperience python: view.getInstitutionPorteurByExperiencePk(experience.experience_pk)"
-                                    name="experience_institution_porteur_fk:list"
-                                    multiple="multiple"
-                                    size="5">
-                            <tal:boucle tal:repeat="institution allInstitutions">
-                                  <option value=""
-                                          tal:attributes="value institution/institution_pk;
-                                                          selected python:institution.institution_nom in institutionsPorteurForExperience and 'selected' or None;">
-                                    <span tal:content="institution/institution_nom">institution porteur</span>
-                                  </option>
-                            </tal:boucle>
-                        </select>
-                        -->
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
@@ -443,7 +426,7 @@
                             construit et/ou porté le projet avec vous?
                             <br />
                             Il peut s’agir d’une personne, de plusieurs personnes,
-                            d’une association, d’une institution… qui ne figurent
+                            d’une association, d’une institution... qui ne figurent
                             pas dans la liste déroulante ci-dessus.
                         </div>
                     </td>
@@ -463,7 +446,7 @@
                         <div id="info-champs">
                             <span class="info-logo">i</span>
                             Il peut s’agir d’une personne, de plusieurs personnes,
-                            d’une association, d’une institution… qui ne figurent
+                            d’une association, d’une institution... qui ne figurent
                             pas dans la liste déroulante ci-dessus.
                         </div>
                     </td>
@@ -514,7 +497,7 @@
                         <div id="info-champs">
                             <span class="info-logo">i</span>
                             Il peut s’agir d’une personne, de plusieurs personnes,
-                            d’une association, d’une institution… qui ne figurent
+                            d’une association, d’une institution... qui ne figurent
                             pas dans la liste déroulante ci-dessus.
                         </div>
                     </td>
@@ -534,7 +517,7 @@
                                                            view.getAllInstitution(),
                                                            nameKey='institution_nom',
                                                            pkKey='institution_pk',
-                                                           selectedPks=view.getInstitutionRessourceByExperiencePk(experience.experience_pk))" /> 
+                                                           selectedPks=view.getInstitutionRessourceByExperiencePk(experience.experience_pk))" />
                         </tal:addremove>
                     </td>
                     <td class="form-experience-right-column">
@@ -542,7 +525,7 @@
                             <span class="info-logo">i</span>
                             Y a-t-il des personnes qui sont intervenus à l’un ou
                             l’autre du projet, mais qui n’ont pas participé à
-                            l’ensemble du projet ?
+                            l’ensemble du projet ?
                         </div>
                     </td>
                 </tr>
@@ -559,7 +542,7 @@
                         <div id="info-champs">
                             <span class="info-logo">i</span>
                             Il peut s’agir d’une personne, de plusieurs personnes,
-                            d’une association, d’une institution… qui ne figurent
+                            d’une association, d’une institution... qui ne figurent
                             pas dans la liste déroulante ci-dessus.
                         </div>
                     </td>
@@ -575,13 +558,13 @@
                                                            view.getAllActiveRessource(),
                                                            nameKey='ressource_titre',
                                                            pkKey='ressource_pk',
-                                                           selectedPks=view.getRessourceTitreByExperiencePk(experience.experience_pk))" /> 
+                                                           selectedPks=view.getRessourceTitreByExperiencePk(experience.experience_pk))" />
                         </tal:addremove>
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Y a-t-il des outils qui vous ont soutenu, aidé ?
+                            Y a-t-il des outils qui vous ont soutenu, aidé ?
                         </div>
                     </td>
                 </tr>
@@ -611,7 +594,7 @@
                     <td class="form-experience-right-column">
                         <div id="info-champs">
                             <span class="info-logo">i</span>
-                            Y a-t-il des formations qui vous ont aidé ?
+                            Y a-t-il des formations qui vous ont aidé?
                         </div>
                     </td>
                 </tr>
@@ -630,8 +613,8 @@
                         <div id="info-champs">
                             <span class="info-logo">i</span>
                             Si quelqu’un souhaitait mener le même type de projets,
-                            vous lui conseilleriez de contacter qui ? de commencer
-                            par où ?
+                            vous lui conseilleriez de contacter qui ? de commencer
+                            par où ?
                         </div>
                     </td>
                 </tr>
@@ -639,7 +622,7 @@
         </fieldset>
 
         <hr />
-        
+
         <div class="div_form_input">
             <input type="hidden"
                    name="experience_auteur_login"
@@ -653,6 +636,9 @@
                    name="experience_auteur_fk"
                    value=""
                    tal:attributes="value experience/auteurFromExperience/auteur_pk" />
+            <input type="hidden"
+                   name="experience_clps_proprio_fk"
+                   value="2" />
             <input type="hidden"
                    name="operation"
                    value="update" />

@@ -20,8 +20,6 @@
                 <tal:block tal:define="experiencePk experience/experience_pk">
                     <fieldset>
                         <legend>
-                            <img src="carre_orange.gif"
-                                 widht="50%"/>
                             <a href=""
                                tal:content="experience/experience_titre"
                                tal:attributes="href string:admin-experience-modifier?experiencePk=${experiencePk}"

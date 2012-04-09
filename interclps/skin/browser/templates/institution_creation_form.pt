@@ -248,6 +248,7 @@
                                        name="assuetude_intervention_fk:list"
                                        value=""
                                        tal:attributes="value intervention/assuetude_intervention_pk" />
+                                &nbsp;
                                 <span tal:content="intervention/assuetude_intervention_nom"></span>
                                 <br />
                             </tal:boucle>
@@ -303,6 +304,7 @@
                                        value=""
                                        name="assuetude_activite_proposee_public_fk:list"
                                        tal:attributes="value activite/assuetude_activite_proposee_pk" />
+                                &nbsp;
                                 <span tal:content="activite/assuetude_activite_proposee_nom"></span>
                                 <br />
                             </tal:boucle>
@@ -317,6 +319,7 @@
                                        value=""
                                        name="assuetude_activite_proposee_pro_fk:list"
                                        tal:attributes="value activite/assuetude_activite_proposee_pk" />
+                                &nbsp;
                                 <span tal:content="activite/assuetude_activite_proposee_nom"></span>
                                 <br />
                             </tal:boucle>
@@ -370,6 +373,7 @@
                                        value=""
                                        name="assuetude_thematique_fk"
                                        tal:attributes="value thematique/assuetude_thematique_pk" />
+                                &nbsp;
                                 <span tal:content="thematique/assuetude_thematique_nom"></span>
                                 <br />
                             </tal:boucle>
@@ -479,43 +483,91 @@
 
         <fieldset>
             <legend class="legende">Plate-formes et sous plate-formes concernées</legend>
-            <input type="checkbox"
-                   name="institution_plate_forme_assuetude"
-                   value="True" />&nbsp;&nbsp;Point d'appui assuétudes
-            <br />
-            <input type="checkbox"
-                   name="institution_plate_forme_sante_ecole"
-                   value="True" />&nbsp;&nbsp;Santé à l'école
-            <br />
-            <input type="checkbox"
-                   name="institution_plate_forme_sante_famille"
-                   value="True" />&nbsp;&nbsp;Santé des familles
-            <br />
-            <input type="checkbox"
-                   name="institution_plate_forme_sante_environnement"
-                   value="True" />&nbsp;&nbsp;Santé et environnement
-            <br />
+            <ul class="formulaire">
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_plate_forme_assuetude"
+                           value="True" />&nbsp;&nbsp;Point d'appui assuétudes
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_plate_forme_sante_ecole"
+                           value="True" />&nbsp;&nbsp;Santé à l'école
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_plate_forme_sante_famille"
+                           value="True" />&nbsp;&nbsp;Santé des familles
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_plate_forme_sante_environnement"
+                           value="True" />&nbsp;&nbsp;Santé et environnement
+                </li>
+            </ul>
         </fieldset>
 
         <fieldset>
             <legend class="legende">Listing des ressources dans les plate-formes</legend>
             <p>Permet d'afficher une institution dans la liste des organismes des ressources d'une plate-forme</p>
-            <input type="checkbox"
-                   name="institution_listing_ressource_plate_forme_assuetude"
-                   value="True" />&nbsp;&nbsp;Point d'appui assuétudes
-            <br />
-            <input type="checkbox"
-                   name="institution_listing_ressource_plate_forme_sante_ecole"
-                   value="True" />&nbsp;&nbsp;Santé à l'école
-            <br />
-            <input type="checkbox"
-                   name="institution_listing_ressource_plate_forme_sante_famille"
-                   value="True" />&nbsp;&nbsp;Santé des familles
-            <br />
-            <input type="checkbox"
-                   name="institution_listing_ressource_plate_forme_sante_environnement"
-                   value="True" />&nbsp;&nbsp;Santé et environnement
-            <br />
+            <ul class="formulaire">
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_assuetude"
+                           value="True" />&nbsp;&nbsp;Point d'appui assuétudes
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_sante_ecole"
+                           value="True" />&nbsp;&nbsp;Santé à l'école
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_sante_famille"
+                           value="True" />&nbsp;&nbsp;Santé des familles
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_sante_environnement"
+                           value="True" />&nbsp;&nbsp;Santé et environnement
+                </li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Propriétaire</legend>
+            <ul tal:define="allClps python: view.getAllClps()"
+                class="formulaire">
+                <tal:block tal:repeat="clps allClps">
+                    <li>
+                      <img src="list_flch_rouge.png" />
+                      <span tal:condition="python: clps.clps_pk==2"> 
+                          <input type="checkbox"
+                                 name="institution_clps_proprio_fk:list"
+                                 checked="checked"
+                                 value=""
+                                 tal:attributes="value clps/clps_pk" />
+                          &nbsp;&nbsp;
+                          <span tal:content="clps/clps_sigle" />
+                      </span>
+                      <span tal:condition="python: clps.clps_pk!=2"> 
+                          <input type="checkbox"
+                                 name="institution_clps_proprio_fk:list"
+                                 value=""
+                                 tal:attributes="value clps/clps_pk" />
+                          &nbsp;&nbsp;
+                          <span tal:content="clps/clps_sigle" />
+                      </span>
+                    </li>
+                </tal:block>
+            </ul>
         </fieldset>
     </div>
 
@@ -529,7 +581,7 @@
                value=""
                tal:attributes="value auteur/auteur_pk" />
         <input type="hidden"
-               name="institutionClpsProprio"
+               name="institution_clps_proprio_fk"
                value="2" />
         <input type="hidden"
                name="operation"

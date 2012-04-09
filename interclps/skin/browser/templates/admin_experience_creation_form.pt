@@ -650,47 +650,86 @@
 
         <fieldset>
             <legend class="legende">Mission concernée</legend>
-            <span class="discreet">Ici les notes explicatives</span>
-            <br />
-            <input type="checkbox"
-                   name="experience_mission_centre_documentation"
-                   value="True" />
-            &nbsp;&nbsp;Centre documentation
-            <br />
-            <input type="checkbox"
-                   name="experience_mission_accompagnement_projet"
-                   value="True" />
-            &nbsp;&nbsp;Accompagnement de projet
-            <br />
-            <input type="checkbox"
-                   name="experience_mission_reseau_echange"
-                   value="True" />
-            &nbsp;&nbsp;Mise en réseau, échanges
-            <br />
-            <input type="checkbox"
-                   name="experience_mission_formation"
-                   value="True" />
-            &nbsp;&nbsp;Formation
-            <br />
+            <span class="discreet"></span>
+            <ul class="formulaire">
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="experience_mission_centre_documentation"
+                           value="True" />
+                    &nbsp;&nbsp;Centre documentation
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="experience_mission_accompagnement_projet"
+                           value="True" />
+                    &nbsp;&nbsp;Accompagnement de projet
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="experience_mission_reseau_echange"
+                           value="True" />
+                    &nbsp;&nbsp;Mise en réseau, échanges
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="experience_mission_formation"
+                           value="True" />
+                    &nbsp;&nbsp;Formation
+                </li>
+            </ul>
         </fieldset>
 
-         <fieldset>
+        <fieldset>
+            <legend>Propriétaire</legend>
+            <ul tal:define="allClps python: view.getAllClps()"
+                class="formulaire">
+                <tal:block tal:repeat="clps allClps">
+                    <li>
+                      <img src="list_flch_rouge.png" />
+                      <span tal:condition="python: clps.clps_pk==2">
+                          <input type="checkbox"
+                                 name="experience_clps_proprio_fk:list"
+                                 checked="checked"
+                                 value=""
+                                 tal:attributes="value clps/clps_pk" />
+                          &nbsp;&nbsp;
+                          <span tal:content="clps/clps_sigle" />
+                      </span>
+                      <span tal:condition="python: clps.clps_pk!=2">
+                          <input type="checkbox"
+                                 name="experience_clps_proprio_fk:list"
+                                 value=""
+                                 tal:attributes="value clps/clps_pk" />
+                          &nbsp;&nbsp;
+                          <span tal:content="clps/clps_sigle" />
+                      </span>
+                    </li>
+                </tal:block>
+            </ul>
+        </fieldset>
+
+        <fieldset>
             <legend class="legende">Niveau visibilité</legend>
-            <select name="experience_etat"
-                    id="auteur_actif">
-                <option value="private" selected="selected">Privé</option>
-                <option value="pending">En attente</option>
-                <option value="pending_for_review">En cours de validation</option>
-                <option value="Publish">Publié</option>
-            </select>
+            <ul class="formulaire">
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <select name="experience_etat"
+                            id="auteur_actif">
+                        <option value="private" selected="selected">Privé</option>
+                        <option value="pending">En attente</option>
+                        <option value="pending_for_review">En cours de validation</option>
+                        <option value="Publish">Publié</option>
+                    </select>
+                </li>
+            </ul>
         </fieldset>
     </div>
 
-    
     <div class="div_form_input">
-        <input type="hidden"
-               name="experienceClpsProprio"
-               value="2" />
         <input type="hidden"
                name="operation"
                value="insert" />

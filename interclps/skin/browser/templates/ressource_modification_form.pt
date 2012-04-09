@@ -144,6 +144,7 @@
                            checked=""
                            tal:attributes="value clps/clps_pk;
                                            checked python:clps.clps_pk in clpsDispo and 'selected' or None" />
+                        &nbsp;
                         <span tal:content="clps/clps_sigle"></span>
                         <br />
                 </tal:boucle>

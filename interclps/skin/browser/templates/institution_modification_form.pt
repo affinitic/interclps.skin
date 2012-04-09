@@ -252,7 +252,7 @@
                     </li>
                 </ul>
             </fieldset>
-            
+
             <div id="info-institution-assuetude">
                 <fieldset>
                     <h3> Informations pour la plate-forme assuétudes</h3>
@@ -311,9 +311,9 @@
                                 <br />
                             </td>
                         </tr>
-                
+
                         <tr><td colspan="2"></td></tr>
-                        
+
                         <tr class="info-institution-assuetude-even">
                             <td valign="top">
                                 <br />
@@ -330,7 +330,8 @@
                                                checked=""
                                                name="assuetude_activite_proposee_public_fk:list"
                                                tal:attributes="value activite/assuetude_activite_proposee_pk;
-                                                               checked python:activite.assuetude_activite_proposee_pk in selectedActivitesProposees and 'selected' or None;" />
+                                                               checked python:activite.assuetude_activite_proposee_pk in
+                                                               selectedActivitesProposees and 'selected' or None;" />
                                         <span tal:content="activite/assuetude_activite_proposee_nom"></span>
                                         <br />
                                     </tal:boucle>
@@ -383,9 +384,9 @@
                                 <br />
                             </td>
                         </tr>
-                
+
                         <tr><td colspan="2"></td></tr>
-                    
+
                         <tr class="info-institution-assuetude-odd">
                             <td valign="top">
                                 <br />
@@ -422,7 +423,7 @@
                                 <br />
                             </td>
                         </tr>
-                       
+
                        <tr class="info-institution-assuetude-odd">
                             <td valign="top">
                                 <br /> 
@@ -442,9 +443,9 @@
                                 <br />
                             </td>
                         </tr>
-                
+
                         <tr><td colspan="2"></td></tr>
-                
+
                         <tr class="info-institution-assuetude-even">
                             <td valign="top">
                                 <br />
@@ -481,6 +482,9 @@
                            name="institution_pk"
                            value=""
                            tal:attributes="value institutionPk" />
+                    <input type="hidden"
+                           name="institution_clps_proprio_fk"
+                           value="2" />
                     <input type="hidden"
                            name="institution_auteur_fk"
                            value=""
