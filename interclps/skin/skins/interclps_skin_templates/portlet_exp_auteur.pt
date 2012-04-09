@@ -28,9 +28,9 @@
                    tal:attributes="href string:${context/portal_url}/experience-gerer">Modifier</a>
             </dd>
         </div>
-        
+
         <div class="separation"></div>
-        
+
         <div tal:condition="python: auteur.auteur_for_institution==True">
             <dt class="portletItemDB menu-titre">institutions</dt>
             <dd class="portletItemDB">
@@ -39,7 +39,9 @@
             </dd>
             <dd class="portletItemDB">
                 <a href=""
-                   tal:attributes="href string:${context/portal_url}/institution_listing_par_login_auteur">xxLister</a>
+                   tal:attributes="href
+                   string:${context/portal_url}/institution-listing-par-login-auteur">XXX
+                   Lister XXXX</a>
             </dd>
             <dd class="portletItemDB">
                 <a href=""

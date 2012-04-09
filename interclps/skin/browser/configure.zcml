@@ -207,7 +207,7 @@
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
-          />                        
+          />
     <browser:page
           name="experience-decrire"
           for="*"
@@ -283,7 +283,7 @@
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
- 
+
 
 <!-- ressource -->
     <browser:page

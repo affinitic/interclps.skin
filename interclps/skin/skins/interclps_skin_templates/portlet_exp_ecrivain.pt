@@ -30,9 +30,9 @@
                            tal:attributes="href string:${context/portal_url}/experience-gerer">Modifier</a>
                     </dd>
             </div>
-            
+
             <div class="separation"></div>
-        
+
             <div tal:condition="python: auteur.auteur_for_institution==True"
                  class="menu-bloc">
                 <dt class="menu-titre">institutions</dt>
@@ -42,7 +42,8 @@
                     </dd>
                     <dd>
                         <a href=""
-                           tal:attributes="href string:${context/portal_url}/institution_listing_par_login_auteur">Lister</a>
+                           tal:attributes="href
+                           string:${context/portal_url}/institution-listing-par-login-auteur">Lister</a>
                     </dd>
                     <dd>
                         <a href=""
