@@ -1228,7 +1228,7 @@ class ManageInterClps(BrowserView):
         public = query.all()
         return public
 
-    def getPublicByRessourcePk(self, ressourcePk):
+    def getPublicByRessourcePk(self, ressourcePk, retour):
         """
         table pg link_ressource_public
         recuperation des publics selon ressource_pk
@@ -1245,7 +1245,10 @@ class ManageInterClps(BrowserView):
         for i in publicPk:
             for j in listeAllPublic:
                 if i.public_fk == j.public_pk:
-                    listePublicForRessource.append(j.public_nom)
+                    if retour=='cle':
+                        listePublicForRessource.append(j.public_pk)
+                    if retour=='nom':
+                        listePublicForRessource.append(j.public_nom)
         return listePublicForRessource
 
     def getPublicByExperiencePk(self, experiencePk):
@@ -2111,7 +2114,6 @@ class ManageInterClps(BrowserView):
         ressource_edition = getattr(fields, 'ressource_edition')
         ressource_lieu_edition = getattr(fields, 'ressource_lieu_edition')
         ressource_date_edition = getattr(fields, 'ressource_date_edition')
-        ressource_public = getattr(fields, 'ressource_public')
         ressource_autre_info = getattr(fields, 'ressource_autre_info')
         ressource_lien_pipsa = getattr(fields, 'ressource_lien_pipsa')
         ressource_autre_lien = getattr(fields, 'ressource_autre_lien')
@@ -2143,7 +2145,6 @@ class ManageInterClps(BrowserView):
                                    ressource_edition = ressource_edition, \
                                    ressource_lieu_edition = ressource_lieu_edition, \
                                    ressource_date_edition = ressource_date_edition, \
-                                   ressource_public = ressource_public, \
                                    ressource_autre_info = ressource_autre_info, \
                                    ressource_lien_pipsa = ressource_lien_pipsa, \
                                    ressource_autre_lien = ressource_autre_lien, \
@@ -2331,7 +2332,6 @@ class ManageInterClps(BrowserView):
         ressource_edition = getattr(fields, 'ressource_edition')
         ressource_lieu_edition = getattr(fields, 'ressource_lieu_edition')
         ressource_date_edition = getattr(fields, 'ressource_date_edition')
-        ressource_public = getattr(fields, 'ressource_public')
         ressource_autre_info = getattr(fields, 'ressource_autre_info')
         ressource_lien_pipsa = getattr(fields, 'ressource_lien_pipsa')
         ressource_autre_lien = getattr(fields, 'ressource_autre_lien')
@@ -2365,7 +2365,6 @@ class ManageInterClps(BrowserView):
         ressource.ressource_edition = unicode(ressource_edition, 'utf-8')
         ressource.ressource_lieu_edition = unicode(ressource_lieu_edition, 'utf-8')
         ressource.ressource_date_edition = unicode(ressource_date_edition, 'utf-8')
-        ressource.ressource_public = unicode(ressource_public, 'utf-8')
         ressource.ressource_autre_info = unicode(ressource_autre_info, 'utf-8')
         ressource.ressource_lien_pipsa = unicode(ressource_lien_pipsa, 'utf-8')
         ressource.ressource_autre_lien = unicode(ressource_autre_lien, 'utf-8')
@@ -4980,12 +4979,12 @@ class ManageInterClps(BrowserView):
         if operation =="insert":
             self.addRessource()
             ressourceFk = self.getRessourceMaxPk()
+            if ressourcePublicFk > 0:
+                self.addLinkRessourcePublic(ressourceFk)
             if ressourceSupportFk > 0:
                 self.addLinkRessourceSupport(ressourceFk)
             if ressourceThemeFk > 0:
                 self.addLinkRessourceTheme(ressourceFk)
-            if ressourcePublicFk > 0:
-                self.addLinkRessourcePublic(ressourceFk)
             if ressourceClpsProprioFk:                          #gestion du clps proprio
                 self.addLinkRessourceClpsProprio(ressourceFk)
             if ressourceClpsDispoFk:                            #gestion du clps proprio
@@ -4996,6 +4995,10 @@ class ManageInterClps(BrowserView):
         if operation == "update":
             ressourceFk = getattr(fields, 'ressource_pk')
             self.updateRessource()
+
+            self.deleteLinkRessourcePublic(ressourceFk)
+            if ressourcePublicFk > 0:
+                self.addLinkRessourcePublic(ressourceFk)
 
             self.deleteLinkRessourceSupport(ressourceFk)
             if ressourceSupportFk > 0:

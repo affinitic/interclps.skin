@@ -13,7 +13,7 @@
 <div metal:fill-slot="main"
      tal:define="ressourcePk request/ressourcePk;
                  ressources python:view.getRessourceByPk(ressourcePk=ressourcePk);
-                 publics python:view.getPublicByRessourcePk(ressourcePk);
+                 publics python:view.getPublicByRessourcePk(ressourcePk, 'cle');
                  supports python:view.getSupportByRessourcePk(ressourcePk, 'titre');
                  allClps python:view.getAllClps();
                  clpsDispo python:view.getClpsDispoByRessourcePk(ressourcePk, 'cle');
@@ -94,11 +94,13 @@
             <div class="div_question">
                 <img src="list_flch_rouge.png" /> Public
                 <br />
-                <textarea name="ressource_public"
-                          rows="5"
-                          cols="50"
-                          tal:content="ressource/ressource_public"
-                          class="grasorange"></textarea>
+                <tal:addremove define="errors python:{};">
+                    <span metal:use-macro="python: view.getAddRemoveField('ressource_public_fk', ' ',
+                                           view.getAllActivePublic(),
+                                           nameKey='public_nom',
+                                           pkKey='public_pk',
+                                           selectedPks=view.getPublicByRessourcePk(ressourcePk, 'cle'))" />
+                </tal:addremove>
             </div>
             <div class="div_question">
                 <img src="list_flch_rouge.png" /> Autres info

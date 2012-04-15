@@ -13,7 +13,7 @@
 <div metal:fill-slot="main"
      tal:define="ressourcePk request/ressourcePk | nothing;
                  ressources python:view.getAllRessource(ressourcePk);
-                 publics python:view.getPublicByRessourcePk(ressourcePk);
+                 publics python:view.getPublicByRessourcePk(ressourcePk, 'nom');
                  supports python:view.getSupportByRessourcePk(ressourcePk, 'titre');
                  clpsDispo python:view.getClpsDispoByRessourcePk(ressourcePk, 'titre');
                  allClps python: view.getAllClps();
@@ -43,7 +43,9 @@
                     <h3 class="left-rubrique-db">Public</h3>
                     <div class="text-db">
                         <tal:boucle tal:repeat="public publics">
-                            <span class="text-db">public</span>
+                            <span tal:content="public"
+                                  class="text-db"></span>
+                            <br />
                         </tal:boucle>
                     </div>
                     <div class="text-db">
@@ -51,6 +53,7 @@
                               class="rubrique-db" />
                     </div>
                 </div>
+                <br />
 
                 <div tal:condition="python: ressource.ressource_objectif!=''">
                     <h3 class="left-rubrique-db">Objectif(s)</h3>
