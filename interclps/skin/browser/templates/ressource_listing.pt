@@ -13,7 +13,8 @@
     <h1>:: Ressource ::</h1>
     <div tal:define="ressources python:view.getAllRessource();">
         <tal:boucle tal:repeat="ressource ressources">
-            <tal:block tal:define="ressourcePk ressource/ressource_pk">
+            <tal:block tal:define="ressourcePk ressource/ressource_pk;
+                                   publics python:view.getPublicByRessourcePk(ressourcePk, 'nom');">
                 <fieldset>
                     <legend>
                           <a href=""
@@ -23,24 +24,26 @@
                     </legend>
                     <ul class="description">
                         <li>
-                            <span class="brun"> Description :</span><br />
+                            <span class="left-rubrique-db"> Description :</span><br />
                             <span tal:replace="structure ressource/ressource_description"
                                    class="rubrique-db" />
                         </li>
                         <li>
-                            <span class="brun"> Auteur :</span><br />
+                            <span class="left-rubrique-db"> Auteur :</span><br />
                             <span tal:content="ressource/ressource_auteur"
                                    class="rubrique-db" />
                         </li>
                         <li>
-                            <span class="brun"> Année de parution :</span><br />
+                            <span class="left-rubrique-db"> Année de parution :</span><br />
                             <span tal:content="ressource/ressource_date_edition"
                                    class="rubrique-db" />
                         </li>
                         <li>
-                            <span class="brun"> Public :</span><br />
-                            <span tal:content="ressource/ressource_public"
-                                   class="rubrique-db" />
+                            <span class="left-rubrique-db"> Public :</span><br />
+                            <tal:boucle tal:repeat="public publics">
+                                <span tal:content="public"
+                                      class="rubrique-db" /><br />
+                            </tal:boucle>
                         </li>
 
                     </ul>

@@ -303,14 +303,6 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="ressource-gerer"
-          for="*"
-          template="templates/ressource_gestion.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
           name="ressource-modifier"
           for="*"
           template="templates/ressource_modification_form.pt"
