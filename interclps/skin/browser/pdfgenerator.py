@@ -210,20 +210,20 @@ class PdfGenerator(BrowserView):
         email = self._pdfdata.institution_email_contact
         tel = self._pdfdata.institution_tel_contact
 
-        #cadre projet partage
-        projet = ""
+        institutionPorteur = ""
+        institutionPorteurs = clpsView.getExperienceFromInstitutionPorteur(self._pdfdata.institution_pk)
+        for i in institutionPorteurs:
+            institutionPorteur = institutionPorteur + '%s<br />' % i[1].strip()
 
-        projetsPorteurs = clpsView.getExperienceFromInstitutionPorteur(self._pdfdata.institution_pk)
-        for elem in projetsPorteurs:
-            projet = projet + '%s<br />' % elem[1].strip()
+        institutionPartenaire = ""
+        institutionPartenaires = clpsView.getExperienceFromInstitutionPartenaire(self._pdfdata.institution_pk)
+        for i in institutionPartenaires:
+            institutionPartenaire = (institutionPartenaire + '- %s <br />') % i[1].strip()
 
-        projetsPartages = clpsView.getExperienceFromInstitutionPartenaire(self._pdfdata.institution_pk)
-        for elem in projetsPartages:
-            projet = projet + '%s<br />' % elem[1].strip()
-
-        projetsRessources = clpsView.getExperienceFromInstitutionRessource(self._pdfdata.institution_pk)
-        for elem in projetsRessources:
-            projet = projet + '%s<br />' % elem[1].strip()
+        institutionRessource = ""
+        institutionRessources = clpsView.getExperienceFromInstitutionRessource(self._pdfdata.institution_pk)
+        for i in institutionRessources:
+            institutionRessource = (institutionRessource + '- %s <br />') % i[1].strip()
 
         rightFields = [("Sigle", sigle),
                        ("Adresse", adresse),
@@ -232,7 +232,9 @@ class PdfGenerator(BrowserView):
                        ("Fonction", fonction),
                        ("E-mail", email),
                        ("Tél", tel),
-                       ("Projets", projet),
+                       ("Institution porteur(s) de l'expérience", institutionPorteur),
+                       ("Institution partenaire(s) de l'expérience", institutionPartenaire),
+                       ("Institution ressource(s) de l'expérience", institutionRessource),
                        ]
 
         self.overflowFields = []
