@@ -6,8 +6,7 @@ from zope.component import getMultiAdapter
 
 #generer le pdf
 from cStringIO import StringIO
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, \
-                               TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib import colors
 from reportlab.lib.units import mm
 from reportlab.lib.pagesizes import portrait, A4
@@ -121,49 +120,49 @@ class PdfGenerator(BrowserView):
         canvas.drawString(20*mm, 8*mm, "Projets partagés : CLPS-Bw - CLPS-Lux        www.projets-partages.be")
         canvas.drawString(180*mm, 8*mm, "Page %d" % doc.page)
 
-    def drawRightColumn(self, canvas, doc):
+    def drawExperienceRightColumn(self, canvas, doc):
         clpsView = getMultiAdapter((self.context, self.request), name="manageInterClps")
         #colonne de droite
         institutionPorteur = ""
-        institutionPorteurs = clpsView.getInstitutionPorteur(self._experience.experience_pk)
+        institutionPorteurs = clpsView.getInstitutionPorteur(self._pdfdata.experience_pk)
         for i in institutionPorteurs:
             institutionPorteur = institutionPorteur + '%s<br />' % i.institution_porteur.institution_nom.strip()
 
         institutionPartenaire = ""
-        institutionPartenaires = clpsView.getInstitutionPartenaire(self._experience.experience_pk)
+        institutionPartenaires = clpsView.getInstitutionPartenaire(self._pdfdata.experience_pk)
         for i in institutionPartenaires:
             institutionPartenaire = (institutionPartenaire + '- %s <br />')%(i.institution_partenaire.institution_nom, )
 
         institutionRessource = ""
-        institutionRessources = clpsView.getInstitutionRessource(self._experience.experience_pk)
+        institutionRessources = clpsView.getInstitutionRessource(self._pdfdata.experience_pk)
         for i in institutionRessources:
             institutionRessource = (institutionRessource + '- %s <br />')%(i.institution_ressource.institution_nom, )
 
-        periodeDeroulement = self._experience.experience_periode_deroulement
+        periodeDeroulement = self._pdfdata.experience_periode_deroulement
 
         territoire=""
-        brabantWallon = self._experience.experience_territoire_tout_brabant_wallon
+        brabantWallon = self._pdfdata.experience_territoire_tout_brabant_wallon
         if brabantWallon:
             territoire="%s<br />"%("Tout le Brabant Wallon", )
-        communes = clpsView.getCommuneNomByExperiencePk(self._experience.experience_pk)
+        communes = clpsView.getCommuneNomByExperiencePk(self._pdfdata.experience_pk)
         for i in communes:
             territoire = (territoire + '- %s <br />')%(i, )
 
         outil = ""
-        outils = clpsView.getRessourceByExperiencePk(self._experience.experience_pk)
+        outils = clpsView.getRessourceByExperiencePk(self._pdfdata.experience_pk)
         for i in outils:
             if len(i[1])>0:
                 outil = ('%s ')%(i[1],)
 
-        autreOutil = ('%s')%(self._experience.experience_institution_outil_autre)
+        autreOutil = ('%s')%(self._pdfdata.experience_institution_outil_autre)
         if autreOutil:
             outil = ('%s<br /><li>%s</li>')%(outil, autreOutil)
 
-        formation = ('%s')%(self._experience.experience_formation_suivie)
+        formation = ('%s')%(self._pdfdata.experience_formation_suivie)
 
-        nomContact = ('%s')%(self._experience.experience_personne_contact)
-        emailContact = ('%s')%(self._experience.experience_personne_contact_email)
-        telephoneContact = ('%s')%(self._experience.experience_personne_contact_telephone)
+        nomContact = ('%s')%(self._pdfdata.experience_personne_contact)
+        emailContact = ('%s')%(self._pdfdata.experience_personne_contact_email)
+        telephoneContact = ('%s')%(self._pdfdata.experience_personne_contact_telephone)
         contact = ('%s<br />%s<br />%s')%(nomContact, emailContact, telephoneContact)
 
         rightFields = [("Institution porteur(s) de l'expérience", institutionPorteur),
@@ -174,6 +173,66 @@ class PdfGenerator(BrowserView):
                        ("Outils", outil),
                        ("Formations", formation),
                        ("Contacts", contact)
+                       ]
+
+        self.overflowFields = []
+        offset = 0
+        for field in rightFields:
+            if not field[1]:
+                continue
+            if self.overflowFields:
+                self.overflowFields.append(field)
+                continue
+            title = Paragraph(field[0], self._styles["TitleRight"], bulletText='•')
+            text = Paragraph(self.cleanHtml(field[1]), self._styles["Right"])
+            w, h = title.wrapOn(canvas, 45*mm, 0*mm)
+            w2, h2 = text.wrapOn(canvas, 45*mm, 0*mm)
+            if w2 > 45*mm:
+                # XXX force crop ?
+                pass
+            if offset + h + h2 > 689:
+                self.overflowFields.append(field)
+                continue
+            offset += h
+            title.drawOn(canvas, 148*mm, 760-offset)
+            offset += h2
+            text.drawOn(canvas, 148*mm, 760-offset)
+            offset += 15
+
+    def drawInstitutionRightColumn(self, canvas, doc):
+        clpsView = getMultiAdapter((self.context, self.request), name="manageInterClps")
+        #colonne de droite
+        sigle = self._pdfdata.institution_sigle
+        adresse = self._pdfdata.institution_adresse
+        localite = ('%s %s')%(self._pdfdata.commune.com_localite_cp, self._pdfdata.commune.com_localite_nom)
+        personneRessource = self._pdfdata.institution_nom_contact
+        fonction = self._pdfdata.institution_fonction_contact
+        email = self._pdfdata.institution_email_contact
+        tel = self._pdfdata.institution_tel_contact
+
+        #cadre projet partage
+        projet = ""
+
+        projetsPorteurs = clpsView.getExperienceFromInstitutionPorteur(self._pdfdata.institution_pk)
+        for elem in projetsPorteurs:
+            projet = projet + '%s<br />' % elem[1].strip()
+
+        projetsPartages = clpsView.getExperienceFromInstitutionPartenaire(self._pdfdata.institution_pk)
+        for elem in projetsPartages:
+            projet = projet + '%s<br />' % elem[1].strip()
+
+        projetsRessources = clpsView.getExperienceFromInstitutionRessource(self._pdfdata.institution_pk)
+        for elem in projetsRessources:
+            projet = projet + '%s<br />' % elem[1].strip()
+
+        rightFields = [("Sigle", sigle),
+                       ("Adresse", adresse),
+                       ("Localité", localite),
+                       ("Personne ressource", personneRessource),
+                       ("Fonction", fonction),
+                       ("E-mail", email),
+                       ("Tél", tel),
+                       ("Projets", projet),
                        ]
 
         self.overflowFields = []
@@ -222,11 +281,14 @@ class PdfGenerator(BrowserView):
         self.drawBackgroundAndFooter(canvas, doc)
         titleStyle = self._styles["Title"]
         titleStyle.textColor = colors.HexColor(0x820031)
-        titreTxt = self._experience.experience_titre
+        titreTxt = self._pdfdata.titre
         titre = Paragraph('<b><i>%s</i></b>' % titreTxt, titleStyle)
         w, h = titre.wrapOn(canvas, 145*mm, 25*mm)
         titre.drawOn(canvas, (600/2-w/2), 280*mm)
-        self.drawRightColumn(canvas, doc)
+        if self._pdftype == 'experience':
+            self.drawExperienceRightColumn(canvas, doc)
+        else:
+            self.drawInstitutionRightColumn(canvas, doc)
         # 210 × 297
         canvas.restoreState()
 
@@ -257,19 +319,21 @@ class PdfGenerator(BrowserView):
         experiences = clpsView.getExperienceByPk(experiencePk, experienceEtat=None)
         if not experiences:
             return
-        self._experience = experiences[0]
+        self._pdftype = 'experience'
+        self._pdfdata = experiences[0]
+        self._pdfdata.titre = self._pdfdata.experience_titre
 
         #colonne de gauche
-        resume = self._experience.experience_resume
-        contexte = self._experience.experience_element_contexte
-        objectif = self._experience.experience_objectif
-        public = self._experience.experience_public_vise
-        milieux = clpsView.getMilieuDeVieByExperiencePk(self._experience.experience_pk, 'nom')
+        resume = self._pdfdata.experience_resume
+        contexte = self._pdfdata.experience_element_contexte
+        objectif = self._pdfdata.experience_objectif
+        public = self._pdfdata.experience_public_vise
+        milieux = clpsView.getMilieuDeVieByExperiencePk(self._pdfdata.experience_pk, 'nom')
         milieu = milieux[0]
-        demarche = ('%s')%(self._experience.experience_demarche_actions)
-        moyen = ('%s')%(self._experience.experience_moyens)
-        evalautaion = ('%s')%(self._experience.experience_evaluation_enseignement)
-        perspective = ('%s')%(self._experience.experience_perspective_envisagee)
+        demarche = ('%s')%(self._pdfdata.experience_demarche_actions)
+        moyen = ('%s')%(self._pdfdata.experience_moyens)
+        evaluation = ('%s')%(self._pdfdata.experience_evaluation_enseignement)
+        perspective = ('%s')%(self._pdfdata.experience_perspective_envisagee)
 
         leftFields = [("Résumé", resume),
                       ("Eléments de contexte", contexte),
@@ -278,7 +342,7 @@ class PdfGenerator(BrowserView):
                       ("Milieu de vie", milieu),
                       ("Démarches et actions", demarche),
                       ("Moyens", moyen),
-                      ("Evaluation et enseignement", evalautaion),
+                      ("Evaluation et enseignement", evaluation),
                       ("Prespectives envisagées", perspective)
                      ]
 
@@ -302,77 +366,39 @@ class PdfGenerator(BrowserView):
         """
         genere le pdf d'une institution selon sa pk
         """
+        self.createStyles()
         clpsView = getMultiAdapter((self.context, self.request), name="manageInterClps")
-        pdfFile = StringIO() #ecrit dans un buffer comme un fichier
+        pdfFile = StringIO()  # ecrit dans un buffer comme un fichier
+
         doc = SimpleDocTemplate(pdfFile,
-                                pagesize = portrait(A4),
-                                bottomMargin = 10*mm,
-                                topMargin = 10*mm,
-                                leftMargin = 15*mm,
-                                rightMargin = 15*mm)
+                                pagesize=portrait(A4),
+                                bottomMargin=25*mm,
+                                topMargin=25*mm,
+                                leftMargin=15*mm,
+                                rightMargin=15*mm,
+                                allowSplitting=1)
+
         story = []
-        data =[]
         institutions = clpsView.getInstitutionByPk(institutionPk)
+        if not institutions:
+            return
+        self._pdftype = 'institution'
+        self._pdfdata = institutions[0]
+        self._pdfdata.titre = self._pdfdata.institution_nom
 
-        for institution in institutions:
-            #colonne de gauche
-            nom = institution.institution_nom
-            public = institution.institution_public
-            mission = institution.institution_mission
+        #colonne de gauche
+        public = self._pdfdata.institution_public
+        mission = self._pdfdata.institution_mission
 
-            territoire = ""
-            communes = clpsView.getInstitutionCommuneCouverte(institutionPk)
-            for i in communes:
-                territoire = (territoire + '- %s <br />')%(i, )
+        territoire = ""
+        communes = clpsView.getInstitutionCommuneCouverte(institutionPk)
+        for i in communes:
+            territoire = (territoire + '- %s <br />')%(i, )
 
-            activite = institution.institution_activite
-            commentaire = institution.institution_commentaire
-            siteWeb = institution.institution_url_site
-            lienSiss = institution.institution_lien_siss
-            autreInfo = institution.institution_autre_info
-
-            #colonne de droite
-            sigle = institution.institution_sigle
-            adresse = institution.institution_adresse
-            localite = ('%s %s')%(institution.commune.com_localite_cp, institution.commune.com_localite_nom)
-            personneRessource = institution.institution_nom_contact
-            fonction = institution.institution_fonction_contact
-            email = institution.institution_email_contact
-            tel = institution.institution_tel_contact
-
-            #cadre projet partage
-            projetsPorteurs = clpsView.getExperienceFromInstitutionPorteur(institutionPk)
-            projet = ""
-            for elem in projetsPorteurs:
-                projet = (projet + "&bull; %s <br />")%(elem[1], )
-
-            projetsPartages = clpsView.getExperienceFromInstitutionPartenaire(institutionPk)
-            projet = ""
-            for elem in projetsPartages:
-                projet = (projet + "&bull; %s <br />")%(elem[1], )
-
-            projetsRessources = clpsView.getExperienceFromInstitutionRessource(institutionPk)
-            projet = ""
-            for elem in projetsRessources:
-                projet = (projet + "&bull; %s <br />")%(elem[1], )
-
-            #cadre assuetude
-            intervention =""
-            interventions = clpsView.getAssuetudeInterventionForInstituion(institutionPk, 'nom')
-            for elem in interventions:
-                intervention = (intervention + "&bull; %s <br />")%(elem, )
-
-            activiteProposee = ""
-            activiteProposees = clpsView.getAssuetudeActiviteProposeePublicForInstituion(institutionPk, 'nom')
-            for elem in activiteProposees:
-                activiteProposee = (activiteProposee + "&bull; %s <br />")%(elem, )
-            precisionActiviteProposee = institution.institution_assuet_activite_proposee_precision
-
-            thematique = ""
-            thematiques = clpsView.getAssuetudeThematiqueForInstituion(institutionPk, 'nom')
-            for elem in thematiques:
-                thematique = (thematique + "&bull; %s <br />")%(elem, )
-            precisionThematique = institution.institution_assuet_thematique_precision
+        activite = self._pdfdata.institution_activite
+        commentaire = self._pdfdata.institution_commentaire
+        siteWeb = self._pdfdata.institution_url_site
+        autreInfo = self._pdfdata.institution_autre_info
 
         leftFields = [("Public", public),
                       ("Missions", mission),
@@ -380,115 +406,21 @@ class PdfGenerator(BrowserView):
                       ("Activités", activite),
                       ("Commentaires", commentaire),
                       ("Site web", siteWeb),
-                      ("Lien SISS", lienSiss),
                       ("Autre info", autreInfo)
                      ]
-        rightFields = [("Sigle", sigle),
-                       ("Adresse", adresse),
-                       ("Localité", localite),
-                       ("Personne ressource", personneRessource),
-                       ("Fonction", fonction),
-                       ("E-mail", email),
-                       ("Tél", tel),
-                       ]
-        assuetudeFields = [("Intervention", intervention),
-                           ("Activités proposées", activiteProposee),
-                           ("Précision sur les activités proposées", precisionActiviteProposee),
-                           ("Thématique", thematique),
-                           ("Précision sur les thématiques", precisionThematique),
-                           ("Précision", precisionThematique),
-                          ]
 
-        leftColumn = []
-        rightColumn = []
-        assuetude = []
-
-        styles=getSampleStyleSheet()
-        styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
-        styles.add(ParagraphStyle(name='TitleLeft',
-                                  alignment=TA_LEFT,
-                                  textColor="#4e0022",
-                                  leftIndent=0,
-                                  fontName='Helvetica-Bold',
-                                  fontSize=12,
-                                  spaceAfter=3))
-        styles.add(ParagraphStyle(name='Left',
-                                  alignment=TA_LEFT,
-                                  textColor="#666666",
-                                  leftIndent=20,
-                                  fontName='Helvetica',
-                                  fontSize=11,
-                                  spaceAfter=6))
-        styles.add(ParagraphStyle(name='TitleRight',
-                                  alignment=TA_LEFT,
-                                  textColor="#333333",
-                                  leftIndent=0,
-                                  fontName='Helvetica',
-                                  fontSize=9))
-        styles.add(ParagraphStyle(name='Right',
-                                  alignment=TA_LEFT,
-                                  textColor="#666666",
-                                  leftIndent=5,
-                                  fontName='Helvetica',
-                                  fontSize=9,
-                                  spaceAfter=6))
-
-        titleStyle = styles["Title"]
-        titleStyle.textColor = colors.HexColor(0x007bdd)
-        story.append(Paragraph(nom, titleStyle))
-        story.append(Spacer(1, 12))
-
-        data = [[leftColumn, rightColumn],]
         for field in leftFields:
-            if field[1]:
-                title = Paragraph("&bull; %s" % field[0], styles["TitleLeft"])
-                text = Paragraph(field[1], styles["Left"])
-                leftColumn.append(title)
-                leftColumn.append(text)
+            if not field[1]:
+                continue
+            title = Paragraph("&bull; &nbsp;%s" % field[0], self._styles["TitleLeft"])
+            story.append(title)
+            paragraphs = self.makeFlowablesForBulletList(self.cleanHtml(field[1]))
+            for p in paragraphs:
+                story.append(p)
+            story.append(Spacer(1, 12))
 
-        for field in rightFields:
-            if field[1]:
-                title = Paragraph("&bull; %s" % field[0], styles["TitleRight"])
-                text = Paragraph(field[1], styles["Right"])
-                rightColumn.append(title)
-                rightColumn.append(text)
-
-        t=Table(data, colWidths=[130*mm, 50*mm])
-        t.setStyle(TableStyle([('BOX', (0,0), (1,-1), 1 ,colors.HexColor(0x007bdd)),
-                               #('LINEABOVE', (0,0), (-1,0), 2, colors.orange),
-                               #('LINEBELOW', (0,-1), (-1,-1), 2, colors.orange),
-                               ('ALIGN', (1,1), (-1,-1), 'RIGHT'),
-                               ('VALIGN', (0,0), (-1,0), 'TOP'),
-                               ('BACKGROUND', (-1,0), (-1,0), colors.HexColor(0xedffff)),
-                               ('BACKGROUND', (-1,0), (0,0), colors.grey),
-                              ]))
-
-        story.append(t)
-        story.append(Spacer(1, 12))
-
-        blocAssuetude = [[assuetude]]
-
-        assuetude.append(Paragraph("ASSUETUDE", styles["TitleRight"]))
-
-        for field in assuetudeFields:
-            if field[1]:
-                title = Paragraph("&bull; %s" % field[0], styles["TitleLeft"])
-                text = Paragraph(field[1], styles["Left"])
-                assuetude.append(title)
-                assuetude.append(text) 
-        t01 = Table(blocAssuetude, colWidths=[160*mm,])
-        t01.setStyle(TableStyle([('BOX', (0,0), (1,-1), 1 ,colors.HexColor(0x007bdd)),
-                                #('LINEABOVE', (0,0), (-1,0), 2, colors.orange),
-                                #('LINEBELOW', (0,-1), (-1,-1), 2, colors.orange),
-                                ('ALIGN', (1,1), (-1,-1), 'RIGHT'),
-                                ('VALIGN', (0,0), (-1,0), 'TOP'),
-                                ('BACKGROUND', (-1,0), (-1,0), colors.HexColor(0xedffff)),
-                                ('BACKGROUND', (-1,0), (0,0), colors.HexColor(0xdfe5ff)),
-                               ]))
-        story.append(t01)
-
-        doc.build(story, onFirstPage=self.drawFooter, onLaterPages=self.drawFooter)
+        doc.build(story, onFirstPage=self.drawFirstPage, onLaterPages=self.drawLaterPage)
 
         self.request.response.setHeader('Content-Type', 'application/pdf')
-        self.request.response.addHeader("Content-Disposition", "filename=experience.pdf")
+        self.request.response.addHeader("Content-Disposition", "filename=institution.pdf")
         return pdfFile.getvalue()

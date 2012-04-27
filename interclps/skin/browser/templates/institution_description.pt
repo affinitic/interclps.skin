@@ -200,7 +200,7 @@
                          tal:condition="python: institution.institution_etat=='publish'">
                          <span class="right-rubrique-db">Télécharger la fiche en PDF</span>
                          <a href=""
-                            tal:attributes="href string:@@pdfGenerator/printInstituion?institutionPk=${institutionPk}">
+                            tal:attributes="href string:@@pdfGenerator/printInstitution?institutionPk=${institutionPk}">
                             <img src="logo_pdf.png"></a>
                     </div>
                 </div><!--right-institution-coordonnée-->    
