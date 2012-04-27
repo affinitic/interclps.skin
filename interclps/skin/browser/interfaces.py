@@ -15,9 +15,14 @@ class IPdfGenerator(Interface):
     generation d'un pdf
     """
 
-    def printExperience(self):
+    def printExperience(experiencePk):
         """
-        description experience en pdf
+        genere le pdf d'une experience selon sa pk
+        """
+
+    def printInstitution(institutionPk):
+        """
+        genere le pdf d'une institution selon sa pk
         """
 
 
@@ -70,54 +75,55 @@ class IManageInterClps(Interface):
         """
         check le captcha
         """
-    
-    def getAuteurTypeByLogin(self):
+
+    def getAuteurTypeByLogin():
         """
         table pg auteur
         recuperation du type d'auteur (experience - institution) selon son login
         """
-    
-    def getAllAuteurFromInstitution(self):
+
+    def getAllAuteurFromInstitution():
         """
         table pg auteur
         recuperation de toutes les auteurs d'institution
         """
 
-    def isAuteurHadExperience(self, auteurPk):
+    def isAuteurHadExperience(auteurPk):
         """
         check si un auteur a une experience
         """
-    def isAuteurHadInstitution(self, auteurPk):
+
+    def isAuteurHadInstitution(auteurPk):
         """
         check si un auteur a une institution
         """
 
-    def deleteAuteurByPk(self, auteurPk):
+    def deleteAuteurByPk(auteurPk):
         """
         supprime un auteur selon sa pk
         """
-            
+
     def getAllCommune():
         """
         select all commune
         """
 
-    def getAllTheme(self):
+    def getAllTheme():
         """
         select all theme
         """
 
-    def getThemeByPk(self, theme_pk):
+    def getThemeByPk(theme_pk):
         """
         select theme by pk
         """
 
-    def getAllMotCle(self):
+    def getAllMotCle():
         """
         select all mot-cle
         """
 
-    def getMotCleByPk(self, motcle_pk):
+    def getMotCleByPk(motcle_pk):
         """
         select mot-cle by pk
         """
@@ -127,7 +133,7 @@ class IManageInterClps(Interface):
         select all instance
         """
 
-    def getInstitutionByPlateForme(self, plateForme):
+    def getInstitutionByPlateForme(plateForme):
         """
         recuperation d'un recit selon la plateForme
         """
@@ -157,64 +163,65 @@ class IManageInterClps(Interface):
         traduction de l'état d'une experience
         """
 
-    def getExperienceByPlateForme(self, plateForme):
+    def getExperienceByPlateForme(plateForme):
         """
         recuperation d'un recit selon la plateForme
         """
 
-    def getAllExperienceByEtat(self, etatExperience):
+    def getAllExperienceByEtat(etatExperience):
         """
         table pg experience
         recuperation d'un recit selon experience_pk
         private pending publish
         """
-    
-    def getExperienceByClps(self, clpsPk):
+
+    def getExperienceByClps(clpsPk):
         """
         table pg experience
         recuperation d'une experience selon experience_clps_proprio_fk
         """
-        
-    def getExperienceByRessource(self, ressourcePk):
+
+    def getExperienceByRessource(ressourcePk):
         """
         recuperation d'une experience selon une ressource
         """
-    def getLastExperience(self, limite=None):
+
+    def getLastExperience(limite=None):
         """
         table pg experience
-        recuperation d'une experience selon 
+        recuperation d'une experience selon
            la date de modification
            une limite de 5
            l'etat publish
         """
 
-    def getCountExperienceByEtat(self, etatExperience):
+    def getCountExperienceByEtat(etatExperience):
         """
         table pg experience
         recuperation du nombre d'experience selon experience_etat
         private pending publish
         """
 
-    def getCountAllExperience(self):
+    def getCountAllExperience():
         """
         table pg experience
         recuperation du nombre d'experience
         """
 
-    def getCountInstitutionByEtat(self, institutionEtat):
+    def getCountInstitutionByEtat(institutionEtat):
         """
         table pg institution
         recuperation du nombre d'institution selon institution_etat
         private publish
         """
 
-    def getCountAllInstitution(self):
+    def getCountAllInstitution():
         """
         table pg institution
         recuperation du nombre total d'institution
         """
 
-    def getMilieuDeVieByExperiencePk(self, experiencePk, retour):
+    def getMilieuDeVieByExperiencePk(experiencePk, retour):
         """
         recuperation des milieux de vie lies a une experience
         """
@@ -263,17 +270,17 @@ class IManageInterClps(Interface):
         """
         demande d'inscription
         """
-        
+
     def manageAssuetudeInterventionForInstitution():
         """
         gestion des assuetude intervention pour institution
         """
-     
+
     def manageAssuetudeActiviteProposeeForInstitution():
         """
         gestion des assuetude activite proposee pour institution
         """
-    
+
     def manageAssuetudeThematiqueForInstitution():
         """
         gestion des assuetude thematique pour institution
