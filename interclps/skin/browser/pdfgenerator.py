@@ -94,7 +94,7 @@ class PdfGenerator(BrowserView):
 
     def makeFlowablesForBulletList(self, text):
         flow = []
-        for part in re.split('<ul>|</ul>|<ol>|</ol>', text):
+        for part in re.split('<ul>|</ul>|<ol>|</ol>|<p>|</p>', text):
             part = part.strip()
             if part.count('<li>') > 0:
                 for item in re.split('<li>|</li>', part):
