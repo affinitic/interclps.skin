@@ -42,13 +42,13 @@
                 <div>
                     <h3 class="left-rubrique-db">Public</h3>
                     <div class="text-db">
-                        <tal:boucle tal:repeat="public publics">
-                            <span tal:content="public"
-                                  class="text-db"></span>
-                            <br />
-                        </tal:boucle>
+                        <ul tal:repeat="public publics">
+                            <li tal:content="public"
+                                  class="text-db"></li>
+                        </ul>
                     </div>
-                    <div class="text-db">
+                    <div tal:condition="python: ressource.ressource_autre_info !=''"
+                         class="text-db">
                         <span tal:content="ressource/ressource_autre_info"
                               class="rubrique-db" />
                     </div>
