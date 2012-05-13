@@ -79,18 +79,30 @@
             <form action="admin-ressource-modifier"
                   method="post">
                 Ci-dessous, la liste des différentes ressources encodées dans la base.
-                <tal:block tal:define="ressourcess python:view.getAllRessource()">
-                    <div class="div_question">
-                        <select name="ressourcePk">
+                <select name="ressourcePk">
+                    <option> .. </option>
+                    <tal:block tal:define="ressources python:view.getRessourceByClps(1)">
+                        <optgroup label="CLPS-BW">
                             <tal:boucle tal:repeat="ressource ressources">
                                 <option value=""
-                                        tal:attributes="value ressource/ressource_pk">
-                                    <span tal:content="ressource/ressource_titre">titre ressource</span>
+                                        tal:attributes="value ressource/ressourceOfClpsProprio/ressource_pk">
+                                    <span tal:content="ressource/ressourceOfClpsProprio/ressource_titre">titre ressource</span>
                                 </option>
                             </tal:boucle>
-                        </select>
-                    </div>
-                </tal:block>
+                        </optgroup>
+                    </tal:block>
+                    <option></option>
+                    <tal:block tal:define="ressources python:view.getRessourceByClps(2)">
+                        <optgroup label="CLPS-LUX">
+                            <tal:boucle tal:repeat="ressource ressources">
+                                <option value=""
+                                        tal:attributes="value ressource/ressourceOfClpsProprio/ressource_pk">
+                                    <span tal:content="ressource/ressourceOfClpsProprio/ressource_titre">titre ressource</span>
+                                </option>
+                            </tal:boucle>
+                        </optgroup>
+                    </tal:block>
+                </select>
                 <div class="div_question">
                     <input type="submit"
                            value="lancer la recherche"

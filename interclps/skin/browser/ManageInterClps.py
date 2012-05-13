@@ -2063,6 +2063,19 @@ class ManageInterClps(BrowserView):
         ressourceOuvrage = query.all()
         return ressourceOuvrage
 
+    def getRessourceByClps(self, clpsPk):
+        """
+        table pg link_ressource_clps_proprio
+        recuperation d'une experience selon experience_clps_proprio_fk
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        LinkRessourceClpsProprioTable = wrapper.getMapper('link_ressource_clps_proprio')
+        query = session.query(LinkRessourceClpsProprioTable)
+        query = query.filter(LinkRessourceClpsProprioTable.clps_fk == clpsPk)
+        ressourcePkByClpsProprio = query.all()
+        return ressourcePkByClpsProprio
+
     def getRessourceByLeffeSearch(self, searchString):
         """
         table pg ressource

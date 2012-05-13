@@ -72,19 +72,31 @@
             <legend class="search-legend-titre"> Toutes les ressources de la DB </legend>
             <form action="ressource-decrire"
                   method="post">
-                Ci-dessous, la liste des différentes institution encodées dans la base.
-                <tal:block tal:define="ressources python:view.getAllRessource()">
-                    <div class="div_question">
-                        <select name="ressourcePk">
+                Ci-dessous, la liste des différentes ressources encodées dans la base.
+                <select name="ressourcePk">
+                    <tal:block tal:define="ressources python:view.getRessourceByClps(1)">
+                        <option> ... </option>
+                        <optgroup label="CLPS-BW">
                             <tal:boucle tal:repeat="ressource ressources">
                                 <option value=""
-                                        tal:attributes="value ressource/ressource_pk">
-                                    <span tal:content="ressource/ressource_titre">titre ressource</span>
+                                        tal:attributes="value ressource/ressourceOfClpsProprio/ressource_pk">
+                                    <span tal:content="ressource/ressourceOfClpsProprio/ressource_titre">titre ressource</span>
                                 </option>
                             </tal:boucle>
-                        </select>
-                    </div>
-                </tal:block>
+                        </optgroup>
+                    </tal:block>
+                    <option></option>
+                    <tal:block tal:define="ressources python:view.getRessourceByClps(2)">
+                        <optgroup label="CLPS-LUX">
+                            <tal:boucle tal:repeat="ressource ressources">
+                                <option value=""
+                                        tal:attributes="value ressource/ressourceOfClpsProprio/ressource_pk">
+                                    <span tal:content="ressource/ressourceOfClpsProprio/ressource_titre">titre ressource</span>
+                                </option>
+                            </tal:boucle>
+                        </optgroup>
+                    </tal:block>
+                </select>
                 <div class="div_question">
                     <input type="submit"
                            value="lancer la recherche"
