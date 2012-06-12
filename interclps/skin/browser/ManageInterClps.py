@@ -163,9 +163,9 @@ class ManageInterClps(BrowserView):
         clpsInfo = self.getClpsByPk(clpsDestinationPk)
         clpsSigle = clpsInfo.clps_sigle
         clpsPrenomContact = clpsInfo.clps_prenom_contact
-        clpsEmailContact = clpsInfo.clps_email_contact
+        #clpsEmailContact = clpsInfo.clps_email_contact
 
-        sujet = "[PROJETS PARTAGES  :: demande d'inscription d'un auteur]"
+        #sujet = "[PROJETS PARTAGES  :: demande d'inscription d'un auteur]"
         message = u"""<font color='#FF0000'><b>:: Ajout d'un nouvel auteur pour %s ::</b></font><br /><br />
                   Bonjour %s, <br />
                   Une personne vient de s'inscrire via le site pour devenir auteur d'un récit partagé.<br />
@@ -192,7 +192,7 @@ class ManageInterClps(BrowserView):
                     auteurInstitution, \
                     auteurDescription)
         message = message.encode('utf-8') 
-        self.sendMail(sujet, message, clpsEmailContact)
+        #self.sendMail(sujet, message, clpsEmailContact)
 
     def sendMailForInsertExperience(self, experiencePk):
         """
