@@ -115,7 +115,7 @@ class ManageInterClps(BrowserView):
             cible = "%s/experience-inscription-auteur-merci" % (obj.portal_url(), )
             obj.REQUEST.RESPONSE.redirect(cible)
             self.addAuteur()
-            self.sendMailForNewAuteurExperience()
+            #self.sendMailForNewAuteurExperience()
 
         else:
             obj.plone_utils.addPortalMessage(_(u"Erreur d'encodage du code du captcha."), 'error')
@@ -159,12 +159,12 @@ class ManageInterClps(BrowserView):
         auteurDescription = getattr(fields, 'auteur_description', None)
         clpsDestinationPk = getattr(fields, 'clpsDestinationPk')
         clpsDestinationPk = int(clpsDestinationPk)
-        
+
         clpsInfo = self.getClpsByPk(clpsDestinationPk)
         clpsSigle = clpsInfo.clps_sigle
         clpsPrenomContact = clpsInfo.clps_prenom_contact
         clpsEmailContact = clpsInfo.clps_email_contact
-        
+
         sujet = "[PROJETS PARTAGES  :: demande d'inscription d'un auteur]"
         message = u"""<font color='#FF0000'><b>:: Ajout d'un nouvel auteur pour %s ::</b></font><br /><br />
                   Bonjour %s, <br />
@@ -214,9 +214,9 @@ class ManageInterClps(BrowserView):
         clpsInfo = self.getClpsByPk(clpsDestinationPk)
         clpsSigle = clpsInfo.clps_sigle
         clpsPrenomContact = clpsInfo.clps_prenom_contact
-        clpsEmailContact = clpsInfo.clps_email_contact
+        #clpsEmailContact = clpsInfo.clps_email_contact
 
-        sujet = "[PROJETS PARTAGES :: nouvelle experience]"
+        #sujet = "[PROJETS PARTAGES :: nouvelle experience]"
         message = u"""<font color='#FF0000'><b>:: Ajout d'une nouvelle expérience pour %s::</b></font><br /><br />
                   Bonjour %s, <br />
                   Une nouvelle expérience est ajoutée dans la base via le site.<br />
@@ -251,8 +251,8 @@ class ManageInterClps(BrowserView):
                     experience_institution_partenaire_autre, \
                     experience_institution_ressource_autre, \
                     experience_institution_outil_autre)
-        message = message.encode('utf-8')            
-        self.sendMail(sujet, message, clpsEmailContact)
+        message = message.encode('utf-8')
+        #self.sendMail(sujet, message, clpsEmailContact)
 
     def sendMailForUpdateExperience(self):
         #envoi d'un mail a Celine lors de la mise a jour d'une experience
@@ -2450,7 +2450,7 @@ class ManageInterClps(BrowserView):
         query = query.filter(InstitutionTypeTable.institution_type_pk == institutionTypePk)
         institutionType = query.all()
         return institutionType
-    
+
     def addInstitutionType(self):
         """
         table pg institution_type
