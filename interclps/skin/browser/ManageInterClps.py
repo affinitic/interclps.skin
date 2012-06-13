@@ -115,7 +115,7 @@ class ManageInterClps(BrowserView):
             cible = "%s/experience-inscription-auteur-merci" % (obj.portal_url(), )
             obj.REQUEST.RESPONSE.redirect(cible)
             self.addAuteur()
-            #self.sendMailForNewAuteurExperience()
+            self.sendMailForNewAuteurExperience()
 
         else:
             obj.plone_utils.addPortalMessage(_(u"Erreur d'encodage du code du captcha."), 'error')
@@ -152,20 +152,19 @@ class ManageInterClps(BrowserView):
         """
         envoi d'un mail lorsqu'un auteur fait une demande d'inscription
         """
-        fields = self.context.REQUEST
-        auteurNom = getattr(fields, 'auteur_nom', None)
-        auteurPrenom = getattr(fields, 'auteur_prenom', None)
-        auteurInstitution = getattr(fields, 'auteur_institution', None)
-        auteurDescription = getattr(fields, 'auteur_description', None)
-        clpsDestinationPk = getattr(fields, 'clpsDestinationPk')
+        auteurNom = unicode(self.request.get('auteur_nom'), 'utf-8')
+        auteurPrenom = unicode(self.request.get('auteur_prenom'), 'utf-8')
+        auteurInstitution = unicode(self.request.get('auteur_institution'), 'utf-8')
+        auteurDescription = unicode(self.request.get('auteur_description'), 'utf-8')
+        clpsDestinationPk = self.request.get('clpsDestinationPk')
         clpsDestinationPk = int(clpsDestinationPk)
 
         clpsInfo = self.getClpsByPk(clpsDestinationPk)
         clpsSigle = clpsInfo.clps_sigle
         clpsPrenomContact = clpsInfo.clps_prenom_contact
-        #clpsEmailContact = clpsInfo.clps_email_contact
-
-        #sujet = "[PROJETS PARTAGES  :: demande d'inscription d'un auteur]"
+        clpsEmailContact = clpsInfo.clps_email_contact
+        
+        sujet = "[PROJETS PARTAGES  :: demande d'inscription d'un auteur]"
         message = u"""<font color='#FF0000'><b>:: Ajout d'un nouvel auteur pour %s ::</b></font><br /><br />
                   Bonjour %s, <br />
                   Une personne vient de s'inscrire via le site pour devenir auteur d'un récit partagé.<br />
@@ -192,7 +191,7 @@ class ManageInterClps(BrowserView):
                     auteurInstitution, \
                     auteurDescription)
         message = message.encode('utf-8') 
-        #self.sendMail(sujet, message, clpsEmailContact)
+        self.sendMail(sujet, message, clpsEmailContact)
 
     def sendMailForInsertExperience(self, experiencePk):
         """
