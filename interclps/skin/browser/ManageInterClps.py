@@ -25,9 +25,9 @@ class ManageInterClps(BrowserView):
     implements(IManageInterClps)
 
     def getTuple(self, data):
-        dataTuple=()
+        dataTuple = ()
         if type(data) is str:
-            data=int(data)
+            data = int(data)
         if type(data) is int:
             dataTuple = (data, )
         if type(data) is list:
@@ -36,15 +36,14 @@ class ManageInterClps(BrowserView):
 
     def getToDayDate(self):
         toDay = datetime.date.today()
-        toDayString = ('%s')%(toDay)
+        toDayString = ('%s') % (toDay)
         return toDayString
 
     def getTimeStamp(self):
         timeStamp = datetime.datetime.now()
         return timeStamp
 
-
-### GESTION DES WIDGETS KUPU ADDREMOVELIST ###
+# ### GESTION DES WIDGETS KUPU ADDREMOVELIST ###
 
     def getWysiwygField(self, name, value):
         """
@@ -64,8 +63,14 @@ class ManageInterClps(BrowserView):
         field = WYSIWYGWidget(MyField(), request)
         return field()
 
-    def getAddRemoveField(self, name, title, values, nameKey='name', \
-                          pkKey='pk', selectedPks=[], canAddValues=False):
+    def getAddRemoveField(self,
+                          name,
+                          title,
+                          values,
+                          nameKey='name',
+                          pkKey='pk',
+                          selectedPks=[],
+                          canAddValues=False):
         """
         generates an Add / Remove from list field with already selected pks
         nameKey and pkKey are used for the display value and the record pk to
@@ -103,7 +108,6 @@ class ManageInterClps(BrowserView):
         res = renderer.render(name, 'edit', widget, wrappedContext, field=field)
         return res
 
-
 ### GESTION DES DEMANDES D'INSCRIPTION ###
 
     def checkCaptchaDemandeInscription(self):
@@ -121,7 +125,6 @@ class ManageInterClps(BrowserView):
             obj.plone_utils.addPortalMessage(_(u"Erreur d'encodage du code du captcha."), 'error')
             self.request['captcha'] = ''
             return self()
-
 
 ### GESTION DES MAILS ###
 
@@ -163,7 +166,7 @@ class ManageInterClps(BrowserView):
         clpsSigle = clpsInfo.clps_sigle
         clpsPrenomContact = clpsInfo.clps_prenom_contact
         clpsEmailContact = clpsInfo.clps_email_contact
-        
+
         sujet = "[PROJETS PARTAGES  :: demande d'inscription d'un auteur]"
         message = u"""<font color='#FF0000'><b>:: Ajout d'un nouvel auteur pour %s ::</b></font><br /><br />
                   Bonjour %s, <br />
@@ -184,38 +187,38 @@ class ManageInterClps(BrowserView):
                   <a href="http://www.projets-partages.be/admin-auteur-creer">lien</a>.
                   <hr />
                   """ \
-                  %(clpsSigle, \
-                    clpsPrenomContact, \
-                    auteurNom, \
-                    auteurPrenom, \
-                    auteurInstitution, \
-                    auteurDescription)
-        message = message.encode('utf-8') 
+                  % (clpsSigle, \
+                     clpsPrenomContact, \
+                     auteurNom, \
+                     auteurPrenom, \
+                     auteurInstitution, \
+                     auteurDescription)
+        message = message.encode('utf-8')
         self.sendMail(sujet, message, clpsEmailContact)
 
     def sendMailForInsertExperience(self, experiencePk):
         """
         envoi d'un mail a Isabelle lors de la creation d'une experience
         """
-        fields = self.context.REQUEST
+        #fields = self.context.REQUEST
         experience_pk = experiencePk
-        experience_titre = getattr(fields, 'experience_titre', None)
-        experience_personne_contact = getattr(fields, 'experience_personne_contact', None)
+        experience_titre = unicode(self.request.get('experience_titre'), 'utf-8')
+        experience_personne_contact = unicode(self.request.get('experience_personne_contact'), 'utf-8')
         experience_creation_employe = self.getUserAuthenticated()
-        experience_etat = getattr(fields, 'experience_etat', None)
-        experience_public_vise = getattr(fields, 'experience_public_vise', None)
-        experience_institution_porteur_autre = getattr(fields, 'experience_institution_porteur_autre', None)
-        experience_institution_partenaire_autre = getattr(fields, 'experience_institution_partenaire_autre', None)
-        experience_institution_ressource_autre = getattr(fields, 'experience_institution_ressource_autre', None)
-        experience_institution_outil_autre = getattr(fields, 'experience_institution_outil_autre', None)
+        experience_etat = unicode(self.request.get('experience_etat'), 'utf-8')
+        experience_public_vise = unicode(self.request.get('experience_public_vise'), 'utf-8')
+        experience_institution_porteur_autre = unicode(self.request.get('experience_institution_porteur_autre'), 'utf-8')
+        experience_institution_partenaire_autre = unicode(self.request.get('experience_institution_partenaire_autre'), 'utf-8')
+        experience_institution_ressource_autre = unicode(self.request.get('experience_institution_ressource_autre'), 'utf-8')
+        experience_institution_outil_autre = unicode(self.request.get('experience_institution_outil_autre'), 'utf-8')
 
         clpsDestinationPk = 2
         clpsInfo = self.getClpsByPk(clpsDestinationPk)
         clpsSigle = clpsInfo.clps_sigle
         clpsPrenomContact = clpsInfo.clps_prenom_contact
-        #clpsEmailContact = clpsInfo.clps_email_contact
+        clpsEmailContact = clpsInfo.clps_email_contact
 
-        #sujet = "[PROJETS PARTAGES :: nouvelle experience]"
+        sujet = "[PROJETS PARTAGES :: nouvelle experience]"
         message = u"""<font color='#FF0000'><b>:: Ajout d'une nouvelle expérience pour %s::</b></font><br /><br />
                   Bonjour %s, <br />
                   Une nouvelle expérience est ajoutée dans la base via le site.<br />
@@ -238,36 +241,35 @@ class ManageInterClps(BrowserView):
                   :: Autre institution outil : <font color='#ff9c1b'><b>%s</b></font><br />
                   </font>
                   """ \
-                  %(clpsSigle, \
-                    clpsPrenomContact, \
-                    experience_titre, \
-                    experience_personne_contact, \
-                    experience_creation_employe, \
-                    experience_etat, \
-                    experience_pk, \
-                    experience_public_vise, \
-                    experience_institution_porteur_autre, \
-                    experience_institution_partenaire_autre, \
-                    experience_institution_ressource_autre, \
-                    experience_institution_outil_autre)
+                  % (clpsSigle, \
+                     clpsPrenomContact, \
+                     experience_titre, \
+                     experience_personne_contact, \
+                     experience_creation_employe, \
+                     experience_etat, \
+                     experience_pk, \
+                     experience_public_vise, \
+                     experience_institution_porteur_autre, \
+                     experience_institution_partenaire_autre, \
+                     experience_institution_ressource_autre, \
+                     experience_institution_outil_autre)
         message = message.encode('utf-8')
-        #self.sendMail(sujet, message, clpsEmailContact)
+        self.sendMail(sujet, message, clpsEmailContact)
 
     def sendMailForUpdateExperience(self):
         #envoi d'un mail a Celine lors de la mise a jour d'une experience
-        fields = self.context.REQUEST
-        experience_pk = getattr(fields, 'experience_pk', None)
-        experience_titre = getattr(fields, 'experience_titre', None)
-        experience_personne_contact = getattr(fields, 'experience_personne_contact', None)
-        experience_creation_employe = getattr(fields, 'experience_creation_employe', None)
+        experience_pk = unicode(self.request.get('experience_pk'), 'utf-8')
+        experience_titre = unicode(self.request.get('experience_titre'), 'utf-8')
+        experience_personne_contact = unicode(self.request.get('experience_personne_contact'), 'utf-8')
+        experience_creation_employe = unicode(self.request.get('experience_creation_employe'), 'utf-8')
         experience_modification_employe = self.getUserAuthenticated()
-        experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
-        experience_etat = getattr(fields, 'experience_etat', None)
-        experience_public_vise = getattr(fields, 'experience_public_vise', None)
-        experience_institution_porteur_autre = getattr(fields, 'experience_institution_porteur_autre', None)
-        experience_institution_partenaire_autre = getattr(fields, 'experience_institution_partenaire_autre', None)
-        experience_institution_ressource_autre = getattr(fields, 'experience_institution_ressource_autre', None)
-        #experience_institution_outil_autre = getattr(fields, 'experience_institution_outil_autre', None)
+        experience_auteur_login = unicode(self.request.get('experience_auteur_login'), 'utf-8')
+        experience_etat = unicode(self.request.get('experience_etat'), 'utf-8')
+        experience_public_vise = unicode(self.request.get('experience_public_vise'), 'utf-8')
+        experience_institution_porteur_autre = unicode(self.request.get('experience_institution_porteur_autre'), 'utf-8')
+        experience_institution_partenaire_autre = unicode(self.request.get('experience_institution_partenaire_autre'), 'utf-8')
+        experience_institution_ressource_autre = unicode(self.request.get('experience_institution_ressource_autre'), 'utf-8')
+        #experience_institution_outil_autre = unicode(self.request.get('experience_institution_outil_autre'), 'utf-8')
 
         clpsDestinationPk = 2
         clpsInfo = self.getClpsByPk(clpsDestinationPk)
@@ -301,24 +303,23 @@ class ManageInterClps(BrowserView):
                   :: Autre institution outil : <font color='#ff9c1b'><b>%s</b></font><br />
                   </font>
                   """ \
-                  %(clpsSigle, \
-                    clpsPrenomContact, \
-                    experience_titre, \
-                    experience_pk, \
-                    experience_titre, \
-                    experience_personne_contact, \
-                    experience_creation_employe, \
-                    experience_modification_employe, \
-                    experience_auteur_login, \
-                    experience_etat, \
-                    experience_pk, \
-                    experience_public_vise, \
-                    experience_institution_porteur_autre, \
-                    experience_institution_partenaire_autre, \
-                    experience_institution_ressource_autre)
+                  % (clpsSigle, \
+                     clpsPrenomContact, \
+                     experience_titre, \
+                     experience_pk, \
+                     experience_titre, \
+                     experience_personne_contact, \
+                     experience_creation_employe, \
+                     experience_modification_employe, \
+                     experience_auteur_login, \
+                     experience_etat, \
+                     experience_pk, \
+                     experience_public_vise, \
+                     experience_institution_porteur_autre, \
+                     experience_institution_partenaire_autre, \
+                     experience_institution_ressource_autre)
         message = message.encode('utf-8')
         self.sendMail(sujet, message, clpsEmailContact)
-
 
 ### ROLE USER PLONE ###
 
@@ -337,17 +338,17 @@ class ManageInterClps(BrowserView):
         """
         membership = getToolByName(self.context, 'portal_membership')
         member = membership.getMemberById(userId)
-        properties={}
-        properties['email']=userEmail
-        properties['fullname']=userName
+        properties = {}
+        properties['email'] = userEmail
+        properties['fullname'] = userName
         getToolByName(self, 'plone_utils').setMemberProperties(member, **properties)
 
     def getUserAuthenticated(self):
         """
         retourne le nom du user loggué
         """
-        pm=getToolByName(self, 'portal_membership')
-        user=pm.getAuthenticatedMember()
+        pm = getToolByName(self, 'portal_membership')
+        user = pm.getAuthenticatedMember()
         user = user.getUserName()
         return user
 
@@ -356,13 +357,12 @@ class ManageInterClps(BrowserView):
         retourne le nom du user loggué
         """
         pm = getToolByName(self.context, 'portal_membership')
-        user=pm.getAuthenticatedMember()
+        user = pm.getAuthenticatedMember()
         userRole = user.getRoles()
         return userRole
 
-
 ### CLPS PROPRIO ###
-  
+
     def getAllClps(self):
         """
         table pg clps
@@ -402,7 +402,7 @@ class ManageInterClps(BrowserView):
         query = query.filter(LinkRessourceClpsTable.ressource_fk == ressourcePk)
         ressources = query.all()
 
-        clpsProprioListe=[]
+        clpsProprioListe = []
         allClps = self.getAllClps()
         for ressource in ressources:
             for clps in allClps:
@@ -425,7 +425,7 @@ class ManageInterClps(BrowserView):
         query = query.filter(LinkInstitutionClpsProprioTable.institution_fk == institutionPk)
         institutions = query.all()
 
-        clpsProprioListe=[]
+        clpsProprioListe = []
         allClps = self.getAllClps()
         for institution in institutions:
             for clps in allClps:
@@ -448,7 +448,7 @@ class ManageInterClps(BrowserView):
         query = query.filter(LinkExperienceClpsProprioTable.experience_fk == experiencePk)
         experiences = query.all()
 
-        clpsProprioListe=[]
+        clpsProprioListe = []
         allClps = self.getAllClps()
         for experience in experiences:
             for clps in allClps:
@@ -475,7 +475,6 @@ class ManageInterClps(BrowserView):
         query = query.order_by(CommuneTable.com_localite_nom)
         allCommunes = query.all()
         return allCommunes
-
 
     def getCommunePkInBwByExperiencePk(self, experiencePk):
         """
@@ -536,7 +535,6 @@ class ManageInterClps(BrowserView):
                 if i.commune_fk == j.com_pk:
                     listeCommuneNomForExperience.append(j.com_localite_nom)
         return listeCommuneNomForExperience
-
 
 #### AUTEUR ####
 
@@ -617,7 +615,7 @@ class ManageInterClps(BrowserView):
         recuperation d'un auteur selon son login
         """
         auteurLogin = self.getUserAuthenticated()
-        
+
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         AuteurTable = wrapper.getMapper('auteur')
@@ -628,9 +626,9 @@ class ManageInterClps(BrowserView):
 
         auteurNom = auteur.auteur_nom
         auteurPrenom = auteur.auteur_prenom
-        auteurInstitution = auteur.auteur_institution        
-        sujet = "[PROJETS PARTAGES :: connection externe par %s]"%(auteurLogin, )
-        message="%s %s (%s) de %s en mode creation d'une %s"%(auteurPrenom, auteurNom, auteurLogin, auteurInstitution, typeElement)
+        auteurInstitution = auteur.auteur_institution
+        sujet = "[PROJETS PARTAGES :: connection externe par %s]" % (auteurLogin, )
+        message = "%s %s (%s) de %s en mode creation d'une %s" % (auteurPrenom, auteurNom, auteurLogin, auteurInstitution, typeElement)
         message = message.encode('utf-8')
         self.sendMailWhenLoginByAuteur(sujet, message)
 
@@ -732,7 +730,6 @@ class ManageInterClps(BrowserView):
         auteur = ["%s %s  (%s)" % (aut.auteur_nom, aut.auteur_prenom, aut.auteur_login) for aut in query.all()]
         return auteur
 
-
     def addAuteur(self):
         """
         table pg auteur
@@ -758,20 +755,20 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertAuteur = wrapper.getMapper('auteur')
-        newEntry = insertAuteur(auteur_nom = auteur_nom, \
-                                auteur_prenom = auteur_prenom, \
-                                auteur_email = auteur_email, \
-                                auteur_login = auteur_login, \
-                                auteur_pass = auteur_pass, \
-                                auteur_institution = auteur_institution, \
-                                auteur_id_filemaker = auteur_id_filemaker, \
-                                auteur_actif = auteur_actif, \
-                                auteur_for_experience = auteur_for_experience, \
-                                auteur_for_institution = auteur_for_institution, \
-                                auteur_clps_fk = auteur_clps_fk, \
-                                auteur_creation_date = auteur_creation_date, \
-                                auteur_modification_date = auteur_modification_date, \
-                                auteur_modification_employe = auteur_modification_employe)
+        newEntry = insertAuteur(auteur_nom=auteur_nom, \
+                                auteur_prenom=auteur_prenom, \
+                                auteur_email=auteur_email, \
+                                auteur_login=auteur_login, \
+                                auteur_pass=auteur_pass, \
+                                auteur_institution=auteur_institution, \
+                                auteur_id_filemaker=auteur_id_filemaker, \
+                                auteur_actif=auteur_actif, \
+                                auteur_for_experience=auteur_for_experience, \
+                                auteur_for_institution=auteur_for_institution, \
+                                auteur_clps_fk=auteur_clps_fk, \
+                                auteur_creation_date=auteur_creation_date, \
+                                auteur_modification_date=auteur_modification_date, \
+                                auteur_modification_employe=auteur_modification_employe)
         session.add(newEntry)
         session.flush()
         return {'status': 1}
@@ -815,7 +812,6 @@ class ManageInterClps(BrowserView):
             auteur.auteur_modification_date = auteur_modification_date
             auteur.auteur_modification_employe = auteur_modification_employe
         session.flush()
-
 
 ### THEME ###
 
@@ -907,7 +903,7 @@ class ManageInterClps(BrowserView):
         """
         #recup ds experience active
         experienceActive = self.getAllExperienceByEtat('publish')
-        experiencePk=[]
+        experiencePk = []
         for exp in experienceActive:
             experiencePk.append(exp.experience_pk)
 
@@ -915,7 +911,7 @@ class ManageInterClps(BrowserView):
         theme = self.getThemeByExperiencePk(experiencePk)
 
         #elimination des doublons dans les cle
-        themeForExperienceActive=[]
+        themeForExperienceActive = []
         [themeForExperienceActive.append(item) for item in theme if not item in themeForExperienceActive]
 
         return themeForExperienceActive
@@ -957,11 +953,11 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertTheme = wrapper.getMapper('theme')
-        newEntry = insertTheme(theme_nom = theme_nom, \
-                               theme_actif = theme_actif, \
-                               theme_creation_date = theme_creation_date, \
-                               theme_modification_date = theme_modification_date, \
-                               theme_creation_employe = theme_creation_employe)
+        newEntry = insertTheme(theme_nom=theme_nom,
+                               theme_actif=theme_actif,
+                               theme_creation_date=theme_creation_date,
+                               theme_modification_date=theme_modification_date,
+                               theme_creation_employe=theme_creation_employe)
         session.save(newEntry)
         session.flush()
 
@@ -978,11 +974,11 @@ class ManageInterClps(BrowserView):
             try:
                 int(value)
             except ValueError:
-                newEntry = themeTable(theme_nom = value, \
-                                      theme_actif = True, \
-                                      theme_creation_date = self.getTimeStamp(), \
-                                      theme_modification_date = self.getTimeStamp(), \
-                                      theme_modification_employe = self.getUserAuthenticated())
+                newEntry = themeTable(theme_nom=value,
+                                      theme_actif=True,
+                                      theme_creation_date=self.getTimeStamp(),
+                                      theme_modification_date=self.getTimeStamp(),
+                                      theme_modification_employe=self.getUserAuthenticated())
                 session.save(newEntry)
                 session.flush()
                 pks.append(int(newEntry.theme_pk))
@@ -1013,7 +1009,6 @@ class ManageInterClps(BrowserView):
             theme.theme_modification_date = theme_modification_date
             theme.theme_modification_employe = theme_modification_employe
         session.flush()
-
 
 ### MOT-CLE ###
 
@@ -1093,11 +1088,11 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertMotCle = wrapper.getMapper('mot_cle')
-        newEntry = insertMotCle(motcle_mot = motcle_mot, \
-                                motcle_actif = motcle_actif, \
-                                motcle_creation_date = motcle_creation_date, \
-                                motcle_modification_date = motcle_modification_date, \
-                                motcle_modification_employe = motcle_modification_employe)
+        newEntry = insertMotCle(motcle_mot=motcle_mot, \
+                                motcle_actif=motcle_actif, \
+                                motcle_creation_date=motcle_creation_date, \
+                                motcle_modification_date=motcle_modification_date, \
+                                motcle_modification_employe=motcle_modification_employe)
         session.save(newEntry)
         session.flush()
         return {'status': 1}
@@ -1144,11 +1139,11 @@ class ManageInterClps(BrowserView):
             try:
                 int(value)
             except ValueError:
-                newEntry = publicTable(public_nom = value, \
-                                       public_actif = True, \
-                                       public_creation_date = self.getTimeStamp(), \
-                                       public_modification_date = self.getTimeStamp(), \
-                                       public_creation_employe = self.getUserAuthenticated())
+                newEntry = publicTable(public_nom=value, \
+                                       public_actif=True, \
+                                       public_creation_date=self.getTimeStamp(), \
+                                       public_modification_date=self.getTimeStamp(), \
+                                       public_creation_employe=self.getUserAuthenticated())
                 session.save(newEntry)
                 session.flush()
                 pks.append(int(newEntry.public_pk))
@@ -1169,18 +1164,17 @@ class ManageInterClps(BrowserView):
             try:
                 int(value)
             except ValueError:
-                newEntry = motCleTable(motcle_mot = value, \
-                                       motcle_actif = True, \
-                                       motcle_creation_date = self.getTimeStamp(), \
-                                       motcle_modification_date = self.getTimeStamp(), \
-                                       motcle_modification_employe = self.getUserAuthenticated())
+                newEntry = motCleTable(motcle_mot=value, \
+                                       motcle_actif=True, \
+                                       motcle_creation_date=self.getTimeStamp(), \
+                                       motcle_modification_date=self.getTimeStamp(), \
+                                       motcle_modification_employe=self.getUserAuthenticated())
                 session.save(newEntry)
                 session.flush()
                 pks.append(int(newEntry.motcle_pk))
             else:
                 pks.append(int(value))
         return pks
-
 
 ### PUBLIC ###
 
@@ -1244,9 +1238,9 @@ class ManageInterClps(BrowserView):
         for i in publicPk:
             for j in listeAllPublic:
                 if i.public_fk == j.public_pk:
-                    if retour=='cle':
+                    if retour == 'cle':
                         listePublicForRessource.append(j.public_pk)
-                    if retour=='nom':
+                    if retour == 'nom':
                         listePublicForRessource.append(j.public_nom)
         return listePublicForRessource
 
@@ -1301,7 +1295,7 @@ class ManageInterClps(BrowserView):
         """
         #recup ds experience active
         experienceActive = self.getAllExperienceByEtat('publish')
-        experiencePk=[]
+        experiencePk = []
         for exp in experienceActive:
             experiencePk.append(exp.experience_pk)
 
@@ -1309,7 +1303,7 @@ class ManageInterClps(BrowserView):
         public = self.getPublicByExperiencePk(experiencePk)
 
         #elimination des doublons dans les cle
-        publicForExperienceActive=[]
+        publicForExperienceActive = []
         [publicForExperienceActive.append(item) for item in public if not item in publicForExperienceActive]
 
         return publicForExperienceActive
@@ -1329,11 +1323,11 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertPublic = wrapper.getMapper('public')
-        newEntry = insertPublic(public_nom = public_nom, \
-                                public_actif = public_actif, \
-                                public_creation_date = public_creation_date, \
-                                public_modification_date = public_modification_date, \
-                                public_creation_employe = public_creation_employe)
+        newEntry = insertPublic(public_nom=public_nom, \
+                                public_actif=public_actif, \
+                                public_creation_date=public_creation_date, \
+                                public_modification_date=public_modification_date, \
+                                public_creation_employe=public_creation_employe)
         session.save(newEntry)
         session.flush()
 
@@ -1360,7 +1354,6 @@ class ManageInterClps(BrowserView):
             public.public_modification_date = public_modification_date
             public.public_modification_employe = public_modification_employe
         session.flush()
-
 
 ### PLATE-FORME ###
 
@@ -1440,11 +1433,11 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertPlateForme = wrapper.getMapper('plateforme')
-        newEntry = insertPlateForme(plateforme_nom = plateforme_nom, \
-                                    plateforme_actif = plateforme_actif, \
-                                    plateforme_creation_date = plateforme_creation_date, \
-                                    plateforme_modification_date = plateforme_modification_date, \
-                                    plateforme_creation_employe = plateforme_creation_employe)
+        newEntry = insertPlateForme(plateforme_nom=plateforme_nom, \
+                                    plateforme_actif=plateforme_actif, \
+                                    plateforme_creation_date=plateforme_creation_date, \
+                                    plateforme_modification_date=plateforme_modification_date, \
+                                    plateforme_creation_employe=plateforme_creation_employe)
         session.save(newEntry)
         session.flush()
 
@@ -1471,7 +1464,6 @@ class ManageInterClps(BrowserView):
             plateforme.plateforme_modification_date = plateforme_modification_date
             plateforme.plateforme_modification_employe = plateforme_modification_employe
         session.flush()
-
 
 ### SOUS-PLATE-FORME ###
 
@@ -1546,12 +1538,12 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertSousPlateForme = wrapper.getMapper('sousplateforme')
-        newEntry = insertSousPlateForme(sousplateforme_nom = sousplateforme_nom, \
-                                        sousplateforme_actif = sousplateforme_actif, \
-                                        sousplateforme_plateforme_fk = sousplateforme_plateforme_fk, \
-                                        sousplateforme_creation_date = sousplateforme_creation_date, \
-                                        sousplateforme_modification_date = sousplateforme_modification_date, \
-                                        sousplateforme_creation_employe = sousplateforme_creation_employe)
+        newEntry = insertSousPlateForme(sousplateforme_nom=sousplateforme_nom, \
+                                        sousplateforme_actif=sousplateforme_actif, \
+                                        sousplateforme_plateforme_fk=sousplateforme_plateforme_fk, \
+                                        sousplateforme_creation_date=sousplateforme_creation_date, \
+                                        sousplateforme_modification_date=sousplateforme_modification_date, \
+                                        sousplateforme_creation_employe=sousplateforme_creation_employe)
         session.save(newEntry)
         session.flush()
 
@@ -1580,7 +1572,6 @@ class ManageInterClps(BrowserView):
             sousplateforme.sousplateforme_modification_date = sousplateforme_modification_date
             sousplateforme_modification_employe = sousplateforme_modification_employe
         session.flush()
-
 
 ### MILIEU DE VIE ###
 
@@ -1644,9 +1635,9 @@ class ManageInterClps(BrowserView):
         for i in milieuDeViePk:
             for j in listeAllMilieuDeVie:
                 if i.milieudevie_fk == j.milieudevie_pk:
-                    if retour=='cle':
+                    if retour == 'cle':
                         listeMilieuDeVieForExperience.append(j.milieudevie_pk)
-                    if retour=='nom':
+                    if retour == 'nom':
                         listeMilieuDeVieForExperience.append(j.milieudevie_nom)
         return listeMilieuDeVieForExperience
 
@@ -1658,13 +1649,13 @@ class ManageInterClps(BrowserView):
         """
         #recup ds experience active
         experienceActive = self.getAllExperienceByEtat('publish')
-        experiencePk=[]
+        experiencePk = []
         for exp in experienceActive:
             experiencePk.append(exp.experience_pk)
         #recup des milieu de vie selon les experiences actives
         milieuDeVie = self.getMilieuDeVieByExperiencePk(experiencePk, 'cle')
         #elimination des doublons dans les cle
-        milieuDeVieForExperienceActive=[]
+        milieuDeVieForExperienceActive = []
         [milieuDeVieForExperienceActive.append(item) for item in milieuDeVie if not item in milieuDeVieForExperienceActive]
 
         return milieuDeVieForExperienceActive
@@ -1684,11 +1675,11 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertMilieuDeVie = wrapper.getMapper('milieudevie')
-        newEntry = insertMilieuDeVie(milieudevie_nom = milieudevie_nom, \
-                                     milieudevie_actif = milieudevie_actif, \
-                                     milieudevie_creation_date = milieudevie_creation_date, \
-                                     milieudevie_modification_date = milieudevie_modification_date, \
-                                     milieudevie_creation_employe = milieudevie_creation_employe)
+        newEntry = insertMilieuDeVie(milieudevie_nom=milieudevie_nom, \
+                                     milieudevie_actif=milieudevie_actif, \
+                                     milieudevie_creation_date=milieudevie_creation_date, \
+                                     milieudevie_modification_date=milieudevie_modification_date, \
+                                     milieudevie_creation_employe=milieudevie_creation_employe)
         session.save(newEntry)
         session.flush()
 
@@ -1705,11 +1696,11 @@ class ManageInterClps(BrowserView):
             try:
                 int(value)
             except ValueError:
-                newEntry = milieuDeVieTable(milieudevie_nom = value, \
-                                            milieudevie_actif = True, \
-                                            milieudevie_creation_date = self.getTimeStamp(), \
-                                            milieudevie_modification_date = self.getTimeStamp(), \
-                                            milieudevie_modification_employe = self.getUserAuthenticated())
+                newEntry = milieuDeVieTable(milieudevie_nom=value, \
+                                            milieudevie_actif=True, \
+                                            milieudevie_creation_date=self.getTimeStamp(), \
+                                            milieudevie_modification_date=self.getTimeStamp(), \
+                                            milieudevie_modification_employe=self.getUserAuthenticated())
                 session.save(newEntry)
                 session.flush()
                 pks.append(int(newEntry.milieudevie_pk))
@@ -1740,7 +1731,6 @@ class ManageInterClps(BrowserView):
             milieudevie.milieudevie_modification_date = milieudevie_modification_date
             milieudevie.milieudevie_modification_employe = milieudevie_modification_employe
         session.flush()
-
 
 ### SUPPORT ###
 
@@ -1801,9 +1791,9 @@ class ManageInterClps(BrowserView):
         for i in supportPk:
             for j in listeAllSupport:
                 if i.support_fk == j.support_pk:
-                    if retour=='cle':
+                    if retour == 'cle':
                         listeSuppportForRessource.append(j.support_pk)
-                    if retour=='titre':
+                    if retour == 'titre':
                         listeSuppportForRessource.append(j.support_titre)
         return listeSuppportForRessource
 
@@ -1823,12 +1813,12 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertSupport = wrapper.getMapper('support')
-        newEntry = insertSupport(support_titre = support_titre, \
-                                 support_description = support_description, \
-                                 support_actif = support_actif, \
-                                 support_creation_date = support_creation_date, \
-                                 support_modification_date = support_modification_date, \
-                                 support_modification_employe = support_modification_employe)
+        newEntry = insertSupport(support_titre=support_titre, \
+                                 support_description=support_description, \
+                                 support_actif=support_actif, \
+                                 support_creation_date=support_creation_date, \
+                                 support_modification_date=support_modification_date, \
+                                 support_modification_employe=support_modification_employe)
         session.save(newEntry)
         session.flush()
         return {'status': 1}
@@ -1853,12 +1843,11 @@ class ManageInterClps(BrowserView):
         supports = query.all()
         for support in supports:
             support.support_titre = unicode(support_titre, 'utf-8')
-            support.support_description =unicode(support_description, 'utf-8')
+            support.support_description = unicode(support_description, 'utf-8')
             support.support_actif = support_actif
             support_modification_date = support_modification_date
             support_modification_employe = support_modification_employe
         session.flush()
-
 
 ### OUTIL ###
 
@@ -1883,21 +1872,20 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertOutil = wrapper.getMapper('outil')
-        newEntry = insertOutil(outil_nom = outil_nom, \
-                               outil_description = outil_description, \
-                               outil_fabricant = outil_fabricant, \
-                               outil_tranche_age = outil_tranche_age, \
-                               outil_lien = outil_lien, \
-                               outil_lien_siss = outil_lien_siss, \
-                               outil_autre_info = outil_autre_info, \
-                               outil_disponible_clps = outil_disponible_clps,\
-                               outil_etat = outil_etat, \
-                               outil_creation_date = outil_creation_date, \
-                               outil_creation_employe = outil_creation_employe)
+        newEntry = insertOutil(outil_nom=outil_nom, \
+                               outil_description=outil_description, \
+                               outil_fabricant=outil_fabricant, \
+                               outil_tranche_age=outil_tranche_age, \
+                               outil_lien=outil_lien, \
+                               outil_lien_siss=outil_lien_siss, \
+                               outil_autre_info=outil_autre_info, \
+                               outil_disponible_clps=outil_disponible_clps,\
+                               outil_etat=outil_etat, \
+                               outil_creation_date=outil_creation_date, \
+                               outil_creation_employe=outil_creation_employe)
         session.save(newEntry)
         session.flush()
         return {'status': 1}
-
 
 ### RECIT ###
 
@@ -1908,10 +1896,9 @@ class ManageInterClps(BrowserView):
         """
         pass
 
-
 ### RESSOURCES ###
 
-    def getAllRessource(self, ressourcePk = None):
+    def getAllRessource(self, ressourcePk=None):
         """
         table pg ressource
         recuperation de tous les ressources
@@ -1970,11 +1957,11 @@ class ManageInterClps(BrowserView):
         RessourceTable = wrapper.getMapper('ressource')
         query = session.query(RessourceTable)
         ressource = query.all()
-        listePk=[]
+        listePk = []
         for i in ressource:
             listePk.append(i.ressource_pk)
         listePk.sort()
-        ressourceMaxPk=listePk[-1]
+        ressourceMaxPk = listePk[-1]
         #experienceMaxPk = query.max(ExperienceTable.experience_pk)
         return ressourceMaxPk
 
@@ -1989,13 +1976,13 @@ class ManageInterClps(BrowserView):
         query = session.query(RessourceTable)
         query = query.filter(RessourceTable.ressource_pk == ressourcePk)
         ressource = query.one()
-        ressourceEtat=''
-        if ressource.ressource_etat=='private':
-            ressourceEtat='Privé'
-        if ressource.ressource_etat=='pending':
-            ressourceEtat='En attente'
-        if ressource.ressource_etat=='publish':
-            ressourceEtat='Publié'
+        ressourceEtat = ''
+        if ressource.ressource_etat == 'private':
+            ressourceEtat = 'Privé'
+        if ressource.ressource_etat == 'pending':
+            ressourceEtat = 'En attente'
+        if ressource.ressource_etat == 'publish':
+            ressourceEtat = 'Publié'
         return ressourceEtat
 
     def getRessourceByExperiencePk(self, experiencePk):
@@ -2105,13 +2092,11 @@ class ManageInterClps(BrowserView):
         for i in clpsPk:
             for j in listeAllClps:
                 if i.clps_fk == j.clps_pk:
-                    if retour=='cle':
+                    if retour == 'cle':
                         listeClpsDispoForRessource.append(j.clps_pk)
-                    if retour=='titre':
+                    if retour == 'titre':
                         listeClpsDispoForRessource.append(j.clps_nom)
         return listeClpsDispoForRessource
-
-
 
     def addRessource(self):
         """
@@ -2150,33 +2135,33 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertRessource = wrapper.getMapper('ressource')
-        newEntry = insertRessource(ressource_titre = ressource_titre, \
-                                   ressource_description = ressource_description, \
-                                   ressource_auteur = ressource_auteur, \
-                                   ressource_collection = ressource_collection, \
-                                   ressource_edition = ressource_edition, \
-                                   ressource_lieu_edition = ressource_lieu_edition, \
-                                   ressource_date_edition = ressource_date_edition, \
-                                   ressource_autre_info = ressource_autre_info, \
-                                   ressource_lien_pipsa = ressource_lien_pipsa, \
-                                   ressource_autre_lien = ressource_autre_lien, \
-                                   ressource_objectif = ressource_objectif, \
-                                   ressource_disponible_clps = ressource_disponible_clps, \
-                                   ressource_disponible_autre = ressource_disponible_autre, \
-                                   ressource_utilisation = ressource_utilisation, \
-                                   ressource_avis_clps = ressource_avis_clps, \
-                                   ressource_etat = ressource_etat, \
-                                   ressource_plate_forme_sante_ecole = ressource_plate_forme_sante_ecole, \
-                                   ressource_plate_forme_assuetude = ressource_plate_forme_assuetude, \
-                                   ressource_plate_forme_sante_famille = ressource_plate_forme_sante_famille, \
-                                   ressource_plate_forme_sante_environnement = ressource_plate_forme_sante_environnement, \
-                                   ressource_mission_centre_documentation = ressource_mission_centre_documentation, \
-                                   ressource_mission_accompagnement_projet = ressource_mission_accompagnement_projet, \
-                                   ressource_mission_reseau_echange = ressource_mission_reseau_echange, \
-                                   ressource_mission_formation = ressource_mission_formation, \
-                                   ressource_creation_date = ressource_creation_date, \
-                                   ressource_modification_date = ressource_modification_date, \
-                                   ressource_modification_employe = ressource_modification_employe)
+        newEntry = insertRessource(ressource_titre=ressource_titre, \
+                                   ressource_description=ressource_description, \
+                                   ressource_auteur=ressource_auteur, \
+                                   ressource_collection=ressource_collection, \
+                                   ressource_edition=ressource_edition, \
+                                   ressource_lieu_edition=ressource_lieu_edition, \
+                                   ressource_date_edition=ressource_date_edition, \
+                                   ressource_autre_info=ressource_autre_info, \
+                                   ressource_lien_pipsa=ressource_lien_pipsa, \
+                                   ressource_autre_lien=ressource_autre_lien, \
+                                   ressource_objectif=ressource_objectif, \
+                                   ressource_disponible_clps=ressource_disponible_clps, \
+                                   ressource_disponible_autre=ressource_disponible_autre, \
+                                   ressource_utilisation=ressource_utilisation, \
+                                   ressource_avis_clps=ressource_avis_clps, \
+                                   ressource_etat=ressource_etat, \
+                                   ressource_plate_forme_sante_ecole=ressource_plate_forme_sante_ecole, \
+                                   ressource_plate_forme_assuetude=ressource_plate_forme_assuetude, \
+                                   ressource_plate_forme_sante_famille=ressource_plate_forme_sante_famille, \
+                                   ressource_plate_forme_sante_environnement=ressource_plate_forme_sante_environnement, \
+                                   ressource_mission_centre_documentation=ressource_mission_centre_documentation, \
+                                   ressource_mission_accompagnement_projet=ressource_mission_accompagnement_projet, \
+                                   ressource_mission_reseau_echange=ressource_mission_reseau_echange, \
+                                   ressource_mission_formation=ressource_mission_formation, \
+                                   ressource_creation_date=ressource_creation_date, \
+                                   ressource_modification_date=ressource_modification_date, \
+                                   ressource_modification_employe=ressource_modification_employe)
         session.save(newEntry)
         session.flush()
         return {'status': 1}
@@ -2192,8 +2177,8 @@ class ManageInterClps(BrowserView):
         insertLinkRessourceSupport = wrapper.getMapper('link_ressource_support')
         ressourceSupport = getattr(fields, 'ressource_support_fk', None)
         for supportFk in ressourceSupport:
-            newEntry = insertLinkRessourceSupport(ressource_fk = ressourceFk,
-                                                  support_fk = supportFk)
+            newEntry = insertLinkRessourceSupport(ressource_fk=ressourceFk,
+                                                  support_fk=supportFk)
             session.save(newEntry)
         session.flush()
 
@@ -2208,8 +2193,8 @@ class ManageInterClps(BrowserView):
         insertLinkRessourceTheme = wrapper.getMapper('link_ressource_theme')
         ressourceTheme = getattr(fields, 'ressource_theme_fk', None)
         for themeFk in ressourceTheme:
-            newEntry = insertLinkRessourceTheme(ressource_fk = ressourceFk,
-                                                theme_fk = themeFk)
+            newEntry = insertLinkRessourceTheme(ressource_fk=ressourceFk,
+                                                theme_fk=themeFk)
             session.save(newEntry)
         session.flush()
 
@@ -2224,8 +2209,8 @@ class ManageInterClps(BrowserView):
         insertLinkRessourcePublic = wrapper.getMapper('link_ressource_public')
         ressourcePublic = getattr(fields, 'ressource_public_fk', None)
         for publicFk in ressourcePublic:
-            newEntry = insertLinkRessourcePublic(ressource_fk = ressourceFk,
-                                                 public_fk = publicFk)
+            newEntry = insertLinkRessourcePublic(ressource_fk=ressourceFk,
+                                                 public_fk=publicFk)
             session.save(newEntry)
         session.flush()
 
@@ -2240,8 +2225,8 @@ class ManageInterClps(BrowserView):
         insertLinkRessourceClpsDispo = wrapper.getMapper('link_ressource_clps_dispo')
         ressourceClps = getattr(fields, 'ressource_clps_dispo_fk', None)
         for clpsFk in ressourceClps:
-            newEntry = insertLinkRessourceClpsDispo(ressource_fk = ressourceFk,
-                                                    clps_fk = clpsFk)
+            newEntry = insertLinkRessourceClpsDispo(ressource_fk=ressourceFk,
+                                                    clps_fk=clpsFk)
             session.save(newEntry)
         session.flush()
 
@@ -2326,8 +2311,8 @@ class ManageInterClps(BrowserView):
         insertLinkRessourceClpsProprio = wrapper.getMapper('link_ressource_clps_proprio')
         ressourceClps = getattr(fields, 'ressource_clps_proprio_fk', None)
         for clpsFk in ressourceClps:
-            newEntry = insertLinkRessourceClpsProprio(ressource_fk = ressourceFk,
-                                                      clps_fk = clpsFk)
+            newEntry = insertLinkRessourceClpsProprio(ressource_fk=ressourceFk,
+                                                      clps_fk=clpsFk)
             session.save(newEntry)
         session.flush()
 
@@ -2398,10 +2383,9 @@ class ManageInterClps(BrowserView):
         ressource.ressource_modification_employe = ressource_modification_employe
         session.flush()
 
-
 ### INSTITUTION TYPE ###
 
-    def getAllInstitutionType(self, institutionTypePk = None):
+    def getAllInstitutionType(self, institutionTypePk=None):
         """
         table pg institution_type
         recuperation de toutes les types d'institutions
@@ -2465,11 +2449,11 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertInstitutionType = wrapper.getMapper('institution_type')
-        newEntry = insertInstitutionType(institution_type_nom = institution_type_nom, \
-                                         institution_type_actif = institution_type_actif, \
-                                         institution_type_creation_date = institution_type_creation_date, \
-                                         institution_type_modification_date = institution_type_modification_date, \
-                                         institution_typecreation_employe = institution_type_creation_employe)
+        newEntry = insertInstitutionType(institution_type_nom=institution_type_nom, \
+                                         institution_type_actif=institution_type_actif, \
+                                         institution_type_creation_date=institution_type_creation_date, \
+                                         institution_type_modification_date=institution_type_modification_date, \
+                                         institution_typecreation_employe=institution_type_creation_employe)
         session.save(newEntry)
         session.flush()
 
@@ -2499,10 +2483,9 @@ class ManageInterClps(BrowserView):
 
         session.flush()
 
-
 ### INSTITUION ###
 
-    def getAllInstitution(self, institutionPk = None):
+    def getAllInstitution(self, institutionPk=None):
         """
         table pg institution
         recuperation de toutes les institutions
@@ -2597,11 +2580,11 @@ class ManageInterClps(BrowserView):
         InstitutionTable = wrapper.getMapper('institution')
         query = session.query(InstitutionTable)
         institution = query.all()
-        listePk=[]
+        listePk = []
         for i in institution:
             listePk.append(i.institution_pk)
         listePk.sort()
-        institutionMaxPk=listePk[-1]
+        institutionMaxPk = listePk[-1]
         #experienceMaxPk = query.max(ExperienceTable.experience_pk)
         return institutionMaxPk
 
@@ -2660,13 +2643,13 @@ class ManageInterClps(BrowserView):
         query = session.query(InstitutionTable)
         query = query.filter(InstitutionTable.institution_pk == institutionPk)
         institution = query.one()
-        institutionEtat=''
-        if institution.institution_etat=='private':
-            institutionEtat='Privé'
-        if institution.institution_etat=='pending':
-            institutionEtat='En attente'
-        if institution.institution_etat=='publish':
-            institutionEtat='Publié'
+        institutionEtat = ''
+        if institution.institution_etat == 'private':
+            institutionEtat = 'Privé'
+        if institution.institution_etat == 'pending':
+            institutionEtat = 'En attente'
+        if institution.institution_etat == 'publish':
+            institutionEtat = 'Publié'
         return institutionEtat
 
     def getCountInstitutionByEtat(self, institutionEtat):
@@ -2837,8 +2820,8 @@ class ManageInterClps(BrowserView):
         query = query.filter(InstitutionTable.institution_pk == institutionPk)
         institution = query.one()
 
-        communeCouverte=self.getInstitutionCommuneCouverte(institutionPk)
-        institutionTerritoireCouvert=False
+        communeCouverte = self.getInstitutionCommuneCouverte(institutionPk)
+        institutionTerritoireCouvert = False
 
         if len(communeCouverte) > 0:
             institutionTerritoireCouvert = True
@@ -3021,69 +3004,68 @@ class ManageInterClps(BrowserView):
         institution_clps_proprio_fk = getattr(fields, 'institutionClpsProprio', None)
         institution_institution_type_fk = getattr(fields, 'institution_institution_type_fk', None)
 
-        if not institution_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue
+        if not institution_auteur_fk:      # cas ou c'est un auteur exterieur qui se loggue
             auteur = self.getAuteurByLogin('institution')
-            institution_auteur_fk= auteur.auteur_pk
+            institution_auteur_fk = auteur.auteur_pk
 
-        if institution_auteur:    #cas ou c'est un clpsmemeber qui se loggue via le formulaire insitution_creation_form
+        if institution_auteur:      # cas ou c'est un clpsmemeber qui se loggue via le formulaire insitution_creation_form
             institution_auteur_fk = self.getAuteurPkByName(institution_auteur)
             institution_auteur_login = self.getAuteurLogin(institution_auteur_fk)
 
-        if not institution_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue
+        if not institution_auteur_fk:   # cas ou c'est un auteur exterieur qui se loggue
             auteur = self.getAuteurByLogin('institution')
-            institution_auteur_fk= auteur.auteur_pk
+            institution_auteur_fk = auteur.auteur_pk
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertInstitution = wrapper.getMapper('institution')
-        newEntry = insertInstitution(institution_nom = institution_nom, \
-                                     institution_sigle = institution_sigle, \
-                                     institution_adresse = institution_adresse, \
-                                     institution_nom_contact = institution_nom_contact, \
-                                     institution_email_contact = institution_email_contact, \
-                                     institution_tel_contact = institution_tel_contact, \
-                                     institution_fonction_contact = institution_fonction_contact, \
-                                     institution_url_site = institution_url_site, \
-                                     institution_lien_siss = institution_lien_siss,\
-                                     institution_lien_autre = institution_lien_autre, \
-                                     institution_autre_info = institution_autre_info, \
-                                     institution_mission = institution_mission, \
-                                     institution_activite = institution_activite, \
-                                     institution_public = institution_public, \
-                                     institution_territoire_tout_luxembourg = institution_territoire_tout_luxembourg, \
-                                     institution_zone_internationale = institution_zone_internationale, \
-                                     institution_zone_internationale_info = institution_zone_internationale_info, \
-                                     institution_zone_belgique = institution_zone_belgique, \
-                                     institution_zone_cfwb = institution_zone_cfwb, \
-                                     institution_zone_rw = institution_zone_rw, \
-                                     institution_zone_brxl = institution_zone_brxl, \
-                                     institution_commentaire = institution_commentaire, \
-                                     institution_assuet_intervention = institution_assuet_intervention, \
-                                     institution_assuet_intervention_precision = institution_assuet_intervention_precision, \
-                                     institution_assuet_activite_proposee = institution_assuet_activite_proposee, \
-                                     institution_assuet_activite_proposee_precision = institution_assuet_activite_proposee_precision, \
-                                     institution_assuet_thematique_precision = institution_assuet_thematique_precision, \
-                                     institution_assuet_aide_soutien_ecole = institution_assuet_aide_soutien_ecole, \
-                                     institution_auteur_login = institution_auteur_login, \
-                                     institution_plate_forme_sante_ecole = institution_plate_forme_sante_ecole, \
-                                     institution_plate_forme_assuetude = institution_plate_forme_assuetude, \
-                                     institution_plate_forme_sante_famille = institution_plate_forme_sante_famille, \
-                                     institution_plate_forme_sante_environnement = institution_plate_forme_sante_environnement, \
-                                     institution_listing_ressource_plate_forme_sante_ecole = institution_listing_ressource_plate_forme_sante_ecole, \
-                                     institution_listing_ressource_plate_forme_assuetude = institution_listing_ressource_plate_forme_assuetude, \
-                                     institution_listing_ressource_plate_forme_sante_famille = institution_listing_ressource_plate_forme_sante_famille, \
-                                     institution_listing_ressource_plate_forme_sante_environnement = institution_listing_ressource_plate_forme_sante_environnement, \
-                                     institution_etat = institution_etat, \
-                                     institution_creation_date = institution_creation_date, \
-                                     institution_modification_employe = institution_modification_employe, \
-                                     institution_clps_proprio_fk = institution_clps_proprio_fk, \
-                                     institution_commune_fk = institution_commune_fk, \
-                                     institution_auteur_fk = institution_auteur_fk, \
-                                     institution_institution_type_fk = institution_institution_type_fk)
+        newEntry = insertInstitution(institution_nom=institution_nom, \
+                                     institution_sigle=institution_sigle, \
+                                     institution_adresse=institution_adresse, \
+                                     institution_nom_contact=institution_nom_contact, \
+                                     institution_email_contact=institution_email_contact, \
+                                     institution_tel_contact=institution_tel_contact, \
+                                     institution_fonction_contact=institution_fonction_contact, \
+                                     institution_url_site=institution_url_site, \
+                                     institution_lien_siss=institution_lien_siss,\
+                                     institution_lien_autre=institution_lien_autre, \
+                                     institution_autre_info=institution_autre_info, \
+                                     institution_mission=institution_mission, \
+                                     institution_activite=institution_activite, \
+                                     institution_public=institution_public, \
+                                     institution_territoire_tout_luxembourg=institution_territoire_tout_luxembourg, \
+                                     institution_zone_internationale=institution_zone_internationale, \
+                                     institution_zone_internationale_info=institution_zone_internationale_info, \
+                                     institution_zone_belgique=institution_zone_belgique, \
+                                     institution_zone_cfwb=institution_zone_cfwb, \
+                                     institution_zone_rw=institution_zone_rw, \
+                                     institution_zone_brxl=institution_zone_brxl, \
+                                     institution_commentaire=institution_commentaire, \
+                                     institution_assuet_intervention=institution_assuet_intervention, \
+                                     institution_assuet_intervention_precision=institution_assuet_intervention_precision, \
+                                     institution_assuet_activite_proposee=institution_assuet_activite_proposee, \
+                                     institution_assuet_activite_proposee_precision=institution_assuet_activite_proposee_precision, \
+                                     institution_assuet_thematique_precision=institution_assuet_thematique_precision, \
+                                     institution_assuet_aide_soutien_ecole=institution_assuet_aide_soutien_ecole, \
+                                     institution_auteur_login=institution_auteur_login, \
+                                     institution_plate_forme_sante_ecole=institution_plate_forme_sante_ecole, \
+                                     institution_plate_forme_assuetude=institution_plate_forme_assuetude, \
+                                     institution_plate_forme_sante_famille=institution_plate_forme_sante_famille, \
+                                     institution_plate_forme_sante_environnement=institution_plate_forme_sante_environnement, \
+                                     institution_listing_ressource_plate_forme_sante_ecole=institution_listing_ressource_plate_forme_sante_ecole, \
+                                     institution_listing_ressource_plate_forme_assuetude=institution_listing_ressource_plate_forme_assuetude, \
+                                     institution_listing_ressource_plate_forme_sante_famille=institution_listing_ressource_plate_forme_sante_famille, \
+                                     institution_listing_ressource_plate_forme_sante_environnement=institution_listing_ressource_plate_forme_sante_environnement, \
+                                     institution_etat=institution_etat, \
+                                     institution_creation_date=institution_creation_date, \
+                                     institution_modification_employe=institution_modification_employe, \
+                                     institution_clps_proprio_fk=institution_clps_proprio_fk, \
+                                     institution_commune_fk=institution_commune_fk, \
+                                     institution_auteur_fk=institution_auteur_fk, \
+                                     institution_institution_type_fk=institution_institution_type_fk)
         session.save(newEntry)
         session.flush()
         return {'status': 1}
-
 
     def addLinkInstitutionAssuetudeIntervention(self, institutionFk):
         """
@@ -3096,8 +3078,8 @@ class ManageInterClps(BrowserView):
         insertLinkInstitutionAssuetudeIntervention = wrapper.getMapper('link_institution_assuetude_intervention')
         assuetudeInterventionFk = getattr(fields, 'assuetude_intervention_fk', None)
         for interventionFk in assuetudeInterventionFk:
-            newEntry = insertLinkInstitutionAssuetudeIntervention(institution_fk = institutionFk,
-                                                                  assuetude_intervention_fk = interventionFk)
+            newEntry = insertLinkInstitutionAssuetudeIntervention(institution_fk=institutionFk,
+                                                                  assuetude_intervention_fk=interventionFk)
             session.save(newEntry)
         session.flush()
 
@@ -3110,8 +3092,8 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         insertLinkInstitutionAssuetudeActiviteProposeePublic = wrapper.getMapper('link_institution_assuetude_activite_proposee_public')
         for activiteFk in assuetudeActiviteProposeePublicFk:
-            newEntry = insertLinkInstitutionAssuetudeActiviteProposeePublic(institution_fk = institutionFk,
-                                                                            assuetude_activite_proposee_public_fk = activiteFk)
+            newEntry = insertLinkInstitutionAssuetudeActiviteProposeePublic(institution_fk=institutionFk,
+                                                                            assuetude_activite_proposee_public_fk=activiteFk)
             session.save(newEntry)
         session.flush()
 
@@ -3124,11 +3106,10 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         insertLinkInstitutionAssuetudeActiviteProposeePro = wrapper.getMapper('link_institution_assuetude_activite_proposee_pro')
         for activiteFk in assuetudeActiviteProposeeProFk:
-            newEntry = insertLinkInstitutionAssuetudeActiviteProposeePro(institution_fk = institutionFk,
-                                                                         assuetude_activite_proposee_pro_fk = activiteFk)
+            newEntry = insertLinkInstitutionAssuetudeActiviteProposeePro(institution_fk=institutionFk,
+                                                                         assuetude_activite_proposee_pro_fk=activiteFk)
             session.save(newEntry)
         session.flush()
-
 
     def addLinkInstitutionAssuetudeThematique(self, institutionFk):
         """
@@ -3141,8 +3122,8 @@ class ManageInterClps(BrowserView):
         insertLinkInstitutionAssuetudeThematique = wrapper.getMapper('link_institution_assuetude_thematique')
         assuetudeThematiqueFk = getattr(fields, 'assuetude_thematique_fk', None)
         for thematiqueFk in assuetudeThematiqueFk:
-            newEntry = insertLinkInstitutionAssuetudeThematique(institution_fk = institutionFk,
-                                                                assuetude_thematique_fk = thematiqueFk)
+            newEntry = insertLinkInstitutionAssuetudeThematique(institution_fk=institutionFk,
+                                                                assuetude_thematique_fk=thematiqueFk)
             session.save(newEntry)
         session.flush()
 
@@ -3157,8 +3138,8 @@ class ManageInterClps(BrowserView):
         insertLinkInstitutionSousPlateForme = wrapper.getMapper('link_institution_sousplateforme')
         institutionSousPlateFormeFk = getattr(fields, 'institution_sousplateforme_fk', None)
         for sousPlateFormeFk in institutionSousPlateFormeFk:
-            newEntry = insertLinkInstitutionSousPlateForme(institution_fk = institutionFk,
-                                                           sousplateforme_fk = sousPlateFormeFk)
+            newEntry = insertLinkInstitutionSousPlateForme(institution_fk=institutionFk,
+                                                           sousplateforme_fk=sousPlateFormeFk)
             session.save(newEntry)
         session.flush()
 
@@ -3172,7 +3153,8 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         insertLinkInstitutionCommuneCouverte = wrapper.getMapper('link_institution_commune_couverte')
         for communeCouverteFk in institutionCommuneCouverteFk:
-            newEntry = insertLinkInstitutionCommuneCouverte(institution_fk = institutionFk, commune_fk = communeCouverteFk)
+            newEntry = insertLinkInstitutionCommuneCouverte(institution_fk=institutionFk,
+                                                            commune_fk=communeCouverteFk)
             session.save(newEntry)
         session.flush()
 
@@ -3187,8 +3169,8 @@ class ManageInterClps(BrowserView):
         insertLinkInstitutionClpsProprio = wrapper.getMapper('link_institution_clps_proprio')
         institutionClps = getattr(fields, 'institution_clps_proprio_fk', None)
         for clpsFk in institutionClps:
-            newEntry = insertLinkInstitutionClpsProprio(institution_fk = institutionFk,
-                                                        clps_fk = clpsFk)
+            newEntry = insertLinkInstitutionClpsProprio(institution_fk=institutionFk,
+                                                        clps_fk=clpsFk)
             session.save(newEntry)
         session.flush()
 
@@ -3346,8 +3328,8 @@ class ManageInterClps(BrowserView):
         institution_commune_fk = getattr(fields, 'institution_commune_fk')
         institution_institution_type_fk = getattr(fields, 'institution_institution_type_fk', None)
         institution_auteur_fk = getattr(fields, 'institution_auteur_fk', None)
-        institution_auteur_login=self.getAuteurLogin(institution_auteur_fk)
-        
+        institution_auteur_login = self.getAuteurLogin(institution_auteur_fk)
+
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         updateInstitution = wrapper.getMapper('institution')
@@ -3400,7 +3382,6 @@ class ManageInterClps(BrowserView):
         session.flush()
         return {'status': 1}
 
-
 ### ASSUETUDE FOR INSTITUION ###
 
     def getAllInstitutionAssuetudeIntervention(self):
@@ -3426,9 +3407,9 @@ class ManageInterClps(BrowserView):
         InstitutionAssuetudeActiviteProposeeTable = wrapper.getMapper('assuetude_activite_proposee_for_institution')
         query = session.query(InstitutionAssuetudeActiviteProposeeTable)
         if cible:
-            if cible=='public':
+            if cible == 'public':
                 query = query.filter(InstitutionAssuetudeActiviteProposeeTable.assuetude_activite_proposee_public == True)
-            if cible=='pro':
+            if cible == 'pro':
                 query = query.filter(InstitutionAssuetudeActiviteProposeeTable.assuetude_activite_proposee_pro == True)
         query = query.order_by(InstitutionAssuetudeActiviteProposeeTable.assuetude_activite_proposee_num_ordre)
         allInstitutionAssuetudeActiviteProposee = query.all()
@@ -3498,7 +3479,7 @@ class ManageInterClps(BrowserView):
         query = query.filter(InterventionTable.institution_fk == institutionPk)
         interventions = query.all()
 
-        interventionListe=[]
+        interventionListe = []
         assuetudeInterventions = self.getAllInstitutionAssuetudeIntervention()
         for ass in assuetudeInterventions:
             for inte in interventions:
@@ -3521,7 +3502,7 @@ class ManageInterClps(BrowserView):
         query = query.filter(ActiviteProposeePublicTable.institution_fk == institutionPk)
         activites = query.all()
 
-        activitePublicListe=[]
+        activitePublicListe = []
         assuetudeActivitesProposees = self.getAllInstitutionAssuetudeActiviteProposee()
         for ass in assuetudeActivitesProposees:
             for act in activites:
@@ -3544,7 +3525,7 @@ class ManageInterClps(BrowserView):
         query = query.filter(ActiviteProposeeProTable.institution_fk == institutionPk)
         activites = query.all()
 
-        activiteProListe=[]
+        activiteProListe = []
         assuetudeActivitesProposees = self.getAllInstitutionAssuetudeActiviteProposee()
         for ass in assuetudeActivitesProposees:
             for act in activites:
@@ -3567,7 +3548,7 @@ class ManageInterClps(BrowserView):
         query = query.filter(ThematiqueTable.institution_fk == institutionPk)
         thematiques = query.all()
 
-        thematiqueListe=[]
+        thematiqueListe = []
         assuetudeThematiques = self.getAllInstitutionAssuetudeThematique()
         for ass in assuetudeThematiques:
             for act in thematiques:
@@ -3594,12 +3575,12 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertAssuetudeIntervention = wrapper.getMapper('assuetude_intervention_for_institution')
-        newEntry = insertAssuetudeIntervention(assuetude_intervention_nom = assuetude_intervention_nom, \
-                                               assuetude_intervention_actif = assuetude_intervention_actif, \
-                                               assuetude_intervention_num_ordre = assuetude_intervention_num_ordre, \
-                                               assuetude_intervention_creation_date = assuetude_intervention_creation_date, \
-                                               assuetude_intervention_modification_date = assuetude_intervention_modification_date, \
-                                               assuetude_intervention_modification_employe = assuetude_intervention_modification_employe)
+        newEntry = insertAssuetudeIntervention(assuetude_intervention_nom=assuetude_intervention_nom, \
+                                               assuetude_intervention_actif=assuetude_intervention_actif, \
+                                               assuetude_intervention_num_ordre=assuetude_intervention_num_ordre, \
+                                               assuetude_intervention_creation_date=assuetude_intervention_creation_date, \
+                                               assuetude_intervention_modification_date=assuetude_intervention_modification_date, \
+                                               assuetude_intervention_modification_employe=assuetude_intervention_modification_employe)
         session.save(newEntry)
         session.flush()
         cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
@@ -3653,14 +3634,14 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertAssuetudeActiviteProposee = wrapper.getMapper('assuetude_activite_proposee_for_institution')
-        newEntry = insertAssuetudeActiviteProposee(assuetude_activite_proposee_nom = assuetude_activite_proposee_nom, \
-                                                   assuetude_activite_proposee_actif = assuetude_activite_proposee_actif, \
-                                                   assuetude_activite_proposee_num_ordre = assuetude_activite_proposee_num_ordre,\
-                                                   assuetude_activite_proposee_public = assuetude_activite_proposee_public, \
-                                                   assuetude_activite_proposee_pro = assuetude_activite_proposee_pro, \
-                                                   assuetude_activite_proposee_creation_date = assuetude_activite_proposee_creation_date, \
-                                                   assuetude_activite_proposee_modification_date = assuetude_activite_proposee_modification_date, \
-                                                   assuetude_activite_proposee_modification_employe = assuetude_activite_proposee_modification_employe)
+        newEntry = insertAssuetudeActiviteProposee(assuetude_activite_proposee_nom=assuetude_activite_proposee_nom, \
+                                                   assuetude_activite_proposee_actif=assuetude_activite_proposee_actif, \
+                                                   assuetude_activite_proposee_num_ordre=assuetude_activite_proposee_num_ordre,\
+                                                   assuetude_activite_proposee_public=assuetude_activite_proposee_public, \
+                                                   assuetude_activite_proposee_pro=assuetude_activite_proposee_pro, \
+                                                   assuetude_activite_proposee_creation_date=assuetude_activite_proposee_creation_date, \
+                                                   assuetude_activite_proposee_modification_date=assuetude_activite_proposee_modification_date, \
+                                                   assuetude_activite_proposee_modification_employe=assuetude_activite_proposee_modification_employe)
         session.save(newEntry)
         session.flush()
         cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
@@ -3716,12 +3697,12 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertAssuetudeIntervention = wrapper.getMapper('assuetude_thematique_for_institution')
-        newEntry = insertAssuetudeIntervention(assuetude_thematique_nom = assuetude_thematique_nom, \
-                                               assuetude_thematique_actif = assuetude_thematique_actif, \
-                                               assuetude_thematique_num_ordre = assuetude_thematique_num_ordre,\
-                                               assuetude_thematique_creation_date = assuetude_thematique_creation_date, \
-                                               assuetude_thematique_modification_date = assuetude_thematique_modification_date, \
-                                               assuetude_thematique_modification_employe = assuetude_thematique_modification_employe)
+        newEntry = insertAssuetudeIntervention(assuetude_thematique_nom=assuetude_thematique_nom, \
+                                               assuetude_thematique_actif=assuetude_thematique_actif, \
+                                               assuetude_thematique_num_ordre=assuetude_thematique_num_ordre,\
+                                               assuetude_thematique_creation_date=assuetude_thematique_creation_date, \
+                                               assuetude_thematique_modification_date=assuetude_thematique_modification_date, \
+                                               assuetude_thematique_modification_employe=assuetude_thematique_modification_employe)
         session.save(newEntry)
         session.flush()
         cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
@@ -3757,7 +3738,6 @@ class ManageInterClps(BrowserView):
         cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
         self.context.REQUEST.RESPONSE.redirect(cible)
 
-
 ### EXPERIENCES ###
 
     def getAllExperience(self):
@@ -3773,7 +3753,7 @@ class ManageInterClps(BrowserView):
         allExperiences = query.all()
         return allExperiences
 
-    def getActiveExperience(self, experiencePk = None):
+    def getActiveExperience(self, experiencePk=None):
         """
         table pg recit
         recuperation de l'experience selon la pk
@@ -3797,7 +3777,7 @@ class ManageInterClps(BrowserView):
         allExperiences = query.all()
         for experience in allExperiences:
             experiencePk = experience.experience_pk
-            self.addRechercheLog(experiencePk = experiencePk)
+            self.addRechercheLog(experiencePk=experiencePk)
         return allExperiences
 
     def getExperienceMaxPk(self):
@@ -3810,11 +3790,11 @@ class ManageInterClps(BrowserView):
         ExperienceTable = wrapper.getMapper('experience')
         query = session.query(ExperienceTable)
         experience = query.all()
-        listePk=[]
+        listePk = []
         for i in experience:
             listePk.append(i.experience_pk)
         listePk.sort()
-        experienceMaxPk=listePk[-1]
+        experienceMaxPk = listePk[-1]
         #experienceMaxPk = query.max(ExperienceTable.experience_pk)
         return experienceMaxPk
 
@@ -3822,15 +3802,15 @@ class ManageInterClps(BrowserView):
         """
         traduction de l'état d'une experience
         """
-        experienceEtat=''
-        if etat=='private':
-            experienceEtat='Privé'
-        if etat=='pending':
-            experienceEtat='En attente'
-        if etat=='pending_for_review':
-            experienceEtat='En cours de validation'
-        if etat=='publish':
-            experienceEtat='Publié'
+        experienceEtat = ''
+        if etat == 'private':
+            experienceEtat = 'Privé'
+        if etat == 'pending':
+            experienceEtat = 'En attente'
+        if etat == 'pending_for_review':
+            experienceEtat = 'En cours de validation'
+        if etat == 'publish':
+            experienceEtat = 'Publié'
         return experienceEtat
 
     def getExperienceEtat(self, experiencePk):
@@ -3947,7 +3927,6 @@ class ManageInterClps(BrowserView):
                                   ExperienceTable.experience_etat == experienceEtat))
         experienceByClps = query.all()
         return experienceByClps
-
 
     def getExperienceByLeffeSearch(self, searchString):
         """
@@ -4072,7 +4051,7 @@ class ManageInterClps(BrowserView):
         query = session.query(LinkExperienceMilieuDeVieTable)
         for pk in milieudeviePk:
             query = query.filter(LinkExperienceMilieuDeVieTable.milieudevie_fk == pk)
-            self.addRechercheLog(milieudeviePk = pk)
+            self.addRechercheLog(milieudeviePk=pk)
         query = query.all()
 
         experiencePkByMilieuDeVie = []
@@ -4092,7 +4071,7 @@ class ManageInterClps(BrowserView):
         query = session.query(LinkExperienceThemeTable)
         for pk in themePk:
             query = query.filter(LinkExperienceThemeTable.theme_fk == pk)
-            self.addRechercheLog(themePk = pk)
+            self.addRechercheLog(themePk=pk)
         query = query.all()
         experiencePkByTheme = []
         for pk in query:
@@ -4129,7 +4108,7 @@ class ManageInterClps(BrowserView):
         query = session.query(LinkExperiencePublicTable)
         for pk in publicPk:
             query = query.filter(LinkExperiencePublicTable.public_fk == pk)
-            self.addRechercheLog(publicPk = pk)
+            self.addRechercheLog(publicPk=pk)
         query = query.all()
 
         experiencePkByPublic = []
@@ -4195,8 +4174,6 @@ class ManageInterClps(BrowserView):
                     listeExperienceForInstitutionRessource.append((j.experience_pk, j.experience_titre))
         return listeExperienceForInstitutionRessource
 
-
-
     def addExperience(self):
         """
         table pg recit
@@ -4238,59 +4215,59 @@ class ManageInterClps(BrowserView):
         experience_etat = getattr(fields, 'experience_etat', None)
         experience_creation_date = self.getTimeStamp()
         experience_creation_employe = self.getUserAuthenticated()
-        experience_auteur = getattr(fields, 'experienceAuteur', None)  #via formlaire admin_experience_creation_form
+        experience_auteur = getattr(fields, 'experienceAuteur', None)    # via formlaire admin_experience_creation_form
         experience_auteur_fk = getattr(fields, 'experience_auteur_fk', None)
         experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
         experience_clps_proprio_fk = getattr(fields, 'experienceClpsProprio', None)
 
-        if not experience_auteur_fk:   #cas ou c'est un auteur exterieur qui se loggue formulaire experience_creation_form
+        if not experience_auteur_fk:     # cas ou c'est un auteur exterieur qui se loggue formulaire experience_creation_form
             auteur = self.getAuteurByLogin('institution')
-            experience_auteur_fk= auteur.auteur_pk
+            experience_auteur_fk = auteur.auteur_pk
 
-        if experience_auteur: #cas ou c'est un clpsmember qui se loggue via formulaire admin_experience_creation_form 
+        if experience_auteur:     # cas ou c'est un clpsmember qui se loggue via formulaire admin_experience_creation_form
             experience_auteur_fk = self.getAuteurPkByName(experience_auteur)
             experience_auteur_login = self.getAuteurLogin(experience_auteur_fk)
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertExperience = wrapper.getMapper('experience')
-        newEntry = insertExperience(experience_titre = experience_titre, \
-                                    experience_resume = experience_resume, \
-                                    experience_personne_contact = experience_personne_contact, \
-                                    experience_personne_contact_email = experience_personne_contact_email, \
-                                    experience_personne_contact_telephone = experience_personne_contact_telephone, \
-                                    experience_personne_contact_institution = experience_personne_contact_institution, \
-                                    experience_element_contexte = experience_element_contexte, \
-                                    experience_objectif = experience_objectif, \
-                                    experience_public_vise = experience_public_vise, \
-                                    experience_demarche_actions = experience_demarche_actions, \
-                                    experience_commune_international = experience_commune_international, \
-                                    experience_territoire_tout_luxembourg = experience_territoire_tout_luxembourg, \
-                                    experience_periode_deroulement = experience_periode_deroulement, \
-                                    experience_moyens = experience_moyens, \
-                                    experience_evaluation_enseignement = experience_evaluation_enseignement, \
-                                    experience_perspective_envisagee = experience_perspective_envisagee, \
-                                    experience_institution_porteur_autre = experience_institution_porteur_autre, \
-                                    experience_institution_partenaire_autre = experience_institution_partenaire_autre, \
-                                    experience_institution_ressource_autre = experience_institution_ressource_autre, \
-                                    experience_institution_outil_autre = experience_institution_outil_autre, \
-                                    experience_formation_suivie = experience_formation_suivie, \
-                                    experience_autres_ressources = experience_autres_ressources, \
-                                    experience_aller_plus_loin = experience_aller_plus_loin, \
-                                    experience_plate_forme_sante_ecole = experience_plate_forme_sante_ecole, \
-                                    experience_plate_forme_assuetude = experience_plate_forme_assuetude, \
-                                    experience_plate_forme_sante_famille = experience_plate_forme_sante_famille, \
-                                    experience_plate_forme_sante_environnement = experience_plate_forme_sante_environnement, \
-                                    experience_mission_centre_documentation = experience_mission_centre_documentation, \
-                                    experience_mission_accompagnement_projet = experience_mission_accompagnement_projet, \
-                                    experience_mission_reseau_echange = experience_mission_reseau_echange, \
-                                    experience_mission_formation = experience_mission_formation, \
-                                    experience_auteur_login = experience_auteur_login, \
-                                    experience_auteur_fk = experience_auteur_fk, \
-                                    experience_clps_proprio_fk = experience_clps_proprio_fk, \
-                                    experience_etat = experience_etat, \
-                                    experience_creation_date = experience_creation_date, \
-                                    experience_creation_employe = experience_creation_employe)
+        newEntry = insertExperience(experience_titre=experience_titre, \
+                                    experience_resume=experience_resume, \
+                                    experience_personne_contact=experience_personne_contact, \
+                                    experience_personne_contact_email=experience_personne_contact_email, \
+                                    experience_personne_contact_telephone=experience_personne_contact_telephone, \
+                                    experience_personne_contact_institution=experience_personne_contact_institution, \
+                                    experience_element_contexte=experience_element_contexte, \
+                                    experience_objectif=experience_objectif, \
+                                    experience_public_vise=experience_public_vise, \
+                                    experience_demarche_actions=experience_demarche_actions, \
+                                    experience_commune_international=experience_commune_international, \
+                                    experience_territoire_tout_luxembourg=experience_territoire_tout_luxembourg, \
+                                    experience_periode_deroulement=experience_periode_deroulement, \
+                                    experience_moyens=experience_moyens, \
+                                    experience_evaluation_enseignement=experience_evaluation_enseignement, \
+                                    experience_perspective_envisagee=experience_perspective_envisagee, \
+                                    experience_institution_porteur_autre=experience_institution_porteur_autre, \
+                                    experience_institution_partenaire_autre=experience_institution_partenaire_autre, \
+                                    experience_institution_ressource_autre=experience_institution_ressource_autre, \
+                                    experience_institution_outil_autre=experience_institution_outil_autre, \
+                                    experience_formation_suivie=experience_formation_suivie, \
+                                    experience_autres_ressources=experience_autres_ressources, \
+                                    experience_aller_plus_loin=experience_aller_plus_loin, \
+                                    experience_plate_forme_sante_ecole=experience_plate_forme_sante_ecole, \
+                                    experience_plate_forme_assuetude=experience_plate_forme_assuetude, \
+                                    experience_plate_forme_sante_famille=experience_plate_forme_sante_famille, \
+                                    experience_plate_forme_sante_environnement=experience_plate_forme_sante_environnement, \
+                                    experience_mission_centre_documentation=experience_mission_centre_documentation, \
+                                    experience_mission_accompagnement_projet=experience_mission_accompagnement_projet, \
+                                    experience_mission_reseau_echange=experience_mission_reseau_echange, \
+                                    experience_mission_formation=experience_mission_formation, \
+                                    experience_auteur_login=experience_auteur_login, \
+                                    experience_auteur_fk=experience_auteur_fk, \
+                                    experience_clps_proprio_fk=experience_clps_proprio_fk, \
+                                    experience_etat=experience_etat, \
+                                    experience_creation_date=experience_creation_date, \
+                                    experience_creation_employe=experience_creation_employe)
         session.save(newEntry)
         session.flush()
 
@@ -4304,8 +4281,8 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         insertLinkExperienceCommune = wrapper.getMapper('link_experience_commune')
         for communeFk in experienceCommuneFk:
-            newEntry = insertLinkExperienceCommune(experience_fk = experienceFk,
-                                                   commune_fk = communeFk)
+            newEntry = insertLinkExperienceCommune(experience_fk=experienceFk,
+                                                   commune_fk=communeFk)
             session.save(newEntry)
         session.flush()
 
@@ -4319,10 +4296,10 @@ class ManageInterClps(BrowserView):
         experience_institution_porteur_fk = getattr(fields, 'experience_institution_porteur_fk', None)
         if experience_institution_porteur_fk:
             insertExperienceInstitutionPorteur = wrapper.getMapper('link_experience_institution_porteur')
-            institutionPorteur =getattr(fields, 'experience_institution_porteur_fk', None)
+            institutionPorteur = getattr(fields, 'experience_institution_porteur_fk', None)
             for pk in institutionPorteur:
-                newEntry = insertExperienceInstitutionPorteur(experience_fk = experienceFk,
-                                                              institution_fk= pk)
+                newEntry = insertExperienceInstitutionPorteur(experience_fk=experienceFk,
+                                                              institution_fk=pk)
                 session.save(newEntry)
         session.flush()
 
@@ -4338,8 +4315,8 @@ class ManageInterClps(BrowserView):
             insertExperienceInstitutionPartenaire = wrapper.getMapper('link_experience_institution_partenaire')
             institutionPartenaire = getattr(fields, 'experience_institution_partenaire_fk', None)
             for pk in institutionPartenaire:
-                newEntry = insertExperienceInstitutionPartenaire(experience_fk = experienceFk,
-                                                                 institution_fk= pk)
+                newEntry = insertExperienceInstitutionPartenaire(experience_fk=experienceFk,
+                                                                 institution_fk=pk)
                 session.save(newEntry)
         session.flush()
 
@@ -4355,8 +4332,8 @@ class ManageInterClps(BrowserView):
             insertExperienceInstitutionRessource = wrapper.getMapper('link_experience_institution_ressource')
             institutionRessource = getattr(fields, 'experience_institution_ressource_fk', None)
             for pk in institutionRessource:
-                newEntry = insertExperienceInstitutionRessource(experience_fk = experienceFk,
-                                                                institution_fk= pk)
+                newEntry = insertExperienceInstitutionRessource(experience_fk=experienceFk,
+                                                                institution_fk=pk)
                 session.save(newEntry)
         session.flush()
 
@@ -4371,8 +4348,8 @@ class ManageInterClps(BrowserView):
         insertLinkExperienceRessource = wrapper.getMapper('link_experience_ressource')
         experienceRessourceFk = getattr(fields, 'experience_ressource_fk', None)
         for ressourceFk in experienceRessourceFk:
-            newEntry = insertLinkExperienceRessource(experience_fk = experienceFk,
-                                                     ressource_fk = ressourceFk)
+            newEntry = insertLinkExperienceRessource(experience_fk=experienceFk,
+                                                     ressource_fk=ressourceFk)
             session.save(newEntry)
         session.flush()
 
@@ -4386,8 +4363,8 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         insertLinkExperienceMilieuDeVie = wrapper.getMapper('link_experience_milieudevie')
         for milieuDeVieFk in milieuDeVieFks:
-            newEntry = insertLinkExperienceMilieuDeVie(experience_fk = experienceFk,
-                                                       milieudevie_fk = milieuDeVieFk)
+            newEntry = insertLinkExperienceMilieuDeVie(experience_fk=experienceFk,
+                                                       milieudevie_fk=milieuDeVieFk)
             session.save(newEntry)
         session.flush()
 
@@ -4401,8 +4378,8 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         insertLinkExperienceTheme = wrapper.getMapper('link_experience_theme')
         for themeFk in themeFks:
-            newEntry = insertLinkExperienceTheme(experience_fk = experienceFk,
-                                                 theme_fk = themeFk)
+            newEntry = insertLinkExperienceTheme(experience_fk=experienceFk,
+                                                 theme_fk=themeFk)
             session.save(newEntry)
         session.flush()
 
@@ -4415,8 +4392,8 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         insertLinkExperiencePublic = wrapper.getMapper('link_experience_public')
         for publicFk in publicFks:
-            newEntry = insertLinkExperiencePublic(experience_fk = experienceFk,
-                                                  public_fk = publicFk)
+            newEntry = insertLinkExperiencePublic(experience_fk=experienceFk,
+                                                  public_fk=publicFk)
             session.save(newEntry)
         session.flush()
 
@@ -4430,8 +4407,8 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         insertLinkExperienceMotCle = wrapper.getMapper('link_experience_mot_cle')
         for motCleFk in motCleFks:
-            newEntry = insertLinkExperienceMotCle(experience_fk = experienceFk,
-                                                  motcle_fk = motCleFk)
+            newEntry = insertLinkExperienceMotCle(experience_fk=experienceFk,
+                                                  motcle_fk=motCleFk)
             session.save(newEntry)
         session.flush()
 
@@ -4446,8 +4423,8 @@ class ManageInterClps(BrowserView):
         insertLinkExperienceSousPlateForme = wrapper.getMapper('link_experience_sousplateforme')
         experienceSousPlateFormeFk = getattr(fields, 'experience_sousplateforme_fk', None)
         for sousPlateFormeFk in experienceSousPlateFormeFk:
-            newEntry = insertLinkExperienceSousPlateForme(experience_fk = experienceFk,
-                                                          sousplateforme_fk = sousPlateFormeFk)
+            newEntry = insertLinkExperienceSousPlateForme(experience_fk=experienceFk,
+                                                          sousplateforme_fk=sousPlateFormeFk)
             session.save(newEntry)
         session.flush()
 
@@ -4462,8 +4439,8 @@ class ManageInterClps(BrowserView):
         insertLinkExperienceClpsProprio = wrapper.getMapper('link_experience_clps_proprio')
         experienceClps = getattr(fields, 'experience_clps_proprio_fk', None)
         for clpsFk in experienceClps:
-            newEntry = insertLinkExperienceClpsProprio(experience_fk = experienceFk,
-                                                       clps_fk = clpsFk)
+            newEntry = insertLinkExperienceClpsProprio(experience_fk=experienceFk,
+                                                       clps_fk=clpsFk)
             session.save(newEntry)
         session.flush()
 
@@ -4651,7 +4628,6 @@ class ManageInterClps(BrowserView):
         experience_auteur_fk = getattr(fields, 'experience_auteur_fk', None)
         experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
 
-
         #cas de modification de l'auteur via ligth search
         experience_auteur = getattr(fields, 'experienceAuteur', None)
         if experience_auteur:
@@ -4705,15 +4681,14 @@ class ManageInterClps(BrowserView):
         experience.experience_modification_date = experience_modification_date
         session.flush()
 
-
 ### LOG ###
 
-    def addRechercheLog(self, \
-                        experiencePk = None, \
-                        milieudeviePk = None, \
-                        themePk = None, \
-                        publicPk = None, \
-                        motclePk = None):
+    def addRechercheLog(self,
+                        experiencePk=None,
+                        milieudeviePk=None,
+                        themePk=None,
+                        publicPk=None,
+                        motclePk=None):
         """
         table pg recherche_log
         ajout les pk des parametres d'une recherche
@@ -4725,19 +4700,17 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         insertRechercheLog = wrapper.getMapper('recherche_log')
-        newEntry = insertRechercheLog(recherchelog_requete = recherchelog_requete, \
-                                      recherchelog_user = recherchelog_user, \
-                                      recherchelog_experience_fk = experiencePk, \
-                                      recherchelog_milieudevie_fk = milieudeviePk, \
-                                      recherchelog_theme_fk = themePk, \
-                                      recherchelog_public_fk = publicPk, \
-                                      recherchelog_motcle_fk = motclePk, \
-                                      recherchelog_date = recherchelog_date)
-        session.add(newEntry) #session.save(newEntry)
+        newEntry = insertRechercheLog(recherchelog_requete=recherchelog_requete,
+                                      recherchelog_user=recherchelog_user,
+                                      recherchelog_experience_fk=experiencePk,
+                                      recherchelog_milieudevie_fk=milieudeviePk,
+                                      recherchelog_theme_fk=themePk,
+                                      recherchelog_public_fk=publicPk,
+                                      recherchelog_motcle_fk=motclePk,
+                                      recherchelog_date=recherchelog_date)
+        session.add(newEntry)    # session.save(newEntry)
         session.flush()
         return {'status': 1}
-
-
 
 #### MANAGE ####
 
@@ -4748,7 +4721,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
 
-        if operation =="insert":
+        if operation == "insert":
             self.addAssuetudeInterventionForInstitution()
             return {'status': 1}
 
@@ -4763,7 +4736,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
 
-        if operation =="insert":
+        if operation == "insert":
             self.addAssuetudeActiviteProposeeForInstitution()
             return {'status': 1}
 
@@ -4778,7 +4751,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
 
-        if operation =="insert":
+        if operation == "insert":
             self.addAssuetudeThematiqueForInstitution()
             return {'status': 1}
 
@@ -4793,7 +4766,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
 
-        if operation =="insert":
+        if operation == "insert":
             self.addMotCle()
             return {'status': 1}
 
@@ -4808,7 +4781,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
 
-        if operation =="insert":
+        if operation == "insert":
             self.addTheme()
             return {'status': 1}
 
@@ -4823,7 +4796,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
 
-        if operation =="insert":
+        if operation == "insert":
             self.addPublic()
             return {'status': 1}
 
@@ -4838,7 +4811,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
 
-        if operation =="insert":
+        if operation == "insert":
             self.addPlateForme()
             return {'status': 1}
 
@@ -4853,7 +4826,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
 
-        if operation =="insert":
+        if operation == "insert":
             self.addSousPlateForme()
             return {'status': 1}
 
@@ -4868,7 +4841,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
 
-        if operation =="insert":
+        if operation == "insert":
             self.addMilieuDeVie()
             return {'status': 1}
 
@@ -4883,7 +4856,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
 
-        if operation =="insert":
+        if operation == "insert":
             self.addInstitutionType()
             return {'status': 1}
 
@@ -4916,7 +4889,7 @@ class ManageInterClps(BrowserView):
         assuetudeThematiqueFk = getattr(fields, 'assuetude_thematique_fk', None)
         institutionClpsProprioFk = getattr(fields, 'institution_clps_proprio_fk', None)
 
-        if operation =="insert":
+        if operation == "insert":
             self.addInstitution()
             institutionFk = self.getInstitutionMaxPk()
 
@@ -4938,7 +4911,7 @@ class ManageInterClps(BrowserView):
             if institutionCommuneCouverteFk:
                 self.addLinkInstitutionCommuneCouverte(institutionFk, institutionCommuneCouverteFk)
 
-            if institutionClpsProprioFk:                             #gestion du clps_proprio
+            if institutionClpsProprioFk:                             # gestion du clps_proprio
                 self.addLinkInstitutionClpsProprio(institutionFk)
             return {'status': 1}
 
@@ -4988,7 +4961,7 @@ class ManageInterClps(BrowserView):
         ressourceClpsProprioFk = getattr(fields, 'ressource_clps_proprio_fk', None)
         ressourceClpsDispoFk = getattr(fields, 'ressource_clps_dispo_fk', None)
 
-        if operation =="insert":
+        if operation == "insert":
             self.addRessource()
             ressourceFk = self.getRessourceMaxPk()
             if ressourcePublicFk > 0:
@@ -4997,12 +4970,11 @@ class ManageInterClps(BrowserView):
                 self.addLinkRessourceSupport(ressourceFk)
             if ressourceThemeFk > 0:
                 self.addLinkRessourceTheme(ressourceFk)
-            if ressourceClpsProprioFk:                          #gestion du clps proprio
+            if ressourceClpsProprioFk:                          # gestion du clps proprio
                 self.addLinkRessourceClpsProprio(ressourceFk)
-            if ressourceClpsDispoFk:                            #gestion du clps proprio
+            if ressourceClpsDispoFk:                            # gestion du clps proprio
                 self.addLinkRessourceClpsDispo(ressourceFk)
             return {'status': 1}
-
 
         if operation == "update":
             ressourceFk = getattr(fields, 'ressource_pk')
@@ -5037,7 +5009,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
 
-        if operation =="insert":
+        if operation == "insert":
             self.addSupport()
             return {'status': 1}
 
@@ -5059,9 +5031,9 @@ class ManageInterClps(BrowserView):
         userEmail = getattr(fields, 'auteur_email')
         prenom = getattr(fields, 'auteur_prenom')
         nom = getattr(fields, 'auteur_nom')
-        userName = ('%s %s')%(prenom, nom)
+        userName = ('%s %s') % (prenom, nom)
 
-        if operation =="insert":
+        if operation == "insert":
             self.addAuteur()
             self.addLoginAuteur(login, passw, role)
             self.addInfoAuteur(userId, userEmail, userName)
@@ -5104,7 +5076,6 @@ class ManageInterClps(BrowserView):
         if experiencePublicFk is not None:
             experiencePublicFk = self.addPublicKeywordsIfNeededAndGetPks(experiencePublicFk)
 
-
         #creation de la liste des communes
         experienceCommuneFk = []
         experienceCommuneInBwFk = getattr(fields, 'experience_commune_inbw_fk', None)
@@ -5116,7 +5087,7 @@ class ManageInterClps(BrowserView):
             for pk in experienceCommuneOutBwFk:
                 experienceCommuneFk.append(pk)
 
-        if operation =="insert":
+        if operation == "insert":
             self.addExperience()
             experienceFk = self.getExperienceMaxPk()
 
@@ -5150,10 +5121,10 @@ class ManageInterClps(BrowserView):
             if experiencePublicFk > 0:
                 self.addLinkExperiencePublic(experienceFk, experiencePublicFk)
 
-            if experienceClpsProprioFk:                             #gestion du clps proprio
+            if experienceClpsProprioFk:                             # gestion du clps proprio
                 self.addLinkExperienceClpsProprio(experienceFk)
 
-            self.sendMailForInsertExperience(experiencePk = experienceFk)
+            self.sendMailForInsertExperience(experiencePk=experienceFk)
 
             # #self.addLinkRessourceSupport()
             return {'status': 1}
@@ -5199,9 +5170,8 @@ class ManageInterClps(BrowserView):
                 self.addLinkExperiencePublic(experienceFk, experiencePublicFk)
 
             self.deleteLinkExperienceClpsProprio(experienceFk)
-            if experienceClpsProprioFk > 0:                             #gestion du clps proprio
+            if experienceClpsProprioFk > 0:                             # gestion du clps proprio
                 self.addLinkExperienceClpsProprio(experienceFk)
-
 
             #self.sendMailForUpdateExperience()
 
