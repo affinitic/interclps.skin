@@ -858,6 +858,10 @@
 
         <div class="div_form_input">
             <input type="hidden"
+                   name="experience_creation_employe"
+                   value=""
+                   tal:attributes="value experience/experience_creation_employe" />
+            <input type="hidden"
                    name="operation"
                    value="update" />
             <input type="hidden"

@@ -132,11 +132,11 @@ class ManageInterClps(BrowserView):
         """
         envoi de mail à iclps admin
         """
-        #mailer = Mailer("localhost", "alain.meurant@affinitic.be, %s"%clpsEmailContact)
-        mailer = Mailer("localhost", "alain.meurant@skynet.be")
+        mailer = Mailer("localhost", "alain.meurant@affinitic.be, %s" % clpsEmailContact)
+        #mailer = Mailer("localhost", "alain.meurant@skynet.be")
         mailer.setSubject(sujet)
-        #mailer.setRecipients("alain.meurant@affinitic.be, %s"%clpsEmailContact)
-        mailer.setRecipients("alain.meurant@skynet.be")
+        mailer.setRecipients("alain.meurant@affinitic.be, %s" % clpsEmailContact)
+        #mailer.setRecipients("alain.meurant@skynet.be")
         mail = message
         mailer.sendAllMail(mail)
 
@@ -198,7 +198,7 @@ class ManageInterClps(BrowserView):
 
     def sendMailForInsertExperience(self, experiencePk):
         """
-        envoi d'un mail a Isabelle lors de la creation d'une experience
+        envoi d'un mail a contact clps (isabelle) lors de la creation d'une experience
         """
         #fields = self.context.REQUEST
         experience_pk = experiencePk
@@ -257,20 +257,21 @@ class ManageInterClps(BrowserView):
         self.sendMail(sujet, message, clpsEmailContact)
 
     def sendMailForUpdateExperience(self):
-        #envoi d'un mail a Celine lors de la mise a jour d'une experience
+        """
+        envoi d'un mail a contact clps (isabelle) lors de la mise a jour d'une experience
+        """
         experience_pk = unicode(self.request.get('experience_pk'), 'utf-8')
         experience_titre = unicode(self.request.get('experience_titre'), 'utf-8')
-        experience_personne_contact = unicode(self.request.get('experience_personne_contact'), 'utf-8')
-        experience_creation_employe = unicode(self.request.get('experience_creation_employe'), 'utf-8')
+        experience_personne_contact = unicode(self.request.get('experience_personne_contact') or '', 'utf-8') or None
+        experience_creation_employe = unicode(self.request.get('experience_creation_employe') or '', 'utf-8') or None
         experience_modification_employe = self.getUserAuthenticated()
-        experience_auteur_login = unicode(self.request.get('experience_auteur_login'), 'utf-8')
-        experience_etat = unicode(self.request.get('experience_etat'), 'utf-8')
-        experience_public_vise = unicode(self.request.get('experience_public_vise'), 'utf-8')
-        experience_institution_porteur_autre = unicode(self.request.get('experience_institution_porteur_autre'), 'utf-8')
-        experience_institution_partenaire_autre = unicode(self.request.get('experience_institution_partenaire_autre'), 'utf-8')
-        experience_institution_ressource_autre = unicode(self.request.get('experience_institution_ressource_autre'), 'utf-8')
-        #experience_institution_outil_autre = unicode(self.request.get('experience_institution_outil_autre'), 'utf-8')
-
+        experience_auteur_login = unicode(self.request.get('experience_auteur_login') or '', 'utf-8') or None
+        experience_etat = unicode(self.request.get('experience_etat') or '', 'utf-8') or None
+        experience_public_vise = unicode(self.request.get('experience_public_vise') or '', 'utf-8') or None
+        experience_institution_porteur_autre = unicode(self.request.get('experience_institution_porteur_autre') or '', 'utf-8') or None
+        experience_institution_partenaire_autre = unicode(self.request.get('experience_institution_partenaire_autre') or '', 'utf-8') or None
+        experience_institution_ressource_autre = unicode(self.request.get('experience_institution_ressource_autre') or '', 'utf-8') or None
+        experience_institution_outil_autre = unicode(self.request.get('experience_institution_ressource_autre') or '', 'utf-8') or None
         clpsDestinationPk = 2
         clpsInfo = self.getClpsByPk(clpsDestinationPk)
         clpsSigle = clpsInfo.clps_sigle
@@ -317,7 +318,8 @@ class ManageInterClps(BrowserView):
                      experience_public_vise, \
                      experience_institution_porteur_autre, \
                      experience_institution_partenaire_autre, \
-                     experience_institution_ressource_autre)
+                     experience_institution_ressource_autre, \
+                     experience_institution_outil_autre)
         message = message.encode('utf-8')
         self.sendMail(sujet, message, clpsEmailContact)
 
@@ -5173,7 +5175,7 @@ class ManageInterClps(BrowserView):
             if experienceClpsProprioFk > 0:                             # gestion du clps proprio
                 self.addLinkExperienceClpsProprio(experienceFk)
 
-            #self.sendMailForUpdateExperience()
+            self.sendMailForUpdateExperience()
 
             #envoi d'un mail à SISS Prov BW lorsque etat experience est publie
 
