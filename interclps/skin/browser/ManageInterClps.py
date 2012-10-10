@@ -2523,7 +2523,7 @@ class ManageInterClps(BrowserView):
         allActiveInstitution = query.all()
         return allActiveInstitution
 
-    def getAllInstitutionByClpsProprio(self, clpsProprioPk):
+    def getAllInstitutionPkByClpsProprio(self, clpsProprioPk):
         """
         table pg institution
         recuperation de toutes les institutions
@@ -2534,13 +2534,27 @@ class ManageInterClps(BrowserView):
         query = session.query(clpsProprioInstitutionTable)
         query = query.filter(clpsProprioInstitutionTable.clps_fk == clpsProprioPk)
         institutionPkForClpsProprio = query.all()
-        listeInstitutionForClpsProprio = []
+        listeInstitutionPkForClpsProprio = []
         listeAllInstitution = self.getAllActiveInstitution()
         for i in institutionPkForClpsProprio:
             for j in listeAllInstitution:
                 if i.institution_fk == j.institution_pk:
-                    listeInstitutionForClpsProprio.append(j.institution_pk)
-        return listeInstitutionForClpsProprio
+                    listeInstitutionPkForClpsProprio.append(j.institution_pk)
+        return listeInstitutionPkForClpsProprio
+
+    def getAllInstitutionByClpsProprio(self, clpsProprioPk):
+        """
+        table pg institution
+        recuperation de toutes les institutions
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        institutionTable = wrapper.getMapper('institution')
+        query = session.query(institutionTable)
+        query = query.filter(institutionTable.institution_clps_proprio_fk == clpsProprioPk)
+        query = query.order_by(institutionTable.institution_nom)
+        institutionForClpsProprio = query.all()
+        return institutionForClpsProprio
 
     def getAllActiveInstitutionByInstitutionTypePk(self, institutionTypePk, etat=None):
         """
@@ -3331,6 +3345,11 @@ class ManageInterClps(BrowserView):
         institution_institution_type_fk = getattr(fields, 'institution_institution_type_fk', None)
         institution_auteur_fk = getattr(fields, 'institution_auteur_fk', None)
         institution_auteur_login = self.getAuteurLogin(institution_auteur_fk)
+        
+        #cas de modification de l'auteur via ligth search
+        institution_auteur = getattr(fields, 'institutionAuteur', None)
+        if institution_auteur:
+            institution_auteur_fk = self.getAuteurPkByName(institution_auteur)
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session

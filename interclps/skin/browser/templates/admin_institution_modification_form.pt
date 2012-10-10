@@ -4,7 +4,14 @@
       i18n:domain="plone">
 
 <head>
-    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:js fill-slot="javascript_head_slot">
+        <script src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js" type="text/javascript"></script>
+        <script src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="++resource++interclps.js" type="text/javascript"></script>
+    </metal:js>
+    <metal:css fill-slot="style_slot">
+        <link href="++resource++collective.javascript.jqueryui/css/ui-lightness/jquery-ui.css" type="text/css" rel="stylesheet" />
+    </metal:css>
     <metal:noborder fill-slot="top_slot"
                  tal:define="dummy python:request.set('disable_border',1)" />
 </head>
@@ -481,6 +488,32 @@
                 <fieldset>
                     <legend class="legende">Auteur - Editeur</legend>
                     Nom, prénom et identifiant de la personne qui pourra modifier le contenu de cette expérience<br />
+                    
+                    <p>
+                    Actuellement :
+                    <tal:blok tal:define="auteurPk institution/institution_auteur_fk;
+                                          auteurs python:view.getAuteurByPk(auteurPk)">
+                        <tal:boucle tal:repeat="auteur auteurs">
+                                <span tal:content="auteur/auteur_nom" class="gras orange" />
+                                <span tal:content="auteur/auteur_prenom" class="gras orange" />
+                                &nbsp;
+                                (<span tal:content="auteur/auteur_login" class="gras orange" />)
+                        </tal:boucle>
+                    </tal:blok>
+                    <input type="hidden"
+                           name="institution_auteur_fk"
+                           value=""
+                           tal:attributes="value institution/institution_auteur_fk" />
+                    </p>
+                    <p>
+                    Sélectionner un autre auteur<br />
+                    <input type="text"
+                           id="auteur_nom"
+                           name="institutionAuteur"
+                           value=""
+                           size="50">
+                    </p>
+<!--                    
                     <select name="institution_auteur_fk">
                         <option>...</option>
                         <tal:boucle tal:repeat="auteur auteurs">
@@ -495,6 +528,7 @@
                             </option>
                         </tal:boucle>
                     </select>
+-->
                 </fieldset>
 
                 <fieldset>

@@ -679,10 +679,10 @@
                 <tal:blok tal:define="auteurPk experience/experience_auteur_fk;
                                       auteurs python:view.getAuteurByPk(auteurPk)">
                     <tal:boucle tal:repeat="auteur auteurs">
-                            <span tal:content="auteur/auteur_nom" class="gras" />
-                            <span tal:content="auteur/auteur_prenom" class="gras" />
+                            <span tal:content="auteur/auteur_nom" class="gras orange" />
+                            <span tal:content="auteur/auteur_prenom" class="gras orange" />
                             &nbsp;
-                            (<span tal:content="auteur/auteur_login" class="gras" />)
+                            (<span tal:content="auteur/auteur_login" class="gras orange" />)
                     </tal:boucle>
                 </tal:blok>
                 <input type="hidden"
@@ -698,7 +698,6 @@
                        value=""
                        size="50">
                 </p>
-
             </fieldset>
 
             <fieldset>

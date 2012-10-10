@@ -550,7 +550,7 @@
                       <img src="list_flch_rouge.png" />
                       <span tal:condition="python: clps.clps_pk==2"> 
                           <input type="checkbox"
-                                 name="institution_clps_proprio_fk:list"
+                                 name="institution_clps_proprio_fk"
                                  checked="checked"
                                  value=""
                                  tal:attributes="value clps/clps_pk" />
@@ -559,7 +559,7 @@
                       </span>
                       <span tal:condition="python: clps.clps_pk!=2"> 
                           <input type="checkbox"
-                                 name="institution_clps_proprio_fk:list"
+                                 name="institution_clps_proprio_fk"
                                  value=""
                                  tal:attributes="value clps/clps_pk" />
                           &nbsp;&nbsp;
@@ -580,9 +580,6 @@
                name="institution_auteur_fk"
                value=""
                tal:attributes="value auteur/auteur_pk" />
-        <input type="hidden"
-               name="institution_clps_proprio_fk"
-               value="2" />
         <input type="hidden"
                name="operation"
                value="insert" />

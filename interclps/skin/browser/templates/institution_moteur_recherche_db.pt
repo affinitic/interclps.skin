@@ -78,8 +78,8 @@
                                 <optgroup label="CLPS-BW">
                                     <tal:boucle tal:repeat="institution institutions">
                                         <option value=""
-                                                tal:attributes="value institution">
-                                            <span tal:content="institution">nom institution</span>
+                                                tal:attributes="value institution/institution_pk">
+                                            <span tal:content="institution/institution_nom">nom institution</span>
                                         </option>
                                     </tal:boucle>
                                 </optgroup>
@@ -89,8 +89,8 @@
                                 <optgroup label="CLPS-LUX">
                                     <tal:boucle tal:repeat="institution institutions">
                                         <option value=""
-                                                tal:attributes="value institution">
-                                            <span tal:content="institution">nom institution</span>
+                                                tal:attributes="value institution/institution_pk">
+                                            <span tal:content="institution/institution_nom">nom institution</span>
                                         </option>
                                     </tal:boucle>
                                 </optgroup>

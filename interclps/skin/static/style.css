@@ -40,6 +40,10 @@ border-bottom:1px dotted #ccd8e8;
 font-weight:bold;
 }
 
+.orange{
+color:#d75600;
+}
+
 /*** WRAPPER ***/
 #wrapper{
 height:100%;

@@ -12,8 +12,11 @@
 <div metal:fill-slot="main"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
    <h1>:: Liste des institutions ::</h1>
-
+   <a href="admin-institution-lister#clpsbw">Les institutions du CLPS-Bw</a>
+   <br />
+   <a href="admin-institution-lister#clpslux">Les institutions du CLPS-Lux</a>
    <fieldset>
+   <a name="clpsbw"></a>
    <legend>CLPS - BW</legend>
    <div tal:define="institutions python:view.getAllInstitutionByClpsProprio(1);">
        <tal:boucle tal:repeat="institution institutions">
@@ -96,7 +99,8 @@
    </div><!--define-->
    </fieldset>
    
-   <fieldset>
+   <fieldset> 
+   <a name="clpslux"></a>
    <legend>CLPS - LUX</legend>
    <div tal:define="institutions python:view.getAllInstitutionByClpsProprio(2);">
        <tal:boucle tal:repeat="institution institutions">
