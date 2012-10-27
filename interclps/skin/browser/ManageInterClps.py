@@ -132,10 +132,10 @@ class ManageInterClps(BrowserView):
         """
         envoi de mail à iclps admin
         """
-        mailer = Mailer("localhost", "alain.meurant@affinitic.be, %s" % clpsEmailContact)
+        mailer = Mailer("localhost", "alain.meurant@affinitic.be, a.slypen@province.luxembourg.be, %s" % clpsEmailContact)
         #mailer = Mailer("localhost", "alain.meurant@skynet.be")
         mailer.setSubject(sujet)
-        mailer.setRecipients("alain.meurant@affinitic.be, %s" % clpsEmailContact)
+        mailer.setRecipients("alain.meurant@affinitic.be, a.slypen@province.luxembourg.be, %s" % clpsEmailContact)
         #mailer.setRecipients("alain.meurant@skynet.be")
         mail = message
         mailer.sendAllMail(mail)
@@ -3017,7 +3017,7 @@ class ManageInterClps(BrowserView):
         institution_auteur = getattr(fields, 'institutionAuteur', None)
         institution_auteur_fk = getattr(fields, 'institution_auteur_fk', None)
         institution_commune_fk = getattr(fields, 'institution_commune_fk', None)
-        institution_clps_proprio_fk = getattr(fields, 'institutionClpsProprio', None)
+        institution_clps_proprio_fk = getattr(fields, 'institution_clps_proprio_fk', None)
         institution_institution_type_fk = getattr(fields, 'institution_institution_type_fk', None)
 
         if not institution_auteur_fk:      # cas ou c'est un auteur exterieur qui se loggue
@@ -3345,7 +3345,7 @@ class ManageInterClps(BrowserView):
         institution_institution_type_fk = getattr(fields, 'institution_institution_type_fk', None)
         institution_auteur_fk = getattr(fields, 'institution_auteur_fk', None)
         institution_auteur_login = self.getAuteurLogin(institution_auteur_fk)
-        
+
         #cas de modification de l'auteur via ligth search
         institution_auteur = getattr(fields, 'institutionAuteur', None)
         if institution_auteur:
