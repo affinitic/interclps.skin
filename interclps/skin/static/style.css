@@ -531,6 +531,20 @@ background-color:#f0e2cf;
 height:15px;
 }
 
+#portlet-db-auteur .portletHeaderDB{
+background-color:#ff76f0;    
+}
+
+#portlet-db-auteur .portletItemDB{
+border-left:1px solid #ccc;
+border-right:1px solid #ccc;
+background-color:#ffe4f8;
+}
+
+#portlet-db-auteur .portletFooterDB {
+background-color:#dcbcd2;
+}
+
 #portlet-db-auteur .portletItemDB,
 #portlet-gestion-db .portletItemDB{
 padding:10px 0px 10px 20px;
@@ -778,6 +792,7 @@ margin-top:0px;
 border:1px solid #329FD7;
 border-radius:12px;
 background-color:#d0e9f5;
+word-wrap: break-word;
 }
 
 #right-experience-header{
@@ -838,6 +853,7 @@ margin-bottom:8px;
 
 #personne-contact-experience{
 padding:0px 15px 0px 15px;
+word-wrap: break-word;
 /*margin-bottom:8px;*/
 }
 
