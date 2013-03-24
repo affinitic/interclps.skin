@@ -14,7 +14,8 @@
      tal:define="experiencePk request/experiencePk | nothing;
                  experiences python:view.getActiveExperience(experiencePk)">
     <tal:boucle tal:repeat="experience experiences">
-        <div id="main-experience">
+        <div id="main-experience"
+             tal:define="experiencePk experience/experience_pk">
             <div id="alerte"
                  tal:condition="python: experience.experience_etat=='pending_for_review'">
                 <img src="alerte.png" /> Cette expérience en en cours de validation
