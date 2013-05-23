@@ -5192,13 +5192,6 @@ class ManageInterClps(BrowserView):
             if experienceClpsProprioFk > 0:                             # gestion du clps proprio
                 self.addLinkExperienceClpsProprio(experienceFk)
 
-            #self.sendMailForUpdateExperience()
-
-            #envoi d'un mail à SISS Prov BW lorsque etat experience est publie
-
-            #if experience_etat == 'publish':
-            #    etatPublicationForSiss = self.getExperienceStatutPublicationForSiss(experienceFk)
-            #    if etatPublicationForSiss != True:
-            #        self.setExperienceStatutPublicationForSissToTrue(experienceFk)
+            self.sendMailForUpdateExperience()
 
             return {'status': 1}
