@@ -38,12 +38,12 @@
                            id="nom_institution"
                            name="nomInstitution"
                            value=""
-                           size="50"> 
+                           size="50">
                 </div>
                 <div class="div_question">
                     <input type="submit"
                            value="lancer la recherche"
-                           class="search-button" /> 
+                           class="search-button" />
                 </div>
             </form>
         </fieldset>
@@ -57,12 +57,12 @@
                            id="institutionPk"
                            name="institutionPk"
                            value=""
-                           size="10">  
+                           size="10">
                 </div>
                 <div class="div_question">
                     <input type="submit"
                            value="lancer la recherche"
-                           class="search-button" />  
+                           class="search-button" />
                 </div>
             </form>
         </fieldset>
@@ -94,7 +94,7 @@
                                         </option>
                                     </tal:boucle>
                                 </optgroup>
-                            </tal:block>  
+                            </tal:block>
                         </select>
                     </div>
                 <div class="div_question">
@@ -104,7 +104,7 @@
                 </div>
             </form>
         </fieldset><!--search-zone-nom-->
-        
+
         <fieldset tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
                   class="search-zone-nom">
             <legend class="search-legend-titre"> Recherche par auteur </legend>
@@ -121,7 +121,7 @@
                                     <span tal:content="auteur/auteur_prenom">prenom auteur</span>
                                 </option>
                             </tal:boucle>
-                        </select>  
+                        </select>
                     </div>
                 </tal:block>
                 <div class="div_question">

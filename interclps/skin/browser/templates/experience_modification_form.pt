@@ -637,7 +637,7 @@
                    value=""
                    tal:attributes="value experience/auteurFromExperience/auteur_pk" />
             <input type="hidden"
-                   name="experience_clps_proprio_fk"
+                   name="experienceClpsProprio"
                    value="2" />
             <input type="hidden"
                    name="operation"

@@ -788,7 +788,7 @@
                         <input type="checkbox"
                                name="experience_mission_accompagnement_projet"
                                value="True"
-                              tal:attributes="checked python:experience.experience_mission_accompagnement_projet and 'checked' or None;" />
+                               tal:attributes="checked python:experience.experience_mission_accompagnement_projet and 'checked' or None;" />
                         &nbsp;&nbsp;Accompagnement de projet
                     </li>
                     <li>
@@ -821,7 +821,7 @@
                                    checked=""
                                    value=""
                                    tal:attributes="value clps/clps_pk;
-                                                   checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
+                                                   checked python:clps.clps_pk in selectedClpsProprio and 'checked' or None;" />
                             &nbsp;&nbsp;
                             <span tal:content="clps/clps_sigle" />
                         </li>

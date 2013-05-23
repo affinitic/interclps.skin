@@ -18,7 +18,8 @@
 
 <body>
 <div metal:fill-slot="main">
-<form action="ressource-inserer" method="post">
+<form action="ressource-inserer"
+      method="post">
     <br />
     <h1>:: Ressource ::</h1>
     Il s'agit de livre, cd-rom, dvd, dossier pédagogique, jeu, ....

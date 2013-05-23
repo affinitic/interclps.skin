@@ -49,10 +49,9 @@
 
             <form action="experience-decrire" method="post">
                 Ci-dessous, la liste des différents titres des expériences encodées dans notre base.
-                
                     <div class="div_question">
                         <select name="experiencePk" size="1">
-                            <tal:block tal:define="experiences python:view.getExperienceByClps(1)">
+                            <tal:block tal:define="experiences python:view.getExperienceByClpsByEtat(1)">
                                 <option></option>
                                 <optgroup label="CLPS-BW">
                                     <tal:boucle tal:repeat="experience experiences">
@@ -63,9 +62,9 @@
                                                 [<span tal:content="experience/experience_etat"  style="color:blue;">etat experience</span>]
                                             </option>
                                     </tal:boucle>
-                                </optgroup>  
+                                </optgroup>
                             </tal:block>
-                            <tal:block tal:define="experiences python:view.getExperienceByClps(2)">
+                            <tal:block tal:define="experiences python:view.getExperienceByClpsByEtat(2)">
                                 <option></option>
                                 <optgroup label="CLPS-LUX">
                                     <tal:boucle tal:repeat="experience experiences">
@@ -74,13 +73,12 @@
                                                 <span tal:content="experience/experience_titre">titre experience</span>
                                                 &nbsp;&nbsp;&nbsp;
                                                 [<span tal:content="experience/experience_etat"  style="color:blue;">etat experience</span>]
-                                            </option> 
-                                    </tal:boucle>  
+                                            </option>
+                                    </tal:boucle>
                                 </optgroup>
                             </tal:block>
                         </select>
                     </div>
-                
                 <div class="div_question">
                     <input type="submit"
                            value="lancer la recherche"

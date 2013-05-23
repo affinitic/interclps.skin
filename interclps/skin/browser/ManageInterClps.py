@@ -3,7 +3,7 @@
 import datetime
 #import time
 #import random
-from sqlalchemy import select, func, and_
+from sqlalchemy import select, func
 from mailer import Mailer
 #from LocalFS import LocalFS
 from Products.Five import BrowserView
@@ -455,6 +455,8 @@ class ManageInterClps(BrowserView):
         for experience in experiences:
             for clps in allClps:
                 if experience.clps_fk == clps.clps_pk:
+                    if retour == 'sigle':
+                        clpsProprioListe.append(clps.clps_sigle)
                     if retour == 'nom':
                         clpsProprioListe.append(clps.clps_nom)
                     if retour == 'pk':
@@ -3904,6 +3906,7 @@ class ManageInterClps(BrowserView):
         query = query.filter(ExperienceTable.experience_pk.in_(experiencePk))
         if experienceEtat:
             query = query.filter(ExperienceTable.experience_etat == experienceEtat)
+        query = query.order_by(ExperienceTable.experience_titre)
         experience = query.all()
         return experience
 
@@ -3922,32 +3925,25 @@ class ManageInterClps(BrowserView):
         experience = query.all()
         return experience
 
-    def getExperienceByClps(self, clpsPk):
+    def getExperienceByClpsByEtat(self, clpsPk, experienceEtat=None):
         """
         table pg experience
-        recuperation d'une experience selon experience_clps_proprio_fk
+        recuperation d'une experience selon experience_clps_proprio_fk et son etat
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        ExperienceTable = wrapper.getMapper('experience')
-        query = session.query(ExperienceTable)
-        query = query.filter(ExperienceTable.experience_clps_proprio_fk == clpsPk)
-        experienceByClps = query.all()
-        return experienceByClps
-
-    def getExperienceByClpsByEtat(self, clpsPk, experienceEtat):
-        """
-        table pg experience
-        recuperation d'une experience selon experience_clps_proprio_fk
-        """
-        wrapper = getSAWrapper('clpsbw')
-        session = wrapper.session
-        ExperienceTable = wrapper.getMapper('experience')
-        query = session.query(ExperienceTable)
-        query = query.filter(and_(ExperienceTable.experience_clps_proprio_fk == clpsPk,
-                                  ExperienceTable.experience_etat == experienceEtat))
-        experienceByClps = query.all()
-        return experienceByClps
+        LinkExperienceClpsProprioTable = wrapper.getMapper('link_experience_clps_proprio')
+        query = session.query(LinkExperienceClpsProprioTable)
+        query = query.filter(LinkExperienceClpsProprioTable.clps_fk == clpsPk)
+        query = query.all()
+        experiencePkByClps = []
+        for pk in query:
+            experiencePkByClps.append(pk.experience_fk)
+        if experienceEtat:
+            experiencesByClps = self.getExperienceByPk(experiencePkByClps, experienceEtat)
+        else:
+            experiencesByClps = self.getExperienceByPk(experiencePkByClps)
+        return experiencesByClps
 
     def getExperienceByLeffeSearch(self, searchString):
         """
@@ -4648,6 +4644,7 @@ class ManageInterClps(BrowserView):
         experience_modification_employe = self.getUserAuthenticated()
         experience_auteur_fk = getattr(fields, 'experience_auteur_fk', None)
         experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
+        experience_clps_proprio_fk = getattr(fields, 'experienceClpsProprio', None)
 
         #cas de modification de l'auteur via ligth search
         experience_auteur = getattr(fields, 'experienceAuteur', None)
@@ -4697,6 +4694,7 @@ class ManageInterClps(BrowserView):
         experience.experience_mission_formation = experience_mission_formation
         experience.experience_auteur_login = experience_auteur_login
         experience.experience_auteur_fk = experience_auteur_fk
+        experience.experience_clps_proprio_fk = experience_clps_proprio_fk
         experience.experience_etat = unicode(experience_etat, 'utf-8')
         experience.experience_modification_employe = experience_modification_employe
         experience.experience_modification_date = experience_modification_date
@@ -5194,7 +5192,7 @@ class ManageInterClps(BrowserView):
             if experienceClpsProprioFk > 0:                             # gestion du clps proprio
                 self.addLinkExperienceClpsProprio(experienceFk)
 
-            self.sendMailForUpdateExperience()
+            #self.sendMailForUpdateExperience()
 
             #envoi d'un mail à SISS Prov BW lorsque etat experience est publie
 

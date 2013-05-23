@@ -175,10 +175,10 @@ class IManageInterClps(Interface):
         private pending publish
         """
 
-    def getExperienceByClps(clpsPk):
+    def getExperienceByClpsByEtat(clpsPk):
         """
         table pg experience
-        recuperation d'une experience selon experience_clps_proprio_fk
+        recuperation d'une experience selon experience_clps_proprio_fk et son etat
         """
 
     def getExperienceByRessource(ressourcePk):
