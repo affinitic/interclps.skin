@@ -3793,6 +3793,7 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         ExperienceTable = wrapper.getMapper('experience')
         query = session.query(ExperienceTable)
+        query = query.filter(ExperienceTable.experience_etat == 'publish')
         if experienceTitre:
             query = query.filter(ExperienceTable.experience_titre == experienceTitre)
         if experiencePk:
