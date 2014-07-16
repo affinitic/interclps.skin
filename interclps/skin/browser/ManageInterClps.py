@@ -962,7 +962,7 @@ class ManageInterClps(BrowserView):
                                theme_creation_date=theme_creation_date,
                                theme_modification_date=theme_modification_date,
                                theme_creation_employe=theme_creation_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
 
     def addThemeKeywordsIfNeededAndGetPks(self, themePksOrValues):
@@ -983,7 +983,7 @@ class ManageInterClps(BrowserView):
                                       theme_creation_date=self.getTimeStamp(),
                                       theme_modification_date=self.getTimeStamp(),
                                       theme_modification_employe=self.getUserAuthenticated())
-                session.save(newEntry)
+                session.add(newEntry)
                 session.flush()
                 pks.append(int(newEntry.theme_pk))
             else:
@@ -1097,7 +1097,7 @@ class ManageInterClps(BrowserView):
                                 motcle_creation_date=motcle_creation_date, \
                                 motcle_modification_date=motcle_modification_date, \
                                 motcle_modification_employe=motcle_modification_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
         return {'status': 1}
 
@@ -1148,7 +1148,7 @@ class ManageInterClps(BrowserView):
                                        public_creation_date=self.getTimeStamp(), \
                                        public_modification_date=self.getTimeStamp(), \
                                        public_creation_employe=self.getUserAuthenticated())
-                session.save(newEntry)
+                session.add(newEntry)
                 session.flush()
                 pks.append(int(newEntry.public_pk))
             else:
@@ -1173,7 +1173,7 @@ class ManageInterClps(BrowserView):
                                        motcle_creation_date=self.getTimeStamp(), \
                                        motcle_modification_date=self.getTimeStamp(), \
                                        motcle_modification_employe=self.getUserAuthenticated())
-                session.save(newEntry)
+                session.add(newEntry)
                 session.flush()
                 pks.append(int(newEntry.motcle_pk))
             else:
@@ -1332,7 +1332,7 @@ class ManageInterClps(BrowserView):
                                 public_creation_date=public_creation_date, \
                                 public_modification_date=public_modification_date, \
                                 public_creation_employe=public_creation_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
 
     def updatePublic(self):
@@ -1442,7 +1442,7 @@ class ManageInterClps(BrowserView):
                                     plateforme_creation_date=plateforme_creation_date, \
                                     plateforme_modification_date=plateforme_modification_date, \
                                     plateforme_creation_employe=plateforme_creation_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
 
     def updatePlateForme(self):
@@ -1548,7 +1548,7 @@ class ManageInterClps(BrowserView):
                                         sousplateforme_creation_date=sousplateforme_creation_date, \
                                         sousplateforme_modification_date=sousplateforme_modification_date, \
                                         sousplateforme_creation_employe=sousplateforme_creation_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
 
     def updateSousPlateForme(self):
@@ -1684,7 +1684,7 @@ class ManageInterClps(BrowserView):
                                      milieudevie_creation_date=milieudevie_creation_date, \
                                      milieudevie_modification_date=milieudevie_modification_date, \
                                      milieudevie_creation_employe=milieudevie_creation_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
 
     def addMilieuDeVieKeywordsIfNeededAndGetPks(self, milieuDeViePksOrValues):
@@ -1705,7 +1705,7 @@ class ManageInterClps(BrowserView):
                                             milieudevie_creation_date=self.getTimeStamp(), \
                                             milieudevie_modification_date=self.getTimeStamp(), \
                                             milieudevie_modification_employe=self.getUserAuthenticated())
-                session.save(newEntry)
+                session.add(newEntry)
                 session.flush()
                 pks.append(int(newEntry.milieudevie_pk))
             else:
@@ -1823,7 +1823,7 @@ class ManageInterClps(BrowserView):
                                  support_creation_date=support_creation_date, \
                                  support_modification_date=support_modification_date, \
                                  support_modification_employe=support_modification_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
         return {'status': 1}
 
@@ -1887,7 +1887,7 @@ class ManageInterClps(BrowserView):
                                outil_etat=outil_etat, \
                                outil_creation_date=outil_creation_date, \
                                outil_creation_employe=outil_creation_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
         return {'status': 1}
 
@@ -2166,7 +2166,7 @@ class ManageInterClps(BrowserView):
                                    ressource_creation_date=ressource_creation_date, \
                                    ressource_modification_date=ressource_modification_date, \
                                    ressource_modification_employe=ressource_modification_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
         return {'status': 1}
 
@@ -2183,7 +2183,7 @@ class ManageInterClps(BrowserView):
         for supportFk in ressourceSupport:
             newEntry = insertLinkRessourceSupport(ressource_fk=ressourceFk,
                                                   support_fk=supportFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkRessourceTheme(self, ressourceFk):
@@ -2199,7 +2199,7 @@ class ManageInterClps(BrowserView):
         for themeFk in ressourceTheme:
             newEntry = insertLinkRessourceTheme(ressource_fk=ressourceFk,
                                                 theme_fk=themeFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkRessourcePublic(self, ressourceFk):
@@ -2215,7 +2215,7 @@ class ManageInterClps(BrowserView):
         for publicFk in ressourcePublic:
             newEntry = insertLinkRessourcePublic(ressource_fk=ressourceFk,
                                                  public_fk=publicFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkRessourceClpsDispo(self, ressourceFk):
@@ -2231,7 +2231,7 @@ class ManageInterClps(BrowserView):
         for clpsFk in ressourceClps:
             newEntry = insertLinkRessourceClpsDispo(ressource_fk=ressourceFk,
                                                     clps_fk=clpsFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def deleteLinkRessourceSupport(self, ressourceFk):
@@ -2317,7 +2317,7 @@ class ManageInterClps(BrowserView):
         for clpsFk in ressourceClps:
             newEntry = insertLinkRessourceClpsProprio(ressource_fk=ressourceFk,
                                                       clps_fk=clpsFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def updateRessource(self):
@@ -2458,7 +2458,7 @@ class ManageInterClps(BrowserView):
                                          institution_type_creation_date=institution_type_creation_date, \
                                          institution_type_modification_date=institution_type_modification_date, \
                                          institution_typecreation_employe=institution_type_creation_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
 
     def updateInstitutionType(self):
@@ -3081,7 +3081,7 @@ class ManageInterClps(BrowserView):
                                      institution_commune_fk=institution_commune_fk, \
                                      institution_auteur_fk=institution_auteur_fk, \
                                      institution_institution_type_fk=institution_institution_type_fk)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
         return {'status': 1}
 
@@ -3098,7 +3098,7 @@ class ManageInterClps(BrowserView):
         for interventionFk in assuetudeInterventionFk:
             newEntry = insertLinkInstitutionAssuetudeIntervention(institution_fk=institutionFk,
                                                                   assuetude_intervention_fk=interventionFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkInstitutionAssuetudeActiviteProposeePublic(self, institutionFk, assuetudeActiviteProposeePublicFk):
@@ -3112,7 +3112,7 @@ class ManageInterClps(BrowserView):
         for activiteFk in assuetudeActiviteProposeePublicFk:
             newEntry = insertLinkInstitutionAssuetudeActiviteProposeePublic(institution_fk=institutionFk,
                                                                             assuetude_activite_proposee_public_fk=activiteFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkInstitutionAssuetudeActiviteProposeePro(self, institutionFk, assuetudeActiviteProposeeProFk):
@@ -3126,7 +3126,7 @@ class ManageInterClps(BrowserView):
         for activiteFk in assuetudeActiviteProposeeProFk:
             newEntry = insertLinkInstitutionAssuetudeActiviteProposeePro(institution_fk=institutionFk,
                                                                          assuetude_activite_proposee_pro_fk=activiteFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkInstitutionAssuetudeThematique(self, institutionFk):
@@ -3142,7 +3142,7 @@ class ManageInterClps(BrowserView):
         for thematiqueFk in assuetudeThematiqueFk:
             newEntry = insertLinkInstitutionAssuetudeThematique(institution_fk=institutionFk,
                                                                 assuetude_thematique_fk=thematiqueFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkInstitutionSousPlateForme(self, institutionFk):
@@ -3158,7 +3158,7 @@ class ManageInterClps(BrowserView):
         for sousPlateFormeFk in institutionSousPlateFormeFk:
             newEntry = insertLinkInstitutionSousPlateForme(institution_fk=institutionFk,
                                                            sousplateforme_fk=sousPlateFormeFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkInstitutionCommuneCouverte(self, institutionFk, institutionCommuneCouverteFk):
@@ -3173,7 +3173,7 @@ class ManageInterClps(BrowserView):
         for communeCouverteFk in institutionCommuneCouverteFk:
             newEntry = insertLinkInstitutionCommuneCouverte(institution_fk=institutionFk,
                                                             commune_fk=communeCouverteFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkInstitutionClpsProprio(self, institutionFk):
@@ -3189,7 +3189,7 @@ class ManageInterClps(BrowserView):
         for clpsFk in institutionClps:
             newEntry = insertLinkInstitutionClpsProprio(institution_fk=institutionFk,
                                                         clps_fk=clpsFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def deleteLinkInstitutionAssuetudeIntervention(self, institutionFk):
@@ -3604,7 +3604,7 @@ class ManageInterClps(BrowserView):
                                                assuetude_intervention_creation_date=assuetude_intervention_creation_date, \
                                                assuetude_intervention_modification_date=assuetude_intervention_modification_date, \
                                                assuetude_intervention_modification_employe=assuetude_intervention_modification_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
         cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
         self.context.REQUEST.RESPONSE.redirect(cible)
@@ -3665,7 +3665,7 @@ class ManageInterClps(BrowserView):
                                                    assuetude_activite_proposee_creation_date=assuetude_activite_proposee_creation_date, \
                                                    assuetude_activite_proposee_modification_date=assuetude_activite_proposee_modification_date, \
                                                    assuetude_activite_proposee_modification_employe=assuetude_activite_proposee_modification_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
         cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
         self.context.REQUEST.RESPONSE.redirect(cible)
@@ -3726,7 +3726,7 @@ class ManageInterClps(BrowserView):
                                                assuetude_thematique_creation_date=assuetude_thematique_creation_date, \
                                                assuetude_thematique_modification_date=assuetude_thematique_modification_date, \
                                                assuetude_thematique_modification_employe=assuetude_thematique_modification_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
         cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
         self.context.REQUEST.RESPONSE.redirect(cible)
@@ -4286,7 +4286,7 @@ class ManageInterClps(BrowserView):
                                     experience_etat=experience_etat, \
                                     experience_creation_date=experience_creation_date, \
                                     experience_creation_employe=experience_creation_employe)
-        session.save(newEntry)
+        session.add(newEntry)
         session.flush()
 
     def addLinkExperienceCommune(self, experienceFk, experienceCommuneFk):
@@ -4301,7 +4301,7 @@ class ManageInterClps(BrowserView):
         for communeFk in experienceCommuneFk:
             newEntry = insertLinkExperienceCommune(experience_fk=experienceFk,
                                                    commune_fk=communeFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkExperienceInstitutionPorteur(self, experienceFk):
@@ -4318,7 +4318,7 @@ class ManageInterClps(BrowserView):
             for pk in institutionPorteur:
                 newEntry = insertExperienceInstitutionPorteur(experience_fk=experienceFk,
                                                               institution_fk=pk)
-                session.save(newEntry)
+                session.add(newEntry)
         session.flush()
 
     def addLinkExperienceInstitutionPartenaire(self, experienceFk):
@@ -4335,7 +4335,7 @@ class ManageInterClps(BrowserView):
             for pk in institutionPartenaire:
                 newEntry = insertExperienceInstitutionPartenaire(experience_fk=experienceFk,
                                                                  institution_fk=pk)
-                session.save(newEntry)
+                session.add(newEntry)
         session.flush()
 
     def addLinkExperienceInstitutionRessource(self, experienceFk):
@@ -4352,7 +4352,7 @@ class ManageInterClps(BrowserView):
             for pk in institutionRessource:
                 newEntry = insertExperienceInstitutionRessource(experience_fk=experienceFk,
                                                                 institution_fk=pk)
-                session.save(newEntry)
+                session.add(newEntry)
         session.flush()
 
     def addLinkExperienceRessource(self, experienceFk):
@@ -4368,7 +4368,7 @@ class ManageInterClps(BrowserView):
         for ressourceFk in experienceRessourceFk:
             newEntry = insertLinkExperienceRessource(experience_fk=experienceFk,
                                                      ressource_fk=ressourceFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkExperienceMilieuDeVie(self, experienceFk, milieuDeVieFks):
@@ -4383,7 +4383,7 @@ class ManageInterClps(BrowserView):
         for milieuDeVieFk in milieuDeVieFks:
             newEntry = insertLinkExperienceMilieuDeVie(experience_fk=experienceFk,
                                                        milieudevie_fk=milieuDeVieFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkExperienceTheme(self, experienceFk, themeFks):
@@ -4398,7 +4398,7 @@ class ManageInterClps(BrowserView):
         for themeFk in themeFks:
             newEntry = insertLinkExperienceTheme(experience_fk=experienceFk,
                                                  theme_fk=themeFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkExperiencePublic(self, experienceFk, publicFks):
@@ -4412,7 +4412,7 @@ class ManageInterClps(BrowserView):
         for publicFk in publicFks:
             newEntry = insertLinkExperiencePublic(experience_fk=experienceFk,
                                                   public_fk=publicFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkExperienceMotCle(self, experienceFk, motCleFks):
@@ -4427,7 +4427,7 @@ class ManageInterClps(BrowserView):
         for motCleFk in motCleFks:
             newEntry = insertLinkExperienceMotCle(experience_fk=experienceFk,
                                                   motcle_fk=motCleFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkExperienceSousPlateForme(self, experienceFk):
@@ -4443,7 +4443,7 @@ class ManageInterClps(BrowserView):
         for sousPlateFormeFk in experienceSousPlateFormeFk:
             newEntry = insertLinkExperienceSousPlateForme(experience_fk=experienceFk,
                                                           sousplateforme_fk=sousPlateFormeFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def addLinkExperienceClpsProprio(self, experienceFk):
@@ -4459,7 +4459,7 @@ class ManageInterClps(BrowserView):
         for clpsFk in experienceClps:
             newEntry = insertLinkExperienceClpsProprio(experience_fk=experienceFk,
                                                        clps_fk=clpsFk)
-            session.save(newEntry)
+            session.add(newEntry)
         session.flush()
 
     def deleteLinkExperienceClpsProprio(self, experienceFk):
@@ -4728,7 +4728,7 @@ class ManageInterClps(BrowserView):
                                       recherchelog_public_fk=publicPk,
                                       recherchelog_motcle_fk=motclePk,
                                       recherchelog_date=recherchelog_date)
-        session.add(newEntry)    # session.save(newEntry)
+        session.add(newEntry)
         session.flush()
         return {'status': 1}
 
