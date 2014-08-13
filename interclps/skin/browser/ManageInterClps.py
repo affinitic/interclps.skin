@@ -132,10 +132,10 @@ class ManageInterClps(BrowserView):
         """
         envoi de mail à iclps admin
         """
-        mailer = Mailer("localhost", "alain.meurant@affinitic.be, l.polome@province.luxembourg.be, %s" % clpsEmailContact)
+        mailer = Mailer("localhost", "alain.meurant@affinitic.be, l.polome@province.luxembourg.be, s.verscheure@province.luxembourg.be, %s" % clpsEmailContact)
         #mailer = Mailer("localhost", "alain.meurant@skynet.be")
         mailer.setSubject(sujet)
-        mailer.setRecipients("alain.meurant@affinitic.be, l.polome@province.luxembourg.be, %s" % clpsEmailContact)
+        mailer.setRecipients("alain.meurant@affinitic.be, l.polome@province.luxembourg.be, s.verscheure@province.luxembourg.be, %s" % clpsEmailContact)
         #mailer.setRecipients("alain.meurant@skynet.be")
         mail = message
         mailer.sendAllMail(mail)
