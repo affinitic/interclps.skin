@@ -5,8 +5,8 @@
 
 <head>
     <metal:js fill-slot="javascript_head_slot">
-    <script src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js"
-            type="text/javascript"></script>
+        <script src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js"
+                type="text/javascript"></script>
         <script src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js"
                 type="text/javascript"></script>
 
@@ -31,7 +31,7 @@
         <h1>Rechercher un auteur</h1>
         <div class="search-text-intro">Plusieurs types de recherche sont possibles.</div>
     </div>
-    
+
     <div id="zone-moteur-recherche">
         <fieldset class="search-zone-nom">
             <legend class="search-legend"> A partir du nom d'un auteur</legend>
@@ -58,7 +58,7 @@
             <legend class="search-legend-titre"> A partir de la PK de l'auteur</legend>
             <form action="admin-auteur-modifier"
                   method="post">
-                <div class="div_question">  
+                <div class="div_question">
                     Pk de l'auteur<br />
                     <input type="text"
                            id="auteurPk"
@@ -95,7 +95,7 @@
                 <div class="div_question">
                     <input type="submit"
                            value="lancer la recherche"
-                           class="search-button" /> 
+                           class="search-button" />
                 </div>
             </form>
         </fieldset><!--search-zone-nom-->

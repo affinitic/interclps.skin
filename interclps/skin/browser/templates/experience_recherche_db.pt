@@ -5,16 +5,19 @@
 
 <head>
     <metal:js fill-slot="javascript_head_slot">
-    <script src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js" type="text/javascript"></script>
-        <script src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js" type="text/javascript"></script>
-        <script src="++resource++interclps.js" type="text/javascript"></script>
+        <script src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js"
+                type="text/javascript"></script>
+        <script src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js"
+                type="text/javascript"></script>
     </metal:js>
     <metal:css fill-slot="style_slot">
-        <link href="++resource++collective.javascript.jqueryui/css/ui-lightness/jquery-ui.css" type="text/css" rel="stylesheet" />
+        <link href="++resource++collective.javascript.jqueryui/css/ui-lightness/jquery-ui.css"
+              type="text/css"
+              rel="stylesheet" />
     </metal:css>
 
     <metal:noborder fill-slot="top_slot"
-                 tal:define="dummy python:request.set('disable_border',1)" />
+                    tal:define="dummy python:request.set('disable_border',1)" />
 </head>
 
 <body>
@@ -36,7 +39,7 @@
                            id="titre_experience"
                            name="titreExperience"
                            value=""
-                           size="50">
+                           size="100">
                 </div>
                 <div class="div_question">
                     <input type="submit"
@@ -72,7 +75,7 @@
                                     </option>
                                 </tal:boucle>
                             </optgroup>
-                        </tal:block> 
+                        </tal:block>
                     </select>
                 </div>
                 <div class="div_question">
