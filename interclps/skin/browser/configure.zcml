@@ -287,15 +287,7 @@
     <browser:page
           name="ressource-chercher"
           for="*"
-          template="templates/gestion_db/gestion_ressource/ressource_moteur_recherche_db.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="chercher-une-ressource"
-          for="*"
-          template="templates/gestion_db/gestion_ressource/ressource_chercher.pt"
+          template="templates/gestion_db/gestion_ressource/admin_cherhcer_ressource.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -303,7 +295,7 @@
     <browser:page
           name="ressource-creer"
           for="*"
-          template="templates/gestion_db/gestion_ressource/ressource_creation_form.pt"
+          template="templates/gestion_db/gestion_ressource/admin_creer_ressource.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -311,7 +303,7 @@
     <browser:page
           name="ressource-inserer"
           for="*"
-          template="templates/gestion_db/gestion_ressource/ressource_insertion.pt"
+          template="templates/gestion_db/gestion_ressource/admin_inserer_ressource.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -319,7 +311,7 @@
     <browser:page
           name="ressource-modifier"
           for="*"
-          template="templates/gestion_db/gestion_ressource/ressource_modification_form.pt"
+          template="templates/gestion_db/gestion_ressource/admin_modifier_ressource.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -327,7 +319,7 @@
     <browser:page
           name="ressource-lister"
           for="*"
-          template="templates/gestion_db/gestion_ressource/ressource_listing.pt"
+          template="templates/gestion_db/gestion_ressource/admin_lister_ressource.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -335,7 +327,7 @@
     <browser:page
           name="admin-ressource-decrire"
           for="*"
-          template="templates/gestion_db/gestion_ressource/ressource_description.pt"
+          template="templates/gestion_db/gestion_ressource/admin_decrire_ressource.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -458,7 +450,7 @@
     <browser:page
           name="institution-type-creer"
           for="*"
-          template="templates/gestion_db/gestion_type_institution/institution_type_creation_form.pt"
+          template="templates/gestion_db/gestion_type_institution/admin_creer_type_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -466,7 +458,7 @@
     <browser:page
           name="institution-type-modifier"
           for="*"
-          template="templates/gestion_db/gestion_type_institution/institution_type_modification_form.pt"
+          template="templates/gestion_db/gestion_type_institution/admin_modifier_type_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -475,7 +467,7 @@
     <browser:page
           name="institution-type-inserer"
           for="*"
-          template="templates/gestion_db/gestion_type_institution/institution_type_insertion.pt"
+          template="templates/gestion_db/gestion_type_institution/admin_inserer_type_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -545,7 +537,7 @@
     <browser:page
           name="theme-creer"
           for="*"
-          template="templates/gestion_db/gestion_theme/theme_creation_form.pt"
+          template="templates/gestion_db/gestion_theme/admin_creer_theme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -553,7 +545,7 @@
     <browser:page
           name="theme-inserer"
           for="*"
-          template="templates/gestion_db/gestion_theme/theme_insertion.pt"
+          template="templates/gestion_db/gestion_theme/admin_inserer_theme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -561,7 +553,7 @@
     <browser:page
           name="theme-modifier"
           for="*"
-          template="templates/gestion_db/gestion_theme/theme_modification_form.pt"
+          template="templates/gestion_db/gestion_theme/admin_modifier_theme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -599,7 +591,7 @@
     <browser:page
           name="support-creer"
           for="*"
-          template="templates/gestion_db/gestion_support/support_creation_form.pt"
+          template="templates/gestion_db/gestion_support/admin_creer_support.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -607,7 +599,7 @@
     <browser:page
           name="support-inserer"
           for="*"
-          template="templates/gestion_db/gestion_support/support_insertion.pt"
+          template="templates/gestion_db/gestion_support/admin_inserer_support.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -615,7 +607,7 @@
     <browser:page
           name="support-modifier"
           for="*"
-          template="templates/gestion_db/gestion_support/support_modification_form.pt"
+          template="templates/gestion_db/gestion_support/admin_modifier_support.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -626,7 +618,7 @@
     <browser:page
           name="public-creer"
           for="*"
-          template="templates/gestion_db/gestion_public/public_creation_form.pt"
+          template="templates/gestion_db/gestion_public/admin_creer_public.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -634,7 +626,7 @@
     <browser:page
           name="public-inserer"
           for="*"
-          template="templates/gestion_db/gestion_public/public_insertion.pt"
+          template="templates/gestion_db/gestion_public/admin_inserer_public.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -642,7 +634,7 @@
     <browser:page
           name="public-modifier"
           for="*"
-          template="templates/gestion_db/gestion_public/public_modification_form.pt"
+          template="templates/gestion_db/gestion_public/admin_modifier_public.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -653,7 +645,7 @@
     <browser:page
           name="plateforme-creer"
           for="*"
-          template="templates/gestion_db/gestion_plateforme/plateforme_creation_form.pt"
+          template="templates/gestion_db/gestion_plateforme/admin_creer_plateforme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -661,7 +653,7 @@
     <browser:page
           name="plateforme-inserer"
           for="*"
-          template="templates/gestion_db/gestion_plateforme/plateforme_insertion.pt"
+          template="templates/gestion_db/gestion_plateforme/admin_inserer_plateforme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -669,7 +661,7 @@
     <browser:page
           name="plateforme-modifier"
           for="*"
-          template="templates/gestion_db/gestion_plateforme/plateforme_modification_form.pt"
+          template="templates/gestion_db/gestion_plateforme/admin_modifier_plateforme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -680,7 +672,7 @@
     <browser:page
           name="sous-plateforme-creer"
           for="*"
-          template="templates/gestion_db/gestion_sous_plateforme/sous_plateforme_creation_form.pt"
+          template="templates/gestion_db/gestion_sous_plateforme/admin_creer_sous_plateforme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -688,7 +680,7 @@
     <browser:page
           name="sous-plateforme-inserer"
           for="*"
-          template="templates/gestion_db/gestion_sous_plateforme/sous_plateforme_insertion.pt"
+          template="templates/gestion_db/gestion_sous_plateforme/admin_inserer_sous_plateforme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -696,7 +688,7 @@
     <browser:page
           name="sous-plateforme-modifier"
           for="*"
-          template="templates/gestion_db/gestion_sous_plateforme/sous_plateforme_modification_form.pt"
+          template="templates/gestion_db/gestion_sous_plateforme/admin_modifier_sous_plateforme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
