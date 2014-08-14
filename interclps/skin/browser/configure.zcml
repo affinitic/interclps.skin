@@ -4,14 +4,14 @@
    xmlns:browser="http://namespaces.zope.org/browser"
    i18n_domain="interclps.skin">
 
-    <!-- 'interclps skin' Zope 3 browser layer -->
+<!-- 'interclps skin' Zope 3 browser layer -->
     <interface
         interface=".interfaces.IInterClpsTheme"
         type="zope.publisher.interfaces.browser.IBrowserSkinType"
         name="interclps skin"
         />
 
-    <!-- js -->
+<!-- js -->
     <browser:resource
         name="interclps.js"
         file="js/interclps.js"
@@ -44,7 +44,7 @@
      -->
 
 
-    <!-- leffe search -->
+<!-- leffe search -->
     <browser:page
          for="*"
          name="experience-searchJSON"
@@ -78,12 +78,120 @@
 
 
 
-<!-- GESTION DB -->
-<!-- experience -->
+<!-- GESTION DB - GESTION DB - GESTION DB - GESTION DB - GESTION DB - GESTION DB - GESTION DB -->
+
+<!-- EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE -->
+<!-- USER EXEPRIENCE -->
     <browser:page
-          name="experience-inscription-auteur"
+          name="experience-gerer"
           for="*"
-          template="templates/experience_inscription_auteur_form.pt"
+          template="templates/experience/experience_gestion.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="experience-creer"
+          for="*"
+          template="templates/experience/experience_creation_form.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="experience-modifier"
+          for="*"
+          template="templates/experience/experience_modification_form.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="experience-decrire"
+          for="*"
+          template="templates/experience/experience_description.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="experience-inserer"
+          for="*"
+          template="templates/experience/experience_insertion.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="experience-lister-auteur"
+          for="*"
+          template="templates/experience/experience_listing_par_auteur.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="experience-plate-forme-lister"
+          for="*"
+          template="templates/experience/experience_listing_par_plateforme.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+
+<!-- ADMIN EXEPRIENCE -->
+    <browser:page
+          name="admin-experience-creer"
+          for="*"
+          template="templates/gestion_db/gestion_experience/admin_experience_creation_form.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="admin-experience-recherche"
+          for="*"
+          template="templates/gestion_db/gestion_experience/admin_experience_recherche_db.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="admin-experience-lister"
+          for="*"
+          template="templates/gestion_db/gestion_experience/admin_experience_listing.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="admin-experience-lister-par-etat"
+          for="*"
+          template="templates/gestion_db/gestion_experience/admin_experience_listing_par_etat.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="admin-experience-gerer"
+          for="*"
+          template="templates/gestion_db/gestion_experience/admin_experience_gestion.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="admin-experience-modifier"
+          for="*"
+          template="templates/gestion_db/gestion_experience/admin_experience_modification_form.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="admin-experience-inserer"
+          for="*"
+          template="templates/gestion_db/gestion_experience/admin_experience_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -105,139 +213,27 @@
           attribute="checkCaptchaDemandeInscription"
           />
     <browser:page
+          name="experience-inscription-auteur"
+          for="*"
+          template="templates/experience/experience_inscription_auteur_form.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
           name="experience-inscription-auteur-merci"
           for="*"
-          template="templates/experience_inscription_auteur_merci.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="admin-experience-creer"
-          for="*"
-          template="templates/admin_experience_creation_form.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="admin-experience-lister"
-          for="*"
-          template="templates/admin_experience_listing.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="admin-experience-lister-par-etat"
-          for="*"
-          template="templates/admin_experience_listing_par_etat.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="admin-experience-gerer"
-          for="*"
-          template="templates/admin_experience_gestion.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="admin-experience-modifier"
-          for="*"
-          template="templates/admin_experience_modification_form.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="admin-experience-inserer"
-          for="*"
-          template="templates/admin_experience_insertion.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="experience-creer"
-          for="*"
-          template="templates/experience_creation_form.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="experience-inserer"
-          for="*"
-          template="templates/experience_insertion.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="experience-lister-auteur"
-          for="*"
-          template="templates/experience_listing_par_auteur.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="experience-plate-forme-lister"
-          for="*"
-          template="templates/experience_listing_par_plateforme.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="experience-gerer"
-          for="*"
-          template="templates/experience_gestion.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="experience-modifier"
-          for="*"
-          template="templates/experience_modification_form.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="experience-decrire"
-          for="*"
-          template="templates/experience_description.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="experience-demo"
-          for="*"
-          template="templates/experience_description_for_newsletter.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="experience-decrire-tableless"
-          for="*"
-          template="templates/experience_description_tableless.pt"
+          template="templates/experience/experience_inscription_auteur_merci.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-<!-- moteur recherche -->
+<!-- MOTEUR RECHERCHE - MOTEUR RECHERCHE - MOTEUR RECHERCHE - MOTEUR RECHERCHE - MOTEUR RECHERCHE -->
     <browser:page
           name="presentation-db"
           for="*"
-          template="templates/presentation_db.pt"
+          template="templates/experience/presentation_db.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -246,7 +242,7 @@
     <browser:page
           name="experience-recherche"
           for="*"
-          template="templates/experience_recherche_db.pt"
+          template="templates/experience/experience_recherche_db.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -254,7 +250,7 @@
     <browser:page
           name="experience-resultat-recherche-milieu-vie"
           for="*"
-          template="templates/experience_resultat_recherche_milieu_vie.pt"
+          template="templates/experience/experience_resultat_recherche_milieu_vie.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -262,7 +258,7 @@
      <browser:page
           name="experience-resultat-recherche-theme"
           for="*"
-          template="templates/experience_resultat_recherche_theme.pt"
+          template="templates/experience/experience_resultat_recherche_theme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -270,26 +266,44 @@
      <browser:page
           name="experience-resultat-recherche-public"
           for="*"
-          template="templates/experience_resultat_recherche_public.pt"
+          template="templates/experience/experience_resultat_recherche_public.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
-         <browser:page
-          name="admin-experience-recherche"
+
+
+<!--  RESOURCES - RESOURCES - RESOURCES - RESOURCES - RESOURCES  -->
+<!-- USER RESSOURCE -->
+    <browser:page
+          name="ressource-decrire"
           for="*"
-          template="templates/admin_experience_recherche_db.pt"
+          template="templates/ressource/ressource_description.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
-
-
-<!-- ressource -->
+<!-- ADMIN RESSOURCE -->
+    <browser:page
+          name="ressource-chercher"
+          for="*"
+          template="templates/gestion_db/gestion_ressource/ressource_moteur_recherche_db.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="chercher-une-ressource"
+          for="*"
+          template="templates/gestion_db/gestion_ressource/ressource_chercher.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
     <browser:page
           name="ressource-creer"
           for="*"
-          template="templates/ressource_creation_form.pt"
+          template="templates/gestion_db/gestion_ressource/ressource_creation_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -297,7 +311,7 @@
     <browser:page
           name="ressource-inserer"
           for="*"
-          template="templates/ressource_insertion.pt"
+          template="templates/gestion_db/gestion_ressource/ressource_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -305,7 +319,7 @@
     <browser:page
           name="ressource-modifier"
           for="*"
-          template="templates/ressource_modification_form.pt"
+          template="templates/gestion_db/gestion_ressource/ressource_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -313,33 +327,29 @@
     <browser:page
           name="ressource-lister"
           for="*"
-          template="templates/ressource_listing.pt"
+          template="templates/gestion_db/gestion_ressource/ressource_listing.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="ressource-decrire"
+          name="admin-ressource-decrire"
           for="*"
-          template="templates/ressource_description.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="ressource-chercher"
-          for="*"
-          template="templates/ressource_moteur_recherche_db.pt"
+          template="templates/gestion_db/gestion_ressource/ressource_description.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-<!-- institution -->
+
+
+<!-- INSTITUTION - INSTITUTION - INSTITUTION - INSTITUTION - INSTITUTION - -->
+<!-- USER INSTITUTION -->
+<!-- USER -->
     <browser:page
           name="institution-creer"
           for="*"
-          template="templates/institution_creation_form.pt"
+          template="templates/institution/institution_creation_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -347,7 +357,7 @@
     <browser:page
           name="institution-inserer"
           for="*"
-          template="templates/institution_insertion.pt"
+          template="templates/institution/institution_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -355,23 +365,15 @@
     <browser:page
           name="institution-modifier"
           for="*"
-          template="templates/institution_modification_form.pt"
+          template="templates/institution/institution_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
-    <browser:page
-          name="admin-institution-lister"
-          for="*"
-          template="templates/admin_institution_listing.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
+  <browser:page
           name="institution-listing-par-login-auteur"
           for="*"
-          template="templates/institution_listing_par_login_auteur.pt"
+          template="templates/institution/institution_listing_par_login_auteur.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -379,31 +381,7 @@
     <browser:page
           name="institution-lister-auteur-pk"
           for="*"
-          template="templates/institution_listing_par_pk_auteur.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="admin-institution-lister-par-etat"
-          for="*"
-          template="templates/admin_institution_listing_par_etat.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="admin-institution-gerer"
-          for="*"
-          template="templates/admin_institution_gestion.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="admin-institution-modifier"
-          for="*"
-          template="templates/admin_institution_modification_form.pt"
+          template="templates/institution/institution_listing_par_pk_auteur.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -411,7 +389,7 @@
     <browser:page
           name="institution-plate-forme-lister"
           for="*"
-          template="templates/institution_listing_par_plateforme.pt"
+          template="templates/institution/institution_listing_par_plateforme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -419,7 +397,7 @@
     <browser:page
           name="institution-gerer"
           for="*"
-          template="templates/institution_gestion.pt"
+          template="templates/institution/institution_gestion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -427,7 +405,7 @@
     <browser:page
           name="institution-decrire"
           for="*"
-          template="templates/institution_description.pt"
+          template="templates/institution/institution_description.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -435,17 +413,52 @@
     <browser:page
           name="institution-chercher"
           for="*"
-          template="templates/institution_moteur_recherche_db.pt"
+          template="templates/institution/institution_moteur_recherche_db.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-<!-- institution_type -->
+<!-- ADMIN -->
+    <browser:page
+          name="admin-institution-lister"
+          for="*"
+          template="templates/gestion_db/gestion_institution/admin_institution_listing.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="admin-institution-lister-par-etat"
+          for="*"
+          template="templates/gestion_db/gestion_institution/admin_institution_listing_par_etat.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="admin-institution-gerer"
+          for="*"
+          template="templates/gestion_db/gestion_institution/admin_institution_gestion.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="admin-institution-modifier"
+          for="*"
+          template="templates/gestion_db/gestion_institution/admin_institution_modification_form.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+
+
+<!-- INSTITUTION-TYPE - INSTITUTION-TYPE - INSTITUTION-TYPE - INSTITUTION-TYPE - INSTITUTION-TYPE - -->
     <browser:page
           name="institution-type-creer"
           for="*"
-          template="templates/institution_type_creation_form.pt"
+          template="templates/gestion_db/gestion_type_institution/institution_type_creation_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -453,7 +466,7 @@
     <browser:page
           name="institution-type-modifier"
           for="*"
-          template="templates/institution_type_modification_form.pt"
+          template="templates/gestion_db/gestion_type_institution/institution_type_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -462,17 +475,18 @@
     <browser:page
           name="institution-type-inserer"
           for="*"
-          template="templates/institution_type_insertion.pt"
+          template="templates/gestion_db/gestion_type_institution/institution_type_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-<!-- assuetude for institution-->
+
+<!-- ASSUETUDE POUR INSTITUTION - ASSUETUDE POUR INSTITUTION - ASSUETUDE POUR INSTITUTION -->
     <browser:page
           name="assuetude-for-institution-gerer"
           for="*"
-          template="templates/assuetude_for_institution_gestion.pt"
+          template="templates/assuetude/assuetude_for_institution_gestion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -480,7 +494,7 @@
     <browser:page
           name="assuetude-intervention-modifier"
           for="*"
-          template="templates/assuetude_intervention_for_institution_modification_form.pt"
+          template="templates/assuetude/assuetude_intervention_for_institution_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -488,42 +502,50 @@
     <browser:page
           name="assuetude-activite-proposee-modifier"
           for="*"
-          template="templates/assuetude_activite_proposee_for_institution_modification_form.pt"
+          template="templates/assuetude/assuetude_activite_proposee_for_institution_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
+
+
+<!-- ASSUETUDE POUR THEMATIQUE - ASSUETUDE POUR THEMATIQUE - ASSUETUDE POUR THEMATIQUE - ASSUETUDE POUR THEMATIQUE -->
     <browser:page
           name="assuetude-thematique-modifier"
           for="*"
-          template="templates/assuetude_thematique_for_institution_modification_form.pt"
+          template="templates/assuetude/assuetude_thematique_for_institution_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
+
+
+<!-- ASSUETUDE POUR RESSOURCE - ASSUETUDE POUR RESSOURCE - ASSUETUDE POUR RESSOURCE - ASSUETUDE POUR RESSOURCE -->
+<!-- USER -->
     <browser:page
           name="assuetude-organisme-ressource"
           for="*"
-          template="templates/assuetude_organisme_ressource.pt"
+          template="templates/assuetude/assuetude_organisme_ressource.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
+<!-- ADMIN -->
     <browser:page
           name="admin-assuetude-organisme-ressource"
           for="*"
-          template="templates/admin_assuetude_organisme_ressource.pt"
+          template="templates/gestion_db/gestion_assuetude/admin_assuetude_organisme_ressource.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
 
-<!-- theme -->
+<!-- THEME - THEME - THEME - THEME - THEME - THEME - THEME- THEME -->
     <browser:page
           name="theme-creer"
           for="*"
-          template="templates/theme_creation_form.pt"
+          template="templates/gestion_db/gestion_theme/theme_creation_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -531,7 +553,7 @@
     <browser:page
           name="theme-inserer"
           for="*"
-          template="templates/theme_insertion.pt"
+          template="templates/gestion_db/gestion_theme/theme_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -539,17 +561,18 @@
     <browser:page
           name="theme-modifier"
           for="*"
-          template="templates/theme_modification_form.pt"
+          template="templates/gestion_db/gestion_theme/theme_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-<!-- mot-cle -->
+
+<!-- MOTCLE - MOTCLE - MOTCLE - MOTCLE - MOTCLE - MOTCLE - MOTCLE - -->
     <browser:page
           name="mot-cle-creer"
           for="*"
-          template="templates/mot_cle_creation_form.pt"
+          template="templates/gestion_db/gestion_motcle/mot_cle_creation_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -557,7 +580,7 @@
     <browser:page
           name="mot-cle-inserer"
           for="*"
-          template="templates/mot_cle_insertion.pt"
+          template="templates/gestion_db/gestion_motcle/mot_cle_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -565,17 +588,18 @@
     <browser:page
           name="mot-cle-modifier"
           for="*"
-          template="templates/mot_cle_modification_form.pt"
+          template="templates/gestion_db/gestion_motcle/mot_cle_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-<!-- support -->
+
+<!-- SUPPORT - SUPPORT - SUPPORT - SUPPORT - SUPPORT - SUPPORT - SUPPORT- -->
     <browser:page
           name="support-creer"
           for="*"
-          template="templates/support_creation_form.pt"
+          template="templates/gestion_db/gestion_support/support_creation_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -583,7 +607,7 @@
     <browser:page
           name="support-inserer"
           for="*"
-          template="templates/support_insertion.pt"
+          template="templates/gestion_db/gestion_support/support_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -591,17 +615,18 @@
     <browser:page
           name="support-modifier"
           for="*"
-          template="templates/support_modification_form.pt"
+          template="templates/gestion_db/gestion_support/support_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-<!-- public -->
+
+<!-- PUBLIC - PUBLIC - PUBLIC - PUBLIC - PUBLIC - PUBLIC - PUBLIC- PUBLIC -->
     <browser:page
           name="public-creer"
           for="*"
-          template="templates/public_creation_form.pt"
+          template="templates/gestion_db/gestion_public/public_creation_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -609,7 +634,7 @@
     <browser:page
           name="public-inserer"
           for="*"
-          template="templates/public_insertion.pt"
+          template="templates/gestion_db/gestion_public/public_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -617,17 +642,18 @@
     <browser:page
           name="public-modifier"
           for="*"
-          template="templates/public_modification_form.pt"
+          template="templates/gestion_db/gestion_public/public_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-<!-- plateforme -->
+
+<!-- PLATEFORME - PLATEFORME - PLATEFORME - PLATEFORME - PLATEFORME - -->
     <browser:page
           name="plateforme-creer"
           for="*"
-          template="templates/plateforme_creation_form.pt"
+          template="templates/gestion_db/gestion_plateforme/plateforme_creation_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -635,7 +661,7 @@
     <browser:page
           name="plateforme-inserer"
           for="*"
-          template="templates/plateforme_insertion.pt"
+          template="templates/gestion_db/gestion_plateforme/plateforme_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -643,17 +669,18 @@
     <browser:page
           name="plateforme-modifier"
           for="*"
-          template="templates/plateforme_modification_form.pt"
+          template="templates/gestion_db/gestion_plateforme/plateforme_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-<!-- sous plateforme -->
+
+<!-- SOUS PLATEFORME - SOUS PLATEFORME - SOUS PLATEFORME - SOUS PLATEFORME - SOUS PLATEFORME - -->
     <browser:page
           name="sous-plateforme-creer"
           for="*"
-          template="templates/sous_plateforme_creation_form.pt"
+          template="templates/gestion_db/gestion_sous_plateforme/sous_plateforme_creation_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -661,7 +688,7 @@
     <browser:page
           name="sous-plateforme-inserer"
           for="*"
-          template="templates/sous_plateforme_insertion.pt"
+          template="templates/gestion_db/gestion_sous_plateforme/sous_plateforme_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -669,17 +696,18 @@
     <browser:page
           name="sous-plateforme-modifier"
           for="*"
-          template="templates/sous_plateforme_modification_form.pt"
+          template="templates/gestion_db/gestion_sous_plateforme/sous_plateforme_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-<!-- milieu de vie -->
+
+<!-- MILIEU DE VIE - MILIEU DE VIE - MILIEU DE VIE - MILIEU DE VIE - MILIEU DE VIE - -->
     <browser:page
           name="milieu-de-vie-creer"
           for="*"
-          template="templates/milieu_vie_creation_form.pt"
+          template="templates/gestion_db/gestion_milieu_vie/milieu_vie_creation_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -687,7 +715,7 @@
     <browser:page
           name="milieu-de-vie-inserer"
           for="*"
-          template="templates/milieu_vie_insertion.pt"
+          template="templates/gestion_db/gestion_milieu_vie/milieu_vie_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -695,17 +723,20 @@
     <browser:page
           name="milieu-de-vie-modifier"
           for="*"
-          template="templates/milieu_vie_modification_form.pt"
+          template="templates/gestion_db/gestion_milieu_vie/milieu_vie_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-<!-- auteur -->
+
+<!-- AUTEUR - AUTEUR - AUTEUR - AUTEUR - AUTEUR - AUTEUR - AUTEUR - -->
+<!-- USER AUTEUR -->
+<!-- ADMIN AUTEUR -->
     <browser:page
           name="admin-auteur-creer"
           for="*"
-          template="templates/admin_auteur_experience_creation_form.pt"
+          template="templates/gestion_db/gestion_auteur/admin_auteur_experience_creation_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -713,7 +744,7 @@
     <browser:page
           name="admin-auteur-inserer"
           for="*"
-          template="templates/admin_auteur_experience_insertion.pt"
+          template="templates/gestion_db/gestion_auteur/admin_auteur_experience_insertion.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -721,7 +752,7 @@
     <browser:page
           name="admin-auteur-modifier"
           for="*"
-          template="templates/admin_auteur_experience_modification_form.pt"
+          template="templates/gestion_db/gestion_auteur/admin_auteur_experience_modification_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -729,7 +760,7 @@
     <browser:page
           name="admin-auteur-supprimer"
           for="*"
-          template="templates/admin_auteur_experience_suppression_form.pt"
+          template="templates/gestion_db/gestion_auteur/admin_auteur_experience_suppression_form.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -737,7 +768,7 @@
     <browser:page
           name="admin-auteur-chercher"
           for="*"
-          template="templates/admin_auteur_moteur_recherche_db.pt"
+          template="templates/gestion_db/gestion_auteur/admin_auteur_moteur_recherche_db.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
