@@ -413,9 +413,17 @@
 
 <!-- ADMIN -->
     <browser:page
+          name="admin-institution-gerer"
+          for="*"
+          template="templates/gestion_db/gestion_institution/admin_gerer_institution.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
           name="admin-institution-lister"
           for="*"
-          template="templates/gestion_db/gestion_institution/admin_institution_listing.pt"
+          template="templates/gestion_db/gestion_institution/admin_lister_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -423,15 +431,7 @@
     <browser:page
           name="admin-institution-lister-par-etat"
           for="*"
-          template="templates/gestion_db/gestion_institution/admin_institution_listing_par_etat.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="admin-institution-gerer"
-          for="*"
-          template="templates/gestion_db/gestion_institution/admin_institution_gestion.pt"
+          template="templates/gestion_db/gestion_institution/admin_lister_institution_par_etat.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -439,7 +439,7 @@
     <browser:page
           name="admin-institution-modifier"
           for="*"
-          template="templates/gestion_db/gestion_institution/admin_institution_modification_form.pt"
+          template="templates/gestion_db/gestion_institution/admin_modifier_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -564,7 +564,7 @@
     <browser:page
           name="mot-cle-creer"
           for="*"
-          template="templates/gestion_db/gestion_motcle/mot_cle_creation_form.pt"
+          template="templates/gestion_db/gestion_motcle/admin_creer_mot_cle.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -572,7 +572,7 @@
     <browser:page
           name="mot-cle-inserer"
           for="*"
-          template="templates/gestion_db/gestion_motcle/mot_cle_insertion.pt"
+          template="templates/gestion_db/gestion_motcle/admin_inserer_mot_cle.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -580,7 +580,7 @@
     <browser:page
           name="mot-cle-modifier"
           for="*"
-          template="templates/gestion_db/gestion_motcle/mot_cle_modification_form.pt"
+          template="templates/gestion_db/gestion_motcle/admin_modifier_mot_cle.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -699,7 +699,7 @@
     <browser:page
           name="milieu-de-vie-creer"
           for="*"
-          template="templates/gestion_db/gestion_milieu_vie/milieu_vie_creation_form.pt"
+          template="templates/gestion_db/gestion_milieu_vie/admin_creer_milieu_vie.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -707,7 +707,7 @@
     <browser:page
           name="milieu-de-vie-inserer"
           for="*"
-          template="templates/gestion_db/gestion_milieu_vie/milieu_vie_insertion.pt"
+          template="templates/gestion_db/gestion_milieu_vie/admin_inserer_milieu_vie.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -715,7 +715,7 @@
     <browser:page
           name="milieu-de-vie-modifier"
           for="*"
-          template="templates/gestion_db/gestion_milieu_vie/milieu_vie_modification_form.pt"
+          template="templates/gestion_db/gestion_milieu_vie/admin_modifier_milieu_vie.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
