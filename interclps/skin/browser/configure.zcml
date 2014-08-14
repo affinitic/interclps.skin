@@ -143,7 +143,7 @@
     <browser:page
           name="admin-experience-creer"
           for="*"
-          template="templates/gestion_db/gestion_experience/admin_experience_creation_form.pt"
+          template="templates/gestion_db/gestion_experience/admin_creer_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -151,7 +151,7 @@
     <browser:page
           name="admin-experience-recherche"
           for="*"
-          template="templates/gestion_db/gestion_experience/admin_experience_recherche_db.pt"
+          template="templates/gestion_db/gestion_experience/admin_chercher_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -159,7 +159,7 @@
     <browser:page
           name="admin-experience-lister"
           for="*"
-          template="templates/gestion_db/gestion_experience/admin_experience_listing.pt"
+          template="templates/gestion_db/gestion_experience/admin_lister_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -167,7 +167,7 @@
     <browser:page
           name="admin-experience-lister-par-etat"
           for="*"
-          template="templates/gestion_db/gestion_experience/admin_experience_listing_par_etat.pt"
+          template="templates/gestion_db/gestion_experience/admin_lister_experience_par_etat.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -175,7 +175,7 @@
     <browser:page
           name="admin-experience-gerer"
           for="*"
-          template="templates/gestion_db/gestion_experience/admin_experience_gestion.pt"
+          template="templates/gestion_db/gestion_experience/admin_gerer_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -183,7 +183,7 @@
     <browser:page
           name="admin-experience-modifier"
           for="*"
-          template="templates/gestion_db/gestion_experience/admin_experience_modification_form.pt"
+          template="templates/gestion_db/gestion_experience/admin_modifier_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -191,7 +191,7 @@
     <browser:page
           name="admin-experience-inserer"
           for="*"
-          template="templates/gestion_db/gestion_experience/admin_experience_insertion.pt"
+          template="templates/gestion_db/gestion_experience/admin_inserer_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
