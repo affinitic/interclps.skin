@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:define="plateForme request/plateForme">
+    <h1>Liste des experiences</h1>
+    <div tal:define="experiences python:view.getExperienceByPlateForme(plateForme);">
+        <tal:boucle tal:repeat="experience experiences">
+            <tal:block tal:define="experiencePk experience/experience_pk">
+                <fieldset>
+                    <legend>
+                        <a href=""
+                               tal:content="experience/experience_titre"
+                               tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}"
+                               class="titre_formation">titre de l'expérience</a>
+                    </legend>
+                    <div id="experience-etat"
+                         tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
+                         tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                        <span tal:content="experienceEtat" />
+                        &Xi;
+                        <span tal:content="experience/experience_pk" />
+                    </div>
+                    <span tal:replace="structure experience/experience_resume"
+                          class="rep-qest" />
+                    <ul>
+                        <li>
+                            <span class="grasbrun">Objectif:</span>
+                            <span tal:replace="structure experience/experience_objectif"
+                                  class="rep-qest" />
+                        </li>
+                        <li>
+                            <span class="grasbrun">Public visé:</span>
+                            <span tal:content="experience/experience_public_vise"
+                                  class="rep-qest" />
+                            <div tal:define="allPublics python: view.getAllActivePublic();
+                                             publicForExperience python: view.getPublicByExperiencePk(experience.experience_pk)"
+                                 class="discreet">
+                                <span tal:condition="python:len(publicForExperience) > 0">
+                                    &nbsp;&nbsp;&nbsp;(
+                                    <tal:boucle tal:repeat="public allPublics">
+                                        <span tal:condition="python:public.public_pk in publicForExperience">
+                                            <span tal:content="public/public_nom">public</span>&nbsp;
+                                        </span>
+                                    </tal:boucle>
+                                    )
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div id="footer-listing">
+                        <table width="100%">
+                            <tr>
+                                <td align="left" class="discreet" valign="bottom">
+                                    par 
+                                    <span tal:content="experience/auteurFromExperience/auteur_prenom | nothing" />
+                                    <span tal:content="experience/auteurFromExperience/auteur_nom | nothing" />
+                                    <span tal:content="experience/experience_auteur_login" />
+                                    <br />
+                                    Dernière modification :
+                                    <span tal:content="experience/experience_modification_date" />
+                                </td>
+                                <td colspan="2" align="right">
+                                    <a href=""
+                                       tal:attributes="href
+                                       string:experience-decrire?experiencePk=${experiencePk}">
+                                       <img src="btn_suivant.png" /></a>
+                                </td>
+                            </tr>
+                        </table>
+                    <div>
+                </fieldset>
+            </tal:block>
+        </tal:boucle>
+    </div><!--define-->
+</div><!--metal-->
+</body>
+</html>
+

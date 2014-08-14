@@ -1,0 +1,115 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:js fill-slot="javascript_head_slot">
+      <script src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js"
+              type="text/javascript"></script>
+        <script src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js"
+                type="text/javascript"></script>
+        <script src="validate_forms.js"
+                type="text/javascript"></script>
+        <script src="++resource++interclps.js"
+                type="text/javascript"></script>
+    </metal:js>
+    <metal:css fill-slot="style_slot">
+        <link href="++resource++collective.javascript.jqueryui/css/ui-lightness/jquery-ui.css"
+              type="text/css"
+              rel="stylesheet" />
+    </metal:css>
+
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main">
+    <div id="zone-titre-moteur-recherche">
+        <h1>Rechercher une ressource</h1>
+        <div class="search-text-intro">Plusieurs types de recherche sont possibles.</div>
+    </div>
+
+    <div id="zone-moteur-recherche">
+        <fieldset class="search-zone-nom">
+            <legend class="search-legend"> A partir du nom d'une ressource</legend>
+            <div id="info-champs">
+            </div>
+            <form action="admin-ressource-modifier"
+                  method="post">
+                <div class="div_question">
+                    <input type="text"
+                           id="ressource_titre"
+                           name="ressourcenom"
+                           value=""
+                           size="50">
+                </div>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
+            </form>
+        </fieldset>
+
+        <fieldset  class="search-zone-nom">
+            <legend class="search-legend-titre"> A partir de la PK de la ressource</legend>
+            <form action="admin-auteur-modifier"
+                  method="post">
+                <div class="div_question">
+                    Pk de l'auteur<br />
+                    <input type="text"
+                           id="ressourcePk"
+                           name="ressourcePk"
+                           value=""
+                           size="10">
+                </div>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
+            </form>
+        </fieldset>
+
+        <fieldset  class="search-zone-nom">
+            <legend class="search-legend-titre"> Toutes les ressources de la DB </legend>
+            <form action="admin-ressource-modifier"
+                  method="post">
+                Ci-dessous, la liste des différentes ressources encodées dans la base.
+                <select name="ressourcePk">
+                    <option> .. </option>
+                    <tal:block tal:define="ressources python:view.getRessourceByClps(1)">
+                        <optgroup label="CLPS-BW">
+                            <tal:boucle tal:repeat="ressource ressources">
+                                <option value=""
+                                        tal:attributes="value ressource/ressourceOfClpsProprio/ressource_pk">
+                                    <span tal:content="ressource/ressourceOfClpsProprio/ressource_titre">titre ressource</span>
+                                </option>
+                            </tal:boucle>
+                        </optgroup>
+                    </tal:block>
+                    <option></option>
+                    <tal:block tal:define="ressources python:view.getRessourceByClps(2)">
+                        <optgroup label="CLPS-LUX">
+                            <tal:boucle tal:repeat="ressource ressources">
+                                <option value=""
+                                        tal:attributes="value ressource/ressourceOfClpsProprio/ressource_pk">
+                                    <span tal:content="ressource/ressourceOfClpsProprio/ressource_titre">titre ressource</span>
+                                </option>
+                            </tal:boucle>
+                        </optgroup>
+                    </tal:block>
+                </select>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
+            </form>
+        </fieldset><!--search-zone-nom-->
+    </div><!--id moteur-recherche-->
+</div><!-- div metal-->
+</body>
+</html>

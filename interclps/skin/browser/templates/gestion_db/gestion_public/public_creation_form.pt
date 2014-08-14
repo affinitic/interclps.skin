@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main">
+<form action="public-inserer" method="post">
+    <br />
+    <h1>Encoder un public</h1>
+    <fieldset tal:define="publics python: view.getAllPublic()">
+        <table width="90%"
+               align="center"
+               class="listing">
+                <thead>
+                <tr>
+                    <th> Public </th>
+                    <th> Etat </th>
+                    <th class="nosort"> Modifier </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tal:boucle tal:repeat="public publics">
+                    <span tal:define="odd repeat/public/odd">
+                        <tr tal:attributes="class python:odd and 'odd' or 'even'">
+                            <td>
+                                <span tal:content="public/public_nom">public</span>
+                            </td>
+                            <td align="center">
+                                <span tal:condition="python: public.public_actif">
+                                    <span class="vert-actif">Actif</span>
+                                </span>
+                                <span tal:condition="python: public.public_actif==False">
+                                    <span class="rouge-non-actif">Non-actif</span>
+                                </span>
+                            </td>
+                            <td align="center">
+                                <div class="btn-modifier">
+                                    <a href=""
+                                       tal:attributes="href string: public-modifier?publicPk=${public/public_pk}">&nbsp;</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </span>
+                </tal:boucle>
+            </tbody>
+        </table>
+    </fieldset>
+    <fieldset>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Public
+            <br />
+            <input type="text"
+                   name="public_nom"
+                   value=""
+                   size="50" />
+        </div>
+        <div class="div_question">  
+            <img src="list_flch_rouge.png" /> Etat
+            <br />
+            <select name="public_actif"
+                    id="public_actif">
+                <option value="True" selected="selected">Activer</option>
+                <option value="False">Désactiver</option>
+            </select>
+        </div>
+        <div class="div_question">
+            <input type="hidden"
+                   name="operation"
+                   value="insert" />
+            <input type="submit"
+                   value="Enregister le public" />
+        </div>
+    </fieldset>
+</form>
+</div><!-- div metal-->
+</body>
+</html>
+

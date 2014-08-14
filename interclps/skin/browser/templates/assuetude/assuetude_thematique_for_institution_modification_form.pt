@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:define="assuetudePk request/assuetudePk;
+                 assuetudeThematique python:view.getInstitutionAssuetudeThematiqueByPk(assuetudePk)">
+    <br />
+    <h1>Gestion des assuétudes</h1>
+    <fieldset>
+        <legend class="legende">Modifier une assuétude de type thématique</legend>
+        <form action="assuetude-thematique-modifier/manageAssuetudeThematiqueForInstitution" method="post">
+            <div class="input-fields">
+                <img src="list_flch_rouge.png" /> Intervention
+                <br />
+                <input type="text"
+                       name="assuetude_thematique_nom"
+                       value=""
+                       size="50"
+                       class="grasorange"
+                       tal:attributes="value assuetudeThematique/assuetude_thematique_nom" />
+            </div>
+            <div class="input-fields">
+                <img src="list_flch_rouge.png" /> Etat
+                <br />
+                <select name="assuetude_thematique_actif">
+                    <option value="True"
+                            tal:attributes="selected python:assuetudeThematique.assuetude_thematique_actif and 'selected' or None;">Activer</option>
+                    <option value="False"
+                            tal:attributes="selected python:not assuetudeThematique.assuetude_thematique_actif and 'selected' or None;">Désactiver</option>
+                </select>
+            </div>
+            <div class="input-fields">
+                <img src="list_flch_rouge.png" /> Numéro d'ordre
+                <br />
+                <input type="text"
+                       name="assuetude_thematique_num_ordre"
+                       value=""
+                       size="50"
+                       class="grasorange"
+                       tal:attributes="value assuetudeThematique/assuetude_thematique_num_ordre" />
+            </div>
+            <hr />
+            <div class="input-fields">
+                <input type="hidden"
+                       name="operation"
+                       value="update" />
+                <input type="hidden"
+                       name="assuetude_thematique_pk"
+                       value=""
+                       tal:attributes="value assuetudeThematique/assuetude_thematique_pk" />
+                <input type="submit"
+                       value="Modifier la thématique" />
+            </div>
+        </form>        
+    </fieldset>
+</div><!-- div metal-->
+</body>
+</html>
+

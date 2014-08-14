@@ -1,0 +1,121 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+    <br />
+    
+    <h1>:: Gestion des auteurs d'expériences ::</h1>
+    <fieldset>
+        <legend class="legende"><img src="alerte.png" /> <span class="grasrouge">Supprimer un auteur</span></legend>
+        
+        <tal:requete tal:define="auteurPk request/auteurPk;
+                                 experience python:view.isAuteurHadExperience(auteurPk);
+                                 institution python:view.isAuteurHadInstitution(auteurPk);
+                                 Auteur python:view.getAuteurByPk(auteurPk);">
+            <tal:block tal:condition="python: experience==False and institution==False">
+                <tal:boucle tal:repeat="auteur Auteur">
+                    <form action="deleteAuteurByPk"
+                          method="post">                    
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Nom de l'auteur</span>
+                            <br />
+                            <span tal:content="auteur/auteur_nom" 
+                                   class="grasorange" />
+                        </div>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Prénom de l'auteur</span><br />
+                            <span tal:content="auteur/auteur_prenom"
+                                  class="grasorange" />
+                        </div>
+
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Identifiant</span>
+                            <br />
+                            <span tal:content="auteur/auteur_login"
+                                  class="grasorange" />
+                        </div>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Pass</span>
+                            <br />
+                            <span tal:content="auteur/auteur_pass"
+                                  class="grasorange" />
+                        </div>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Email</span>
+                            <br />
+                            <span tal:content="auteur/auteur_email"
+                                  class="grasorange" />
+                        </div>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Institution</span>
+                            <br />
+                            <span tal:content="auteur/auteur_institution"
+                                  class="grasorange" />
+                        </div>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">ID FileMaker</span>
+                            <br />
+                            <span tal:content="auteur/auteur_id_filemaker"
+                                  class="grasorange" />
+                        </div>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Etat</span>
+                            <br />
+                            <span tal:condition="python: auteur.auteur_actif">
+                                <span class="grasorange">Actif</span>
+                            </span>
+                            <span tal:condition="python: auteur.auteur_actif==False">
+                                <span class="grasorange">Non-actif</span>
+                            </span>
+                        </div>
+                        <div class="div_question">
+                            <img src="list_flch_rouge.png" />
+                            <span class="clps-etiquette">Rôle</span>
+                            <br />
+                            <span tal:condition="python: auteur.auteur_for_experience==True">
+                                <span class="grasorange">Auteur d'une expérience.</span>
+                            </span>
+                            <br />
+                            <span tal:condition="python: auteur.auteur_for_institution==True">
+                                <span class="grasorange">Auteur d'une institution.</span>
+                            </span>
+                        </div>
+
+                        <div class="div_form_input">
+                            <input type="hidden"
+                                   name="operation"
+                                   value="update" />
+                            <input type="hidden"
+                                   name="auteurPk"
+                                   value=""
+                                   tal:attributes="value auteurPk">
+                            <input type="submit"
+                                   value="Supprimer" />
+                        </div>
+                    </form>
+                </tal:boucle>
+            </tal:block>
+        </tal:requete> 
+    </fieldset>
+</div><!-- div metal-->
+</body>
+</html>
+

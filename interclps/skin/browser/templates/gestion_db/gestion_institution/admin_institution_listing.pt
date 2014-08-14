@@ -1,0 +1,183 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+   <h1>:: Liste des institutions ::</h1>
+   <a href="admin-institution-lister#clpsbw">Les institutions du CLPS-Bw</a>
+   <br />
+   <a href="admin-institution-lister#clpslux">Les institutions du CLPS-Lux</a>
+   <fieldset>
+   <a name="clpsbw"></a>
+   <legend>CLPS - BW</legend>
+   <div tal:define="institutions python:view.getAllInstitutionByClpsProprio(1);">
+       <tal:boucle tal:repeat="institution institutions">
+           <tal:block tal:define="institutionPk institution/institution_pk">
+               <fieldset>
+                   <legend>
+                        <a href=""
+                           tal:content="institution/institution_nom"
+                           tal:attributes="href string:institution-decrire?institutionPk=${institutionPk}"
+                           class="titre_formation">nom de l'institution</a>
+                   </legend>
+                   <ul>
+                        <li>
+                           <span class="brun">Adresse :</span><br />
+                           <span tal:content="institution/institution_adresse"
+                                 class="rubrique-db" />
+                        </li>
+                        <li>
+                           <span class="brun">Localité :</span><br />
+                           <span class="rubrique-db">
+                               <span tal:content="institution/commune/com_localite_cp" />
+                               <span tal:content="institution/commune/com_localite_nom" />
+                           </span>
+                        </li>
+                        <li>
+                           <span class="brun">Contact :</span><br />
+                           <span tal:content="institution/institution_nom_contact"
+                                 class="rubrique-db" />
+                        </li>
+                   </ul>
+
+                   <div id="footer-listing">
+                      <table width="100%">
+                          <tr>
+                              <td align="left" class="discreet" valign="bottom">
+                                  <div>
+                                      par
+                                      <span tal:content="institution/auteur/auteur_prenom | nothing" />
+                                      <span tal:content="institution/auteur/auteur_nom | nothing" /> -
+                                      <span tal:content="institution/auteur/auteur_login | nothing" />
+                                      <br />
+                                      Dernière modification :
+                                      <span tal:content="institution/institution_modification_date" />
+                                  </div>
+                                  <div id="experience-etat"
+                                       tal:define="institutionEtat python:view.getInstitutionEtat(institutionPk)"
+                                       tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                                      <span tal:condition="python: institutionEtat=='Publié'">
+                                          <span tal:content="institutionEtat" class="vert-actif" />
+                                      </span>
+                                      <span tal:condition="python: institutionEtat=='Privé'">
+                                          <span tal:content="institutionEtat" class="rouge-non-actif" />
+                                      </span>
+                                      &Xi;
+                                      PK : <span tal:content="institutionPk" />
+                                  </div>
+                              </td>
+                              <td align="right">
+                                  <div class="btn-modifier"
+                                       tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                                       <a href=""
+                                          tal:attributes="href string: admin-institution-modifier?institutionPk=${institutionPk}"
+                                          title="Modifier institution"
+                                          alt="Modifier institution">&nbsp;</a>
+                                  </div>
+                              </td>
+                              <td align="right">
+                                  <a href=""
+                                     tal:attributes="href string:institution-decrire?institutionPk=${institutionPk}"
+                                     title="Description institution"
+                                     alt="Description institution">
+                                      <img src="btn_suivant.png" /></a>
+                              </td>
+                          </tr>
+                      </table>
+                   <div>
+               </fieldset>
+           </tal:block>
+       </tal:boucle>
+   </div><!--define-->
+   </fieldset>
+   
+   <fieldset> 
+   <a name="clpslux"></a>
+   <legend>CLPS - LUX</legend>
+   <div tal:define="institutions python:view.getAllInstitutionByClpsProprio(2);">
+       <tal:boucle tal:repeat="institution institutions">
+           <tal:block tal:define="institutionPk institution/institution_pk">
+               <fieldset>
+                   <legend>
+                        <a href=""
+                           tal:content="institution/institution_nom"
+                           tal:attributes="href string:institution-decrire?institutionPk=${institutionPk}"
+                           class="titre_formation">nom de l'institution</a>
+                   </legend>
+                   <ul>
+                        <li>
+                           <span class="brun">Adresse :</span><br />
+                           <span tal:content="institution/institution_adresse"
+                                 class="rubrique-db" />
+                        </li>
+                        <li>
+                           <span class="brun">Localité :</span><br />
+                           <span class="rubrique-db">
+                               <span tal:content="institution/commune/com_localite_cp" />
+                               <span tal:content="institution/commune/com_localite_nom" />
+                           </span>
+                        </li>
+                        <li>
+                           <span class="brun">Contact :</span><br />
+                           <span tal:content="institution/institution_nom_contact"
+                                 class="rubrique-db" />
+                        </li>
+                   </ul>
+
+                   <div id="footer-listing">
+                      <table width="100%">
+                          <tr>
+                              <td align="left" class="discreet" valign="bottom">
+                                  <div>
+                                      par
+                                      <span tal:content="institution/auteur/auteur_prenom | nothing" />
+                                      <span tal:content="institution/auteur/auteur_nom | nothing" /> -
+                                      <span tal:content="institution/auteur/auteur_login | nothing" />
+                                      <br />
+                                      Dernière modification :
+                                      <span tal:content="institution/institution_modification_date" />
+                                  </div>
+                                  <div id="experience-etat"
+                                       tal:define="institutionEtat python:view.getInstitutionEtat(institutionPk)"
+                                       tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                                      <span tal:content="institutionEtat" />
+                                      &Xi;
+                                      PK : <span tal:content="institutionPk" />
+                                  </div>
+                              </td>
+                              <td align="right">
+                                  <div class="btn-modifier"
+                                       tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                                       <a href=""
+                                          tal:attributes="href string: admin-institution-modifier?institutionPk=${institutionPk}"
+                                          title="Modifier institution"
+                                          alt="Modifier institution">&nbsp;</a>
+                                  </div>
+                              </td>
+                              <td align="right">
+                                  <a href=""
+                                     tal:attributes="href string:institution-decrire?institutionPk=${institutionPk}"
+                                     title="Description institution"
+                                     alt="Description institution">
+                                      <img src="btn_suivant.png" /></a>
+                              </td>
+                          </tr>
+                      </table>
+                   <div>
+               </fieldset>
+           </tal:block>
+       </tal:boucle>
+   </div><!--define-->
+   </fieldset>
+</div><!--metal-->
+</body>
+</html>
+

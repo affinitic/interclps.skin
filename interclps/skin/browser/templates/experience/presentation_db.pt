@@ -1,0 +1,139 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:js fill-slot="javascript_head_slot">
+    <script src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js" type="text/javascript"></script>
+        <script src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="++resource++interclps.js" type="text/javascript"></script>
+    </metal:js>
+    <metal:css fill-slot="style_slot">
+        <link href="++resource++collective.javascript.jqueryui/css/ui-lightness/jquery-ui.css" type="text/css" rel="stylesheet" />
+    </metal:css>
+
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main">
+    <div id="zone-titre-presentation-db">
+        <h1>Présentation de la base de données</h1>
+        
+        <div id="moteur-presentation-db">
+            <a href="experience-recherche">Effectuer<br /> une recherche</a>
+        </div>
+        <div id="intro-presentation-db">
+            <ul>
+                <li>
+                    Vous souhaitez mettre en place un projet ou une activité en
+                    promotion de la santé... mais comment d’autres s’y sont-ils pris ?
+                </li>
+                <li>
+                    Vous venez de mener une expérience que vous voulez partager
+                    avec d’autres
+                </li>
+                <li>
+                    Vous souhaitez donner de la visibilité à un projet que
+                    vous avez mené
+               </li>
+               <li>
+                   Vous voulez, avant de monter votre projet, avoir une idée
+                   de ce que d’autres acteurs, ailleurs ou tout près de chez
+                   vous, ont pu faire sur une même thématique ou avec un public
+                   similaire, quels outils ils ont utilisé, à qui ils ont fait
+                   appel...
+               </li>
+            </ul>
+            <br />
+            Cette base de données contient des expériences, des projets,
+            activités, qui ont été mis en place par différents acteurs,
+            sur différentes thématiques.
+        </div>
+        <div id="texte-presentation-db">
+            <h1>Quelles expériences ?</h1>
+            <p>
+            Des expériences :
+            <ul>
+                <li>
+                    menées par des acteurs de terrain (enseignants,
+                    animateurs,...)
+                </li>
+                <li>
+                    sur une grande diversité de thématiques (alimentation, santé affective
+                    et sexuelle, santé et environnement, assuétudes…)
+                </li>
+                <li>
+                    à destination de divers publics (milieu scolaire, du quartier, de la
+                    crèche, la famille...)
+                </li>
+                <li>
+                    dans le cadre d’animations ponctuelles ou récurrentes, de deux heures
+                    ou de programme sur trois ans...
+                </li>
+            </ul>
+            <h1>Pourquoi cette base de données ?</h1>
+            <p>
+            Pour permettre à l’expérience des uns de servir les projets des autres…
+            Elle permet de garder une trace de ce qui a été fait et des
+            enseignements qui en ont été tirés, et d’en faire profiter à
+            d’autres personnes souhaitant mettre en place des actions, projets …
+            </p>
+
+            <h1>Pour qui ?</h1>
+            <p>
+            Pour tout professionnel qui souhaite mener une action ou un projet,
+            et souhaite se nourrir de ce qui a déjà été fait par d’autres.
+            </p>
+            <p>
+            Pour tout professionnel qui a mené une action ou un projet,
+            et souhaite que son expérience profite à d’autres.
+            </p>
+            <h1>Comment ?</h1>
+            <p>
+            Chaque fiche présente le déroulement de l’action et les enseignements
+            que l’auteur en a tirés.
+            </p>
+            <p>
+            En présentant chaque action de façon concrète et synthétique, dans
+            une fiche comportant les rubriques suivantes : intitulé de l'action,
+            localisation, thématique, description de l'action, public concerné,
+            opérateur principal, partenaires, financement, suivi, contact.
+            </p>
+
+            <p>
+            En proposant une interrogation de la base selon 3 critères :
+            <ul>
+                <li>
+                    la localisation (région, département, commune)
+                </li>
+                <li>
+                    l'intitulé de l'action
+                </li>
+                <li>
+                    la thématique (...)
+                </li>
+            </ul>
+            Cette base est appelée à évoluer et à s'enrichir en permanence.
+            <p>
+            C’est par ici…
+            Pour consulter la base de données <a href="experience-recherche">cliquer ici</a> 
+            (ou : <a href="experience-recherche">moteur de recherche</a>)
+            </p>
+            <p>
+            Pour contribuer à enrichir cette base de données, vous pouvez
+            remplir ce <a href="experience-inscription-auteur">formulaire</a>. Le CLPS vous contactera. Si le passage à
+            l’écrit ne vous enthousiasme pas, le CLPS peut vous aider...
+            <a href="contact/coordonnees-et-acces">contactez-nous</a> !
+            </p>
+            <p>
+            Vous avez déjà partagé une expérience et souhaitez la modifier, 
+            <a href="login_form">entrez vos login et mot de passe</a>.
+            </p>
+        </div>
+    </div><!--id moteur-recherche-->
+</div><!-- div metal-->
+</body>
+</html>

@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:define="motclePk request/motclePk;
+                 motcles python:view.getMotCleByPk(motclePk)">
+<form action="mot-cle-inserer" method="post">
+    <br />
+    <h1>Gestion des mots-clé</h1>
+    <fieldset>
+        <legend class="legende">Modifier un mot-clé</legend>
+        <tal:boucle tal:repeat="motcle motcles">
+        <form action="motcle-inserer" method="post">
+            <div class="div_question">
+                <img src="list_flch_rouge.png" /> Mot-clé
+                <br />
+                <input type="text"
+                       name="motcle_mot"
+                       value=""
+                       size="50"
+                       class="grasorange"
+                       tal:attributes="value motcle/motcle_mot"/>
+            </div>
+            <div class="div_question">
+                <img src="list_flch_rouge.png" /> Etat
+                <br />
+                <select name="motcle_actif">
+                    <span tal:condition="python: motcle.motcle_actif==True">
+                        <option value="True" selected="selected">Activer</option>
+                        <option value="False">Désactiver</option>
+                    </span>
+                    <span tal:condition="python: motcle.motcle_actif==False">
+                        <option value="True">Activer</option>
+                        <option value="False" selected="selected">Désactiver</option>
+                    </span>
+                </select>
+            </div>
+            <div class="div_form_input">
+                <input type="hidden"
+                       name="motcle_pk"
+                       value=""
+                       tal:attributes="value motcle/motcle_pk"/>
+                <input type="hidden"
+                       name="operation"
+                       value="update" />
+                <input type="submit"
+                       value="Modifier le mot clé" />
+            </div>
+        </form>
+        </tal:boucle>
+    </fieldset>
+</form>
+</div><!-- div metal-->
+</body>
+</html>
+

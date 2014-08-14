@@ -1,0 +1,27 @@
+<div id="header-interclps"
+     tal:define="view context/bannerView;">
+
+  <span tal:define="banner view/getBanner | nothing">
+
+      <img tal:condition="banner" src="" tal:replace="structure banner" />
+
+      <object tal:condition="not: banner"
+              type="application/x-shockwave-flash"
+              data="animation.swf"
+              style="width:1024px;height:150px;">
+        <param name="base"
+               value="animation.swf" />
+        <param name="movie"
+               value="animation.swf" />
+        <param name="quality"
+               value="high">
+        <param name="wmode"
+               value="transparent" />
+        <param name="menu"
+               value="true" />
+      </object>
+
+  </span>
+
+</div>
+<!--<div class="visualClear"></div>-->

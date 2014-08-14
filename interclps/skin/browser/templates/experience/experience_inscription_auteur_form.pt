@@ -1,0 +1,209 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_form.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:define="allClps python:view.getAllClps()">
+   <h1>Vous souhaitez partager votre expérience, quelle bonne idée !</h1>
+   <fieldset>
+       <legend class="legende">Envoyer une demande d'inscription</legend>
+       <p>
+       Si vous désirez un soutien à la rédaction ou à l’encodage, si vous avez 
+       une question ou besoin d’une précision, n’hésitez pas à nous contacter… 
+       Il serait dommage que votre expérience n’apparaisse pas dans  Projets 
+       Partagés par manque de temps ou parce que le passage à l’écrit ne vous
+       enthousiasme pas...
+       </p>
+       <p>
+       Si vous vous demandez si votre projet, votre expérience a bien sa place
+       dans cette base de données, nous vous proposons de lire 
+       <a href="une-experience-c-est-quoi">ce document</a> qui
+       définit les balises des projets à partager...
+       </p>
+       <p>
+       Par ailleurs, afin de garantir une certaine cohérence entre les
+       présentations de projets et une adéquation avec ces balises, nous avons
+       mis en œuvre une procédure de relecture/modération. Lorsque vous aurez
+       encodé votre expérience, elle sera relue par l'équipe "Projets partagés". Les éventuelles
+       suggestions de modifications vous seront bien entendu soumises avant la
+       mise en ligne.
+       </p>
+       <p>
+       Transmettez-nous ci-dessous vos coordonnées et les login et mot de passe
+       que vous souhaitez utiliser dans la base de données, nous vous
+       recontacterons rapidement.
+       </p>
+       <hr />
+       <form action="checkCaptchaDemandeInscription"
+             method="post"><!--onsubmit="return validate(this);"-->
+        <div class="div_question">
+            <span class="etiquette">Avec quel CLPS souhaitez-vous travailler ?</span>
+            <br />
+            <select name="clpsDestinationPk">
+                <option></option>
+                <tal:boucle tal:repeat="clps allClps">
+                    <option value=""
+                            tal:attributes="value clps/clps_pk">
+                        <span tal:content="clps/clps_nom">nom clps</span>
+                    </option>
+                </tal:boucle>
+            </select>
+        </div>
+        <div class="div_question">
+            <span class="etiquette">Nom de votre institution</span>
+            <br />
+            <input type="text"
+                    name="auteur_institution"
+                    value=""
+                    tal:attributes="value request/institution | nothing"
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <span class="etiquette">Nom de la personne de contact</span>
+            <br />
+            <input type="text"
+                    name="auteur_nom"
+                    value=""
+                    tal:attributes="value request/nom_contact | nothing"
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <span class="etiquette">Prénom de la personne de contact</span>
+            <br />
+            <input type="text"
+                    name="auteur_prenom"
+                    value=""
+                    tal:attributes="value request/prenom_contact | nothing"
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <span class="etiquette">Adresse</span>
+            <br />
+            <input type="text"
+                    name="auteur_adresse"
+                    value=""
+                    tal:attributes="value request/adresse | nothing"
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <span class="etiquette">Code Postal</span>
+            <br />
+            <input type="text"
+                    name="auteur_cp"
+                    value=""
+                    tal:attributes="value request/cp | nothing"
+                    size="5" />
+        </div>
+        <div class="div_question">
+            <span class="etiquette">Localité</span>
+            <br />
+            <input type="text"
+                    name="auteur_localite"
+                    value=""
+                    tal:attributes="value request/localite | nothing"
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <span class="etiquette">Téléphone</span>
+            <br />
+            <input type="text"
+                    name="auteur_telephone"
+                    value=""
+                    tal:attributes="value request/telephone | nothing"
+                    size="12" />
+        </div>
+        <div class="div_question">
+            <span class="etiquette">Email</span>
+            <span class="fieldRequired" title="Requis" />
+            <br />
+            <input type="text"
+                    name="auteur_email"
+                    value=""
+                    tal:attributes="value request/email | nothing"
+                    size="50"
+                    class="email required" />
+        </div>
+        <div class="div_question">
+            <span class="etiquette">Identifiant (Login)</span>
+            <span class="fieldRequired" title="Requis" />
+            <br />
+            <span class="discreet">
+                Il s'agit de l'identifiant que vous
+                utiliserez pour vous connecter dans la partie privée de notre portail
+                afin d'encoder votre récit d'expérience
+            </span>
+            <br />
+            <input type="text"
+                        name="auteur_login"
+                        value=""
+                        tal:attributes="value request/login | nothing"
+                        size="50"
+                        class="string required" />
+        </div>
+        <div class="div_question">
+            <span class="etiquette">Mot de passe</span>
+            <span class="fieldRequired" title="Requis" />
+            <br />
+            <span class="discreet">
+                Il s'agit du mot de passe que vous
+                utiliserez pour vous connecter dans la partie privée de notre portail
+                afin d'encoder votre récit d'expérience
+                <br />
+                Le mot de passe doit comporter 5 caratères minimum.
+                Attention de bien faire la différence entre la majuscule et la miniscule.
+            </span>
+            <br />
+            <input type="text"
+                        name="auteur_pass"
+                        value=""
+                        tal:attributes="value request/password | nothing"
+                        size="50"
+                        class="string required" />
+        </div>
+        <div class="div_question">
+            <span class="etiquette">Brève description de l'expérience'</span>
+            <span class="fieldRequired" title="Requis" />
+            <br />
+            <span class="discreet">
+                En quelques lignes, un petit résumé de votre expérience.  (5 lignes par exemple)
+            </span>
+            <br />
+            <textarea name="auteur_description"
+                      cols="70"
+                      raws="5"
+                      class="string required"><span tal:replace="request/description | nothing"></span></textarea>
+        </div>
+        <div>
+            Afin d'éviter toute action de spam ou de robot, nous vous prions de recopier dans
+            le champ ci-dessous les lettres et chiffres dessinés automatiquement. Merci
+            <br /> <br />
+            <div id="captcha"
+                tal:define="captchaView nocall:context/@@captcha">
+                <span tal:replace="structure captchaView/image_tag" />
+                <br /><br />
+                <input type="text"
+                       name="captcha" />
+            </div>
+        </div>
+        <hr />
+        <div class="div_form_input">
+            <input type="hidden"
+                   name="auteur_actif"
+                   value="False" />
+            <input type="submit"
+                    value="Enregistrer ma demande d'inscription" />
+        </div>
+     </form>
+   </fieldset>
+</div><!--div metal-->
+</body>
+</html>
+

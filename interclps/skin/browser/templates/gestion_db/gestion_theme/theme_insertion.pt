@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="arsia">
+
+<body>
+
+<div metal:fill-slot="main">
+    <h1>:: Th&egrave;me ::</h1>
+    <div tal:define="result view/manageTheme;
+                     status result/status">
+        <fieldset tal:define="themes python: view.getAllTheme()">
+            <table width="90%"
+                   align="center"
+                   class="listing">
+                <thead>
+                    <tr>
+                        <th> Th&egrave;me </th>
+                        <th> Etat </th>
+                        <th class="nosort"> Modifier </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tal:boucle tal:repeat="theme themes">
+                        <span tal:define="odd repeat/theme/odd">
+                            <tr tal:attributes="class python:odd and 'odd' or 'even'">
+                                <td>
+                                    <span tal:content="theme/theme_nom">theme titre</span>
+                                </td>
+                                <td align="center">
+                                    <span tal:condition="python: theme.theme_actif">
+                                        <span class="vert-actif">Actif</span>
+                                    </span>
+                                    <span tal:condition="python: theme.theme_actif==False">
+                                        <span class="rouge-non-actif">Non-actif</span>
+                                    </span>
+                                </td>
+                                <td align="center">
+                                    <div class="btn-modifier">
+                                    <a href=""
+                                       tal:attributes="href string: theme-modifier?themePk=${theme/theme_pk}">&nbsp;</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </span>
+                    </tal:boucle>
+                </tbody>
+            </table>
+        </fieldset>
+        <div tal:condition="python: status==1">
+            Le th&egrave;me a été correctement enregistré.
+            <br />
+        </div>
+
+        <div tal:condition="python: status == 2">
+            <img src="alerte.png" />
+            Un erreur rst survenue.
+        </div>
+    </div>
+    <div class="btn-nouvelle-recherche">
+        <a href="theme-creer">
+            <img src="btn_retour_vert.png" />
+            Ajouter un th&egrave;me.
+        </a>
+    </div>
+</div>
+</body>
+</html>
