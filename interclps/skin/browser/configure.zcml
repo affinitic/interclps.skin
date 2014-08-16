@@ -212,22 +212,6 @@
           allowed_interface=".interfaces.IManageInterClps"
           attribute="checkCaptchaDemandeInscription"
           />
-    <browser:page
-          name="experience-inscription-auteur"
-          for="*"
-          template="templates/experience/experience_inscription_auteur_form.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="experience-inscription-auteur-merci"
-          for="*"
-          template="templates/experience/experience_inscription_auteur_merci.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
 
 <!-- MOTEUR RECHERCHE - MOTEUR RECHERCHE - MOTEUR RECHERCHE - MOTEUR RECHERCHE - MOTEUR RECHERCHE -->
     <browser:page
@@ -724,11 +708,28 @@
 
 <!-- AUTEUR - AUTEUR - AUTEUR - AUTEUR - AUTEUR - AUTEUR - AUTEUR - -->
 <!-- USER AUTEUR -->
+    <browser:page
+          name="experience-inscription-auteur"
+          for="*"
+          template="templates/auteur/inscrire_auteur_experience.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="experience-inscription-auteur-merci"
+          for="*"
+          template="templates/auteur/inscrire_auteur_experience_merci.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+
 <!-- ADMIN AUTEUR -->
     <browser:page
           name="admin-auteur-creer"
           for="*"
-          template="templates/gestion_db/gestion_auteur/admin_auteur_experience_creation_form.pt"
+          template="templates/gestion_db/gestion_auteur/admin_creer_auteur_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -736,7 +737,7 @@
     <browser:page
           name="admin-auteur-inserer"
           for="*"
-          template="templates/gestion_db/gestion_auteur/admin_auteur_experience_insertion.pt"
+          template="templates/gestion_db/gestion_auteur/admin_inserer_auteur_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -744,7 +745,7 @@
     <browser:page
           name="admin-auteur-modifier"
           for="*"
-          template="templates/gestion_db/gestion_auteur/admin_auteur_experience_modification_form.pt"
+          template="templates/gestion_db/gestion_auteur/admin_modifier_auteur_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -752,7 +753,7 @@
     <browser:page
           name="admin-auteur-supprimer"
           for="*"
-          template="templates/gestion_db/gestion_auteur/admin_auteur_experience_suppression_form.pt"
+          template="templates/gestion_db/gestion_auteur/admin_supprimer_auteur_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -760,7 +761,7 @@
     <browser:page
           name="admin-auteur-chercher"
           for="*"
-          template="templates/gestion_db/gestion_auteur/admin_auteur_moteur_recherche_db.pt"
+          template="templates/gestion_db/gestion_auteur/admin_chercher_auteur_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
