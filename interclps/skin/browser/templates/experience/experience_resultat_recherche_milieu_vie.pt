@@ -47,8 +47,9 @@
                             <span tal:replace="structure experience/experience_objectif"
                                   class="rep-qest" />
                         </li>
-                        <li>
+                        <li tal:condition="python: len(experience.experience_public_vise) > 0">
                             <span class="grasbrun">Public visé:</span>
+                            <br />
                             <span tal:content="experience/experience_public_vise"
                                   class="rep-qest" />
                         </li>
@@ -69,7 +70,7 @@
                     </div>
                     <div class="listing-experience-clps-proprio">
                           Edité par le
-                          <span tal:content="experience/clpsOrigine/clps_sigle" />
+                          <!--span tal:content="experience/clpsOrigine/clps_sigle" /-->
                     </div>
                 </div><!--footer listing-->
             </fieldset>
