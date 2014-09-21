@@ -20,6 +20,42 @@ from Products.Archetypes.atapi import BaseContent
 from interfaces import IManageInterClps
 from collective.captcha.browser.captcha import Captcha
 
+# mettre ici toute les classe de initializer
+from interclps.db.pgsql.baseTypes import Auteur, \
+                                         Commune, \
+                                         Clps, \
+                                         Experience, \
+                                         Institution, \
+                                         InstitutionType, \
+                                         MilieuDeVie, \
+                                         MotCle, \
+                                         Public, \
+                                         Ressource, \
+                                         Support, \
+                                         Theme, \
+                                         PlateForme, \
+                                         SousPlateForme, \
+                                         LinkExperienceMilieuDeVie, \
+                                         LinkExperienceTheme, \
+                                         LinkExperienceRessource, \
+                                         LinkExperienceCommune, \
+                                         LinkExperienceMotCle, \
+                                         LinkExperiencePublic, \
+                                         LinkExperienceInstitutionPorteur, \
+                                         LinkExperienceInstitutionPartenaire, \
+                                         LinkExperienceInstitutionRessource, \
+                                         LinkExperienceClpsProprio, \
+                                         LinkRessourceTheme, \
+                                         LinkRessourcePublic, \
+                                         LinkRessourceClpsProprio, \
+                                         LinkRessourceClpsDispo, \
+                                         LinkRessourceSupport, \
+                                         LinkInstitutionSousPlateForme, \
+                                         LinkInstitutionCommuneCouverte, \
+                                         LinkInstitutionClpsProprio, \
+                                         ExperienceMaj, \
+                                         RechercheLog
+
 
 class ManageInterClps(BrowserView):
     implements(IManageInterClps)
@@ -4065,10 +4101,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperienceMilieuDeVieTable = wrapper.getMapper('link_experience_milieudevie')
-        query = session.query(LinkExperienceMilieuDeVieTable)
+        query = session.query(LinkExperienceMilieuDeVie)
         for pk in milieudeviePk:
-            query = query.filter(LinkExperienceMilieuDeVieTable.milieudevie_fk == pk)
+            query = query.filter(LinkExperienceMilieuDeVie.milieudevie_fk == pk)
             self.addRechercheLog(milieudeviePk=pk)
         query = query.all()
 
