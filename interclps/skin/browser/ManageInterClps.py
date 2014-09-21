@@ -408,9 +408,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        ClpsTable = wrapper.getMapper('clps')
-        query = session.query(ClpsTable)
-        query = query.order_by(ClpsTable.clps_nom)
+        query = session.query(Clps)
+        query = query.order_by(Clps.clps_nom)
         allClps = query.all()
         return allClps
 
@@ -421,10 +420,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        ClpsTable = wrapper.getMapper('clps')
-        query = session.query(ClpsTable)
-        query = query.filter(ClpsTable.clps_pk == clpsPk)
-        query = query.order_by(ClpsTable.clps_nom)
+        query = session.query(Clps)
+        query = query.filter(Clps.clps_pk == clpsPk)
+        query = query.order_by(Clps.clps_nom)
         clpsInfo = query.one()
         return clpsInfo
 
@@ -435,9 +433,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkRessourceClpsTable = wrapper.getMapper('link_ressource_clps_proprio')
-        query = session.query(LinkRessourceClpsTable)
-        query = query.filter(LinkRessourceClpsTable.ressource_fk == ressourcePk)
+        query = session.query(LinkRessourceClps)
+        query = query.filter(LinkRessourceClps.ressource_fk == ressourcePk)
         ressources = query.all()
 
         clpsProprioListe = []
@@ -458,9 +455,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkInstitutionClpsProprioTable = wrapper.getMapper('link_institution_clps_proprio')
-        query = session.query(LinkInstitutionClpsProprioTable)
-        query = query.filter(LinkInstitutionClpsProprioTable.institution_fk == institutionPk)
+        query = session.query(LinkInstitutionClpsProprio)
+        query = query.filter(LinkInstitutionClpsProprio.institution_fk == institutionPk)
         institutions = query.all()
 
         clpsProprioListe = []
@@ -481,9 +477,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperienceClpsProprioTable = wrapper.getMapper('link_experience_clps_proprio')
-        query = session.query(LinkExperienceClpsProprioTable)
-        query = query.filter(LinkExperienceClpsProprioTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceClpsProprio)
+        query = query.filter(LinkExperienceClpsProprio.experience_fk == experiencePk)
         experiences = query.all()
 
         clpsProprioListe = []
@@ -508,11 +503,10 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        CommuneTable = wrapper.getMapper('commune')
-        query = session.query(CommuneTable)
+        query = session.query(Commune)
         if province:
-            query = query.filter(CommuneTable.com_province_fk.in_(province))
-        query = query.order_by(CommuneTable.com_localite_nom)
+            query = query.filter(Commune.com_province_fk.in_(province))
+        query = query.order_by(Commune.com_localite_nom)
         allCommunes = query.all()
         return allCommunes
 
@@ -523,9 +517,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperienceCommuneTable = wrapper.getMapper('link_experience_commune')
-        query = session.query(LinkExperienceCommuneTable)
-        query = query.filter(LinkExperienceCommuneTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceCommune)
+        query = query.filter(LinkExperienceCommune.experience_fk == experiencePk)
         communePk = query.all()
 
         listeCommunePkForExperience = []
@@ -543,9 +536,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperienceCommuneTable = wrapper.getMapper('link_experience_commune')
-        query = session.query(LinkExperienceCommuneTable)
-        query = query.filter(LinkExperienceCommuneTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceCommune)
+        query = query.filter(LinkExperienceCommune.experience_fk == experiencePk)
         communePk = query.all()
 
         listeCommunePkForExperience = []
@@ -563,9 +555,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperienceCommuneTable = wrapper.getMapper('link_experience_commune')
-        query = session.query(LinkExperienceCommuneTable)
-        query = query.filter(LinkExperienceCommuneTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceCommune)
+        query = query.filter(LinkExperienceCommune.experience_fk == experiencePk)
         communePk = query.all()
 
         listeCommuneNomForExperience = []
@@ -585,10 +576,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        AuteurTable = wrapper.getMapper('auteur')
-        query = session.query(AuteurTable)
-        query = query.filter(AuteurTable.auteur_clps_fk == 2)
-        query = query.order_by(AuteurTable.auteur_nom)
+        query = session.query(Auteur)
+        query = query.filter(Auteur.auteur_clps_fk == 2)
+        query = query.order_by(Auteur.auteur_nom)
         allAuteur = query.all()
         return allAuteur
 
@@ -599,10 +589,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        AuteurTable = wrapper.getMapper('auteur')
-        query = session.query(AuteurTable)
-        query = query.filter(AuteurTable.auteur_actif == True)
-        query = query.order_by(AuteurTable.auteur_nom)
+        query = session.query(Auteur)
+        query = query.filter(Auteur.auteur_actif == True)
+        query = query.order_by(Auteur.auteur_nom)
         allAuteur = query.all()
         return allAuteur
 
@@ -613,10 +602,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        AuteurTable = wrapper.getMapper('auteur')
-        query = session.query(AuteurTable)
-        query = query.filter(AuteurTable.auteur_for_institution == True)
-        query = query.order_by(AuteurTable.auteur_nom)
+        query = session.query(Auteur)
+        query = query.filter(Auteur.auteur_for_institution == True)
+        query = query.order_by(Auteur.auteur_nom)
         allAuteurFromInstitution = query.all()
         return allAuteurFromInstitution
 
@@ -627,10 +615,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        AuteurTable = wrapper.getMapper('auteur')
-        query = session.query(AuteurTable)
-        query = query.filter(AuteurTable.auteur_pk == auteur_pk)
-        query = query.order_by(AuteurTable.auteur_nom)
+        query = session.query(Auteur)
+        query = query.filter(Auteur.auteur_pk == auteur_pk)
+        query = query.order_by(Auteur.auteur_nom)
         auteur = query.all()
         return auteur
 
@@ -641,10 +628,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        AuteurTable = wrapper.getMapper('auteur')
-        query = session.query(AuteurTable)
-        query = query.filter(AuteurTable.auteur_pk == auteur_pk)
-        query = query.order_by(AuteurTable.auteur_nom)
+        query = session.query(Auteur)
+        query = query.filter(Auteur.auteur_pk == auteur_pk)
+        query = query.order_by(Auteur.auteur_nom)
         auteur = query.one()
         auteurLogin = auteur.auteur_login
         return auteurLogin
@@ -658,10 +644,9 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        AuteurTable = wrapper.getMapper('auteur')
-        query = session.query(AuteurTable)
-        query = query.filter(AuteurTable.auteur_login == auteurLogin)
-        query = query.order_by(AuteurTable.auteur_nom)
+        query = session.query(Auteur)
+        query = query.filter(Auteur.auteur_login == auteurLogin)
+        query = query.order_by(Auteur.auteur_nom)
         auteur = query.one()
 
         auteurNom = auteur.auteur_nom
@@ -684,10 +669,9 @@ class ManageInterClps(BrowserView):
         auteurPrenom = auteur[1]
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        AuteurTable = wrapper.getMapper('auteur')
-        query = session.query(AuteurTable)
-        query = query.filter(AuteurTable.auteur_nom == auteurNom)
-        query = query.filter(AuteurTable.auteur_prenom == auteurPrenom)
+        query = session.query(Auteur)
+        query = query.filter(Auteur.auteur_nom == auteurNom)
+        query = query.filter(Auteur.auteur_prenom == auteurPrenom)
         auteur = query.one()
         auteurPk = auteur.auteur_pk
         return auteurPk
@@ -700,9 +684,8 @@ class ManageInterClps(BrowserView):
         userLogin = self.getUserAuthenticated()
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        AuteurTable = wrapper.getMapper('auteur')
-        query = session.query(AuteurTable)
-        query = query.filter(AuteurTable.auteur_login == userLogin)
+        query = session.query(Auteur)
+        query = query.filter(Auteur.auteur_login == userLogin)
         auteur = query.one()
         return auteur
 
@@ -712,9 +695,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        ExperienceTable = wrapper.getMapper('experience')
-        query = session.query(ExperienceTable)
-        query = query.filter(ExperienceTable.experience_auteur_fk == auteurPk)
+        query = session.query(Experience)
+        query = query.filter(Experience.experience_auteur_fk == auteurPk)
         query = query.all()
         auteurHasExperience = False
         if query:
@@ -729,9 +711,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
-        query = query.filter(InstitutionTable.institution_auteur_fk == auteurPk)
+        query = session.query(Institution)
+        query = query.filter(Institution.institution_auteur_fk == auteurPk)
         query = query.all()
         auteurHasInstitution = False
         if query:
@@ -748,9 +729,8 @@ class ManageInterClps(BrowserView):
         obj = self.context
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        AuteurTable = wrapper.getMapper('auteur')
-        query = session.query(AuteurTable)
-        query = query.filter(AuteurTable.auteur_pk == auteurPk)
+        query = session.query(Auteur)
+        query = query.filter(Auteur.auteur_pk == auteurPk)
         for auteur in query.all():
             session.delete(auteur)
         session.flush()
@@ -764,9 +744,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        AuteurTable = wrapper.getMapper('auteur')
-        query = session.query(AuteurTable)
-        query = query.filter(AuteurTable.auteur_nom.ilike("%%%s%%" % searchString))
+        query = session.query(Auteur)
+        query = query.filter(Auteur.auteur_nom.ilike("%%%s%%" % searchString))
         auteur = ["%s %s  (%s)" % (aut.auteur_nom, aut.auteur_prenom, aut.auteur_login) for aut in query.all()]
         return auteur
 
@@ -794,21 +773,20 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertAuteur = wrapper.getMapper('auteur')
-        newEntry = insertAuteur(auteur_nom=auteur_nom, \
-                                auteur_prenom=auteur_prenom, \
-                                auteur_email=auteur_email, \
-                                auteur_login=auteur_login, \
-                                auteur_pass=auteur_pass, \
-                                auteur_institution=auteur_institution, \
-                                auteur_id_filemaker=auteur_id_filemaker, \
-                                auteur_actif=auteur_actif, \
-                                auteur_for_experience=auteur_for_experience, \
-                                auteur_for_institution=auteur_for_institution, \
-                                auteur_clps_fk=auteur_clps_fk, \
-                                auteur_creation_date=auteur_creation_date, \
-                                auteur_modification_date=auteur_modification_date, \
-                                auteur_modification_employe=auteur_modification_employe)
+        newEntry = Auteur(auteur_nom=auteur_nom, \
+                          auteur_prenom=auteur_prenom, \
+                          auteur_email=auteur_email, \
+                          auteur_login=auteur_login, \
+                          auteur_pass=auteur_pass, \
+                          auteur_institution=auteur_institution, \
+                          auteur_id_filemaker=auteur_id_filemaker, \
+                          auteur_actif=auteur_actif, \
+                          auteur_for_experience=auteur_for_experience, \
+                          auteur_for_institution=auteur_for_institution, \
+                          auteur_clps_fk=auteur_clps_fk, \
+                          auteur_creation_date=auteur_creation_date, \
+                          auteur_modification_date=auteur_modification_date, \
+                          auteur_modification_employe=auteur_modification_employe)
         session.add(newEntry)
         session.flush()
         return {'status': 1}
@@ -834,9 +812,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        updateAuteur = wrapper.getMapper('auteur')
-        query = session.query(updateAuteur)
-        query = query.filter(updateAuteur.auteur_pk == auteur_pk)
+        query = session.query(Auteur)
+        query = query.filter(Auteur.auteur_pk == auteur_pk)
         auteurs = query.all()
         for auteur in auteurs:
             auteur.auteur_nom = unicode(auteur_nom, 'utf-8')
@@ -862,9 +839,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        ThemeTable = wrapper.getMapper('theme')
-        query = session.query(ThemeTable)
-        query = query.order_by(ThemeTable.theme_nom)
+        query = session.query(Theme)
+        query = query.order_by(Theme.theme_nom)
         allThemes = query.all()
         return allThemes
 
@@ -875,10 +851,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        ThemeTable = wrapper.getMapper('theme')
-        query = session.query(ThemeTable)
-        query = query.filter(ThemeTable.theme_actif == True)
-        query = query.order_by(ThemeTable.theme_nom)
+        query = session.query(Theme)
+        query = query.filter(Theme.theme_actif == True)
+        query = query.order_by(Theme.theme_nom)
         allThemes = query.all()
         return allThemes
 
@@ -889,10 +864,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        ThemeTable = wrapper.getMapper('theme')
-        query = session.query(ThemeTable)
-        query = query.filter(ThemeTable.theme_pk.in_(theme_pk))
-        query = query.order_by(ThemeTable.theme_nom)
+        query = session.query(Theme)
+        query = query.filter(Theme.theme_pk.in_(theme_pk))
+        query = query.order_by(Theme.theme_nom)
         theme = query.all()
         return theme
 
@@ -903,9 +877,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkRessourceThemeTable = wrapper.getMapper('link_ressource_theme')
-        query = session.query(LinkRessourceThemeTable)
-        query = query.filter(LinkRessourceThemeTable.ressource_fk == ressourcePk)
+        query = session.query(LinkRessourceTheme)
+        query = query.filter(LinkRessourceTheme.ressource_fk == ressourcePk)
         themePk = query.all()
 
         listeThemeForRessource = []
@@ -923,9 +896,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkRessourceThemeTable = wrapper.getMapper('link_ressource_theme')
-        query = session.query(LinkRessourceThemeTable)
-        query = query.filter(LinkRessourceThemeTable.ressource_fk == ressourcePk)
+        query = session.query(LinkRessourceTheme)
+        query = query.filter(LinkRessourceTheme.ressource_fk == ressourcePk)
         themePk = query.all()
 
         listeThemeForRessource = []
@@ -965,9 +937,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperienceThemeTable = wrapper.getMapper('link_experience_theme')
-        query = session.query(LinkExperienceThemeTable)
-        query = query.filter(LinkExperienceThemeTable.experience_fk.in_(experiencePk))
+        query = session.query(LinkExperienceTheme)
+        query = query.filter(LinkExperienceTheme.experience_fk.in_(experiencePk))
         themePk = query.all()
 
         listeThemeForExperience = []
@@ -992,12 +963,11 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertTheme = wrapper.getMapper('theme')
-        newEntry = insertTheme(theme_nom=theme_nom,
-                               theme_actif=theme_actif,
-                               theme_creation_date=theme_creation_date,
-                               theme_modification_date=theme_modification_date,
-                               theme_creation_employe=theme_creation_employe)
+        newEntry = Theme(theme_nom=theme_nom,
+                         theme_actif=theme_actif,
+                         theme_creation_date=theme_creation_date,
+                         theme_modification_date=theme_modification_date,
+                         theme_creation_employe=theme_creation_employe)
         session.add(newEntry)
         session.flush()
 
@@ -1009,16 +979,15 @@ class ManageInterClps(BrowserView):
         pks = []
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        themeTable = wrapper.getMapper('theme')
         for value in themePksOrValues:
             try:
                 int(value)
             except ValueError:
-                newEntry = themeTable(theme_nom=value,
-                                      theme_actif=True,
-                                      theme_creation_date=self.getTimeStamp(),
-                                      theme_modification_date=self.getTimeStamp(),
-                                      theme_modification_employe=self.getUserAuthenticated())
+                newEntry = Theme(theme_nom=value,
+                                 theme_actif=True,
+                                 theme_creation_date=self.getTimeStamp(),
+                                 theme_modification_date=self.getTimeStamp(),
+                                 theme_modification_employe=self.getUserAuthenticated())
                 session.add(newEntry)
                 session.flush()
                 pks.append(int(newEntry.theme_pk))
@@ -1039,9 +1008,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        updateTheme = wrapper.getMapper('theme')
-        query = session.query(updateTheme)
-        query = query.filter(updateTheme.theme_pk == theme_pk)
+        query = session.query(Theme)
+        query = query.filter(Theme.theme_pk == theme_pk)
         themes = query.all()
         for theme in themes:
             theme.theme_nom = unicode(theme_nom, 'utf-8')
@@ -1059,9 +1027,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        MotCleTable = wrapper.getMapper('mot_cle')
-        query = session.query(MotCleTable)
-        query = query.order_by(MotCleTable.motcle_mot)
+        query = session.query(MotCle)
+        query = query.order_by(MotCle.motcle_mot)
         allMotCles = query.all()
         return allMotCles
 
@@ -1072,10 +1039,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        MotCleTable = wrapper.getMapper('mot_cle')
-        query = session.query(MotCleTable)
-        query = query.filter(MotCleTable.motcle_actif == True)
-        query = query.order_by(MotCleTable.motcle_mot)
+        query = session.query(MotCle)
+        query = query.filter(MotCle.motcle_actif == True)
+        query = query.order_by(MotCle.motcle_mot)
         allActiveMotCles = query.all()
         return allActiveMotCles
 
@@ -1086,10 +1052,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        MotCleTable = wrapper.getMapper('mot_cle')
-        query = session.query(MotCleTable)
-        query = query.filter(MotCleTable.motcle_pk == motcle_pk)
-        query = query.order_by(MotCleTable.motcle_mot)
+        query = session.query(MotCle)
+        query = query.filter(MotCle.motcle_pk == motcle_pk)
+        query = query.order_by(MotCle.motcle_mot)
         motCle = query.all()
         return motCle
 
@@ -1100,9 +1065,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperienceMotCleTable = wrapper.getMapper('link_experience_mot_cle')
-        query = session.query(LinkExperienceMotCleTable)
-        query = query.filter(LinkExperienceMotCleTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceMotCle)
+        query = query.filter(LinkExperienceMotCle.experience_fk == experiencePk)
         motClePk = query.all()
 
         listeMotCleForExperience = []
@@ -1127,12 +1091,11 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertMotCle = wrapper.getMapper('mot_cle')
-        newEntry = insertMotCle(motcle_mot=motcle_mot, \
-                                motcle_actif=motcle_actif, \
-                                motcle_creation_date=motcle_creation_date, \
-                                motcle_modification_date=motcle_modification_date, \
-                                motcle_modification_employe=motcle_modification_employe)
+        newEntry = MotCle(motcle_mot=motcle_mot, \
+                          motcle_actif=motcle_actif, \
+                          motcle_creation_date=motcle_creation_date, \
+                          motcle_modification_date=motcle_modification_date, \
+                          motcle_modification_employe=motcle_modification_employe)
         session.add(newEntry)
         session.flush()
         return {'status': 1}
@@ -1151,9 +1114,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        updateMotCle = wrapper.getMapper('mot_cle')
-        query = session.query(updateMotCle)
-        query = query.filter(updateMotCle.motcle_pk == motcle_pk)
+        query = session.query(MotCle)
+        query = query.filter(MotCle.motcle_pk == motcle_pk)
         motCles = query.all()
         for motcle in motCles:
             motcle.motcle_mot = unicode(motcle_mot, 'utf-8')
@@ -1174,16 +1136,15 @@ class ManageInterClps(BrowserView):
         pks = []
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        publicTable = wrapper.getMapper('public')
         for value in publicPksOrValues:
             try:
                 int(value)
             except ValueError:
-                newEntry = publicTable(public_nom=value, \
-                                       public_actif=True, \
-                                       public_creation_date=self.getTimeStamp(), \
-                                       public_modification_date=self.getTimeStamp(), \
-                                       public_creation_employe=self.getUserAuthenticated())
+                newEntry = Public(public_nom=value, \
+                                  public_actif=True, \
+                                  public_creation_date=self.getTimeStamp(), \
+                                  public_modification_date=self.getTimeStamp(), \
+                                  public_creation_employe=self.getUserAuthenticated())
                 session.add(newEntry)
                 session.flush()
                 pks.append(int(newEntry.public_pk))
@@ -1199,16 +1160,15 @@ class ManageInterClps(BrowserView):
         pks = []
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        motCleTable = wrapper.getMapper('mot_cle')
         for value in motClePksOrValues:
             try:
                 int(value)
             except ValueError:
-                newEntry = motCleTable(motcle_mot=value, \
-                                       motcle_actif=True, \
-                                       motcle_creation_date=self.getTimeStamp(), \
-                                       motcle_modification_date=self.getTimeStamp(), \
-                                       motcle_modification_employe=self.getUserAuthenticated())
+                newEntry = MotCle(motcle_mot=value, \
+                                  motcle_actif=True, \
+                                  motcle_creation_date=self.getTimeStamp(), \
+                                  motcle_modification_date=self.getTimeStamp(), \
+                                  motcle_modification_employe=self.getUserAuthenticated())
                 session.add(newEntry)
                 session.flush()
                 pks.append(int(newEntry.motcle_pk))
@@ -1225,9 +1185,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        PublicTable = wrapper.getMapper('public')
-        query = session.query(PublicTable)
-        query = query.order_by(PublicTable.public_nom)
+        query = session.query(Public)
+        query = query.order_by(Public.public_nom)
         allPublics = query.all()
         return allPublics
 
@@ -1238,10 +1197,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        PublicTable = wrapper.getMapper('public')
-        query = session.query(PublicTable)
-        query = query.filter(PublicTable.public_actif == True)
-        query = query.order_by(PublicTable.public_nom)
+        query = session.query(Public)
+        query = query.filter(Public.public_actif == True)
+        query = query.order_by(Public.public_nom)
         allPublics = query.all()
         return allPublics
 
@@ -1254,10 +1212,9 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        PublicTable = wrapper.getMapper('public')
-        query = session.query(PublicTable)
-        query = query.filter(PublicTable.public_pk.in_(publicPk))
-        query = query.order_by(PublicTable.public_nom)
+        query = session.query(Public)
+        query = query.filter(Public.public_pk.in_(publicPk))
+        query = query.order_by(Public.public_nom)
         public = query.all()
         return public
 
@@ -1268,9 +1225,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkRessourcePublicTable = wrapper.getMapper('link_ressource_public')
-        query = session.query(LinkRessourcePublicTable)
-        query = query.filter(LinkRessourcePublicTable.ressource_fk == ressourcePk)
+        query = session.query(LinkRessourcePublic)
+        query = query.filter(LinkRessourcePublic.ressource_fk == ressourcePk)
         publicPk = query.all()
 
         listePublicForRessource = []
@@ -1293,9 +1249,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperiencePublicTable = wrapper.getMapper('link_experience_public')
-        query = session.query(LinkExperiencePublicTable)
-        query = query.filter(LinkExperiencePublicTable.experience_fk.in_(experiencePk, ))
+        query = session.query(LinkExperiencePublic)
+        query = query.filter(LinkExperiencePublic.experience_fk.in_(experiencePk, ))
         publicPk = query.all()
 
         listePublicForExperience = []
@@ -1314,9 +1269,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperiencePublicTable = wrapper.getMapper('link_experience_public')
-        query = session.query(LinkExperiencePublicTable)
-        query = query.filter(LinkExperiencePublicTable.experience_fk == experiencePk)
+        query = session.query(LinkExperiencePublic)
+        query = query.filter(LinkExperiencePublic.experience_fk == experiencePk)
         publicPk = query.all()
 
         listePublicForExperience = []
@@ -1362,12 +1316,11 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertPublic = wrapper.getMapper('public')
-        newEntry = insertPublic(public_nom=public_nom, \
-                                public_actif=public_actif, \
-                                public_creation_date=public_creation_date, \
-                                public_modification_date=public_modification_date, \
-                                public_creation_employe=public_creation_employe)
+        newEntry = Public(public_nom=public_nom, \
+                          public_actif=public_actif, \
+                          public_creation_date=public_creation_date, \
+                          public_modification_date=public_modification_date, \
+                          public_creation_employe=public_creation_employe)
         session.add(newEntry)
         session.flush()
 
@@ -1384,9 +1337,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        updatePublic = wrapper.getMapper('public')
-        query = session.query(updatePublic)
-        query = query.filter(updatePublic.public_pk == public_pk)
+        query = session.query(Public)
+        query = query.filter(Public.public_pk == public_pk)
         publics = query.all()
         for public in publics:
             public.public_nom = unicode(public_nom, 'utf-8')
@@ -1404,9 +1356,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        PlateFormeTable = wrapper.getMapper('plateforme')
-        query = session.query(PlateFormeTable)
-        query = query.order_by(PlateFormeTable.plateforme_nom)
+        query = session.query(PlateForme)
+        query = query.order_by(PlateForme.plateforme_nom)
         allPlateFormes = query.all()
         return allPlateFormes
 
@@ -1417,10 +1368,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        PlateFormeTable = wrapper.getMapper('plateforme')
-        query = session.query(PlateFormeTable)
-        query = query.filter(PlateFormeTable.plateforme_actif == True)
-        query = query.order_by(PlateFormeTable.plateforme_nom)
+        query = session.query(PlateForme)
+        query = query.filter(PlateForme.plateforme_actif == True)
+        query = query.order_by(PlateForme.plateforme_nom)
         allPlateForme = query.all()
         return allPlateForme
 
@@ -1431,10 +1381,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        PlateFormeTable = wrapper.getMapper('plateforme')
-        query = session.query(PlateFormeTable)
-        query = query.filter(PlateFormeTable.plateforme_pk == plateforme_pk)
-        query = query.order_by(PlateFormeTable.plateforme_nom)
+        query = session.query(PlateForme)
+        query = query.filter(PlateForme.plateforme_pk == plateforme_pk)
+        query = query.order_by(PlateForme.plateforme_nom)
         public = query.all()
         return public
 
@@ -1445,9 +1394,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkRessourcePlateFormeTable = wrapper.getMapper('link_ressource_plateforme')
-        query = session.query(LinkRessourcePlateFormeTable)
-        query = query.filter(LinkRessourcePlateFormeTable.ressource_fk == ressourcePk)
+        query = session.query(LinkRessourcePlateForme)
+        query = query.filter(LinkRessourcePlateForme.ressource_fk == ressourcePk)
         PlateFormePk = query.all()
 
         listePlateFormeForRessource = []
@@ -1472,12 +1420,11 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertPlateForme = wrapper.getMapper('plateforme')
-        newEntry = insertPlateForme(plateforme_nom=plateforme_nom, \
-                                    plateforme_actif=plateforme_actif, \
-                                    plateforme_creation_date=plateforme_creation_date, \
-                                    plateforme_modification_date=plateforme_modification_date, \
-                                    plateforme_creation_employe=plateforme_creation_employe)
+        newEntry = PlateForme(plateforme_nom=plateforme_nom, \
+                              plateforme_actif=plateforme_actif, \
+                              plateforme_creation_date=plateforme_creation_date, \
+                              plateforme_modification_date=plateforme_modification_date, \
+                              plateforme_creation_employe=plateforme_creation_employe)
         session.add(newEntry)
         session.flush()
 
@@ -1494,9 +1441,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        updatePlateForme = wrapper.getMapper('plateforme')
-        query = session.query(updatePlateForme)
-        query = query.filter(updatePlateForme.plateforme_pk == plateforme_pk)
+        query = session.query(PlateForme)
+        query = query.filter(PlateForme.plateforme_pk == plateforme_pk)
         plateformes = query.all()
         for plateforme in plateformes:
             plateforme.plateforme_nom = unicode(plateforme_nom, 'utf-8')
@@ -1514,9 +1460,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        SousPlateFormeTable = wrapper.getMapper('sousplateforme')
-        query = session.query(SousPlateFormeTable)
-        query = query.order_by(SousPlateFormeTable.sousplateforme_nom)
+        query = session.query(SousPlateForme)
+        query = query.order_by(SousPlateForme.sousplateforme_nom)
         allSousPlateFormes = query.all()
         return allSousPlateFormes
 
@@ -1527,10 +1472,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        SousPlateFormeTable = wrapper.getMapper('sousplateforme')
-        query = session.query(SousPlateFormeTable)
-        query = query.filter(SousPlateFormeTable.sous_plateforme_actif == True)
-        query = query.order_by(SousPlateFormeTable.sousplateforme_nom)
+        query = session.query(SousPlateForme)
+        query = query.filter(SousPlateForme.sous_plateforme_actif == True)
+        query = query.order_by(SousPlateForme.sousplateforme_nom)
         allActiveSousPlateFormes = query.all()
         return allActiveSousPlateFormes
 
@@ -1541,10 +1485,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        SousPlateFormeTable = wrapper.getMapper('sousplateforme')
-        query = session.query(SousPlateFormeTable)
-        query = query.filter(SousPlateFormeTable.sousplateforme_pk == sousplateforme_pk)
-        query = query.order_by(SousPlateFormeTable.sousplateforme_nom)
+        query = session.query(SousPlateForme)
+        query = query.filter(SousPlateForme.sousplateforme_pk == sousplateforme_pk)
+        query = query.order_by(SousPlateForme.sousplateforme_nom)
         sousPlateForme = query.all()
         return sousPlateForme
 
@@ -1555,10 +1498,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        SousPlateFormeTable = wrapper.getMapper('sousplateforme')
-        query = session.query(SousPlateFormeTable)
-        query = query.filter(SousPlateFormeTable.sousplateforme_plateforme_fk == plateforme_pk)
-        query = query.order_by(SousPlateFormeTable.sousplateforme_nom)
+        query = session.query(SousPlateForme)
+        query = query.filter(SousPlateForme.sousplateforme_plateforme_fk == plateforme_pk)
+        query = query.order_by(SousPlateForme.sousplateforme_nom)
         sousPlateForme = query.all()
         return sousPlateForme
 
@@ -1577,13 +1519,12 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertSousPlateForme = wrapper.getMapper('sousplateforme')
-        newEntry = insertSousPlateForme(sousplateforme_nom=sousplateforme_nom, \
-                                        sousplateforme_actif=sousplateforme_actif, \
-                                        sousplateforme_plateforme_fk=sousplateforme_plateforme_fk, \
-                                        sousplateforme_creation_date=sousplateforme_creation_date, \
-                                        sousplateforme_modification_date=sousplateforme_modification_date, \
-                                        sousplateforme_creation_employe=sousplateforme_creation_employe)
+        newEntry = SousPlateForme(sousplateforme_nom=sousplateforme_nom, \
+                                  sousplateforme_actif=sousplateforme_actif, \
+                                  sousplateforme_plateforme_fk=sousplateforme_plateforme_fk, \
+                                  sousplateforme_creation_date=sousplateforme_creation_date, \
+                                  sousplateforme_modification_date=sousplateforme_modification_date, \
+                                  sousplateforme_creation_employe=sousplateforme_creation_employe)
         session.add(newEntry)
         session.flush()
 
