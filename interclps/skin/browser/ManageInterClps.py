@@ -54,7 +54,17 @@ from interclps.db.pgsql.baseTypes import Auteur, \
                                          LinkInstitutionCommuneCouverte, \
                                          LinkInstitutionClpsProprio, \
                                          ExperienceMaj, \
-                                         RechercheLog
+                                         RechercheLog, \
+                                         AssuetudeInterventionForInstitution, \
+                                         LinkAssuetudeInterventionForInstitution, \
+                                         AssuetudeActiviteProposeeForInstitution, \
+                                         LinkAssuetudeActiviteProposeeForInstitutionPublic, \
+                                         LinkAssuetudeActiviteProposeeForInstitutionPro, \
+                                         AssuetudeThemeForInstitution, \
+                                         LinkAssuetudeThemeForInstitution
+                                         #InstitutionAssuetudeIntervention, \
+                                         #InstitutionAssuetudeActiviteProposee, \
+                                         #AssuetudeThemeForInstitution, \
 
 
 class ManageInterClps(BrowserView):
@@ -2408,9 +2418,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        updateInstitutionType = wrapper.getMapper('institution_type')
-        query = session.query(updateInstitutionType)
-        query = query.filter(updateInstitutionType.institution_type_pk == institution_type_pk)
+        query = session.query(InstitutionType)
+        query = query.filter(InstitutionType.institution_type_pk == institution_type_pk)
         institutionTypes = query.all()
         for institutionType in institutionTypes:
             institutionType.institution_type_nom = unicode(institution_type_nom, 'utf-8')
@@ -2494,13 +2503,12 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
-        query = query.order_by(InstitutionTable.institution_nom)
+        query = session.query(Institution)
+        query = query.order_by(InstitutionT.institution_nom)
         if etat:
-            query = query.filter(InstitutionTable.institution_etat == 'publish')
-        query = query.filter(InstitutionTable.institution_listing_ressource_plate_forme_assuetude == True)
-        query = query.filter(InstitutionTable.institution_institution_type_fk == institutionTypePk)
+            query = query.filter(Institution.institution_etat == 'publish')
+        query = query.filter(Institution.institution_listing_ressource_plate_forme_assuetude == True)
+        query = query.filter(Institution.institution_institution_type_fk == institutionTypePk)
         allActiveInstitutionByInstitutionTypePk = query.all()
         return allActiveInstitutionByInstitutionTypePk
 
@@ -2511,9 +2519,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
-        query = query.filter(InstitutionTable.institution_pk == institutionPk)
+        query = session.query(Institution)
+        query = query.filter(Institution.institution_pk == institutionPk)
         institution = query.all()
         return institution
 
@@ -2524,8 +2531,7 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
+        query = session.query(Institution)
         institution = query.all()
         listePk = []
         for i in institution:
@@ -2543,9 +2549,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
-        query = query.filter(InstitutionTable.institution_etat == 'publish')
+        query = session.query(Institution)
+        query = query.filter(Institution.institution_etat == 'publish')
         dic = {plateForme: True}
         query = query.filter_by(**dic)
         query = query.limit(5)
@@ -2560,9 +2565,8 @@ class ManageInterClps(BrowserView):
         loginUser = self.getUserAuthenticated()
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
-        query = query.filter(InstitutionTable.institution_auteur_login == loginUser)
+        query = session.query(Institution)
+        query = query.filter(Institution.institution_auteur_login == loginUser)
         institutionByAuteurLogin = query.all()
         return institutionByAuteurLogin
 
@@ -2573,9 +2577,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
-        query = query.filter(InstitutionTable.institution_auteur_fk == auteurPk)
+        query = session.query(Institution)
+        query = query.filter(Institution.institution_auteur_fk == auteurPk)
         institutionByAuteurPk = query.all()
         return institutionByAuteurPk
 
@@ -2586,9 +2589,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
-        query = query.filter(InstitutionTable.institution_pk == institutionPk)
+        query = session.query(Institution)
+        query = query.filter(Institution.institution_pk == institutionPk)
         institution = query.one()
         institutionEtat = ''
         if institution.institution_etat == 'private':
@@ -2607,11 +2609,10 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
-        query = query.filter(InstitutionTable.institution_etat == institutionEtat)
-        nbrInst = select([func.count(InstitutionTable.institution_pk).label('count')])
-        nbrInst.append_whereclause(InstitutionTable.institution_etat == institutionEtat)
+        query = session.query(Institution)
+        query = query.filter(Institution.institution_etat == institutionEtat)
+        nbrInst = select([func.count(Institution.institution_pk).label('count')])
+        nbrInst.append_whereclause(Institution.institution_etat == institutionEtat)
         nbrInstitutionByEtat = nbrInst.execute().fetchone().count
         return nbrInstitutionByEtat
 
@@ -2624,8 +2625,7 @@ class ManageInterClps(BrowserView):
         #role = self.getRoleUserAuthenticated()
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
+        query = session.query(Institution)
         institution = query.all()
         return institution
 
@@ -2634,11 +2634,7 @@ class ManageInterClps(BrowserView):
         table pg institution
         recuperation du nombre total d'institution
         """
-        wrapper = getSAWrapper('clpsbw')
-        #session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        #query = session.query(InstitutionTable)
-        nbrInst = select([func.count(InstitutionTable.institution_pk).label('count')])
+        nbrInst = select([func.count(Institution.institution_pk).label('count')])
         nbrAllInstitutions = nbrInst.execute().fetchone().count
         return nbrAllInstitutions
 
@@ -2649,9 +2645,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        sousPlateFormeInstitutionTable = wrapper.getMapper('link_institution_sousplateforme')
-        query = session.query(sousPlateFormeInstitutionTable)
-        query = query.filter(sousPlateFormeInstitutionTable.institution_fk == institutionPk)
+        query = session.query(LinkInstitutionSousPlateForme)
+        query = query.filter(LinkInstitutionSousPlateForme.institution_fk == institutionPk)
         sousPlateFormeInstitution = query.all()
         sousPlateFormePkForInstitution = []
         for i in sousPlateFormeInstitution:
@@ -2665,9 +2660,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        communeCouverteInstitutionTable = wrapper.getMapper('link_institution_commune_couverte')
-        query = session.query(communeCouverteInstitutionTable)
-        query = query.filter(communeCouverteInstitutionTable.institution_fk == institutionPk)
+        query = session.query(LinkInstitutionCommuneCouverte)
+        query = query.filter(LinkInstitutionCommuneCouverte.institution_fk == institutionPk)
         communeCouvertePkByInstitution = query.all()
 
         listeCommuneCouverteByInstitution = []
@@ -2685,9 +2679,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        communeCouverteInstitutionTable = wrapper.getMapper('link_institution_commune_couverte')
-        query = session.query(communeCouverteInstitutionTable)
-        query = query.filter(communeCouverteInstitutionTable.institution_fk == institutionPk)
+        query = session.query(LinkInstitutionCommuneCouverte)
+        query = query.filter(LinkInstitutionCommuneCouverte.institution_fk == institutionPk)
         communeCouvertePkByInstitution = query.all()
 
         listeCommuneCouverteByInstitution = []
@@ -2705,9 +2698,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        communeCouverteInstitutionTable = wrapper.getMapper('link_institution_commune_couverte')
-        query = session.query(communeCouverteInstitutionTable)
-        query = query.filter(communeCouverteInstitutionTable.institution_fk == institutionPk)
+        query = session.query(LinkInstitutionCommuneCouverte)
+        query = query.filter(LinkInstitutionCommuneCouverte.institution_fk == institutionPk)
         communeCouvertePkByInstitution = query.all()
         listeCommuneCouverteByInstitution = []
         listeAllCommune = self.getAllCommune((1, 2, 3, 4, 11))
@@ -2724,9 +2716,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        communeCouverteInstitutionTable = wrapper.getMapper('link_institution_commune_couverte')
-        query = session.query(communeCouverteInstitutionTable)
-        query = query.filter(communeCouverteInstitutionTable.institution_fk == institutionPk)
+        query = session.query(LinkInstitutionCommuneCouverte)
+        query = query.filter(LinkInstitutionCommuneCouverte.institution_fk == institutionPk)
         communeCouvertePkByInstitution = query.all()
         listeCommuneCouverteByInstitution = []
         listeAllCommune = self.getAllCommune((4, ))
@@ -2743,9 +2734,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        communeCouverteInstitutionTable = wrapper.getMapper('link_institution_commune_couverte')
-        query = session.query(communeCouverteInstitutionTable)
-        query = query.filter(communeCouverteInstitutionTable.institution_fk == institutionPk)
+        query = session.query(LinkInstitutionCommuneCouverte)
+        query = query.filter(LinkInstitutionCommuneCouverte.institution_fk == institutionPk)
         communeCouvertePkByInstitution = query.all()
         listeCommuneCouverteByInstitution = []
         listeAllCommune = self.getAllCommune((1, 2, 3, 5, 11))
@@ -2762,9 +2752,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
-        query = query.filter(InstitutionTable.institution_pk == institutionPk)
+        query = session.query(Institution)
+        query = query.filter(Institution.institution_pk == institutionPk)
         institution = query.one()
 
         communeCouverte = self.getInstitutionCommuneCouverte(institutionPk)
@@ -2793,9 +2782,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkInstitutionPorteurTable = wrapper.getMapper('link_experience_institution_porteur')
-        query = session.query(LinkInstitutionPorteurTable)
-        query = query.filter(LinkInstitutionPorteurTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceInstitutionPorteur)
+        query = query.filter(LinkExperienceInstitutionPorteur.experience_fk == experiencePk)
         institutionPk = query.all()
 
         listeInstitutionPorteurForExperience = []
@@ -2813,9 +2801,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkInstitutionPartenaireTable = wrapper.getMapper('link_experience_institution_partenaire')
-        query = session.query(LinkInstitutionPartenaireTable)
-        query = query.filter(LinkInstitutionPartenaireTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceInstitutionPartenaire)
+        query = query.filter(LinkExperienceInstitutionPartenaire.experience_fk == experiencePk)
         institutionPk = query.all()
 
         listeInstitutionPartenaireForExperience = []
@@ -2833,9 +2820,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkInstitutionRessourceTable = wrapper.getMapper('link_experience_institution_ressource')
-        query = session.query(LinkInstitutionRessourceTable)
-        query = query.filter(LinkInstitutionRessourceTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceInstitutionRessource)
+        query = query.filter(LinkExperienceInstitutionRessource.experience_fk == experiencePk)
         institutionPk = query.all()
 
         listeInstitutionRessourceForExperience = []
@@ -2853,9 +2839,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionPorteurTable = wrapper.getMapper('link_experience_institution_porteur')
-        query = session.query(InstitutionPorteurTable)
-        query = query.filter(InstitutionPorteurTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceInstitutionPorteur)
+        query = query.filter(LinkExperienceInstitutionPorteur.experience_fk == experiencePk)
         institutionPorteur = query.all()
         return institutionPorteur
 
@@ -2866,9 +2851,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionPartenaireTable = wrapper.getMapper('link_experience_institution_partenaire')
-        query = session.query(InstitutionPartenaireTable)
-        query = query.filter(InstitutionPartenaireTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceInstitutionPartenaire)
+        query = query.filter(LinkExperienceInstitutionPartenaire.experience_fk == experiencePk)
         institutionPartenaire = query.all()
         return institutionPartenaire
 
@@ -2879,9 +2863,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionRessourceTable = wrapper.getMapper('link_experience_institution_ressource')
-        query = session.query(InstitutionRessourceTable)
-        query = query.filter(InstitutionRessourceTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceInstitutionRessource)
+        query = query.filter(LinkExperienceInstitutionRessource.experience_fk == experiencePk)
         institutionRessource = query.all()
         return institutionRessource
 
@@ -2893,9 +2876,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
-        query = query.filter(InstitutionTable.institution_nom.ilike("%%%s%%" % searchString))
+        query = session.query(Institution)
+        query = query.filter(Institution.institution_nom.ilike("%%%s%%" % searchString))
         institution = [inst.institution_nom for inst in query.all()]
         return institution
 
@@ -2965,56 +2947,55 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertInstitution = wrapper.getMapper('institution')
-        newEntry = insertInstitution(institution_nom=institution_nom, \
-                                     institution_sigle=institution_sigle, \
-                                     institution_adresse=institution_adresse, \
-                                     institution_nom_contact=institution_nom_contact, \
-                                     institution_email_contact=institution_email_contact, \
-                                     institution_tel_contact=institution_tel_contact, \
-                                     institution_fonction_contact=institution_fonction_contact, \
-                                     institution_url_site=institution_url_site, \
-                                     institution_lien_siss=institution_lien_siss,\
-                                     institution_lien_autre=institution_lien_autre, \
-                                     institution_autre_info=institution_autre_info, \
-                                     institution_mission=institution_mission, \
-                                     institution_activite=institution_activite, \
-                                     institution_public=institution_public, \
-                                     institution_territoire_tout_luxembourg=institution_territoire_tout_luxembourg, \
-                                     institution_zone_internationale=institution_zone_internationale, \
-                                     institution_zone_internationale_info=institution_zone_internationale_info, \
-                                     institution_zone_belgique=institution_zone_belgique, \
-                                     institution_zone_cfwb=institution_zone_cfwb, \
-                                     institution_zone_rw=institution_zone_rw, \
-                                     institution_zone_brxl=institution_zone_brxl, \
-                                     institution_commentaire=institution_commentaire, \
-                                     institution_assuet_intervention=institution_assuet_intervention, \
-                                     institution_assuet_intervention_precision=institution_assuet_intervention_precision, \
-                                     institution_assuet_activite_proposee=institution_assuet_activite_proposee, \
-                                     institution_assuet_activite_proposee_precision=institution_assuet_activite_proposee_precision, \
-                                     institution_assuet_thematique_precision=institution_assuet_thematique_precision, \
-                                     institution_assuet_aide_soutien_ecole=institution_assuet_aide_soutien_ecole, \
-                                     institution_auteur_login=institution_auteur_login, \
-                                     institution_plate_forme_sante_ecole=institution_plate_forme_sante_ecole, \
-                                     institution_plate_forme_assuetude=institution_plate_forme_assuetude, \
-                                     institution_plate_forme_sante_famille=institution_plate_forme_sante_famille, \
-                                     institution_plate_forme_sante_environnement=institution_plate_forme_sante_environnement, \
-                                     institution_listing_ressource_plate_forme_sante_ecole=institution_listing_ressource_plate_forme_sante_ecole, \
-                                     institution_listing_ressource_plate_forme_assuetude=institution_listing_ressource_plate_forme_assuetude, \
-                                     institution_listing_ressource_plate_forme_sante_famille=institution_listing_ressource_plate_forme_sante_famille, \
-                                     institution_listing_ressource_plate_forme_sante_environnement=institution_listing_ressource_plate_forme_sante_environnement, \
-                                     institution_etat=institution_etat, \
-                                     institution_creation_date=institution_creation_date, \
-                                     institution_modification_employe=institution_modification_employe, \
-                                     institution_clps_proprio_fk=institution_clps_proprio_fk, \
-                                     institution_commune_fk=institution_commune_fk, \
-                                     institution_auteur_fk=institution_auteur_fk, \
-                                     institution_institution_type_fk=institution_institution_type_fk)
+        newEntry = Institution(institution_nom=institution_nom, \
+                               institution_sigle=institution_sigle, \
+                               institution_adresse=institution_adresse, \
+                               institution_nom_contact=institution_nom_contact, \
+                               institution_email_contact=institution_email_contact, \
+                               institution_tel_contact=institution_tel_contact, \
+                               institution_fonction_contact=institution_fonction_contact, \
+                               institution_url_site=institution_url_site, \
+                               institution_lien_siss=institution_lien_siss,\
+                               institution_lien_autre=institution_lien_autre, \
+                               institution_autre_info=institution_autre_info, \
+                               institution_mission=institution_mission, \
+                               institution_activite=institution_activite, \
+                               institution_public=institution_public, \
+                               institution_territoire_tout_luxembourg=institution_territoire_tout_luxembourg, \
+                               institution_zone_internationale=institution_zone_internationale, \
+                               institution_zone_internationale_info=institution_zone_internationale_info, \
+                               institution_zone_belgique=institution_zone_belgique, \
+                               institution_zone_cfwb=institution_zone_cfwb, \
+                               institution_zone_rw=institution_zone_rw, \
+                               institution_zone_brxl=institution_zone_brxl, \
+                               institution_commentaire=institution_commentaire, \
+                               institution_assuet_intervention=institution_assuet_intervention, \
+                               institution_assuet_intervention_precision=institution_assuet_intervention_precision, \
+                               institution_assuet_activite_proposee=institution_assuet_activite_proposee, \
+                               institution_assuet_activite_proposee_precision=institution_assuet_activite_proposee_precision, \
+                               institution_assuet_thematique_precision=institution_assuet_thematique_precision, \
+                               institution_assuet_aide_soutien_ecole=institution_assuet_aide_soutien_ecole, \
+                               institution_auteur_login=institution_auteur_login, \
+                               institution_plate_forme_sante_ecole=institution_plate_forme_sante_ecole, \
+                               institution_plate_forme_assuetude=institution_plate_forme_assuetude, \
+                               institution_plate_forme_sante_famille=institution_plate_forme_sante_famille, \
+                               institution_plate_forme_sante_environnement=institution_plate_forme_sante_environnement, \
+                               institution_listing_ressource_plate_forme_sante_ecole=institution_listing_ressource_plate_forme_sante_ecole, \
+                               institution_listing_ressource_plate_forme_assuetude=institution_listing_ressource_plate_forme_assuetude, \
+                               institution_listing_ressource_plate_forme_sante_famille=institution_listing_ressource_plate_forme_sante_famille, \
+                               institution_listing_ressource_plate_forme_sante_environnement=institution_listing_ressource_plate_forme_sante_environnement, \
+                               institution_etat=institution_etat, \
+                               institution_creation_date=institution_creation_date, \
+                               institution_modification_employe=institution_modification_employe, \
+                               institution_clps_proprio_fk=institution_clps_proprio_fk, \
+                               institution_commune_fk=institution_commune_fk, \
+                               institution_auteur_fk=institution_auteur_fk, \
+                               institution_institution_type_fk=institution_institution_type_fk)
         session.add(newEntry)
         session.flush()
         return {'status': 1}
 
-    def addLinkInstitutionAssuetudeIntervention(self, institutionFk):
+    def addLinkAssuetudeInterventionForInstitution(self, institutionFk):
         """
         table pg link_institution_assuetude_intervention
         ajout des interventions assuetude liees a une institution
@@ -3022,43 +3003,40 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkInstitutionAssuetudeIntervention = wrapper.getMapper('link_institution_assuetude_intervention')
         assuetudeInterventionFk = getattr(fields, 'assuetude_intervention_fk', None)
         for interventionFk in assuetudeInterventionFk:
-            newEntry = insertLinkInstitutionAssuetudeIntervention(institution_fk=institutionFk,
-                                                                  assuetude_intervention_fk=interventionFk)
+            newEntry = LinkAssuetudeInterventionForInstitution(institution_fk=institutionFk,
+                                                               assuetude_intervention_fk=interventionFk)
             session.add(newEntry)
         session.flush()
 
-    def addLinkInstitutionAssuetudeActiviteProposeePublic(self, institutionFk, assuetudeActiviteProposeePublicFk):
+    def addLinkAssuetudeActiviteProposeeForInstitutionPublic(self, institutionFk, assuetudeActiviteProposeePublicFk):
         """
         table pg link_institution_assuetude_activite_proposee_public
         ajout des activites proposees assuetude liees a une institution
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkInstitutionAssuetudeActiviteProposeePublic = wrapper.getMapper('link_institution_assuetude_activite_proposee_public')
         for activiteFk in assuetudeActiviteProposeePublicFk:
-            newEntry = insertLinkInstitutionAssuetudeActiviteProposeePublic(institution_fk=institutionFk,
-                                                                            assuetude_activite_proposee_public_fk=activiteFk)
+            newEntry = LinkAssuetudeActiviteProposeeForInstitutionPublic(institution_fk=institutionFk,
+                                                                         assuetude_activite_proposee_public_fk=activiteFk)
             session.add(newEntry)
         session.flush()
 
-    def addLinkInstitutionAssuetudeActiviteProposeePro(self, institutionFk, assuetudeActiviteProposeeProFk):
+    def addLinkAssuetudeActiviteProposeeForInstitutionPro(self, institutionFk, assuetudeActiviteProposeeProFk):
         """
         table pg link_institution_assuetude_activite_proposee_pro
         ajout des activites proposees assuetude liees a une institution
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkInstitutionAssuetudeActiviteProposeePro = wrapper.getMapper('link_institution_assuetude_activite_proposee_pro')
         for activiteFk in assuetudeActiviteProposeeProFk:
-            newEntry = insertLinkInstitutionAssuetudeActiviteProposeePro(institution_fk=institutionFk,
-                                                                         assuetude_activite_proposee_pro_fk=activiteFk)
+            newEntry = LinkAssuetudeActiviteProposeeForInstitutionPro(institution_fk=institutionFk,
+                                                                      assuetude_activite_proposee_pro_fk=activiteFk)
             session.add(newEntry)
         session.flush()
 
-    def addLinkInstitutionAssuetudeThematique(self, institutionFk):
+    def addLinkAssuetudeThemeForInstitution(self, institutionFk):
         """
         table pg link_institution_assuetude_thematique
         ajout des thematique assuetude liees a une institution
@@ -3066,11 +3044,10 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkInstitutionAssuetudeThematique = wrapper.getMapper('link_institution_assuetude_thematique')
         assuetudeThematiqueFk = getattr(fields, 'assuetude_thematique_fk', None)
         for thematiqueFk in assuetudeThematiqueFk:
-            newEntry = insertLinkInstitutionAssuetudeThematique(institution_fk=institutionFk,
-                                                                assuetude_thematique_fk=thematiqueFk)
+            newEntry = LinkAssuetudeThemeForInstitution(institution_fk=institutionFk,
+                                                        assuetude_thematique_fk=thematiqueFk)
             session.add(newEntry)
         session.flush()
 
@@ -3082,11 +3059,10 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkInstitutionSousPlateForme = wrapper.getMapper('link_institution_sousplateforme')
         institutionSousPlateFormeFk = getattr(fields, 'institution_sousplateforme_fk', None)
         for sousPlateFormeFk in institutionSousPlateFormeFk:
-            newEntry = insertLinkInstitutionSousPlateForme(institution_fk=institutionFk,
-                                                           sousplateforme_fk=sousPlateFormeFk)
+            newEntry = LinkInstitutionSousPlateForme(institution_fk=institutionFk,
+                                                     sousplateforme_fk=sousPlateFormeFk)
             session.add(newEntry)
         session.flush()
 
@@ -3098,10 +3074,9 @@ class ManageInterClps(BrowserView):
         #fields = self.context.REQUEST
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkInstitutionCommuneCouverte = wrapper.getMapper('link_institution_commune_couverte')
         for communeCouverteFk in institutionCommuneCouverteFk:
-            newEntry = insertLinkInstitutionCommuneCouverte(institution_fk=institutionFk,
-                                                            commune_fk=communeCouverteFk)
+            newEntry = LinkInstitutionCommuneCouverte(institution_fk=institutionFk,
+                                                      commune_fk=communeCouverteFk)
             session.add(newEntry)
         session.flush()
 
@@ -3113,55 +3088,51 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkInstitutionClpsProprio = wrapper.getMapper('link_institution_clps_proprio')
         institutionClps = getattr(fields, 'institution_clps_proprio_fk', None)
         for clpsFk in institutionClps:
-            newEntry = insertLinkInstitutionClpsProprio(institution_fk=institutionFk,
-                                                        clps_fk=clpsFk)
+            newEntry = LinkInstitutionClpsProprio(institution_fk=institutionFk,
+                                                  clps_fk=clpsFk)
             session.add(newEntry)
         session.flush()
 
-    def deleteLinkInstitutionAssuetudeIntervention(self, institutionFk):
+    def deleteLinkAssuetudeInterventionForInstitution(self, institutionFk):
         """
         table pg link_institution_assuetude_intervention
         suppression des asuetudes intervention liées à une institution
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteLinkInstitutionAssuetudeIntervention = wrapper.getMapper('link_institution_assuetude_intervention')
-        query = session.query(deleteLinkInstitutionAssuetudeIntervention)
-        query = query.filter(deleteLinkInstitutionAssuetudeIntervention.institution_fk == institutionFk)
+        query = session.query(LinkAssuetudeInterventionForInstitution)
+        query = query.filter(LinkAssuetudeInterventionForInstitution.institution_fk == institutionFk)
         allInstitutions = query.all()
         for institutionFk in allInstitutions:
             session.delete(institutionFk)
         session.flush()
 
-    def deleteLinkInstitutionAssuetudeActiviteProposeePublic(self, institutionFk):
+    def deleteLinkAssuetudeActiviteProposeeForInstitutionPublic(self, institutionFk):
         """
         table pg link_institution_assuetude_activite_proposee_public
         suppression des asuetudes activite proposee liées à une institution
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteLinkInstitutionAssuetudeActiviteProposeePublic = wrapper.getMapper('link_institution_assuetude_activite_proposee_public')
-        query = session.query(deleteLinkInstitutionAssuetudeActiviteProposeePublic)
-        query = query.filter(deleteLinkInstitutionAssuetudeActiviteProposeePublic.institution_fk == institutionFk)
+        query = session.query(LinkAssuetudeActiviteProposeeForInstitutionPublic)
+        query = query.filter(LinkAssuetudeActiviteProposeeForInstitutionPublic.institution_fk == institutionFk)
         allInstitutions = query.all()
 
         for institutionFk in allInstitutions:
             session.delete(institutionFk)
         session.flush()
 
-    def deleteLinkInstitutionAssuetudeActiviteProposeePro(self, institutionFk):
+    def deleteLinkAssuetudeActiviteProposeeForInstitutionPro(self, institutionFk):
         """
         table pg link_institution_assuetude_activite_proposee_pro
         suppression des asuetudes activite proposee liées à une institution
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteLinkInstitutionAssuetudeActiviteProposeePro = wrapper.getMapper('link_institution_assuetude_activite_proposee_pro')
-        query = session.query(deleteLinkInstitutionAssuetudeActiviteProposeePro)
-        query = query.filter(deleteLinkInstitutionAssuetudeActiviteProposeePro.institution_fk == institutionFk)
+        query = session.query(LinkAssuetudeActiviteProposeeForInstitutionPro)
+        query = query.filter(LinkAssuetudeActiviteProposeeForInstitutionPro.institution_fk == institutionFk)
         allInstitutions = query.all()
 
         for institutionFk in allInstitutions:
@@ -3190,9 +3161,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteLinkInstitutionClpsProprio = wrapper.getMapper('link_institution_clps_proprio')
-        query = session.query(deleteLinkInstitutionClpsProprio)
-        query = query.filter(deleteLinkInstitutionClpsProprio.institution_fk == institutionFk)
+        query = session.query(LinkInstitutionClpsProprio)
+        query = query.filter(LinkInstitutionClpsProprio.institution_fk == institutionFk)
         for institutionFk in query.all():
             session.delete(institutionFk)
         session.flush()
@@ -3204,9 +3174,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteInstitutionSousPlateForme = wrapper.getMapper('link_institution_sousplateforme')
-        query = session.query(deleteInstitutionSousPlateForme)
-        query = query.filter(deleteInstitutionSousPlateForme.institution_fk == institutionFk)
+        query = session.query(LinkInstitutionSousPlateForme)
+        query = query.filter(LinkInstitutionSousPlateForme.institution_fk == institutionFk)
         for institutionFk in query.all():
             session.delete(institutionFk)
         session.flush()
@@ -3218,9 +3187,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteInstitutionCommuneCouverte = wrapper.getMapper('link_institution_commune_couverte')
-        query = session.query(deleteInstitutionCommuneCouverte)
-        query = query.filter(deleteInstitutionCommuneCouverte.institution_fk == institutionFk)
+        query = session.query(LinkInstitutionCommuneCouverte)
+        query = query.filter(LinkInstitutionCommuneCouverte.institution_fk == institutionFk)
         for institutionFk in query.all():
             session.delete(institutionFk)
         session.flush()
@@ -3284,9 +3252,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        updateInstitution = wrapper.getMapper('institution')
-        query = session.query(updateInstitution)
-        query = query.filter(updateInstitution.institution_pk == institution_pk)
+        query = session.query(Institution)
+        query = query.filter(Institution.institution_pk == institution_pk)
         institution = query.one()
         institution.institution_nom = unicode(institution_nom, 'utf-8')
         institution.institution_sigle = unicode(institution_sigle, 'utf-8')
@@ -4842,16 +4809,16 @@ class ManageInterClps(BrowserView):
             institutionFk = self.getInstitutionMaxPk()
 
             if assuetudeInterventionFk > 0:
-                self.addLinkInstitutionAssuetudeIntervention(institutionFk)
+                self.addLinkAssuetudeInterventionForInstitution(institutionFk)
 
             if assuetudeActiviteProposeePublicFk > 0:
-                self.addLinkInstitutionAssuetudeActiviteProposeePublic(institutionFk, assuetudeActiviteProposeePublicFk)
+                self.addLinkAssuetudeActiviteProposeeForInstitutionPublic(institutionFk, assuetudeActiviteProposeePublicFk)
 
             if assuetudeActiviteProposeeProFk > 0:
-                self.addLinkInstitutionAssuetudeActiviteProposeePro(institutionFk, assuetudeActiviteProposeeProFk)
+                self.addLinkAssuetudeActiviteProposeeForInstitutionPro(institutionFk, assuetudeActiviteProposeeProFk)
 
             if assuetudeThematiqueFk > 0:
-                self.addLinkInstitutionAssuetudeThematique(institutionFk)
+                self.addLinkAssuetudeThemeForInstitution(institutionFk)
 
             if institutionSousPlateFormeFk:
                 self.addLinkInstitutionSousPlateForme(institutionFk)
@@ -4868,21 +4835,21 @@ class ManageInterClps(BrowserView):
             institutionFk = getattr(fields, 'institution_pk')
             self.updateInstitution()
 
-            self.deleteLinkInstitutionAssuetudeIntervention(institutionFk)
+            self.deleteLinkAssuetudeInterventionForInstitution(institutionFk)
             if assuetudeInterventionFk > 0:
-                self.addLinkInstitutionAssuetudeIntervention(institutionFk)
+                self.addLinkAssuetudeInterventionForInstitution(institutionFk)
 
-            self.deleteLinkInstitutionAssuetudeActiviteProposeePublic(institutionFk)
+            self.deleteLinkAssuetudeActiviteProposeeForInstitutionPublic(institutionFk)
             if assuetudeActiviteProposeePublicFk > 0:
-                self.addLinkInstitutionAssuetudeActiviteProposeePublic(institutionFk, assuetudeActiviteProposeePublicFk)
+                self.addLinkAssuetudeActiviteProposeeForInstitutionPublic(institutionFk, assuetudeActiviteProposeePublicFk)
 
-            self.deleteLinkInstitutionAssuetudeActiviteProposeePro(institutionFk)
+            self.deleteLinkAssuetudeActiviteProposeeForInstitutionPro(institutionFk)
             if assuetudeActiviteProposeeProFk > 0:
-                self.addLinkInstitutionAssuetudeActiviteProposeePro(institutionFk, assuetudeActiviteProposeeProFk)
+                self.addLinkAssuetudeActiviteProposeeForInstitutionPro(institutionFk, assuetudeActiviteProposeeProFk)
 
             self.deleteLinkInstitutionAssuetudeThematique(institutionFk)
             if assuetudeThematiqueFk > 0:
-                self.addLinkInstitutionAssuetudeThematique(institutionFk)
+                self.addLinkAssuetudeThemeForInstitution(institutionFk)
 
             self.deleteLinkInstitutionSousPlateForme(institutionFk)
             if institutionSousPlateFormeFk > 0:
