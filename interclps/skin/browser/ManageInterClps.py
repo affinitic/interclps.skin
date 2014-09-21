@@ -1542,9 +1542,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        updateSousPlateForme = wrapper.getMapper('sousplateforme')
-        query = session.query(updateSousPlateForme)
-        query = query.filter(updateSousPlateForme.sousplateforme_pk == sousplateforme_pk)
+        query = session.query(SousPlateForme)
+        query = query.filter(SousPlateForme.sousplateforme_pk == sousplateforme_pk)
         sousplateformes = query.all()
         for sousplateforme in sousplateformes:
             sousplateforme.sousplateforme_nom = unicode(sousplateforme_nom, 'utf-8')
@@ -1563,9 +1562,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        MilieuDeVieTable = wrapper.getMapper('milieudevie')
-        query = session.query(MilieuDeVieTable)
-        query = query.order_by(MilieuDeVieTable.milieudevie_nom)
+        query = session.query(MilieuDeVie)
+        query = query.order_by(MilieuDeVie.milieudevie_nom)
         allMilieuDeVies = query.all()
         return allMilieuDeVies
 
@@ -1576,10 +1574,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        MilieuDeVieTable = wrapper.getMapper('milieudevie')
-        query = session.query(MilieuDeVieTable)
-        query = query.filter(MilieuDeVieTable.milieudevie_actif == True)
-        query = query.order_by(MilieuDeVieTable.milieudevie_nom)
+        query = session.query(MilieuDeVie)
+        query = query.filter(MilieuDeVie.milieudevie_actif == True)
+        query = query.order_by(MilieuDeVie.milieudevie_nom)
         allMilieuDeVies = query.all()
         return allMilieuDeVies
 
@@ -1591,9 +1588,8 @@ class ManageInterClps(BrowserView):
         milieuDeViePk = self.getTuple(milieuDeViePk)
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        MilieuDeVieTable = wrapper.getMapper('milieudevie')
-        query = session.query(MilieuDeVieTable)
-        query = query.filter(MilieuDeVieTable.milieudevie_pk.in_(milieuDeViePk))
+        query = session.query(MilieuDeVie)
+        query = query.filter(MilieuDeVie.milieudevie_pk.in_(milieuDeViePk))
         milieuDeVie = query.all()
         return milieuDeVie
 
@@ -1606,9 +1602,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperienceMilieuDeVieTable = wrapper.getMapper('link_experience_milieudevie')
-        query = session.query(LinkExperienceMilieuDeVieTable)
-        query = query.filter(LinkExperienceMilieuDeVieTable.experience_fk.in_(experiencePk))
+        query = session.query(LinkExperienceMilieuDeVie)
+        query = query.filter(LinkExperienceMilieuDeVie.experience_fk.in_(experiencePk))
         milieuDeViePk = query.all()
 
         listeMilieuDeVieForExperience = []
@@ -1655,12 +1650,11 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertMilieuDeVie = wrapper.getMapper('milieudevie')
-        newEntry = insertMilieuDeVie(milieudevie_nom=milieudevie_nom, \
-                                     milieudevie_actif=milieudevie_actif, \
-                                     milieudevie_creation_date=milieudevie_creation_date, \
-                                     milieudevie_modification_date=milieudevie_modification_date, \
-                                     milieudevie_creation_employe=milieudevie_creation_employe)
+        newEntry = MilieuDeVie(milieudevie_nom=milieudevie_nom, \
+                               milieudevie_actif=milieudevie_actif, \
+                               milieudevie_creation_date=milieudevie_creation_date, \
+                               milieudevie_modification_date=milieudevie_modification_date, \
+                               milieudevie_creation_employe=milieudevie_creation_employe)
         session.add(newEntry)
         session.flush()
 
@@ -1672,16 +1666,15 @@ class ManageInterClps(BrowserView):
         pks = []
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        milieuDeVieTable = wrapper.getMapper('milieudevie')
         for value in milieuDeViePksOrValues:
             try:
                 int(value)
             except ValueError:
-                newEntry = milieuDeVieTable(milieudevie_nom=value, \
-                                            milieudevie_actif=True, \
-                                            milieudevie_creation_date=self.getTimeStamp(), \
-                                            milieudevie_modification_date=self.getTimeStamp(), \
-                                            milieudevie_modification_employe=self.getUserAuthenticated())
+                newEntry = MilieuDeVie(milieudevie_nom=value, \
+                                       milieudevie_actif=True, \
+                                       milieudevie_creation_date=self.getTimeStamp(), \
+                                       milieudevie_modification_date=self.getTimeStamp(), \
+                                       milieudevie_modification_employe=self.getUserAuthenticated())
                 session.add(newEntry)
                 session.flush()
                 pks.append(int(newEntry.milieudevie_pk))
@@ -1702,9 +1695,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        updateMilieuDeVie = wrapper.getMapper('milieudevie')
-        query = session.query(updateMilieuDeVie)
-        query = query.filter(updateMilieuDeVie.milieudevie_pk == milieudevie_pk)
+        query = session.query(MilieuDeVie)
+        query = query.filter(MilieuDeVie.milieudevie_pk == milieudevie_pk)
         milieudevies = query.all()
         for milieudevie in milieudevies:
             milieudevie.milieudevie_nom = unicode(milieudevie_nom, 'utf-8')
@@ -1713,8 +1705,8 @@ class ManageInterClps(BrowserView):
             milieudevie.milieudevie_modification_employe = milieudevie_modification_employe
         session.flush()
 
-### SUPPORT ###
 
+### SUPPORT ###
     def getAllSupport(self):
         """
         table pg support
@@ -1722,9 +1714,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        SupportTable = wrapper.getMapper('support')
-        query = session.query(SupportTable)
-        query = query.order_by(SupportTable.support_titre)
+        query = session.query(Support)
+        query = query.order_by(Support.support_titre)
         allSupports = query.all()
         return allSupports
 
@@ -1735,10 +1726,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        SupportTable = wrapper.getMapper('support')
-        query = session.query(SupportTable)
-        query = query.filter(SupportTable.support_actif == True)
-        query = query.order_by(SupportTable.support_titre)
+        query = session.query(Support)
+        query = query.filter(Support.support_actif == True)
+        query = query.order_by(Support.support_titre)
         allSupports = query.all()
         return allSupports
 
@@ -1749,9 +1739,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        SupportTable = wrapper.getMapper('support')
-        query = session.query(SupportTable)
-        query = query.filter(SupportTable.support_pk == supportPk)
+        query = session.query(Support)
+        query = query.filter(Support.support_pk == supportPk)
         support = query.all()
         return support
 
@@ -1762,9 +1751,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkRessourceSupportTable = wrapper.getMapper('link_ressource_support')
-        query = session.query(LinkRessourceSupportTable)
-        query = query.filter(LinkRessourceSupportTable.ressource_fk == ressourcePk)
+        query = session.query(LinkRessourceSupport)
+        query = query.filter(LinkRessourceSupport.ressource_fk == ressourcePk)
         supportPk = query.all()
 
         listeSuppportForRessource = []
@@ -1793,13 +1781,12 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertSupport = wrapper.getMapper('support')
-        newEntry = insertSupport(support_titre=support_titre, \
-                                 support_description=support_description, \
-                                 support_actif=support_actif, \
-                                 support_creation_date=support_creation_date, \
-                                 support_modification_date=support_modification_date, \
-                                 support_modification_employe=support_modification_employe)
+        newEntry = Support(support_titre=support_titre, \
+                           support_description=support_description, \
+                           support_actif=support_actif, \
+                           support_creation_date=support_creation_date, \
+                           support_modification_date=support_modification_date, \
+                           support_modification_employe=support_modification_employe)
         session.add(newEntry)
         session.flush()
         return {'status': 1}
@@ -1818,9 +1805,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        updateSupport = wrapper.getMapper('support')
-        query = session.query(updateSupport)
-        query = query.filter(updateSupport.support_pk == support_pk)
+        query = session.query(Support)
+        query = query.filter(Support.support_pk == support_pk)
         supports = query.all()
         for support in supports:
             support.support_titre = unicode(support_titre, 'utf-8')
@@ -1852,24 +1838,23 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertOutil = wrapper.getMapper('outil')
-        newEntry = insertOutil(outil_nom=outil_nom, \
-                               outil_description=outil_description, \
-                               outil_fabricant=outil_fabricant, \
-                               outil_tranche_age=outil_tranche_age, \
-                               outil_lien=outil_lien, \
-                               outil_lien_siss=outil_lien_siss, \
-                               outil_autre_info=outil_autre_info, \
-                               outil_disponible_clps=outil_disponible_clps,\
-                               outil_etat=outil_etat, \
-                               outil_creation_date=outil_creation_date, \
-                               outil_creation_employe=outil_creation_employe)
+        newEntry = Outil(outil_nom=outil_nom, \
+                         outil_description=outil_description, \
+                         outil_fabricant=outil_fabricant, \
+                         outil_tranche_age=outil_tranche_age, \
+                         outil_lien=outil_lien, \
+                         outil_lien_siss=outil_lien_siss, \
+                         outil_autre_info=outil_autre_info, \
+                         outil_disponible_clps=outil_disponible_clps,\
+                         outil_etat=outil_etat, \
+                         outil_creation_date=outil_creation_date, \
+                         outil_creation_employe=outil_creation_employe)
         session.add(newEntry)
         session.flush()
         return {'status': 1}
 
-### RECIT ###
 
+### RECIT ###
     def addRecit(self):
         """
         table pg recit
@@ -1877,8 +1862,8 @@ class ManageInterClps(BrowserView):
         """
         pass
 
-### RESSOURCES ###
 
+### RESSOURCES ###
     def getAllRessource(self, ressourcePk=None):
         """
         table pg ressource
@@ -1891,13 +1876,12 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        RessourceTable = wrapper.getMapper('ressource')
-        query = session.query(RessourceTable)
+        query = session.query(Ressource)
         if ressourceTitre:
-            query = query.filter(RessourceTable.ressource_titre == ressourceTitre)
+            query = query.filter(Ressource.ressource_titre == ressourceTitre)
         if ressourcePk:
-            query = query.filter(RessourceTable.ressource_pk == ressourcePk)
-        query = query.order_by(RessourceTable.ressource_titre)
+            query = query.filter(Ressource.ressource_pk == ressourcePk)
+        query = query.order_by(Ressource.ressource_titre)
         allRessources = query.all()
         return allRessources
 
@@ -1908,10 +1892,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        RessourceTable = wrapper.getMapper('ressource')
-        query = session.query(RessourceTable)
-        query = query.filter(RessourceTable.ressource_etat == 'publish')
-        query = query.order_by(RessourceTable.ressource_titre)
+        query = session.query(Ressource)
+        query = query.filter(Ressource.ressource_etat == 'publish')
+        query = query.order_by(Ressource.ressource_titre)
         allActiveRessources = query.all()
         return allActiveRessources
 
@@ -1922,9 +1905,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        RessourceTable = wrapper.getMapper('ressource')
-        query = session.query(RessourceTable)
-        query = query.filter(RessourceTable.ressource_pk == ressourcePk)
+        query = session.query(Ressource)
+        query = query.filter(Ressource.ressource_pk == ressourcePk)
         ressource = query.all()
         return ressource
 
@@ -1935,8 +1917,7 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        RessourceTable = wrapper.getMapper('ressource')
-        query = session.query(RessourceTable)
+        query = session.query(RessourceT)
         ressource = query.all()
         listePk = []
         for i in ressource:
@@ -1953,9 +1934,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        RessourceTable = wrapper.getMapper('ressource')
-        query = session.query(RessourceTable)
-        query = query.filter(RessourceTable.ressource_pk == ressourcePk)
+        query = session.query(Ressource)
+        query = query.filter(Ressource.ressource_pk == ressourcePk)
         ressource = query.one()
         ressourceEtat = ''
         if ressource.ressource_etat == 'private':
@@ -1973,9 +1953,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperienceRessourceTable = wrapper.getMapper('link_experience_ressource')
-        query = session.query(LinkExperienceRessourceTable)
-        query = query.filter(LinkExperienceRessourceTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceRessource)
+        query = query.filter(LinkExperienceRessource.experience_fk == experiencePk)
         ressourcePk = query.all()
         listeRessourceForExperience = []
         listeAllRessource = self.getAllRessource()
@@ -1992,9 +1971,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkExperienceRessourceTable = wrapper.getMapper('link_experience_ressource')
-        query = session.query(LinkExperienceRessourceTable)
-        query = query.filter(LinkExperienceRessourceTable.experience_fk == experiencePk)
+        query = session.query(LinkExperienceRessource)
+        query = query.filter(LinkExperienceRessource.experience_fk == experiencePk)
         ressourcePk = query.all()
         listeRessourceForExperience = []
         listeAllRessource = self.getAllRessource()
@@ -2011,9 +1989,7 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        ressourceOutilTable = wrapper.getMapper('link_experience_ressource_outil')
-        query = session.query(ressourceOutilTable)
-        query = query.filter(ressourceOutilTable.experience_fk == experiencePk)
+        query = query.filter(RessourceOutil.experience_fk == experiencePk)
         ressourceOutil = query.all()
         return ressourceOutil
 
@@ -2024,11 +2000,10 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        ressourceOuvrageTable = wrapper.getMapper('link_experience_ressource_ouvrage')
-        query = session.query(ressourceOuvrageTable)
-        query = query.filter(ressourceOuvrageTable.experience_fk == experiencePk)
+        query = session.query(RessourceOuvrage)
+        query = query.filter(RessourceOuvrage.experience_fk == experiencePk)
         ressourceOuvrage = query.all()
-        return ressourceOuvrage
+        return RessourceOuvrage
 
     def getRessourceByClps(self, clpsPk):
         """
@@ -2037,9 +2012,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkRessourceClpsProprioTable = wrapper.getMapper('link_ressource_clps_proprio')
-        query = session.query(LinkRessourceClpsProprioTable)
-        query = query.filter(LinkRessourceClpsProprioTable.clps_fk == clpsPk)
+        query = session.query(LinkRessourceClpsProprio)
+        query = query.filter(LinkRessourceClpsProprio.clps_fk == clpsPk)
         ressourcePkByClpsProprio = query.all()
         return ressourcePkByClpsProprio
 
@@ -2050,9 +2024,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        RessourceTable = wrapper.getMapper('ressource')
-        query = session.query(RessourceTable)
-        query = query.filter(RessourceTable.ressource_titre.ilike("%%%s%%" % searchString))
+        query = session.query(Ressource)
+        query = query.filter(Ressource.ressource_titre.ilike("%%%s%%" % searchString))
         ressource = [res.ressource_titre for res in query.all()]
         return ressource
 
@@ -2063,9 +2036,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkRessourceClpsDispoTable = wrapper.getMapper('link_ressource_clps_dispo')
-        query = session.query(LinkRessourceClpsDispoTable)
-        query = query.filter(LinkRessourceClpsDispoTable.ressource_fk == ressourcePk)
+        query = session.query(LinkRessourceClpsDispo)
+        query = query.filter(LinkRessourceClpsDispo.ressource_fk == ressourcePk)
         clpsPk = query.all()
 
         listeClpsDispoForRessource = []
@@ -2115,34 +2087,33 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertRessource = wrapper.getMapper('ressource')
-        newEntry = insertRessource(ressource_titre=ressource_titre, \
-                                   ressource_description=ressource_description, \
-                                   ressource_auteur=ressource_auteur, \
-                                   ressource_collection=ressource_collection, \
-                                   ressource_edition=ressource_edition, \
-                                   ressource_lieu_edition=ressource_lieu_edition, \
-                                   ressource_date_edition=ressource_date_edition, \
-                                   ressource_autre_info=ressource_autre_info, \
-                                   ressource_lien_pipsa=ressource_lien_pipsa, \
-                                   ressource_autre_lien=ressource_autre_lien, \
-                                   ressource_objectif=ressource_objectif, \
-                                   ressource_disponible_clps=ressource_disponible_clps, \
-                                   ressource_disponible_autre=ressource_disponible_autre, \
-                                   ressource_utilisation=ressource_utilisation, \
-                                   ressource_avis_clps=ressource_avis_clps, \
-                                   ressource_etat=ressource_etat, \
-                                   ressource_plate_forme_sante_ecole=ressource_plate_forme_sante_ecole, \
-                                   ressource_plate_forme_assuetude=ressource_plate_forme_assuetude, \
-                                   ressource_plate_forme_sante_famille=ressource_plate_forme_sante_famille, \
-                                   ressource_plate_forme_sante_environnement=ressource_plate_forme_sante_environnement, \
-                                   ressource_mission_centre_documentation=ressource_mission_centre_documentation, \
-                                   ressource_mission_accompagnement_projet=ressource_mission_accompagnement_projet, \
-                                   ressource_mission_reseau_echange=ressource_mission_reseau_echange, \
-                                   ressource_mission_formation=ressource_mission_formation, \
-                                   ressource_creation_date=ressource_creation_date, \
-                                   ressource_modification_date=ressource_modification_date, \
-                                   ressource_modification_employe=ressource_modification_employe)
+        newEntry = Ressource(ressource_titre=ressource_titre, \
+                             ressource_description=ressource_description, \
+                             ressource_auteur=ressource_auteur, \
+                             ressource_collection=ressource_collection, \
+                             ressource_edition=ressource_edition, \
+                             ressource_lieu_edition=ressource_lieu_edition, \
+                             ressource_date_edition=ressource_date_edition, \
+                             ressource_autre_info=ressource_autre_info, \
+                             ressource_lien_pipsa=ressource_lien_pipsa, \
+                             ressource_autre_lien=ressource_autre_lien, \
+                             ressource_objectif=ressource_objectif, \
+                             ressource_disponible_clps=ressource_disponible_clps, \
+                             ressource_disponible_autre=ressource_disponible_autre, \
+                             ressource_utilisation=ressource_utilisation, \
+                             ressource_avis_clps=ressource_avis_clps, \
+                             ressource_etat=ressource_etat, \
+                             ressource_plate_forme_sante_ecole=ressource_plate_forme_sante_ecole, \
+                             ressource_plate_forme_assuetude=ressource_plate_forme_assuetude, \
+                             ressource_plate_forme_sante_famille=ressource_plate_forme_sante_famille, \
+                             ressource_plate_forme_sante_environnement=ressource_plate_forme_sante_environnement, \
+                             ressource_mission_centre_documentation=ressource_mission_centre_documentation, \
+                             ressource_mission_accompagnement_projet=ressource_mission_accompagnement_projet, \
+                             ressource_mission_reseau_echange=ressource_mission_reseau_echange, \
+                             ressource_mission_formation=ressource_mission_formation, \
+                             ressource_creation_date=ressource_creation_date, \
+                             ressource_modification_date=ressource_modification_date, \
+                             ressource_modification_employe=ressource_modification_employe)
         session.add(newEntry)
         session.flush()
         return {'status': 1}
@@ -2155,11 +2126,10 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkRessourceSupport = wrapper.getMapper('link_ressource_support')
         ressourceSupport = getattr(fields, 'ressource_support_fk', None)
         for supportFk in ressourceSupport:
-            newEntry = insertLinkRessourceSupport(ressource_fk=ressourceFk,
-                                                  support_fk=supportFk)
+            newEntry = LinkRessourceSupport(ressource_fk=ressourceFk,
+                                            support_fk=supportFk)
             session.add(newEntry)
         session.flush()
 
@@ -2171,11 +2141,10 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkRessourceTheme = wrapper.getMapper('link_ressource_theme')
         ressourceTheme = getattr(fields, 'ressource_theme_fk', None)
         for themeFk in ressourceTheme:
-            newEntry = insertLinkRessourceTheme(ressource_fk=ressourceFk,
-                                                theme_fk=themeFk)
+            newEntry = LinkRessourceTheme(ressource_fk=ressourceFk,
+                                          theme_fk=themeFk)
             session.add(newEntry)
         session.flush()
 
@@ -2187,11 +2156,10 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkRessourcePublic = wrapper.getMapper('link_ressource_public')
         ressourcePublic = getattr(fields, 'ressource_public_fk', None)
         for publicFk in ressourcePublic:
-            newEntry = insertLinkRessourcePublic(ressource_fk=ressourceFk,
-                                                 public_fk=publicFk)
+            newEntry = LinkRessourcePublic(ressource_fk=ressourceFk,
+                                           public_fk=publicFk)
             session.add(newEntry)
         session.flush()
 
@@ -2203,11 +2171,10 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkRessourceClpsDispo = wrapper.getMapper('link_ressource_clps_dispo')
         ressourceClps = getattr(fields, 'ressource_clps_dispo_fk', None)
         for clpsFk in ressourceClps:
-            newEntry = insertLinkRessourceClpsDispo(ressource_fk=ressourceFk,
-                                                    clps_fk=clpsFk)
+            newEntry = LinkRessourceClpsDispo(ressource_fk=ressourceFk,
+                                              clps_fk=clpsFk)
             session.add(newEntry)
         session.flush()
 
@@ -2218,9 +2185,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteLinkRessourceSupport = wrapper.getMapper('link_ressource_support')
-        query = session.query(deleteLinkRessourceSupport)
-        query = query.filter(deleteLinkRessourceSupport.ressource_fk == ressourceFk)
+        query = session.query(LinkRessourceSupport)
+        query = query.filter(LinkRessourceSupport.ressource_fk == ressourceFk)
         for ressourceFk in query.all():
             session.delete(ressourceFk)
         session.flush()
@@ -2232,9 +2198,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteLinkRessourceTheme = wrapper.getMapper('link_ressource_theme')
-        query = session.query(deleteLinkRessourceTheme)
-        query = query.filter(deleteLinkRessourceTheme.ressource_fk == ressourceFk)
+        query = session.query(LinkRessourceTheme)
+        query = query.filter(LinkRessourceTheme.ressource_fk == ressourceFk)
         for ressourceFk in query.all():
             session.delete(ressourceFk)
         session.flush()
@@ -2246,9 +2211,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteLinkRessourceClpsProprio = wrapper.getMapper('link_ressource_clps_proprio')
-        query = session.query(deleteLinkRessourceClpsProprio)
-        query = query.filter(deleteLinkRessourceClpsProprio.ressource_fk == ressourceFk)
+        query = session.query(LinkRessourceClpsProprio)
+        query = query.filter(LinkRessourceClpsProprio.ressource_fk == ressourceFk)
         for ressourceFk in query.all():
             session.delete(ressourceFk)
         session.flush()
@@ -2260,9 +2224,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteLinkRessourceClpsDispo = wrapper.getMapper('link_ressource_clps_dispo')
-        query = session.query(deleteLinkRessourceClpsDispo)
-        query = query.filter(deleteLinkRessourceClpsDispo.ressource_fk == ressourceFk)
+        query = session.query(LinkRessourceClpsDispo)
+        query = query.filter(LinkRessourceClpsDispo.ressource_fk == ressourceFk)
         for ressourceFk in query.all():
             session.delete(ressourceFk)
         session.flush()
@@ -2274,9 +2237,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteLinkRessourcePublic = wrapper.getMapper('link_ressource_public')
-        query = session.query(deleteLinkRessourcePublic)
-        query = query.filter(deleteLinkRessourcePublic.ressource_fk == ressourceFk)
+        query = session.query(LinkRessourcePublic)
+        query = query.filter(LinkRessourcePublic.ressource_fk == ressourceFk)
         for ressourceFk in query.all():
             session.delete(ressourceFk)
         session.flush()
@@ -2289,11 +2251,10 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkRessourceClpsProprio = wrapper.getMapper('link_ressource_clps_proprio')
         ressourceClps = getattr(fields, 'ressource_clps_proprio_fk', None)
         for clpsFk in ressourceClps:
-            newEntry = insertLinkRessourceClpsProprio(ressource_fk=ressourceFk,
-                                                      clps_fk=clpsFk)
+            newEntry = LinkRessourceClpsProprio(ressource_fk=ressourceFk,
+                                                clps_fk=clpsFk)
             session.add(newEntry)
         session.flush()
 
@@ -2332,9 +2293,8 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        updateRessource = wrapper.getMapper('ressource')
-        query = session.query(updateRessource)
-        query = query.filter(updateRessource.ressource_pk == ressource_pk)
+        query = session.query(Ressource)
+        query = query.filter(Ressource.ressource_pk == ressource_pk)
         ressource = query.one()
         ressource.ressource_titre = unicode(ressource_titre, 'utf-8')
         ressource.ressource_description = unicode(ressource_description, 'utf-8')
@@ -2364,8 +2324,8 @@ class ManageInterClps(BrowserView):
         ressource.ressource_modification_employe = ressource_modification_employe
         session.flush()
 
-### INSTITUTION TYPE ###
 
+### INSTITUTION TYPE ###
     def getAllInstitutionType(self, institutionTypePk=None):
         """
         table pg institution_type
@@ -2378,13 +2338,12 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTypeTable = wrapper.getMapper('institution_type')
-        query = session.query(InstitutionTypeTable)
+        query = session.query(InstitutionType)
         if institutionTypeNom:
-            query = query.filter(InstitutionTypeTable.institution_type_nom == institutionTypeNom)
+            query = query.filter(InstitutionType.institution_type_nom == institutionTypeNom)
         if institutionTypePk:
-            query = query.filter(InstitutionTypeTable.institution_type_pk == institutionTypePk)
-        query = query.order_by(InstitutionTypeTable.institution_type_nom)
+            query = query.filter(InstitutionType.institution_type_pk == institutionTypePk)
+        query = query.order_by(InstitutionType.institution_type_nom)
         allInstitutionType = query.all()
         return allInstitutionType
 
@@ -2395,10 +2354,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTypeTable = wrapper.getMapper('institution_type')
-        query = session.query(InstitutionTypeTable)
-        query = query.order_by(InstitutionTypeTable.institution_type_nom)
-        query = query.filter(InstitutionTypeTable.institution_type_actif == True)
+        query = session.query(InstitutionType)
+        query = query.order_by(InstitutionType.institution_type_nom)
+        query = query.filter(InstitutionType.institution_type_actif == True)
         allActiveInstitutionType = query.all()
         return allActiveInstitutionType
 
@@ -2409,9 +2367,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTypeTable = wrapper.getMapper('institution_type')
-        query = session.query(InstitutionTypeTable)
-        query = query.filter(InstitutionTypeTable.institution_type_pk == institutionTypePk)
+        query = session.query(InstitutionType)
+        query = query.filter(InstitutionType.institution_type_pk == institutionTypePk)
         institutionType = query.all()
         return institutionType
 
@@ -2429,12 +2386,11 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertInstitutionType = wrapper.getMapper('institution_type')
-        newEntry = insertInstitutionType(institution_type_nom=institution_type_nom, \
-                                         institution_type_actif=institution_type_actif, \
-                                         institution_type_creation_date=institution_type_creation_date, \
-                                         institution_type_modification_date=institution_type_modification_date, \
-                                         institution_typecreation_employe=institution_type_creation_employe)
+        newEntry = InstitutionType(institution_type_nom=institution_type_nom, \
+                                   institution_type_actif=institution_type_actif, \
+                                   institution_type_creation_date=institution_type_creation_date, \
+                                   institution_type_modification_date=institution_type_modification_date, \
+                                   institution_typecreation_employe=institution_type_creation_employe)
         session.add(newEntry)
         session.flush()
 
@@ -2464,8 +2420,8 @@ class ManageInterClps(BrowserView):
 
         session.flush()
 
-### INSTITUION ###
 
+### INSTITUION ###
     def getAllInstitution(self, institutionPk=None):
         """
         table pg institution
@@ -2478,13 +2434,12 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
+        query = session.query(Institution)
         if institutionNom:
-            query = query.filter(InstitutionTable.institution_nom == institutionNom)
+            query = query.filter(Institution.institution_nom == institutionNom)
         if institutionPk:
-            query = query.filter(InstitutionTable.institution_pk == institutionPk)
-        query = query.order_by(InstitutionTable.institution_nom)
+            query = query.filter(Institution.institution_pk == institutionPk)
+        query = query.order_by(Institution.institution_nom)
         allInstitution = query.all()
         return allInstitution
 
@@ -2495,10 +2450,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        InstitutionTable = wrapper.getMapper('institution')
-        query = session.query(InstitutionTable)
-        query = query.order_by(InstitutionTable.institution_nom)
-        query = query.filter(InstitutionTable.institution_etat == 'publish')
+        query = session.query(Institution)
+        query = query.order_by(Institution.institution_nom)
+        query = query.filter(Institution.institution_etat == 'publish')
         allActiveInstitution = query.all()
         return allActiveInstitution
 
@@ -2509,9 +2463,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        clpsProprioInstitutionTable = wrapper.getMapper('link_institution_clps_proprio')
-        query = session.query(clpsProprioInstitutionTable)
-        query = query.filter(clpsProprioInstitutionTable.clps_fk == clpsProprioPk)
+        query = session.query(LinkInstitutionClpsProprio)
+        query = query.filter(LinkInstitutionClpsProprio.clps_fk == clpsProprioPk)
         institutionPkForClpsProprio = query.all()
         listeInstitutionPkForClpsProprio = []
         listeAllInstitution = self.getAllActiveInstitution()
@@ -2528,10 +2481,9 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        institutionTable = wrapper.getMapper('institution')
-        query = session.query(institutionTable)
-        query = query.filter(institutionTable.institution_clps_proprio_fk == clpsProprioPk)
-        query = query.order_by(institutionTable.institution_nom)
+        query = session.query(Institution)
+        query = query.filter(Institution.institution_clps_proprio_fk == clpsProprioPk)
+        query = query.order_by(Institution.institution_nom)
         institutionForClpsProprio = query.all()
         return institutionForClpsProprio
 
