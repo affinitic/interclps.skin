@@ -3881,7 +3881,7 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         query = session.query(Experience)
         query = query.filter(Experience.experience_etat == 'publish')
-        query = query.order_by(ExperienceTable.experience_modification_date)
+        query = query.order_by(Experience.experience_modification_date)
         dic = {plateForme: True}
         query = query.filter_by(**dic)
         if limite:
@@ -3901,7 +3901,7 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         query = session.query(Experience)
         query = query.filter(Experience.experience_etat == 'publish')
-        query = query.order_by(ExperienceTable.experience_modification_date)
+        query = query.order_by(Experience.experience_modification_date)
         if limite:
             query = query.limit(5)
         experience = query.all()
@@ -4035,9 +4035,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        LinkInstitutionRessourceTable = wrapper.getMapper('link_experience_institution_ressource')
-        query = session.query(LinkInstitutionRessourceTable)
-        query = query.filter(LinkInstitutionRessourceTable.institution_fk == institutionPk)
+        query = session.query(LinkInstitutionRessource)
+        query = query.filter(LinkInstitutionRessource.institution_fk == institutionPk)
         experiencePk = query.all()
         listeExperienceForInstitutionRessource = []
         listeAllExperience = self.getAllExperience()
