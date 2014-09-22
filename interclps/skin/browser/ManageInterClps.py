@@ -62,7 +62,7 @@ from interclps.db.pgsql.baseTypes import Auteur, \
                                          LinkAssuetudeActiviteProposeeForInstitutionPro, \
                                          AssuetudeThemeForInstitution, \
                                          LinkAssuetudeThemeForInstitution
-                                         #InstitutionAssuetudeIntervention, \
+                                         InstitutionAssuetudeIntervention, \
                                          #InstitutionAssuetudeActiviteProposee, \
                                          #AssuetudeThemeForInstitution, \
 
