@@ -62,7 +62,7 @@ from interclps.db.pgsql.baseTypes import Auteur, \
                                          LinkAssuetudeActiviteProposeeForInstitutionPro, \
                                          AssuetudeThemeForInstitution, \
                                          LinkAssuetudeThemeForInstitution
-                                         InstitutionAssuetudeIntervention, \
+                                         #InstitutionAssuetudeIntervention
                                          #InstitutionAssuetudeActiviteProposee, \
                                          #AssuetudeThemeForInstitution, \
 
@@ -443,8 +443,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        query = session.query(LinkRessourceClps)
-        query = query.filter(LinkRessourceClps.ressource_fk == ressourcePk)
+        query = session.query(LinkRessourceClpsProprio)
+        query = query.filter(LinkRessourceClpsProprio.ressource_fk == ressourcePk)
         ressources = query.all()
 
         clpsProprioListe = []
@@ -3139,16 +3139,15 @@ class ManageInterClps(BrowserView):
             session.delete(institutionFk)
         session.flush()
 
-    def deleteLinkInstitutionAssuetudeThematique(self, institutionFk):
+    def deleteLinkAssuetudeThemeForInstitution(self, institutionFk):
         """
         table pg link_institution_assuetude_thematique
-        suppression des asuetudes yhematique liées à une institution
+        suppression des asuetudes thematique liées à une institution
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteLinkInstitutionAssuetudeThematique = wrapper.getMapper('link_institution_assuetude_thematique')
-        query = session.query(deleteLinkInstitutionAssuetudeThematique)
-        query = query.filter(deleteLinkInstitutionAssuetudeThematique.institution_fk == institutionFk)
+        query = session.query(deleteLinkAssuetudeThemeForInstitution)
+        query = query.filter(LinkAssuetudeThemeForInstitution.institution_fk == institutionFk)
         allInstitutions = query.all()
         for institutionFk in allInstitutions:
             session.delete(institutionFk)
@@ -3353,8 +3352,8 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         query = session.query(AssuetudeThemeForInstitution)
         query = query.filter(AssuetudeThemeForInstitution.assuetude_intervention_pk == assuetudePk)
-        institutionAssuetudeIntervention = query.one()
-        return institutionAssuetudeIntervention
+        AssuetudeInterventionForInstitution = query.one()
+        return AssuetudeInterventionForInstitution
 
     def getAssuetudeActiviteProposeeForInstitutionByPk(self, assuetudePk):
         """
@@ -3365,8 +3364,8 @@ class ManageInterClps(BrowserView):
         session = wrapper.session
         query = session.query(AssuetudeActiviteProposeeForInstitution)
         query = query.filter(AssuetudeActiviteProposeeForInstitution.assuetude_activite_proposee_pk == assuetudePk)
-        institutionAssuetudeActiviteProposee = query.one()
-        return institutionAssuetudeActiviteProposee
+        AssuetudeActiviteProposeeForInstitution = query.one()
+        return AssuetudeActiviteProposeeForInstitution
 
     def getAssuetudeThemeForInstitutionByPk(self, assuetudePk):
         """
@@ -3999,8 +3998,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        query = session.query(LinkInstitutionPorteur)
-        query = query.filter(LinkInstitutionPorteur.institution_fk == institutionPk)
+        query = session.query(LinkExperienceInstitutionPorteur)
+        query = query.filter(LinkExperienceInstitutionPorteur.institution_fk == institutionPk)
         experiencePk = query.all()
         listeExperienceForInstitutionPorteur = []
         listeAllExperience = self.getAllExperience()
@@ -4017,8 +4016,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        query = session.query(LinkInstitutionPartenaire)
-        query = query.filter(LinkInstitutionPartenaire.institution_fk == institutionPk)
+        query = session.query(LinkExperienceInstitutionPartenaire)
+        query = query.filter(LinkExperienceInstitutionPartenaire.institution_fk == institutionPk)
         experiencePk = query.all()
         listeExperienceForInstitutionPartenaire = []
         listeAllExperience = self.getAllExperience()
@@ -4035,8 +4034,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        query = session.query(LinkInstitutionRessource)
-        query = query.filter(LinkInstitutionRessource.institution_fk == institutionPk)
+        query = session.query(LinkExperienceInstitutionRessource)
+        query = query.filter(LinkExperienceInstitutionRessource.institution_fk == institutionPk)
         experiencePk = query.all()
         listeExperienceForInstitutionRessource = []
         listeAllExperience = self.getAllExperience()
@@ -4227,10 +4226,9 @@ class ManageInterClps(BrowserView):
         #fields = self.context.REQUEST
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        insertLinkExperienceMilieuDeVie = wrapper.getMapper('link_experience_milieudevie')
         for milieuDeVieFk in milieuDeVieFks:
-            newEntry = insertLinkExperienceMilieuDeVie(experience_fk=experienceFk,
-                                                       milieudevie_fk=milieuDeVieFk)
+            newEntry = LinkExperienceMilieuDeVie(experience_fk=experienceFk,
+                                                 milieudevie_fk=milieuDeVieFk)
             session.add(newEntry)
         session.flush()
 
@@ -4403,9 +4401,8 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        deleteLinkExperienceMilieuDeVie = wrapper.getMapper('link_experience_milieudevie')
         query = session.query(deleteLinkExperienceMilieuDeVie)
-        query = query.filter(deleteLinkExperienceMilieuDeVie.experience_fk == experienceFk)
+        query = query.filter(LinkExperienceMilieuDeVie.experience_fk == experienceFk)
         for experienceFk in query.all():
             session.delete(experienceFk)
         session.flush()
@@ -4784,7 +4781,7 @@ class ManageInterClps(BrowserView):
             if assuetudeActiviteProposeeProFk > 0:
                 self.addLinkAssuetudeActiviteProposeeForInstitutionPro(institutionFk, assuetudeActiviteProposeeProFk)
 
-            self.deleteLinkInstitutionAssuetudeThematique(institutionFk)
+            self.deleteLinkAssuetudeThemeForInstitution(institutionFk)
             if assuetudeThematiqueFk > 0:
                 self.addLinkAssuetudeThemeForInstitution(institutionFk)
 

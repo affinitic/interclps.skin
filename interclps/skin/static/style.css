@@ -83,7 +83,7 @@ float:left;
 margin:0px;
 padding:18px 0px 0px 0px;
 line-height:normal;
-color:#8b917d; 
+color:#8b917d;
 }
 
 #site-action p{
@@ -532,7 +532,7 @@ height:15px;
 }
 
 #portlet-db-auteur .portletHeaderDB{
-background-color:#ff76f0;    
+background-color:#ff76f0;
 }
 
 #portlet-db-auteur .portletItemDB{
@@ -743,7 +743,7 @@ width:100%;
 background-color:#d0e9f5;
 text-align:center;
 border-width:1px 1px 0px 1px;
-border-style:solid; 
+border-style:solid;
 border-color:#184860;
 border-radius: 12px 12px 0px 0px;
 box-shadow:4px 4px 10px rgba(0,0,0,0.5);
@@ -981,7 +981,7 @@ border:1px solid #000;
 }
 
 .listing-experience-clps-proprio{
-width:45px;
+width:150px;
 float:left;
 margin-left:12px;
 margin-top:5px;
