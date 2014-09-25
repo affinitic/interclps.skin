@@ -69,20 +69,17 @@
                            &Xi;
                            <span tal:content="experience/experience_pk" />
                        </div>
-                       <div tal:define="proprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')"
-                            class="listing-experience-clps-proprio">
-                           <span tal:condition="python: proprio[0]=='clps-bw'">
-                               <img src="exp_by_clps_bw.png" />
-                           </span>
-                           <span tal:condition="python: proprio[0]=='clps-lux'">
-                               <img src="exp_by_clps_lux.png" />
-                           </span>
-                       </div>
                        <div class="listing-experience-bouton">
                            <a href=""
                               tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}">
                               <img src="btn_suivant.png" /></a>
                        </div>
+                       <!--
+                       <div class="listing-experience-clps-proprio">
+                          Edité par le
+                          <span tal:content="experience/clpsOrigine/clps_sigle" />
+                       </div>
+                       -->
                    </div><!--footer listing-->
                 </fieldset>
             </tal:block>

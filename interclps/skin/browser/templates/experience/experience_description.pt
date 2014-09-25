@@ -75,7 +75,7 @@
                                 </tal:boucle>
                                 )
                             </span>
-                        </p> 
+                        </p>
                     </div>
                     <div id="milieu-de-vie-experience"
                          class="description-left-content"
@@ -135,7 +135,7 @@
                             <span tal:condition="python: institution.institution_porteur.institution_etat == 'publish'">
                                 <a href=""
                                    tal:attributes="href string:institution-decrire?institutionPk=${institution/institution_porteur/institution_pk}">
-                                   &#8226; <span tal:content="institution/institution_porteur/institution_nom" /></a> 
+                                   &#8226; <span tal:content="institution/institution_porteur/institution_nom" /></a>
                                 <br />
                             </span>
                             <span tal:condition="python: institution.institution_porteur.institution_etat == 'private'">
@@ -246,6 +246,12 @@
                 </div><!--content-->
                 <div id="right-experience-footer"></div>
             </div><!--right-->
+            <!--
+            <div class="right-experience-clps-proprio">
+                Edité par le
+                <span tal:content="experience/clpsOrigine/clps_sigle" />
+            </div>
+            -->
             <div class="break-float"></div>
             <div id="experience-footer"></div>
         </div><!--main experience-->

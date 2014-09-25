@@ -68,10 +68,12 @@
                            tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}">
                            <img src="btn_suivant.png" /></a>
                     </div>
+                    <!--
                     <div class="listing-experience-clps-proprio">
                           Edité par le
                           <span tal:content="experience/clpsOrigine/clps_sigle" />
                     </div>
+                    -->
                 </div><!--footer listing-->
             </fieldset>
         </tal:block>
