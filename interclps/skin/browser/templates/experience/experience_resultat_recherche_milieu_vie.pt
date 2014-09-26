@@ -81,8 +81,8 @@
                           </tal:boucle>
                     </div>
                     <div class="discreet">
-                      Dernière modification :
-                      <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y %H:%M')"
+                        Dernière modification :
+                        <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y %H:%M')"
                             class="gras" />
                     </div>
                 </div><!--footer listing-->
