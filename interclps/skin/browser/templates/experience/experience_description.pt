@@ -248,16 +248,21 @@
                 <div id="right-experience-footer"></div>
             </div><!--right-->
 
-            <div class="description-experience-clps-proprio">
+            <div class="description-experience-clps-proprio discreet">
                 Edité par le
                 <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
-                    <span tal:content="clpsSigle" />
+                    <span tal:content="clpsSigle"
+                          class="gras" />
                     <tal:if tal:condition="not: repeat/clpsSigle/end">
                         <span>et le </span>
                     </tal:if>
                 </tal:boucle>
             </div>
-
+            <div class="description-experience-derniere-modif discreet">
+                Dernière modification le :<br />
+                <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y')"
+                     class="gras" />
+            </div>
             <div class="break-float"></div>
             <div id="experience-footer"></div>
         </div><!--main experience-->

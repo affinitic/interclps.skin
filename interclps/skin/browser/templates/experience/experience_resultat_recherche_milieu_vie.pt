@@ -70,16 +70,21 @@
                            <img src="btn_suivant.png" /></a>
                     </div>
 
-                    <div class="listing-experience-clps-proprio">
+                    <div class="discreet listing-experience-clps-proprio">
                           Edité par le
                           <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
-                              <span tal:content="clpsSigle" />
+                              <span tal:content="clpsSigle"
+                                    class="gras" />
                               <tal:if tal:condition="not: repeat/clpsSigle/end">
                                   <span>et le </span>
                               </tal:if>
                           </tal:boucle>
                     </div>
-
+                    <div class="discreet">
+                      Dernière modification :
+                      <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y %H:%M')"
+                            class="gras" />
+                    </div>
                 </div><!--footer listing-->
             </fieldset>
         </tal:block>

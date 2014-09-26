@@ -44,6 +44,10 @@ font-weight:bold;
 color:#d75600;
 }
 
+.discreet{
+color:#aaades !important;
+}
+
 /*** WRAPPER ***/
 #wrapper{
 height:100%;
@@ -991,12 +995,13 @@ border:1px solid #000;
 
 .listing-experience-clps-proprio{
 width:250px;
-float:left;
-margin-left:12px;
+/*float:left;*/
+/*margin-left:12px;*/
 margin-top:5px;
 }
 
-.description-experience-clps-proprio{
+.description-experience-clps-proprio,
+.description-experience-derniere-modif{
 float:left;
 width:190px;
 margin-left:65px;
