@@ -12,7 +12,8 @@
 <body>
 <div metal:fill-slot="main"
      tal:define="experiencePk request/experiencePk | nothing;
-                 experiences python:view.getActiveExperience(experiencePk)">
+                 experiences python:view.getActiveExperience(experiencePk);
+                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
     <tal:boucle tal:repeat="experience experiences">
         <div id="main-experience"
              tal:define="experiencePk experience/experience_pk">
@@ -246,12 +247,17 @@
                 </div><!--content-->
                 <div id="right-experience-footer"></div>
             </div><!--right-->
-            <!--
-            <div class="right-experience-clps-proprio">
+
+            <div class="description-experience-clps-proprio">
                 Edité par le
-                <span tal:content="experience/clpsOrigine/clps_sigle" />
+                <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
+                    <span tal:content="clpsSigle" />
+                    <tal:if tal:condition="not: repeat/clpsSigle/end">
+                        <span>et le </span>
+                    </tal:if>
+                </tal:boucle>
             </div>
-            -->
+
             <div class="break-float"></div>
             <div id="experience-footer"></div>
         </div><!--main experience-->

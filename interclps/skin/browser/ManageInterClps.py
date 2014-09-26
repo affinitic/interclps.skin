@@ -4401,7 +4401,7 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        query = session.query(deleteLinkExperienceMilieuDeVie)
+        query = session.query(LinkExperienceMilieuDeVie)
         query = query.filter(LinkExperienceMilieuDeVie.experience_fk == experienceFk)
         for experienceFk in query.all():
             session.delete(experienceFk)

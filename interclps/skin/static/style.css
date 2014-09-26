@@ -989,11 +989,21 @@ color:#dc00be;
 border:1px solid #000;
 }
 
+
 .listing-experience-clps-proprio{
-width:150px;
+width:250px;
 float:left;
 margin-left:12px;
 margin-top:5px;
+}
+
+
+.description-experience-clps-proprio{
+float:left;
+width:190px;
+margin-left:65px;
+margin-top:5px;
+text-align:center;
 }
 
 .listing-experience-bouton{

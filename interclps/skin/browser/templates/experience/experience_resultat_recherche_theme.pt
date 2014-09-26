@@ -37,7 +37,8 @@
         </div>
 
         <tal:boucle tal:repeat="experience experiences">
-            <tal:block tal:define="experiencePk experience/experience_pk">
+            <tal:block tal:define="experiencePk experience/experience_pk;
+                                   selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
                 <fieldset>
                     <legend class="titre_formation">
                     <a href=""
@@ -74,12 +75,15 @@
                               tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}">
                               <img src="btn_suivant.png" /></a>
                        </div>
-                       <!--
                        <div class="listing-experience-clps-proprio">
                           Edité par le
-                          <span tal:content="experience/clpsOrigine/clps_sigle" />
+                          <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
+                              <span tal:content="clpsSigle" />
+                              <tal:if tal:condition="not: repeat/clpsSigle/end">
+                                  <span>et le </span>
+                              </tal:if>
+                          </tal:boucle>
                        </div>
-                       -->
                    </div><!--footer listing-->
                 </fieldset>
             </tal:block>
