@@ -22,7 +22,7 @@
                         <legend>
                             <a href=""
                                tal:content="experience/experience_titre"
-                               tal:attributes="href string:admin-experience-modifier?experiencePk=${experiencePk}"
+                               tal:attributes="href string:admin-modifier-une-experience?experiencePk=${experiencePk}"
                                class="titre_formation">titre de l'expérience</a>
                         </legend>
                         <div id="experience-etat"
@@ -64,18 +64,18 @@
                             <table width="100%">
                                 <tr>
                                     <td align="left" class="discreet" valign="bottom">
-                                        par 
+                                        par
                                         <span tal:content="experience/auteurFromExperience/auteur_prenom | nothing"
                                               class="gras" />
                                         <span tal:content="experience/auteurFromExperience/auteur_nom | nothing"
-                                              class="gras" /> - 
+                                              class="gras" /> -
                                         [<span tal:content="experience/experience_auteur_login"
                                                class="gras discreet" />]
                                     </td>
                                     <td align="right">
                                         <div class="btn-modifier">
                                             <a href=""
-                                               tal:attributes="href string: admin-experience-modifier?experiencePk=${experiencePk}">&nbsp;</a>
+                                               tal:attributes="href string: admin-modifier-une-experience?experiencePk=${experiencePk}">&nbsp;</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -89,7 +89,7 @@
                                               class="gras" />
                                     </td>
                                     <td>
-                                        
+
                                     </td>
                                 </tr>
                             </table>

@@ -52,7 +52,8 @@
 
             <hr class="search-ligne-bleue"/>
 
-            <form action="experience-decrire" method="post">
+            <form action="experience-decrire"
+                  method="post">
                 Ci-dessous, la liste des différents titres des expériences encodées dans notre base.
                     <div class="div_question">
                         <select name="experiencePk" size="1">

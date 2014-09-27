@@ -45,7 +45,7 @@ color:#d75600;
 }
 
 .discreet{
-color:#aaades !important;
+color:#aaa !important;
 }
 
 /*** WRAPPER ***/
@@ -615,7 +615,7 @@ border-bottom:none;
 }
 
 #footer-listing{
-border-top:1px dotted #ccc;
+border-top:1px dotted #888;
 margin-top:10px;
 }
 
@@ -1016,12 +1016,13 @@ margin-right:10px;
 }
 
 
+/*
 #footer-listing{
 height:46px;
 margin-top: 1.2em;
 border-top:1px dashed #aaa;
 }
-
+*/
 
 
 /*** DESCRIPTION INSTITUTION ***/

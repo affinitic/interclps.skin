@@ -63,22 +63,16 @@
                         </ul>
                    </div><!--listing texte experience-->
                    <div id="footer-listing">
-                       <div class="listing-experience-etat"
-                            tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
-                            tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-                           <span tal:content="experienceEtat" />
-                           &Xi;
-                           <span tal:content="experience/experience_pk" />
-                       </div>
                        <div class="listing-experience-bouton">
                            <a href=""
                               tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}">
                               <img src="btn_suivant.png" /></a>
                        </div>
-                       <div class="listing-experience-clps-proprio">
+                       <div class="listing-experience-clps-proprio discreet">
                           Edité par le
                           <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
-                              <span tal:content="clpsSigle" />
+                              <span tal:content="clpsSigle"
+                                    class="gras" />
                               <tal:if tal:condition="not: repeat/clpsSigle/end">
                                   <span>et le </span>
                               </tal:if>
@@ -87,7 +81,7 @@
                        <div class="discreet">
                           Dernière modification :
                           <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y %H:%M')"
-                            class="gras" />
+                                class="gras" />
                       </div>
                    </div><!--footer listing-->
                 </fieldset>

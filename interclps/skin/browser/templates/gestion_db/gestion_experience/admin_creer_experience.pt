@@ -20,7 +20,7 @@
 <body>
 <div metal:fill-slot="main"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-<form action="admin-experience-inserer"
+<form action="manageExperience"
       method="post">
     <br />
     <h1>Encoder une expérience</h1>
@@ -612,7 +612,8 @@
 
         <fieldset>
             <legend class="legende">Auteur - Editeur</legend>
-            Nom, prénom et identifiant de la personne qui pourra modifier le contenu de cette expérience &nbsp;&nbsp; <img src="alert.png" /><br />
+            Nom, prénom et identifiant de la personne qui pourra modifier le contenu de cette expérience &nbsp;&nbsp;
+            <img src="alerte.png" /><br />
             <input type="text"
                    id="auteur_nom"
                    name="experienceAuteur"
@@ -733,6 +734,12 @@
         <input type="hidden"
                name="operation"
                value="insert" />
+        <input type="hidden"
+               name="experienceClpsProprio"
+               value="2" />
+        <input type="hidden"
+               name="auteurExterne"
+               value="" />
         <input type="submit"
                value="Enregister l'expérience" />
     </div>

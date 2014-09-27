@@ -141,7 +141,7 @@
 
 <!-- ADMIN EXEPRIENCE -->
     <browser:page
-          name="admin-experience-creer"
+          name="admin-creer-une-experience"
           for="*"
           template="templates/gestion_db/gestion_experience/admin_creer_experience.pt"
           permission="zope.Public"
@@ -149,7 +149,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-experience-recherche"
+          name="admin-chercher-une-experience"
           for="*"
           template="templates/gestion_db/gestion_experience/admin_chercher_experience.pt"
           permission="zope.Public"
@@ -157,7 +157,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-experience-lister"
+          name="admin-lister-les-experiences"
           for="*"
           template="templates/gestion_db/gestion_experience/admin_lister_experience.pt"
           permission="zope.Public"
@@ -165,7 +165,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-experience-lister-par-etat"
+          name="admin-lister-les-experiences-par-etat"
           for="*"
           template="templates/gestion_db/gestion_experience/admin_lister_experience_par_etat.pt"
           permission="zope.Public"
@@ -173,7 +173,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-experience-gerer"
+          name="admin-gerer-les-experiences"
           for="*"
           template="templates/gestion_db/gestion_experience/admin_gerer_experience.pt"
           permission="zope.Public"
@@ -181,7 +181,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-experience-modifier"
+          name="admin-modifier-une-experience"
           for="*"
           template="templates/gestion_db/gestion_experience/admin_modifier_experience.pt"
           permission="zope.Public"
@@ -189,20 +189,44 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-experience-inserer"
+          name="admin-modifier-une-experience-maj"
           for="*"
-          template="templates/gestion_db/gestion_experience/admin_inserer_experience.pt"
+          template="templates/gestion_db/gestion_experience/admin_modifier_experience_maj.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="deleteAuteurByPk"
+          name="admin-decrire-une-experience"
           for="*"
+          template="templates/gestion_db/gestion_experience/admin_decrire_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
-          attribute="deleteAuteurByPk"
+          />
+    <browser:page
+          name="insertExperience"
+          for="*"
+          class=".ManageInterClps.ManageInterClps"
+          permission="zope.Public"
+          attribute="insertExperience"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="updateExperienceByClps"
+          for="*"
+          class=".ManageInterClps.ManageInterClps"
+          permission="zope.Public"
+          attribute="updateExperienceByClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="updateExperienceByAuteur"
+          for="*"
+          class=".ManageInterClps.ManageInterClps"
+          permission="zope.Public"
+          attribute="updateExperienceByClps"
+          allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
           name="checkCaptchaDemandeInscription"
@@ -212,6 +236,16 @@
           allowed_interface=".interfaces.IManageInterClps"
           attribute="checkCaptchaDemandeInscription"
           />
+    <browser:page
+          name="manageExperience"
+          for="*"
+          class=".ManageInterClps.ManageInterClps"
+          permission="zope.Public"
+          attribute="manageExperience"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+
+
 
 <!-- MOTEUR RECHERCHE - MOTEUR RECHERCHE - MOTEUR RECHERCHE - MOTEUR RECHERCHE - MOTEUR RECHERCHE -->
     <browser:page
@@ -766,6 +800,15 @@
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
+    <browser:page
+          name="deleteAuteurByPk"
+          for="*"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          attribute="deleteAuteurByPk"
+          />
+
 
 
 </configure>

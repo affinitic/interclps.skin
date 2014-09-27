@@ -57,13 +57,6 @@
                     </ul>
                 </div><!--listing texte experience-->
                 <div id="footer-listing">
-                    <div class="listing-experience-etat"
-                         tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
-                         tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-                        <span tal:content="experienceEtat" />
-                        &Xi;
-                        <span tal:content="experience/experience_pk" />
-                    </div>
                     <div class="listing-experience-bouton">
                         <a href=""
                            tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}">

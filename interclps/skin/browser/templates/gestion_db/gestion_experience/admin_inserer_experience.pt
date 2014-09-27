@@ -32,13 +32,13 @@
 
     <div class="btn-nouvelle-recherche">
         <a href=""
-           tal:attributes="href string:${context/portal_url}/admin-experience-creer">
+           tal:attributes="href string:${context/portal_url}/admin-creer-une-experience">
             Cr&eacute;er une nouvelle expérience
         </a>
     </div>
     <div class="btn-nouvelle-recherche">
         <a href=""
-           tal:attributes="href string:${context/portal_url}/admin-experience-recherche">
+           tal:attributes="href string:${context/portal_url}/admin-chercher-une-experience">
             Modifier une expérience
         </a>
     </div>

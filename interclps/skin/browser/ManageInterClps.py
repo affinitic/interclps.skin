@@ -179,12 +179,13 @@ class ManageInterClps(BrowserView):
         envoi de mail à iclps admin
         """
         mailer = Mailer("localhost", "alain.meurant@affinitic.be, l.polome@province.luxembourg.be, s.verscheure@province.luxembourg.be, %s" % clpsEmailContact)
-        #mailer = Mailer("localhost", "alain.meurant@skynet.be")
+        #mailer = Mailer("relay.skynet.be", "alain.meurant@affinitic.be")
         mailer.setSubject(sujet)
         mailer.setRecipients("alain.meurant@affinitic.be, l.polome@province.luxembourg.be, s.verscheure@province.luxembourg.be, %s" % clpsEmailContact)
-        #mailer.setRecipients("alain.meurant@skynet.be")
+        #mailer.setRecipients("alain.meurant@affinitic.be")
         mail = message
-        mailer.sendAllMail(mail)
+        print message
+        #mailer.sendAllMail(mail)
 
     def sendMailWhenLoginByAuteur(self, sujet, message):
         """
@@ -195,7 +196,8 @@ class ManageInterClps(BrowserView):
         mailer.setSubject(sujet)
         mailer.setRecipients("alain.meurant@skynet.be")
         mail = message
-        mailer.sendAllMail(mail)
+        print message
+        #mailer.sendAllMail(mail)
 
     def sendMailForNewAuteurExperience(self):
         """
@@ -277,7 +279,7 @@ class ManageInterClps(BrowserView):
                   </ul>
                   <hr />
                   Modifier et publier l'expérience en cliquant sur ce
-                  <a href="http://www.projets-partages.be/admin-experience-modifier?experiencePk=%s">lien</a>.
+                  <a href="http://www.projets-partages.be/admin-modifier-une-experience?experiencePk=%s">lien</a>.
                   <hr />
                   <font size="1">
                   :: Autre public visé : <font color='#ff9c1b'><b>%s</b></font><br />
@@ -340,7 +342,7 @@ class ManageInterClps(BrowserView):
                   </ul>
                   <hr />
                   Modifier et publier l'expérience en cliquant sur ce
-                  <a href="http://www.clpsbw.be/admin-experience-modifier?experiencePk=%s">lien</a>.
+                  <a href="http://www.clpsbw.be/admin-modifier-une-experience?experiencePk=%s">lien</a>.
                   <hr />
                   <font size="1">
                   :: Autre public visé : <font color='#ff9c1b'><b>%s</b></font><br />
@@ -3654,7 +3656,7 @@ class ManageInterClps(BrowserView):
         allExperiences = query.all()
         return allExperiences
 
-    def getActiveExperience(self, experiencePk=None):
+    def getActiveExperience(self, experiencePk=None, experienceMaj=None):
         """
         table pg recit
         recuperation de l'experience selon la pk
@@ -3670,15 +3672,21 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         query = session.query(Experience)
-        query = query.filter(Experience.experience_etat == 'publish')
-        if experienceTitre:
-            query = query.filter(Experience.experience_titre == experienceTitre)
-        if experiencePk:
-            query = query.filter(Experience.experience_pk == experiencePk)
-        allExperiences = query.all()
-        for experience in allExperiences:
-            experiencePk = experience.experience_pk
-            self.addRechercheLog(experiencePk=experiencePk)
+        if experienceMaj:
+            #recup les info dans table experience_maj > update par auteur pour versionning
+            query = session.query(ExperienceMaj)
+            query = query.filter(ExperienceMaj.experience_maj_pk == experiencePk)
+            allExperiences = query.all()
+        else:
+            query = session.query(Experience)
+            if experienceTitre:
+                query = query.filter(Experience.experience_titre == experienceTitre)
+            if experiencePk:
+                query = query.filter(Experience.experience_pk == experiencePk)
+            allExperiences = query.all()
+            for experience in allExperiences:
+                experiencePk = experience.experience_pk
+                self.addRechercheLog(experiencePk=experiencePk)
         return allExperiences
 
     def getExperienceMaxPk(self):
@@ -4045,7 +4053,7 @@ class ManageInterClps(BrowserView):
                     listeExperienceForInstitutionRessource.append((j.experience_pk, j.experience_titre))
         return listeExperienceForInstitutionRessource
 
-    def addExperience(self):
+    def insertExperience(self):
         """
         table pg recit
         ajout d'un recit
@@ -4140,6 +4148,9 @@ class ManageInterClps(BrowserView):
                               experience_creation_employe=experience_creation_employe)
         session.add(newEntry)
         session.flush()
+        session.refresh(newEntry)
+        experiencePk = newEntry.experience_pk
+        return experiencePk
 
     def addLinkExperienceCommune(self, experienceFk, experienceCommuneFk):
         """
@@ -4433,10 +4444,11 @@ class ManageInterClps(BrowserView):
             session.delete(experienceFk)
         session.flush()
 
-    def updateExperience(self):
+    def updateExperienceByClps(self):
         """
         table pg experience
-        mise à jour des infos d'une experience
+        mise à jour des infos d'une experience par equipe Clps
+        effacement de la version de l'experience dans experience_maj
         """
         fields = self.context.REQUEST
         experience_pk = getattr(fields, 'experience_pk')
@@ -4452,7 +4464,7 @@ class ManageInterClps(BrowserView):
         experience_public_vise = getattr(fields, 'experience_public_vise', None)
         experience_demarche_actions = getattr(fields, 'field.experience_demarche_actions', None)
         experience_commune_international = getattr(fields, 'experience_commune_international', None)
-        experience_territoire_tout_luxembourg = getattr(fields, 'experience_territoire_tout_luxembourg', None)
+        experience_territoire_tout_brabant_wallon = getattr(fields, 'experience_territoire_tout_brabant_wallon', None)
         experience_periode_deroulement = getattr(fields, 'experience_periode_deroulement', None)
         experience_moyens = getattr(fields, 'field.experience_moyens', None)
         experience_evaluation_enseignement = getattr(fields, 'field.experience_evaluation_enseignement', None)
@@ -4467,6 +4479,8 @@ class ManageInterClps(BrowserView):
         experience_plate_forme_assuetude = getattr(fields, 'experience_plate_forme_assuetude', False)
         experience_plate_forme_sante_famille = getattr(fields, 'experience_plate_forme_sante_famille', False)
         experience_plate_forme_sante_environnement = getattr(fields, 'experience_plate_forme_sante_environnement', False)
+        experience_plate_forme_sante_commune = getattr(fields, 'experience_plate_forme_sante_commune', 'False'),
+        experience_plate_forme_vie_affective_sexuelle = getattr(fields, 'experience_plate_forme_vie_affective_sexuelle', 'False'),
         experience_mission_centre_documentation = getattr(fields, 'experience_mission_centre_documentation', False)
         experience_mission_accompagnement_projet = getattr(fields, 'experience_mission_accompagnement_projet', False)
         experience_mission_reseau_echange = getattr(fields, 'experience_mission_reseau_echange', False)
@@ -4476,7 +4490,7 @@ class ManageInterClps(BrowserView):
         experience_modification_employe = self.getUserAuthenticated()
         experience_auteur_fk = getattr(fields, 'experience_auteur_fk', None)
         experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
-        experience_clps_proprio_fk = getattr(fields, 'experienceClpsProprio', None)
+
 
         #cas de modification de l'auteur via ligth search
         experience_auteur = getattr(fields, 'experienceAuteur', None)
@@ -4504,7 +4518,7 @@ class ManageInterClps(BrowserView):
         experience.experience_public_vise = unicode(experience_public_vise, 'utf-8')
         experience.experience_demarche_actions = unicode(experience_demarche_actions, 'utf-8')
         experience.experience_commune_international = unicode(experience_commune_international, 'utf-8')
-        experience.experience_territoire_tout_luxembourg = experience_territoire_tout_luxembourg
+        experience.experience_territoire_tout_brabant_wallon = experience_territoire_tout_brabant_wallon
         experience.experience_periode_deroulement = unicode(experience_periode_deroulement, 'utf-8')
         experience.experience_moyens = unicode(experience_moyens, 'utf-8')
         experience.experience_evaluation_enseignement = unicode(experience_evaluation_enseignement, 'utf-8')
@@ -4519,17 +4533,153 @@ class ManageInterClps(BrowserView):
         experience.experience_plate_forme_assuetude = experience_plate_forme_assuetude
         experience.experience_plate_forme_sante_famille = experience_plate_forme_sante_famille
         experience.experience_plate_forme_sante_environnement = experience_plate_forme_sante_environnement
+        experience.experience_plate_forme_sante_commune = experience_plate_forme_sante_commune
+        experience.experience_plate_forme_vie_affective_sexuelle = experience_plate_forme_vie_affective_sexuelle
         experience.experience_mission_centre_documentation = experience_mission_centre_documentation
         experience.experience_mission_accompagnement_projet = experience_mission_accompagnement_projet
         experience.experience_mission_reseau_echange = experience_mission_reseau_echange
         experience.experience_mission_formation = experience_mission_formation
         experience.experience_auteur_login = experience_auteur_login
         experience.experience_auteur_fk = experience_auteur_fk
-        experience.experience_clps_proprio_fk = experience_clps_proprio_fk
         experience.experience_etat = unicode(experience_etat, 'utf-8')
         experience.experience_modification_employe = experience_modification_employe
         experience.experience_modification_date = experience_modification_date
         session.flush()
+
+        portalUrl = getToolByName(self.context, 'portal_url')()
+        ploneUtils = getToolByName(self.context, 'plone_utils')
+        message = u"Les informations ont été modifiées !"
+        ploneUtils.addPortalMessage(message, 'info')
+        url = "%s/admin-decrire-une-experience?experiencePk=%s" % (portalUrl, experience_pk)
+        self.request.response.redirect(url)
+        return ''
+
+    def updateEtatExperience(self, experiencePk):
+        """
+        table pg experience
+        mise à jour de l'état d'une experience suite à la mise à jour par l'auteur dans experience_maj
+        """
+        experienceEtat = 'pending'
+
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        query = session.query(Experience)
+        query = query.filter(Experience.experience_pk == experiencePk)
+        experience = query.one()
+        experience.experience_etat = experienceEtat
+        session.flush()
+
+
+    def updateExperienceByAuteur(self):
+        """
+        table pg experience_maj
+        insertion des modification d'une experience par son auteur
+        dans table experience_maj pour versionning
+        """
+        fields = self.context.REQUEST
+        experiencePk = getattr(fields, 'experience_pk')
+        experience_titre = getattr(fields, 'experience_titre', None)
+        experience_resume = getattr(fields, 'field.experience_resume', None)
+        experience_personne_contact = getattr(fields, 'experience_personne_contact', None)
+        experience_personne_contact_email = getattr(fields, 'experience_personne_contact_email', None)
+        experience_personne_contact_telephone = getattr(fields, 'experience_personne_contact_telephone', None)
+        experience_personne_contact_institution = getattr(fields, 'experience_personne_contact_institution', None)
+        experience_element_contexte = getattr(fields, 'field.experience_element_contexte', None)
+        experience_objectif = getattr(fields, 'field.experience_objectif', None)
+        experience_public_vise = getattr(fields, 'experience_public_vise', None)
+        experience_demarche_actions = getattr(fields, 'field.experience_demarche_actions', None)
+        experience_commune_international = getattr(fields, 'experience_commune_international', None)
+        experience_territoire_tout_brabant_wallon = getattr(fields, 'experience_territoire_tout_brabant_wallon', None)
+        experience_periode_deroulement = getattr(fields, 'experience_periode_deroulement', None)
+        experience_moyens = getattr(fields, 'field.experience_moyens', None)
+        experience_evaluation_enseignement = getattr(fields, 'field.experience_evaluation_enseignement', None)
+        experience_perspective_envisagee = getattr(fields, 'field.experience_perspective_envisagee', None)
+        experience_institution_porteur_autre = getattr(fields, 'experience_institution_porteur_autre', None)
+        experience_institution_partenaire_autre = getattr(fields, 'experience_institution_partenaire_autre', None)
+        experience_institution_ressource_autre = getattr(fields, 'experience_institution_ressource_autre', None)
+        experience_institution_outil_autre = getattr(fields, 'experience_institution_outil_autre', None)
+        experience_formation_suivie = getattr(fields, 'field.experience_formation_suivie', None)
+        experience_aller_plus_loin = getattr(fields, 'field.experience_aller_plus_loin', None)
+        experience_plate_forme_sante_ecole = getattr(fields, 'experience_plate_forme_sante_ecole', False)
+        experience_plate_forme_assuetude = getattr(fields, 'experience_plate_forme_assuetude', False)
+        experience_plate_forme_sante_famille = getattr(fields, 'experience_plate_forme_sante_famille', False)
+        experience_plate_forme_sante_environnement = getattr(fields, 'experience_plate_forme_sante_environnement', False)
+        experience_mission_centre_documentation = getattr(fields, 'experience_mission_centre_documentation', False)
+        experience_mission_accompagnement_projet = getattr(fields, 'experience_mission_accompagnement_projet', False)
+        experience_mission_reseau_echange = getattr(fields, 'experience_mission_reseau_echange', False)
+        experience_mission_formation = getattr(fields, 'experience_mission_formation', False)
+        experience_modification_date = self.getTimeStamp()
+        experience_modification_employe = self.getUserAuthenticated()
+        experience_auteur_fk = getattr(fields, 'experience_auteur_fk', None)
+        experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
+        experience_clps_proprio_fk = getattr(fields, 'experience_clps_proprio_fk', None)
+
+
+        #cas de modification de l'auteur via ligth search
+        experience_auteur = getattr(fields, 'experience_auteur_fk', None)
+        if not experience_auteur:
+            experience_auteur_fk = self.getAuteurPkByName(experience_auteur)
+
+        experience_modification_employe = self.getAuteurLogin(experience_auteur)
+        experience_etat = 'pending'
+        experienceMaj = True
+
+
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        newEntry = ExperienceMaj(experience_maj_expfk = experiencePk, \
+                                 experience_maj_titre = experience_titre, \
+                                 experience_maj_resume = experience_resume, \
+                                 experience_maj_personne_contact = experience_personne_contact, \
+                                 experience_maj_personne_contact_email = experience_personne_contact_email, \
+                                 experience_maj_personne_contact_telephone = experience_personne_contact_telephone, \
+                                 experience_maj_personne_contact_institution = experience_personne_contact_institution, \
+                                 experience_maj_element_contexte = experience_element_contexte, \
+                                 experience_maj_objectif = experience_objectif, \
+                                 experience_maj_public_vise = experience_public_vise, \
+                                 experience_maj_demarche_actions = experience_demarche_actions, \
+                                 experience_maj_commune_international = experience_commune_international, \
+                                 experience_maj_territoire_tout_brabant_wallon = experience_territoire_tout_brabant_wallon, \
+                                 experience_maj_periode_deroulement = experience_periode_deroulement, \
+                                 experience_maj_moyens = experience_moyens, \
+                                 experience_maj_evaluation_enseignement = experience_evaluation_enseignement, \
+                                 experience_maj_perspective_envisagee = experience_perspective_envisagee, \
+                                 experience_maj_institution_porteur_autre = experience_institution_porteur_autre, \
+                                 experience_maj_institution_partenaire_autre = experience_institution_partenaire_autre, \
+                                 experience_maj_institution_ressource_autre = experience_institution_ressource_autre, \
+                                 experience_maj_institution_outil_autre = experience_institution_outil_autre, \
+                                 experience_maj_formation_suivie = experience_formation_suivie, \
+                                 experience_maj_aller_plus_loin = experience_aller_plus_loin, \
+                                 experience_maj_plate_forme_sante_ecole = experience_plate_forme_sante_ecole, \
+                                 experience_maj_plate_forme_assuetude = experience_plate_forme_assuetude, \
+                                 experience_maj_plate_forme_sante_famille = experience_plate_forme_sante_famille, \
+                                 experience_maj_plate_forme_sante_environnement = experience_plate_forme_sante_environnement, \
+                                 experience_maj_mission_centre_documentation = experience_mission_centre_documentation, \
+                                 experience_maj_mission_accompagnement_projet = experience_mission_accompagnement_projet, \
+                                 experience_maj_mission_reseau_echange = experience_mission_reseau_echange, \
+                                 experience_maj_mission_formation = experience_mission_formation, \
+                                 experience_maj_auteur_login = experience_auteur_login, \
+                                 experience_maj_clps_proprio_fk = experience_clps_proprio_fk, \
+                                 experience_maj_auteur_fk = experience_auteur_fk, \
+                                 experience_maj_etat = experience_etat, \
+                                 experience_maj_modification_date = experience_modification_date, \
+                                 experience_maj_modification_employe = experience_modification_employe)
+
+        session.add(newEntry)
+        session.flush()
+
+        session.refresh(newEntry)
+        experienceMajPk = newEntry.experience_maj_pk
+
+        self.updateEtatExperience(experiencePk)
+
+        portalUrl = getToolByName(self.context, 'portal_url')()
+        ploneUtils = getToolByName(self.context, 'plone_utils')
+        message = u"Les informations ont été modifiées !"
+        ploneUtils.addPortalMessage(message, 'info')
+        url = "%s/decrire-une-experience-maj?experiencePk=%s&experienceMaj=%s" % (portalUrl, experienceMajPk, experienceMaj)
+        self.request.response.redirect(url)
+        return ''
 
 ### LOG ###
 
@@ -4898,14 +5048,14 @@ class ManageInterClps(BrowserView):
         """
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
+        auteurExterne = getattr(fields, 'auteurExterne', None)
 
         experienceInstitutionPorteurFk = getattr(fields, 'experience_institution_porteur_fk', None)
         experienceInstitutionPartenaireFk = getattr(fields, 'experience_institution_partenaire_fk', None)
         experienceInstitutionRessourceFk = getattr(fields, 'experience_institution_ressource_fk', None)
         experienceRessourceFk = getattr(fields, 'experience_ressource_fk', None)
         experienceSousPlateFormeFk = getattr(fields, 'experience_sousplateforme_fk', None)
-        #experience_etat = getattr(fields, 'experience_etat', None)
-        #experience_institution_outil_autre = getattr(fields, 'experience_institution_outil_autre', None)
+        experience_etat = getattr(fields, 'experience_etat', None)
         experienceClpsProprioFk = getattr(fields, 'experience_clps_proprio_fk', None)
 
  #ajout des nouvelles valeur des addremovewidget
@@ -4937,8 +5087,7 @@ class ManageInterClps(BrowserView):
                 experienceCommuneFk.append(pk)
 
         if operation == "insert":
-            self.addExperience()
-            experienceFk = self.getExperienceMaxPk()
+            experienceFk = self.insertExperience()
 
             if experienceCommuneFk > 0:
                 self.addLinkExperienceCommune(experienceFk, experienceCommuneFk)
@@ -4975,10 +5124,17 @@ class ManageInterClps(BrowserView):
 
             self.sendMailForInsertExperience(experiencePk=experienceFk)
 
-            # #self.addLinkRessourceSupport()
-            return {'status': 1}
+            portalUrl = getToolByName(self.context, 'portal_url')()
+            ploneUtils = getToolByName(self.context, 'plone_utils')
+            message = u"L'expérience a été enregistrée !"
+            ploneUtils.addPortalMessage(message, 'info')
+            if auteurExterne:
+                url = "%s/decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
+            else:
+                url = "%s/admin-decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
+            self.request.response.redirect(url)
 
-        if operation == "update":
+        if operation == "updateByClps":
             experienceFk = getattr(fields, 'experience_pk')
             self.updateExperience()
 
@@ -5024,4 +5180,73 @@ class ManageInterClps(BrowserView):
 
             self.sendMailForUpdateExperience()
 
-            return {'status': 1}
+            portalUrl = getToolByName(self.context, 'portal_url')()
+            ploneUtils = getToolByName(self.context, 'plone_utils')
+            message = u"L'expérience a été enregistrée !"
+            ploneUtils.addPortalMessage(message, 'info')
+            if auteurExterne:
+                url = "%s/decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
+            else:
+                url = "%s/admin-decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
+            self.request.response.redirect(url)
+
+
+        if operation == "updateByAuteur":
+            experienceFk = getattr(fields, 'experience_pk')
+            self.updateExperienceByAuteur()
+
+            self.deleteLinkExperienceCommune(experienceFk)
+            if experienceCommuneFk > 0:
+                self.addLinkExperienceCommune(experienceFk, experienceCommuneFk)
+
+            self.deleteLinkExperienceInstitutionPorteur(experienceFk)
+            if experienceInstitutionPorteurFk > 0:
+                self.addLinkExperienceInstitutionPorteur(experienceFk)
+
+            self.deleteLinkExperienceInstitutionPartenaire(experienceFk)
+            if experienceInstitutionPartenaireFk > 0:
+                self.addLinkExperienceInstitutionPartenaire(experienceFk)
+
+            self.deleteLinkExperienceInstitutionRessource(experienceFk)
+            if experienceInstitutionRessourceFk > 0:
+                self.addLinkExperienceInstitutionRessource(experienceFk)
+
+            self.deleteLinkExperienceRessource(experienceFk)
+            if experienceRessourceFk > 0:
+                self.addLinkExperienceRessource(experienceFk)
+
+            self.deleteLinkExperienceMilieuDeVie(experienceFk)
+            if experienceMilieuDeVieFk > 0:
+                self.addLinkExperienceMilieuDeVie(experienceFk, experienceMilieuDeVieFk)
+
+            self.deleteLinkExperienceMotCle(experienceFk)
+            if experienceMotCleFk > 0:
+                self.addLinkExperienceMotCle(experienceFk, experienceMotCleFk)
+
+            self.deleteLinkExperienceTheme(experienceFk)
+            if experienceThemeFk > 0:
+                self.addLinkExperienceTheme(experienceFk, experienceThemeFk)
+
+            self.deleteLinkExperiencePublic(experienceFk)
+            if experiencePublicFk > 0:
+                self.addLinkExperiencePublic(experienceFk, experiencePublicFk)
+
+            self.deleteLinkExperienceClpsProprio(experienceFk)
+            if experienceClpsProprioFk > 0:
+                self.addLinkExperienceClpsProprio(experienceFk)
+
+            #suppresion dans la table experience_maj (versionning)
+            if experience_etat == "publish":
+                self.deleteExperienceMaj(experienceFk)
+
+            self.sendMailForUpdateExperience()
+
+            portalUrl = getToolByName(self.context, 'portal_url')()
+            ploneUtils = getToolByName(self.context, 'plone_utils')
+            message = u"L'expérience a été enregistrée !"
+            ploneUtils.addPortalMessage(message, 'info')
+            if auteurExterne:
+                url = "%s/decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
+            else:
+                url = "%s/admin-decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
+            self.request.response.redirect(url)

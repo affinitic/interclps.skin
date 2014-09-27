@@ -1,0 +1,716 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:js fill-slot="javascript_head_slot">
+        <script src="++resource++validate_forms.js" type="text/javascript"></script>
+        <script src="++resource++clpsbw.js" type="text/javascript"></script>
+    </metal:js>
+    <metal:css fill-slot="style_slot">
+        <link href="++resource++collective.javascript.jqueryui/css/ui-lightness/jquery-ui.css"
+              type="text/css"
+              rel="stylesheet" />
+    </metal:css>
+    <metal:noborder fill-slot="top_slot"
+                    tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:define="experiencePk request/experiencePk;
+                 experiences python:view.getExperienceByPk(experiencePk);
+                 experienceMaj python:view.getExperienceMajByPk(experiencePk);
+                 allClps python:view.getAllClps();
+                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk')"
+     tal:condition="python:user.has_role(['Manager'], here)">
+<form action="manageExperience"
+      method="post">
+    <tal:boucle tal:repeat="experience experiences">
+        <h1>
+            Modifier l'expérience<br />
+            <span tal:content="experience/experience_titre"
+                  class="rouge-titre" />
+        </h1>
+        <!--
+        <div class="info-aide-maj">
+            <span class="grasorange">En orange</span> : les données actuelles dans la base.
+            <br/>
+            Dans les champs, les nouvelles données éventuellement modifiées par l'auteur.
+        </div>
+        -->
+
+        <div class="formulaire">
+            <h2>Informations générales</h2>
+            <div class="formInput">
+                <label for="experience_titre">Nom de l'activité ou du projet</label>
+                Quel nom avez-vous donné au projet ?
+                <br />
+                <div class="info-actuelle">
+                    <span tal:content="experience/experience_titre" />
+                </div>
+                <input type="text"
+                       name="experience_titre"
+                       id="experience_titre"
+                       value=""
+                       size="100"
+                       tal:attributes="value experienceMaj/experience_maj_titre" />
+            </div>
+
+            <div class="formInput">
+                <label for="experience_resume">Résumé</label>
+                Pouvez-vous résumer le projet en quelques lignes ?
+                <br />
+                <div class="info-actuelle">
+                    <span tal:replace="structure experience/experience_resume" />
+                </div>
+                <span tal:replace="structure python: view.getWysiwygField('experience_resume', experienceMaj.experience_maj_resume)" />
+            </div>
+        </div>
+
+            <div class="formulaire">
+                <h2>Contact</h2>
+                Quelle personne peut-on contacter pour un renseignement
+                au sujet de ce projet ?
+                <div class="formInput">
+                    <label for="experience_personne_contact">Personne de contact</label>
+                    <div class="info-actuelle">
+                        <span tal:content="experience/experience_personne_contact" />
+                    </div>
+                    <input type="text"
+                            name="experience_personne_contact"
+                            id="experience_personne_contact"
+                            value=""
+                            size="100"
+                            tal:attributes="value experienceMaj/experience_maj_personne_contact" />
+
+                    <label for="experience_personne_contact_email">E-mail</label>
+                    <div class="info-actuelle">
+                        <span tal:content="experience/experience_personne_contact_email" />
+                    </div>
+                    <input type="text"
+                            name="experience_personne_contact_email"
+                            id="experience_personne_contact_email"
+                            value=""
+                            size="100"
+                            tal:attributes="value experienceMaj/experience_maj_personne_contact_email" />
+
+                    <label for="experience_personne_contact_telephone">Téléphone</label>
+                    <div class="info-actuelle">
+                        <span tal:content="experience/experience_personne_contact_telephone" />
+                    </div>
+                    <input type="text"
+                            name="experience_personne_contact_telephone"
+                            id="experience_personne_contact_telephone"
+                            value=""
+                            size="100"
+                            tal:attributes="value experienceMaj/experience_maj_personne_contact_telephone" />
+
+                    <label for="experience_personne_contact_institution">Institution</label>
+                    <div class="info-actuelle">
+                        <span tal:content="experience/experience_personne_contact_institution" />
+                    </div>
+                    <input type="text"
+                            name="experience_personne_contact_institution"
+                            id="experience_personne_contact_institution"
+                            value=""
+                            size="100"
+                            tal:attributes="value experienceMaj/experience_maj_personne_contact_institution" />
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Element de contexte</h2>
+                Quelle situation – quelles observations sont à l’origine du projet / de l’action ?
+                <div class="formInput">
+                    <label for="experience_titre">Contexte</label>
+                    <div class="info-actuelle">
+                        <span tal:replace="structure experience/experience_element_contexte" />
+                    </div>
+                    <span tal:replace="structure python: view.getWysiwygField('experience_element_contexte', experienceMaj.experience_maj_element_contexte)" />
+                </div>
+
+            </div>
+
+            <div class="formulaire">
+                <h2>Objectifs</h2>
+                Quels objectifs poursuivez vous en mettant ce projet
+                en place ? Quel(s) changement(s) attendez-vous ?
+                <div class="formInput">
+                    <label for="experience_objectif">Objectifs</label>
+                    <div class="info-actuelle">
+                        <span tal:replace="structure experience/experience_objectif" />
+                    </div>
+                    <span tal:replace="structure python: view.getWysiwygField('experience_objectif', experienceMaj.experience_maj_objectif)" />
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Public</h2>
+                Quel est le public visé par le projet ?
+                <ul>
+                    <li>Public final (touché au final par les
+                        actions mises en place)</li>
+                    <li>Public intermédiaire (touché directement
+                        par les actions mises en place)</li>
+                </ul>
+                <div class="formInput">
+                    <label for="experience_titre">Public</label>
+                    <tal:addremove define="errors python:{};">
+                        <span metal:use-macro="python: view.getAddRemoveField('experience_public_fk', ' ',
+                                                       view.getAllActivePublic(),
+                                                       nameKey='public_nom',
+                                                       pkKey='public_pk',
+                                                       selectedPks=view.getPublicByExperiencePk(experience.experience_pk))" />
+                    </tal:addremove>
+                    <label for="experience_titre">Un autre type de public</label>
+                    Si vous le souhaitez, vous
+                    pouvez ici apporter des précisions concernant le public.
+                    <div class="info-actuelle">
+                        <span tal:replace="structure experience/experience_public_vise" />
+                    </div>
+                    <textarea name="experience_public_vise"
+                              rows="3"
+                              cols="70"
+                              tal:content="experienceMaj/experience_maj_public_vise">
+                    </textarea>
+                    <div class="btn-links-table">
+                        <a href="public-creer"
+                           target="_blank"
+                           alt="add_db"
+                           title="créer un nouveau public"><img src ="add_db.png" /></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Milieu de vie</h2>
+                <ul>
+                    <li>
+                        Quel est le milieu, l’espace de vie partagé
+                        par les personnes visées par ce projet ?
+                    </li>
+                    <li>
+                        Y a-t-il un lieu que les personnes visées
+                        par ce projet ont en commun ?
+                    </li>
+                </ul>
+                <div class="formInput">
+                    <label for="experience_titre">Milieu de vie</label>
+                    <tal:addremove define="errors python:{};">
+                        <span metal:use-macro="python: view.getAddRemoveField('experience_milieu_vie_fk', ' ',
+                                                       view.getAllActiveMilieuDeVie(),
+                                                       nameKey='milieudevie_nom',
+                                                       pkKey='milieudevie_pk',
+                                                       selectedPks=view.getMilieuDeVieByExperiencePk(experience.experience_pk, 'cle'))" />
+                    </tal:addremove>
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Démarches et actions</h2>
+                <ul>
+                    <li>En quoi a consisté le projet ?</li>
+                    <li>Qu’est-ce qui a été fait ?</li>
+                    <li>Par qui ? </li>
+                    <li>Comment ?</li>
+                    <li>Le(s) public(s) ont-ils été associés
+                        <ul>
+                            <li>au projet ?</li>
+                            <li>à sa construction ?</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="formInput">
+                    <label for="experience_titre">Démarches et actions</label>
+                    <div class="info-actuelle">
+                        <span tal:replace="structure experience/experience_demarche_actions" />
+                    </div>
+                    <span tal:replace="structure python: view.getWysiwygField('experience_demarche_actions', experienceMaj.experience_maj_demarche_actions)" />
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Territoire</h2>
+                Quelles communes sont concernées ?
+                <div class="formInput">
+                    <div class="info-actuelle">
+                        <span tal:replace="structure experience/experience_territoire_tout_brabant_wallon" />
+                    </div>
+                    <label for="experience_titre">
+                        &nbsp;
+                        <input type="checkbox"
+                               name="experience_territoire_tout_brabant_wallon"
+                               value="True"
+                               tal:attributes="checked python:experienceMaj.experience_maj_territoire_tout_brabant_wallon and 'checked' or None;" />
+                        &nbsp;
+                               Tout le Brabant wallon<br />
+                    </label>
+                </div>
+                <div class="formInput">
+                    <label for="experience_titre">Localité du Brabant wallon</label>
+                    <tal:addremove define="errors python:{};">
+                        <span metal:use-macro="python: view.getAddRemoveField('experience_commune_inbw_fk', ' ',
+                                                       view.getAllCommune((5,)),
+                                                       nameKey=['com_localite_cp', 'com_localite_nom'],
+                                                       pkKey='com_pk',
+                                                       selectedPks=view.getCommunePkInBwByExperiencePk(experience.experience_pk))" />
+                    </tal:addremove>
+                </div>
+                <div class="formInput">
+                    <label for="experience_titre">Localité en Belgique hors Brabant wallon</label>
+                    <tal:addremove define="errors python:{};">
+                        <span metal:use-macro="python: view.getAddRemoveField('experience_commune_outbw_fk', ' ',
+                                                       view.getAllCommune((1,2,3,4,11)),
+                                                       nameKey=['com_localite_cp', 'com_localite_nom'],
+                                                       pkKey='com_pk',
+                                                       selectedPks=view.getCommunePkOutBwByExperiencePk(experience.experience_pk))" />
+                    </tal:addremove>
+                </div>
+                <div class="formInput">
+                    <label for="experience_titre">Dans un autre pays ?</label>
+                    <div class="info-actuelle">
+                        <span tal:replace="structure experience/experience_commune_international" />
+                    </div>
+                    <textarea name="experience_commune_international"
+                              rows="5"
+                              cols="50"
+                              tal:content="experienceMaj/experience_maj_commune_international"></textarea>
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Periode de déroulement du projet</h2>
+                Quand s’est déroulé le projet ?
+                <div class="formInput">
+                    <label for="experience_periode_deroulement">Période de déroulement</label>
+                    <div class="info-actuelle">
+                        <span tal:replace="structure experience/experience_periode_deroulement" />
+                    </div>
+                    <textarea name="experience_periode_deroulement"
+                              rows="5"
+                              cols="50"
+                              tal:content="experienceMaj/experience_maj_periode_deroulement"></textarea>
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Moyens</h2>
+                <ul>
+                    <li>De quoi avez-vous (eu) besoin pour mettre ce
+                        projet en place ?</li>
+                    <li>De quels moyens humains : combien de personnes
+                        ont travaillé à ce projet ? A quelle fréquence ?
+                        Combien d’heures de travail a-t-il nécessité ?</li>
+                    <li>De quels moyens matériels : salles, papeterie,
+                        photocopies, outils, matériel informatique et
+                        multimédia, matériel de bricolage… Les ouvrages
+                        et jeux seront abordés dans le champ ressources.</li>
+                    <li>De quels moyens financiers ?</li>
+                </ul>
+                <div class="formInput">
+                    <label for="experience_titre">Moyens</label>
+                    <div class="info-actuelle">
+                        <span tal:replace="structure experience/experience_moyens" />
+                    </div>
+                    <span tal:replace="structure python: view.getWysiwygField('experience_moyens', experienceMaj.experience_maj_moyens)" />
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Evaluation et enseignements</h2>
+                Qu’est-ce que le projet a apporté ?
+                <ul>
+                    <li>Au public</li>
+                    <li>A vous</li>
+                    <li>Aux partenaires</li>
+                    <li>Autres ?</li>
+                </ul>
+                Qu’est-ce qui a été facile ? Pourquoi ?<br />
+                Qu’est-ce qui a été difficile ? Pourquoi ?<br />
+                Qu’est-ce qui a été soutenant ?<br />
+                Et si c’était à refaire, que garderiez-vous ?
+                Que changeriez vous?<br />
+                <div class="formInput">
+                    <label for="experience_titre">Evaluation et enseignements</label>
+                    <div class="info-actuelle">
+                        <span tal:replace="structure experience/experience_evaluation_enseignement" />
+                    </div>
+                    <span tal:replace="structure python: view.getWysiwygField('experience_evaluation_enseignement', experienceMaj.experience_maj_evaluation_enseignement)" />
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Perspectives envisagées</h2>
+                 Y a-t-il des suites prévues à ce projet ?
+                 Une reconduction ? Une réorientation... ?
+                 <div class="formInput">
+                     <label for="experience_titre">Perspectives envisagées</label>
+                     <div class="info-actuelle">
+                        <span tal:replace="structure experience/experience_perspective_envisagee" />
+                    </div>
+                     <span tal:replace="structure python: view.getWysiwygField('experience_perspective_envisagee', experienceMaj.experience_maj_perspective_envisagee)" />
+                 </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Porteur(s) de l'expérience.</h2>
+                Quelles sont les personnes ou institutions qui ont
+                construit et/ou porté le projet avec vous?
+                <br />
+                Il peut s’agir d’une personne, de plusieurs personnes,
+                d’une association, d’une institution… qui ne figurent
+                pas dans la liste déroulante ci-dessus.<br />
+                <div class="formInput">
+                    <label for="experience_titre">Institution</label>
+                    <tal:addremove define="errors python:{};">
+                        <span metal:use-macro="python: view.getAddRemoveField('experience_institution_porteur_fk', ' ',
+                                                       view.getAllInstitutionByClpsProprio(1),
+                                                       nameKey='institution_nom',
+                                                       pkKey='institution_pk',
+                                                       selectedPks=view.getInstitutionPorteurByExperiencePk(experience.experience_pk))" />
+                    </tal:addremove>
+                </div>
+                <div class="formInput">
+                    <label for="experience_titre">Autre(s) : nom et adresse complète</label>
+                    Il peut s’agir d’une personne, de plusieurs personnes,
+                    d’une association, d’une institution… qui ne figurent
+                    pas dans la liste déroulante ci-dessus.
+                    <br />
+                    Soyez le plus complet possible.
+                    <div class="info-actuelle">
+                        <span tal:content="experience/experience_institution_porteur_autre" />
+                    </div>
+                    <textarea name="experience_institution_porteur_autre"
+                              cols="70"
+                              rows="8"
+                              tal:content="experienceMaj/experience_maj_institution_porteur_autre"></textarea>
+                    <div class="btn-links-table">
+                        <a href="creer-une-institution"
+                           target="_blank"
+                           alt="add_db"
+                           title="créer une nouvelle institution"><img src ="add_db.png" /></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Partenaire(s)</h2>
+                Quelles sont les personnes ou institutions qui ont
+                construit et/ou porté le projet avec vous?
+                <br />
+                Il peut s’agir d’une personne, de plusieurs personnes,
+                d’une association, d’une institution… qui ne figurent
+                pas dans la liste déroulante ci-dessus.
+                <div class="formInput">
+                <label for="experience_titre">Institution</label>
+                    <tal:addremove define="errors python:{};">
+                        <span metal:use-macro="python: view.getAddRemoveField('experience_institution_partenaire_fk', ' ',
+                                                       view.getAllInstitutionByClpsProprio(1),
+                                                       nameKey='institution_nom',
+                                                       pkKey='institution_pk',
+                                                       selectedPks=view.getInstitutionPartenaireByExperiencePk(experience.experience_pk))" />
+                    </tal:addremove>
+                </div>
+                <div class="formInput">
+                    Quelles sont les personnes ou institutions qui ont
+                    construit et/ou porté le projet avec vous?
+                    <br />
+                    Il peut s’agir d’une personne, de plusieurs personnes,
+                    d’une association, d’une institution… qui ne figurent
+                    pas dans la liste déroulante ci-dessus.
+
+                    <label for="experience_titre">Institution</label>
+                    <div class="info-actuelle">
+                        <span tal:content="experience/experience_institution_partenaire_autre" />
+                    </div>
+                    <textarea name="experience_institution_partenaire_autre"
+                              cols="70"
+                              rows="8"
+                              tal:content="experienceMaj/experience_maj_institution_partenaire_autre"></textarea>
+                    <div class="btn-links-table">
+                        <a href="creer-une-institution"
+                           target="_blank"
+                           alt="add_db"
+                           title="créer une nouvelle institution"><img src ="add_db.png" /></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Ressources</h2>
+                Y a-t-il des personnes qui sont intervenus à l’un ou
+                l’autre moment du projet, mais qui n’ont pas participé à
+                l’ensemble du projet ?
+                <div class="formInput">
+                    <label for="experience_titre">Institutions</label>
+                    <tal:addremove define="errors python:{};">
+                        <span metal:use-macro="python: view.getAddRemoveField('experience_institution_ressource_fk', ' ',
+                                                       view.getAllInstitutionByClpsProprio(1),
+                                                       nameKey='institution_nom',
+                                                       pkKey='institution_pk',
+                                                       selectedPks=view.getInstitutionRessourceByExperiencePk(experience.experience_pk))" />
+                    </tal:addremove>
+                </div>
+                <div class="formInput">
+                    <label for="experience_titre">Autres institutions : nom et adresse complète</label>
+                    Il peut s’agir d’une personne, de plusieurs personnes,
+                    d’une association, d’une institution… qui ne figurent
+                    pas dans la liste déroulante ci-dessus.
+                    <br />
+                    Soyez le plus complet possible.
+                    <div class="info-actuelle">
+                        <span tal:content="experience/experience_institution_ressource_autre" />
+                    </div>
+                    <textarea name="experience_institution_ressource_autre"
+                              cols="70"
+                              rows="8"
+                              tal:content="experienceMaj/experience_maj_institution_ressource_autre"></textarea>
+                    <div class="btn-links-table">
+                        <a href="creer-une-institution"
+                           target="_blank"
+                           alt="add_db"
+                           title="créer une nouvelle institution"><img src ="add_db.png" /></a>
+                    </div>
+                </div>
+                <div class="formInput">
+                    <label for="experience_titre">Outils - Ressources - Ouvrages</label>
+                    Y a-t-il des outils qui vous ont soutenu, aidé ?
+                    <tal:addremove define="errors python:{};">
+                        <span metal:use-macro="python: view.getAddRemoveField('experience_ressource_fk', ' ',
+                                                       view.getAllActiveRessource(),
+                                                       nameKey='ressource_titre',
+                                                       pkKey='ressource_pk',
+                                                       selectedPks=view.getRessourceTitreByExperiencePk(experience.experience_pk))" />
+                    </tal:addremove>
+                </div>
+                <div class="formInput">
+                    <label for="experience_titre">Autres outils : nom, éditeur</label>
+                    Outils qui ne figurent pas dans le menu déroulant ci-dessus
+                    <div class="info-actuelle">
+                        <span tal:content="experience/experience_institution_outil_autre" />
+                    </div>
+                    <textarea name="experience_institution_outil_autre"
+                              cols="70"
+                              rows="8"
+                              tal:content="experienceMaj/experience_maj_institution_outil_autre"></textarea>
+                    <div class="btn-links-table">
+                        <a href="ressource-creer"
+                           target="_blank"
+                           alt="add_db"
+                           title="créer une nouvelle resource"><img src ="add_db.png" /></a>
+                    </div>
+                </div>
+                <div class="formInput">
+                    <label for="experience_titre">Formations</label>
+                    Y a-t-il des formations qui vous ont aidé ?
+                    <div class="info-actuelle">
+                        <span tal:replace="structure experience/experience_formation_suivie" />
+                    </div>
+                    <span tal:replace="structure python: view.getWysiwygField('experience_formation_suivie', experienceMaj.experience_maj_formation_suivie)" />
+                </div>
+            </div>
+
+            <div class="formulaire">
+                <h2>Pour aller plus loin</h2>
+                Si quelqu’un souhaitait mener le même type de projets,
+                vous lui conseilleriez de contacter qui ? de commencer
+                par où ?
+                <label for="experience_titre">Pour aller plus loin</label>
+                <div class="info-actuelle">
+                    <span tal:content="experience/experience_aller_plus_loin" />
+                </div>
+                <span tal:replace="structure python: view.getWysiwygField('experience_aller_plus_loin', experienceMaj.experience_maj_aller_plus_loin)" />
+            </div>
+
+
+
+
+            <div tal:condition="python:user.has_role(['Manager'], here)"
+                 class="description-for-manager">
+                <div class="titre-for-manage">
+                    &Xi; Administration &Xi;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PK : <span tal:content="experience/experience_pk" />
+                </div>
+
+                <div class="formulaire">
+                    <h2> Lien pour la newsletter</h2>
+                    <span tal:content="string:${context/portal_url}/decrire-une-experience?experiencePk=${experience/experience_pk}" />
+                </div>
+
+                <div class="formulaire">
+                    <h2>Auteur - Editeur</h2>
+                    Nom, prénom et login de la personne qui
+                    pourra modifier le contenu de cette expérience
+                    <p>
+                    Actuellement :
+                    <tal:blok tal:define="auteurPk experience/experience_auteur_fk;
+                                          auteur python:view.getAuteurByPk(auteurPk)">
+                        <span tal:content="auteur/auteur_nom" class="gras" />
+                        <span tal:content="auteur/auteur_prenom" class="gras" />
+                        &nbsp;
+                        (<span tal:content="auteur/auteur_login" class="gras" />)
+                    </tal:blok>
+                    <input type="hidden"
+                           name="experience_auteur_fk"
+                           value=""
+                           tal:attributes="value experience/experience_auteur_fk" />
+                    </p>
+                    <div class="formInput">
+                        <label for="experience_titre">Auteur - Editeur</label>
+                        <input type="text"
+                               id="auteur_nom"
+                               name="experienceAuteur"
+                               value=""
+                               size="50">
+                    </div>
+                </div>
+
+                <div class="formulaire">
+                    <h2>Mots-clés</h2>
+                    Choisissez parmi les mots clé prédéfinis
+                    <div class="formInput">
+                        <label for="experience_titre">Mots-clés</label>
+                        <tal:addremove define="errors python:{};">
+                            <span metal:use-macro="python: view.getAddRemoveField('experience_mot_cle_fk', ' ',
+                                                           view.getAllMotCle(),
+                                                           nameKey='motcle_mot',
+                                                           pkKey='motcle_pk',
+                                                           selectedPks=view.getMotCleByExperiencePk(experience.experience_pk))" />
+                        </tal:addremove>
+                    </div>
+                </div>
+
+                <div class="formulaire">
+                    <h2>Thèmes</h2>
+                    Choisissez parmi les thèmes prédéfinis
+                    <div class="formInput">
+                        <label for="experience_titre">Thèmes</label>
+                        <tal:addremove define="errors python:{};">
+                            <span metal:use-macro="python: view.getAddRemoveField('experience_theme_fk', ' ',
+                                                           view.getAllTheme(),
+                                                           nameKey='theme_nom',
+                                                           pkKey='theme_pk',
+                                                           selectedPks=view.getThemeByExperiencePk(experience.experience_pk))" />
+                        </tal:addremove>
+                    </div>
+                </div>
+
+
+                <div class="formulaire">
+                    <h2>Plate-formes et sous plate-formes concernées</h2>
+                    <label for="experience_titre">Plate-formes</label>
+                    <input type="checkbox"
+                           name="experience_plate_forme_assuetude"
+                           value="True"
+                           tal:attributes="checked python:experience.experience_plate_forme_assuetude and 'checked' or None;" />
+                    &nbsp;&nbsp;Point d'appui assuétudes
+                    <br />
+                    <input type="checkbox"
+                           name="experience_plate_forme_sante_ecole"
+                           value="True"
+                           tal:attributes="checked python:experience.experience_plate_forme_sante_ecole and 'checked' or None;" />
+                    &nbsp;&nbsp;Santé à l'école
+                    <br />
+                    <input type="checkbox"
+                           name="experience_plate_forme_sante_famille"
+                           value="True"
+                           tal:attributes="checked python:experience.experience_plate_forme_sante_famille and 'checked' or None;" />
+                    &nbsp;&nbsp;Santé des familles
+                    <br />
+                    <input type="checkbox"
+                           name="experience_plate_forme_sante_environnement"
+                           value="True"
+                           tal:attributes="checked python:experience.experience_plate_forme_sante_environnement and 'checked' or None;" />
+                    &nbsp;&nbsp;Santé et environnement
+                    <br />
+                </div>
+
+
+                <div class="formulaire">
+                    <h2>Mission concernée</h2>
+                    <label for="experience_titre">Missions concernées</label>
+                    <input type="checkbox"
+                           name="experience_mission_centre_documentation"
+                           value="True"
+                           tal:attributes="checked python:experience.experience_mission_centre_documentation and 'checked' or None;" />
+                    &nbsp;&nbsp;Centre documentation
+                    <br />
+                    <input type="checkbox"
+                           name="experience_mission_accompagnement_projet"
+                           value="True"
+                           tal:attributes="checked python:experience.experience_mission_accompagnement_projet and 'checked' or None;" />
+                    &nbsp;&nbsp;Accompagnement de projet
+                    <br />
+                    <input type="checkbox"
+                           name="experience_mission_reseau_echange"
+                           value="True"
+                           tal:attributes="checked python:experience.experience_mission_reseau_echange and 'checked' or None;" />
+                    &nbsp;&nbsp;Mise en réseau, échanges
+                    <br />
+                    <input type="checkbox"
+                           name="experience_mission_formation"
+                           value="True"
+                           tal:attributes="checked python:experience.experience_mission_formation and 'checked' or None;" />
+                    &nbsp;&nbsp;Formation
+                    <br />
+                </div>
+
+                <div class="formulaire">
+                    <h2>Propriétaire</h2>
+                    <div class="formInput">
+                        <tal:boucle tal:repeat="clps allClps">
+                                <input type="checkbox"
+                                       name="experience_clps_proprio_fk:list"
+                                       checked=""
+                                       value=""
+                                       tal:attributes="value clps/clps_pk;
+                                                       checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
+                                &nbsp;&nbsp;
+                                <span tal:content="clps/clps_sigle" />
+                                <br />
+                        </tal:boucle>
+                    </div>
+                </div>
+
+                <div class="formulaire">
+                    <h2>Niveau visibilité</h2>
+                    <select name="experience_etat">
+                        <option value="private"
+                                selected=""
+                                tal:attributes="selected python:experience.experience_etat=='private' and 'selected' or None;">Privé</option>
+                        <option value="pending"
+                                selected=""
+                                tal:attributes="selected python:experience.experience_etat=='pending' and 'selected' or None;">Attente</option>
+                        <option value="pending"
+                                selected=""
+                                tal:attributes="selected python:experience.experience_etat=='pending' and 'selected' or None;">En cours de validation</option>
+                        <option value="publish"
+                                selected=""
+                                tal:attributes="selected python:experience.experience_etat=='publish' and 'selected' or None;">Publié</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="formControls">
+                <input type="hidden"
+                       name="operation"
+                       value="updateByClps" />
+                <input type="hidden"
+                       name="auteurExterne"
+                       value="False" />
+                <input type="hidden"
+                       name="experience_pk"
+                       value=""
+                       tal:attributes="value experience/experience_pk" />
+                <input type="submit"
+                       value="Modifier les données" />
+            </div>
+    </tal:boucle>
+</form>
+</div><!-- div metal-->
+</body>
+</html>
+

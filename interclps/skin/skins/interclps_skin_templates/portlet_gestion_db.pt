@@ -17,31 +17,31 @@
             <dt class="menu-titre">experiences</dt>
                 <dd>
                     <a href=""
-                       tal:attributes="href string:${context/portal_url}/admin-experience-creer">Cr&eacute;er</a>
+                       tal:attributes="href string:${context/portal_url}/admin-creer-une-experience">Cr&eacute;er</a>
                 </dd>
                 <dd>
                     <a href=""
-                       tal:attributes="href string:${context/portal_url}/admin-experience-lister">Lister</a>
+                       tal:attributes="href string:${context/portal_url}/admin-lister-les-experiences">Lister</a>
                 </dd>
                 <dd>
                     <a href=""
-                       tal:attributes="href string:${context/portal_url}/admin-experience-recherche">Modifier</a>
+                       tal:attributes="href string:${context/portal_url}/admin-chercher-une-experience">Modifier</a>
                 </dd>
                 <dd>
                     <a href=""
-                       tal:attributes="href string:${context/portal_url}/admin-experience-recherche">Rechercher</a>
+                       tal:attributes="href string:${context/portal_url}/admin-chercher-une-experience">Rechercher</a>
                 </dd>
-                
+
                 <div class="etatBase">
                     <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('private')">
                         <br />
-                        <a href="admin-experience-lister-par-etat?etat=private">Etat priv&eacute; : <span tal:content="nbrExp">nbr</span></a>
+                        <a href="admin-lister-les-experiences-par-etat?etat=private">Etat priv&eacute; : <span tal:content="nbrExp">nbr</span></a>
                     </dd>
                     <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('pending')">
-                        <a href="admin-experience-lister-par-etat?etat=pending">Etat en attente : <span tal:content="nbrExp">nbr</span></a>
+                        <a href="admin-lister-les-experiences-par-etat?etat=pending">Etat en attente : <span tal:content="nbrExp">nbr</span></a>
                     </dd>
                     <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('publish')">
-                        <a href="admin-experience-lister-par-etat?etat=publish">Etat publi&eacute; : <span tal:content="nbrExp">nbr</span></a>
+                        <a href="admin-lister-les-experiences-par-etat?etat=publish">Etat publi&eacute; : <span tal:content="nbrExp">nbr</span></a>
                     </dd>
                     <dd tal:define="nbrExp python:experiences.getCountAllExperience()">
                         <br />
@@ -50,7 +50,7 @@
                 </div>
 
             <div class="separation"></div>
-            
+
             <dt class="menu-titre">auteurs</dt>
                 <dd>
                     <a href="" tal:attributes="href string:${context/portal_url}/admin-auteur-creer">
@@ -70,7 +70,7 @@
                 </dd>
 
             <div class="separation"></div>
-            
+
             <dt class="menu-titre">institutions</dt>
                 <dd>
                     <a href="" tal:attributes="href string:${context/portal_url}/institution-creer">
@@ -116,7 +116,7 @@
                 </div>
 
             <div class="separation"></div>
-            
+
             <dt class="menu-titre">Type d'institution</dt>
                 <dd>
                     <a href="" tal:attributes="href string:${context/portal_url}/institution-type-creer">
@@ -126,7 +126,7 @@
                 </dd>
 
             <div class="separation"></div>
-            
+
             <dt class="menu-titre">Ressources</dt>
                 <dd class="small-comment">(Livres - Outils - Dossiers)</dd>
                 <dd>
@@ -152,7 +152,7 @@
                 </dd>
 
             <div class="separation"></div>
-            
+
             <dt class="menu-titre">Support </dt>
                 <dd>
                     <a href="" tal:attributes="href string:${context/portal_url}/support-creer">
@@ -162,7 +162,7 @@
                 </dd>
 
             <div class="separation"></div>
-            
+
             <dt class="menu-titre">Mots-Cl&eacute;</dt>
                 <dd>
                     <a href="" tal:attributes="href string:${context/portal_url}/mot-cle-creer">
@@ -172,7 +172,7 @@
                 </dd>
 
             <div class="separation"></div>
-            
+
             <dt class="menu-titre">Th&egrave;me</dt>
                 <dd>
                     <a href="" tal:attributes="href string:${context/portal_url}/theme-creer">
@@ -182,7 +182,7 @@
                 </dd>
 
             <div class="separation"></div>
-            
+
             <dt class="menu-titre">Public</dt>
                 <dd>
                     <a href="" tal:attributes="href string:${context/portal_url}/public-creer">
@@ -192,7 +192,7 @@
                 </dd>
 
             <div class="separation"></div>
-            
+
             <dt class="menu-titre">Milieu de vie</dt>
                 <dd>
                     <a href="" tal:attributes="href string:${context/portal_url}/milieu-de-vie-creer">
@@ -215,7 +215,7 @@
                     </a>
                     <span class="portlet-gestion-db-separation"></span>
                 </dd>
-            
+
              <div class="separation"></div>
              -->
              <dt class="menu-titre">Assu&eacute;tude </dt>

@@ -208,6 +208,16 @@ class IManageInterClps(Interface):
         recuperation du nombre d'experience
         """
 
+    def insertExperience():
+        """
+        insert une nouvelle experience
+        """
+
+    def updateExperienceByClps():
+        """
+        update une experience
+        """
+
     def getCountInstitutionByEtat(institutionEtat):
         """
         table pg institution
@@ -264,6 +274,11 @@ class IManageInterClps(Interface):
     def manageRessource():
         """
         insertion ou update des donnees ressource
+        """
+
+    def manageExperience():
+        """
+        insertion ou update des donnees exeperience
         """
 
     def demandeInscription():

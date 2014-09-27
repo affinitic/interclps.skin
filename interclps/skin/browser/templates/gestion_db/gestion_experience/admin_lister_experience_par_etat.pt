@@ -14,27 +14,21 @@
                  etat python: view.getTranslationExperienceEtat(etatExperience)"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
    <h1>:: Listing des expériences selon l'état "<span tal:content="etat" />" ::</h1>
-   
+
     <div tal:define="etatExperience request/etat;
                      experiences python:view.getAllExperienceByEtat(etatExperience);">
         <fieldset>
             <legend class="legende">Experience à l'état <span tal:content="etatExperience"></span></legend>
             <tal:boucle tal:repeat="experience experiences">
-                <tal:block tal:define="experiencePk experience/experience_pk">
+                <tal:block tal:define="experiencePk experience/experience_pk;
+                                       selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
                     <fieldset>
                         <legend>
                             <a href=""
                                tal:content="experience/experience_titre"
-                               tal:attributes="href string:admin-experience-modifier?experiencePk=${experiencePk}"
+                               tal:attributes="href string:admin-modifier-une-experience?experiencePk=${experiencePk}"
                                class="titre_formation">titre de l'expérience</a>
                         </legend>
-                        <div id="experience-etat"
-                             tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
-                             tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-                             <span tal:content="experienceEtat" />
-                             &Xi;
-                             PK : <span tal:content="experience/experience_pk" />
-                        </div>
                         <span tal:replace="structure experience/experience_resume"
                               class="rep-qest" />
                         <ul>
@@ -67,18 +61,40 @@
                             <table width="100%">
                                 <tr>
                                     <td align="left" class="discreet" valign="bottom">
-                                        par 
+                                            Edité par le
+                                            <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
+                                                <span tal:content="clpsSigle"
+                                                      class="gras" />
+                                                <tal:if tal:condition="not: repeat/clpsSigle/end">
+                                                    <span>et le </span>
+                                                </tal:if>
+                                            </tal:boucle>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
+                                        align="left" class="discreet" valign="bottom">
+                                        <span tal:content="experienceEtat" />
+                                        &Xi;
+                                        PK : <span tal:content="experience/experience_pk" />
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="discreet" valign="bottom">
+                                        Créé par
                                         <span tal:content="experience/auteurFromExperience/auteur_prenom | nothing"
                                               class="gras" />
                                         <span tal:content="experience/auteurFromExperience/auteur_nom | nothing"
-                                              class="gras" /> - 
+                                              class="gras" /> -
                                         [<span tal:content="experience/experience_auteur_login"
                                                class="gras discreet" />]
                                     </td>
                                     <td align="right">
                                         <div class="btn-modifier">
                                             <a href=""
-                                               tal:attributes="href string: admin-experience-modifier?experiencePk=${experiencePk}">&nbsp;</a>
+                                               tal:attributes="href string: admin-modifier-une-experience?experiencePk=${experiencePk}">&nbsp;</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -91,15 +107,14 @@
                                         <span tal:content="experience/experience_modification_employe"
                                               class="gras" />
                                     </td>
-                                    <td>
-                                        
-                                    </td>
+                                    <td></td>
                                 </tr>
                             </table>
                         <div>
                     </fieldset>
                 </tal:block>
             </tal:boucle>
+            <div class="visualClear"></div>
         </fieldset>
     </div><!--define-->
 </div><!--metal-->

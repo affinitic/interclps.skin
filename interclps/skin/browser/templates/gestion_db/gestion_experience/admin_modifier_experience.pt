@@ -24,7 +24,7 @@
                  selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk');
                  "
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-<form action="admin-experience-inserer"
+<form action="insertExperience"
       method="post">
     <tal:boucle tal:repeat="experience experiences">
         <br />
