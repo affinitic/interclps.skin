@@ -19,7 +19,7 @@
                     <legend>
                         <a href=""
                                tal:content="experience/experience_titre"
-                               tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}"
+                               tal:attributes="href string:decrire-une-experience?experiencePk=${experiencePk}"
                                class="titre_formation">titre de l'expérience</a>
                     </legend>
                     <div id="experience-etat"
@@ -61,7 +61,7 @@
                         <table width="100%">
                             <tr>
                                 <td align="left" class="discreet" valign="bottom">
-                                    par 
+                                    par
                                     <span tal:content="experience/auteurFromExperience/auteur_prenom | nothing" />
                                     <span tal:content="experience/auteurFromExperience/auteur_nom | nothing" />
                                     <span tal:content="experience/experience_auteur_login" />
@@ -72,7 +72,7 @@
                                 <td colspan="2" align="right">
                                     <a href=""
                                        tal:attributes="href
-                                       string:experience-decrire?experiencePk=${experiencePk}">
+                                       string:decrire-une-experience?experiencePk=${experiencePk}">
                                        <img src="btn_suivant.png" /></a>
                                 </td>
                             </tr>

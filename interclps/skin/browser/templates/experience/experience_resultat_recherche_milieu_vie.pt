@@ -37,7 +37,7 @@
                 <legend class="titre_formation">
                         <a href=""
                            tal:content="experience/experience_titre"
-                           tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}">titre de l'expérience</a>
+                           tal:attributes="href string:decrire-une-experience?experiencePk=${experiencePk}">titre de l'expérience</a>
                 </legend>
                 <div class="listing-texte-experience">
                     <span tal:replace="structure experience/experience_resume"
@@ -59,7 +59,7 @@
                 <div id="footer-listing">
                     <div class="listing-experience-bouton">
                         <a href=""
-                           tal:attributes="href string:experience-decrire?experiencePk=${experiencePk}">
+                           tal:attributes="href string:decrire-une-experience?experiencePk=${experiencePk}">
                            <img src="btn_suivant.png" /></a>
                     </div>
 

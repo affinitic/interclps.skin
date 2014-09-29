@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-<!-- === COLONNE GAUCHE =================================================================================================-->            
+<!-- === COLONNE GAUCHE =================================================================================================-->
             <div id="left-institution">
                 <div tal:condition="python: institution.institution_public!=''"
                      class="description-left-content">
@@ -108,7 +108,7 @@
                            target="_blank"
                            tal:attributes="href string: http://${institution/institution_url_site}">
                             <span tal:content="institution/institution_url_site" /></a>
-                    </div> 
+                    </div>
                 </div>
                 <div tal:condition="python: institution.institution_lien_siss!=''"
                      class="description-left-content">
@@ -163,9 +163,9 @@
                                 <span tal:content="institution/commune/com_localite_nom" />
                             </div>
                         </div>
-                
+
                         <hr class="search-ligne-bleue" />
-                
+
                         <div tal:condition="python: institution.institution_nom_contact!=''">
                             <h4>Personne ressource</h4>
                             <div class="textdb">
@@ -194,7 +194,7 @@
                             </div>
                         </div>
                     </div><!--institution-coordonnee-assuetude-->
-                    
+
                     <!--<span tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">-->
                     <div id="pdf-experience"
                          tal:condition="python: institution.institution_etat=='publish'">
@@ -203,7 +203,7 @@
                             tal:attributes="href string:@@pdfGenerator/printInstitution?institutionPk=${institutionPk}">
                             <img src="logo_pdf.png"></a>
                     </div>
-                </div><!--right-institution-coordonnée-->    
+                </div><!--right-institution-coordonnée-->
 
                 <!-- portlet assuetude projets partagés -->
                 <div id="projet-partage-institution"
@@ -217,13 +217,13 @@
                             <span tal:define="experiencePk python: experience[0]">
                                 &bull;
                                 <a href=""
-                                   tal:attributes="href string: experience-decrire?experiencePk=${experiencePk}">
+                                   tal:attributes="href string: decrire-une-experience?experiencePk=${experiencePk}">
                                 <span tal:content="python: experience[1]" /></a>
                                 <br />
                             </span>
                         </tal:boucle>
                     </tal:block>
-                
+
                     <tal:block tal:define="experiences python:view.getExperienceFromInstitutionPartenaire(institutionPk)"
                                tal:condition="python: len(experiences)>0">
                         <h4>Partenaire</h4>
@@ -231,13 +231,13 @@
                             <span tal:define="experiencePk python: experience[0]">
                                 &bull;
                                 <a href=""
-                                   tal:attributes="href string: experience-decrire?experiencePk=${experiencePk}">
+                                   tal:attributes="href string: decrire-une-experience?experiencePk=${experiencePk}">
                                   <span tal:content="python: experience[1]" /></a>
                               <br />
                            </span>
                         </tal:boucle>
                     </tal:block>
-                
+
                     <tal:block tal:define="experiences python:view.getExperienceFromInstitutionRessource(institutionPk)"
                                tal:condition="python: len(experiences)>0">
                         <h4>Ressource</h4>
@@ -245,7 +245,7 @@
                             <span tal:define="experiencePk python: experience[0]">
                                 &bull;
                                 <a href=""
-                                   tal:attributes="href string: experience-decrire?experiencePk=${experiencePk}">
+                                   tal:attributes="href string: decrire-une-experience?experiencePk=${experiencePk}">
                                     <span tal:content="python: experience[1]" /></a>
                                     <br />
                             </span>
@@ -253,11 +253,11 @@
                     </tal:block>
                 </div><!--projet-assuetude-institution-->
             </div><!--right-institution-->
-            
+
             <div class="break-float"></div>
             <div id="institution-footer"></div>
 
-<!-- ASSUETUDE INSTITUION --> 
+<!-- ASSUETUDE INSTITUION -->
             <div id="institution-description-assuetude"
                  tal:define="interventions python:view.getAssuetudeInterventionForInstituion(institutionPk, 'nom')"
                  tal:condition="python: len(interventions)>0">
@@ -272,7 +272,7 @@
                         </tal:boucle>
                     </div>
                 </div>
-                
+
                 <div tal:condition="python: institution.institution_assuet_intervention_precision!=''">
                     <div class="precision">
                         <i>Précision</i> :<br />
@@ -316,7 +316,7 @@
                         </tal:boucle>
                     </div>
                 </div>
-                
+
                 <div tal:condition="python: institution.institution_assuet_thematique_precision!=''">
                     <div class="precision">
                         <i>Précision</i> :<br />
@@ -419,7 +419,7 @@
                            tal:attributes="checked python:institution.institution_plate_forme_sante_environnement and 'checked' or None;" />&nbsp;&nbsp;Santé et environnement
                     <br />
                 </fieldset>
-                
+
                 <fieldset>
                     <legend class="legende">Listing des ressources dans les plate-formes</legend>
                     Permet d'afficher une institution dans la liste des organismes des ressources d'une plate-forme

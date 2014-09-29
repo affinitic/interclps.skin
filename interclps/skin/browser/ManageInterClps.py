@@ -4546,14 +4546,6 @@ class ManageInterClps(BrowserView):
         experience.experience_modification_date = experience_modification_date
         session.flush()
 
-        portalUrl = getToolByName(self.context, 'portal_url')()
-        ploneUtils = getToolByName(self.context, 'plone_utils')
-        message = u"Les informations ont été modifiées !"
-        ploneUtils.addPortalMessage(message, 'info')
-        url = "%s/admin-decrire-une-experience?experiencePk=%s" % (portalUrl, experience_pk)
-        self.request.response.redirect(url)
-        return ''
-
     def updateEtatExperience(self, experiencePk):
         """
         table pg experience
@@ -4673,13 +4665,6 @@ class ManageInterClps(BrowserView):
 
         self.updateEtatExperience(experiencePk)
 
-        portalUrl = getToolByName(self.context, 'portal_url')()
-        ploneUtils = getToolByName(self.context, 'plone_utils')
-        message = u"Les informations ont été modifiées !"
-        ploneUtils.addPortalMessage(message, 'info')
-        url = "%s/decrire-une-experience-maj?experiencePk=%s&experienceMaj=%s" % (portalUrl, experienceMajPk, experienceMaj)
-        self.request.response.redirect(url)
-        return ''
 
 ### LOG ###
 
@@ -5136,7 +5121,7 @@ class ManageInterClps(BrowserView):
 
         if operation == "updateByClps":
             experienceFk = getattr(fields, 'experience_pk')
-            self.updateExperience()
+            self.updateExperienceByClps()
 
             self.deleteLinkExperienceCommune(experienceFk)
             if experienceCommuneFk > 0:
@@ -5184,10 +5169,7 @@ class ManageInterClps(BrowserView):
             ploneUtils = getToolByName(self.context, 'plone_utils')
             message = u"L'expérience a été enregistrée !"
             ploneUtils.addPortalMessage(message, 'info')
-            if auteurExterne:
-                url = "%s/decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
-            else:
-                url = "%s/admin-decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
+            url = "%s/admin-decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
             self.request.response.redirect(url)
 
 
@@ -5245,8 +5227,5 @@ class ManageInterClps(BrowserView):
             ploneUtils = getToolByName(self.context, 'plone_utils')
             message = u"L'expérience a été enregistrée !"
             ploneUtils.addPortalMessage(message, 'info')
-            if auteurExterne:
-                url = "%s/decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
-            else:
-                url = "%s/admin-decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
+            url = "%s/decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
             self.request.response.redirect(url)

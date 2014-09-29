@@ -83,55 +83,55 @@
 <!-- EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE -->
 <!-- USER EXEPRIENCE -->
     <browser:page
-          name="experience-gerer"
+          name="gerer-les-experiences"
           for="*"
-          template="templates/experience/experience_gestion.pt"
+          template="templates/experience/gerer_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="experience-creer"
+          name="creer-une-experience"
           for="*"
-          template="templates/experience/experience_creation_form.pt"
+          template="templates/experience/creer_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="experience-modifier"
+          name="modifier-une-experience"
           for="*"
-          template="templates/experience/experience_modification_form.pt"
+          template="templates/experience/modifier_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="experience-decrire"
+          name="decrire-une-experience"
           for="*"
-          template="templates/experience/experience_description.pt"
+          template="templates/experience/decrire_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="experience-inserer"
+          name="decrire-une-experience-maj"
           for="*"
-          template="templates/experience/experience_insertion.pt"
+          template="templates/experience/decrire_experience_maj.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="experience-lister-auteur"
+          name="lister-experience-par-auteur"
           for="*"
-          template="templates/experience/experience_listing_par_auteur.pt"
+          template="templates/experience/lister_experience_par_auteur.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="experience-plate-forme-lister"
+          name="lister-experience-par-plate-forme"
           for="*"
           template="templates/experience/experience_listing_par_plateforme.pt"
           permission="zope.Public"
@@ -258,9 +258,9 @@
           />
 
     <browser:page
-          name="experience-recherche"
+          name="chercher-une-experience"
           for="*"
-          template="templates/experience/experience_recherche_db.pt"
+          template="templates/experience/chercher_experience.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"

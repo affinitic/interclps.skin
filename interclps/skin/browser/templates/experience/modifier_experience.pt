@@ -15,7 +15,7 @@
                  experiences python:view.getExperienceByPk(experiencePk)"
      tal:condition="python:user.has_role(['RecitExperience'], here)">
 
-<form action="experience-inserer"
+<form action="manageExperience"
       method="post">
     <tal:boucle tal:repeat="experience experiences">
         <h1>:: Modifier l'expérience <span tal:content="experience/experience_titre" class="rouge-titre" /> ::</h1>
@@ -467,7 +467,7 @@
                                                            view.getAllInstitution(),
                                                            nameKey='institution_nom',
                                                            pkKey='institution_pk',
-                                                           selectedPks=view.getInstitutionPartenaireByExperiencePk(experience.experience_pk))" /> 
+                                                           selectedPks=view.getInstitutionPartenaireByExperiencePk(experience.experience_pk))" />
                         </tal:addremove>
                     </td>
                     <td class="form-experience-right-column">
@@ -637,14 +637,17 @@
                    value=""
                    tal:attributes="value experience/auteurFromExperience/auteur_pk" />
             <input type="hidden"
-                   name="experienceClpsProprio"
+                   name="experience_clps_proprio_fk"
                    value="2" />
             <input type="hidden"
                    name="operation"
-                   value="update" />
+                   value="updateByAuteur" />
             <input type="hidden"
                    name="experience_etat"
                    value="pending" />
+            <input type="hidden"
+                   name="auteurExterne"
+                   value="True" />
             <input type="hidden"
                    name="experience_pk"
                    value=""

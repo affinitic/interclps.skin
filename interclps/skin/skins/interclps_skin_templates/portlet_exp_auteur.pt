@@ -17,15 +17,15 @@
             <dt class="portletItemDB menu-titre">experiences</dt>
             <dd class="portletItemDB">
                 <a href=""
-                   tal:attributes="href string:${context/portal_url}/experience-creer">Cr&eacute;er</a>
+                   tal:attributes="href string:${context/portal_url}/creer-une-experience">Cr&eacute;er</a>
             </dd>
             <dd class="portletItemDB">
                 <a href=""
-                   tal:attributes="href string:${context/portal_url}/experience-lister-auteur">Lister</a>
+                   tal:attributes="href string:${context/portal_url}/lister-experience-par-auteur">Lister</a>
             </dd>
             <dd class="portletItemDB">
                 <a href=""
-                   tal:attributes="href string:${context/portal_url}/experience-gerer">Modifier</a>
+                   tal:attributes="href string:${context/portal_url}/gerer-les-experiences">Modifier</a>
             </dd>
         </div>
 

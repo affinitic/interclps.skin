@@ -24,7 +24,7 @@
                  selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk');
                  "
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-<form action="insertExperience"
+<form action="manageExperience"
       method="post">
     <tal:boucle tal:repeat="experience experiences">
         <br />
@@ -857,12 +857,11 @@
 
         <div class="div_form_input">
             <input type="hidden"
-                   name="experience_creation_employe"
-                   value=""
-                   tal:attributes="value experience/experience_creation_employe" />
-            <input type="hidden"
                    name="operation"
-                   value="update" />
+                   value="updateByClps" />
+            <input type="hidden"
+                   name="auteurExterne"
+                   value="False" />
             <input type="hidden"
                    name="experience_pk"
                    value=""
