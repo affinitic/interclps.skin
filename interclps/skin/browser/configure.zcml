@@ -431,6 +431,14 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
+          name="admin-decrire-une-institution"
+          for="*"
+          template="templates/gestion_db/gestion_institution/admin_decrire_institution.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
           name="admin-institution-lister"
           for="*"
           template="templates/gestion_db/gestion_institution/admin_lister_institution.pt"

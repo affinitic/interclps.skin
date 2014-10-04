@@ -67,7 +67,7 @@
                                     <span tal:content="experience/experience_auteur_login" />
                                     <br />
                                     Dernière modification :
-                                    <span tal:content="experience/experience_modification_date" />
+                                    <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y')" />
                                 </td>
                                 <td colspan="2" align="right">
                                     <a href=""

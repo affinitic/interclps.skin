@@ -1,0 +1,484 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <script src="validate_forms.js" type="text/javascript"></script>
+    <metal:noborder fill-slot="top_slot"
+                    tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:define="institutionPk request/institutionPk | nothing;
+                 institutions python:view.getAllInstitution(institutionPk);
+                 allClps python: view.getAllClps();
+                 selectedClpsProprio python:view.getClpsProprioForInstitution(institutionPk, 'pk')">
+    <tal:boucle tal:repeat="institution institutions">
+        <tal:block tal:define="institutionPk institution/institution_pk">
+            <div id="title-institution">
+                <div id="title-institution-left"></div>
+                <div class="titre-institution-top">
+                    <p><span tal:content="institution/institution_nom" /></p>
+                </div>
+                <div id="title-institution-right"
+                      tal:define="institutionPk institution/institution_pk">
+                    <div class="btn-modifier"
+                         tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                        <a href=""
+                           tal:attributes="href string: admin-modifier-une-institution?institutionPk=${institutionPk}">&nbsp;</a>
+                    </div>
+                </div>
+            </div>
+
+<!-- === COLONNE GAUCHE =================================================================================================-->
+            <div id="left-institution">
+                <div tal:condition="python: institution.institution_public!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Public</h3>
+                    <div class="text-db">
+                        <span tal:replace="structure institution/institution_public"></span>
+                    </div>
+                </div>
+                <div tal:condition="python: institution.institution_mission!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Missions</h3>
+                    <div class="text-db">
+                    <span tal:replace="structure institution/institution_mission" />
+                    </div>
+                </div>
+                <tal:block tal:condition="exists: institutionPk">
+                    <div tal:define="territoire python:view.isInstitutionTerritoireCouvert(institutionPk)">
+                        <div tal:condition="python: territoire==True"
+                             class="description-left-content">
+                            <h3 class="left-rubrique-db">Territoire couvert par institution.</h3>
+                            <br />
+                            <div tal:define="communes python:view.getInstitutionCommuneCouverte(institution.institution_pk)"
+                                 class="text-db">
+                                <tal:boucle tal:repeat="commune communes">
+                                  <span tal:content="commune" /> -
+                                </tal:boucle>
+                                <br />
+                            </div>
+                            <div tal:condition="python: institution.institution_territoire_tout_luxembourg==True">
+                                <div class="text-db">Tout le Luxembourg</div>
+                            </div>
+                            <div tal:condition="python: institution.institution_zone_cfwb == True">
+                                <div class="text-db">Communauté française</div>
+                            </div>
+                            <div tal:condition="python: institution.institution_zone_rw == True">
+                                <div class="text-db">Région wallonne</div>
+                            </div>
+                            <div tal:condition="python: institution.institution_zone_brxl == True">
+                                <div class="text-db">Région Bruxelles capitale</div>
+                            </div>
+                            <div tal:condition="python: institution.institution_zone_belgique == True">
+                                <div class="text-db">Belgique</div>
+                            </div>
+                        </div>
+                        <div tal:condition="python: institution.institution_zone_internationale_info!=''"
+                             class="description-left-content">
+                            <h3 class="left-rubrique-db">International</h3>
+                            <div class="text-db">
+                                <span tal:content="institution/institution_zone_internationale_info" />
+                            </div>
+                        </div>
+                    </div>
+                </tal:block>
+                <div tal:condition="python: institution.institution_activite!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Activités</h3>
+                    <div class="text-db">
+                    <span tal:replace="structure institution/institution_activite" />
+                    </div>
+                </div>
+                <div tal:condition="python: institution.institution_commentaire!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Commentaire</h3>
+                    <div class="text-db">
+                        <span tal:replace="structure institution/institution_commentaire" />
+                    </div>
+                </div>
+                <div tal:condition="python: institution.institution_url_site!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Site web</h3>
+                    <div class="text-db">
+                        <a href=""
+                           target="_blank"
+                           tal:attributes="href string: http://${institution/institution_url_site}">
+                            <span tal:content="institution/institution_url_site" /></a>
+                    </div>
+                </div>
+                <div tal:condition="python: institution.institution_lien_siss!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Lien SISS</h3>
+                    <div class="text-db">
+                        <a href=""
+                           target="_blank"
+                           tal:attributes="href string: ${institution/institution_lien_siss}">
+                            <span tal:content="institution/institution_lien_siss" /></a>
+                    </div>
+                </div>
+                <div tal:condition="python: institution.institution_lien_autre!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Autre lien</h3>
+                    <div class="text-db">
+                    <span tal:content="institution/institution_lien_autre" />
+                    </div>
+                </div>
+                <div tal:condition="python: institution.institution_autre_info!=''"
+                     class="description-left-content">
+                    <h3 class="left-rubrique-db">Autre info</h3>
+                    <div class="text-db">
+                    <span tal:replace="structure institution/institution_autre_info" />
+                    </div>
+                </div>
+         </div><!--left-->
+
+
+<!-- === COLONNE DROITE =================================================================================================-->
+            <div id="right-institution">
+                <!-- portlet coordonnee instituion -->
+                <div id="right-institution-coordonnee">
+                    <div id="institution-coordonnee-assuetude">
+                        <div tal:condition="python: institution.institution_sigle!=''">
+                            <h4>Sigle</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/institution_sigle" />
+                            </div>
+                        </div>
+
+                        <div tal:condition="python: institution.institution_adresse!=''">
+                            <h4>Adresse</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/institution_adresse" />
+                            </div>
+                        </div>
+
+                        <div tal:condition="python: institution.commune.com_localite_nom!=''">
+                            <h4>Localité</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/commune/com_localite_cp" />
+                                <span tal:content="institution/commune/com_localite_nom" />
+                            </div>
+                        </div>
+
+                        <hr class="search-ligne-bleue" />
+
+                        <div tal:condition="python: institution.institution_nom_contact!=''">
+                            <h4>Personne ressource</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/institution_nom_contact" />
+                            </div>
+                        </div>
+
+                        <div tal:condition="python: institution.institution_fonction_contact!=''">
+                            <h4>Fonction</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/institution_fonction_contact" />
+                            </div>
+                        </div>
+
+                        <div tal:condition="python: institution.institution_email_contact!=''">
+                            <h4>E-mail</h4>
+                            <div class="textdb">
+                                <span tal:content="institution/institution_email_contact" />
+                            </div>
+                        </div>
+
+                        <div tal:condition="python: institution.institution_tel_contact!=''">
+                            <h4>Tél</h4>
+                            <div class="textdb">
+                            <span tal:content="institution/institution_tel_contact" />
+                            </div>
+                        </div>
+                    </div><!--institution-coordonnee-assuetude-->
+
+                    <!--<span tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">-->
+                    <div id="pdf-experience"
+                         tal:condition="python: institution.institution_etat=='publish'">
+                         <span class="right-rubrique-db">Télécharger la fiche en PDF</span>
+                         <a href=""
+                            tal:attributes="href string:@@pdfGenerator/printInstitution?institutionPk=${institutionPk}">
+                            <img src="logo_pdf.png"></a>
+                    </div>
+                </div><!--right-institution-coordonnée-->
+
+                <!-- portlet assuetude projets partagés -->
+                <div id="projet-partage-institution"
+                     tal:define="experiences python:view.getExperienceFromInstitutionPorteur(institutionPk)"
+                     tal:condition="python: len(experiences)>0">
+                    <h3><img src="logo_projet_partage.png" /> Projets partagés</h3>
+
+                    <tal:block tal:condition="python: len(experiences)>0">
+                        <h4>Porteur</h4>
+                        <tal:boucle tal:repeat="experience experiences">
+                            <span tal:define="experiencePk python: experience[0]">
+                                &bull;
+                                <a href=""
+                                   tal:attributes="href string: decrire-une-experience?experiencePk=${experiencePk}">
+                                <span tal:content="python: experience[1]" /></a>
+                                <br />
+                            </span>
+                        </tal:boucle>
+                    </tal:block>
+
+                    <tal:block tal:define="experiences python:view.getExperienceFromInstitutionPartenaire(institutionPk)"
+                               tal:condition="python: len(experiences)>0">
+                        <h4>Partenaire</h4>
+                        <tal:boucle tal:repeat="experience experiences">
+                            <span tal:define="experiencePk python: experience[0]">
+                                &bull;
+                                <a href=""
+                                   tal:attributes="href string: decrire-une-experience?experiencePk=${experiencePk}">
+                                  <span tal:content="python: experience[1]" /></a>
+                              <br />
+                           </span>
+                        </tal:boucle>
+                    </tal:block>
+
+                    <tal:block tal:define="experiences python:view.getExperienceFromInstitutionRessource(institutionPk)"
+                               tal:condition="python: len(experiences)>0">
+                        <h4>Ressource</h4>
+                        <tal:boucle tal:repeat="experience experiences">
+                            <span tal:define="experiencePk python: experience[0]">
+                                &bull;
+                                <a href=""
+                                   tal:attributes="href string: decrire-une-experience?experiencePk=${experiencePk}">
+                                    <span tal:content="python: experience[1]" /></a>
+                                    <br />
+                            </span>
+                        </tal:boucle>
+                    </tal:block>
+                </div><!--projet-assuetude-institution-->
+            </div><!--right-institution-->
+
+            <div class="break-float"></div>
+            <div id="institution-footer"></div>
+
+<!-- ASSUETUDE INSTITUION -->
+            <div id="institution-description-assuetude"
+                 tal:define="interventions python:view.getAssuetudeInterventionForInstituion(institutionPk, 'nom')"
+                 tal:condition="python: len(interventions)>0">
+                <h3 class="titre-description-assuetude">Assuétudes</h3>
+                <div>
+                    <h4>Intervention</h4>
+                    <div class="text-db">
+                        <tal:boucle tal:repeat="intervention interventions">
+                            &bull;
+                            <span tal:content="intervention" />
+                            <br />
+                        </tal:boucle>
+                    </div>
+                </div>
+
+                <div tal:condition="python: institution.institution_assuet_intervention_precision!=''">
+                    <div class="precision">
+                        <i>Précision</i> :<br />
+                        <span tal:replace="structure institution/institution_assuet_intervention_precision" />
+                    </div>
+                </div>
+
+                <div tal:define="activitesPublic python:view.getAssuetudeActiviteProposeePublicForInstituion(institutionPk, 'nom');
+                                 activitesPro python:view.getAssuetudeActiviteProposeeProForInstituion(institutionPk, 'nom')"
+                     tal:condition="python: len(activitesPublic)>0">
+                    <h4>Actitivtés proposées</h4>
+                    <div class="text-db">
+                        <tal:boucle tal:repeat="activite activitesPublic">
+                            &bull;
+                            <span tal:content="activite" />
+                            <br />
+                        </tal:boucle>
+                        <tal:boucle tal:repeat="activite activitesPro">
+                            &bull;
+                            <span tal:content="activite" />
+                            <br />
+                        </tal:boucle>
+                    </div>
+                </div>
+
+                <div tal:condition="python: institution.institution_assuet_activite_proposee_precision!=''">
+                    <div class="precision">
+                        <i>Précision</i> :<br />
+                        <span tal:replace="structure institution/institution_assuet_activite_proposee_precision" />
+                    </div>
+                </div>
+
+                <div tal:define="thematiques python:view.getAssuetudeThematiqueForInstituion(institutionPk, 'nom')"
+                     tal:condition="python: len(thematiques)>0">
+                    <h4>Thématique</h4>
+                    <div class="text-db">
+                        <tal:boucle tal:repeat="thematique thematiques">
+                            &bull;
+                            <span tal:content="thematique " />
+                            <br />
+                        </tal:boucle>
+                    </div>
+                </div>
+
+                <div tal:condition="python: institution.institution_assuet_thematique_precision!=''">
+                    <div class="precision">
+                        <i>Précision</i> :<br />
+                        <span tal:replace="structure institution/institution_assuet_thematique_precision" />
+                    </div>
+                </div>
+
+                <div tal:condition="python: institution.institution_assuet_aide_soutien_ecole!=''">
+                    <h4>Aide et soutien aux écoles</h4>
+                    <div class="text-db">
+                        <span tal:replace="structure institution/institution_assuet_aide_soutien_ecole" />
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+<!-- ZONE ROSE ADMIN -->
+            <div tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
+                 id="description-for-manager">
+
+                <div class="titre-for-manage">
+                    &Xi; Administration &Xi;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    PK : <span tal:content="institution/institution_pk" />
+                </div>
+
+                <fieldset>
+                    <legend class="legende"> Etat</legend>
+                    <select name="institution_etat">
+                            <option value="private"
+                                    tal:attributes="selected python:institution.institution_etat=='private' and 'selected' or None;"> Privé </option>
+                            <option value="publish"
+                                    tal:attributes="selected python:institution.institution_etat=='publish' and 'selected' or None;"> Publié </option>
+                    </select>
+                </fieldset>
+
+                <fieldset>
+                    <legend class="legende">Auteur - Editeur</legend>
+                    Nom, prénom et identifiant de la personne qui pourra modifier le contenu de cette expérience<br />
+                    <tal:blok tal:define="auteurs python:view.getAllActiveAuteur()">
+                        <select name="institution_auteur_fk">
+                            <option>...</option>
+                            <tal:boucle tal:repeat="auteur auteurs">
+                                <option value=""
+                                        selected=""
+                                        tal:attributes="value auteur/auteur_pk;
+                                                        selected python:institution.institution_auteur_fk==auteur.auteur_pk and 'selected' or None;">
+                                    <span tal:content="auteur/auteur_nom" />
+                                    <span tal:content="auteur/auteur_prenom" />
+                                    &nbsp;
+                                    (<span tal:content="auteur/auteur_login" />)
+                                </option>
+                            </tal:boucle>
+                        </select>
+                    </tal:blok>
+                </fieldset>
+
+                <fieldset>
+                    <legend class="legende">Type d'institution</legend>
+                    Permet de classer les instituions afin de les afficher correctement dans la zone ressources d'une plate-forme<br />
+                    <tal:blok tal:define="typeInstitutions python:view.getAllActiveInstitutionType()">
+                        <select name="institution_institution_type_pk">
+                            <option>...</option>
+                            <tal:boucle tal:repeat="typeInstitution typeInstitutions">
+                                <option value=""
+                                        selected=""
+                                        tal:attributes="value typeInstitution/institution_type_pk;
+                                                        selected python:institution.institution_institution_type_fk==typeInstitution.institution_type_pk and 'selected' or None;">
+                                    <span tal:content="typeInstitution/institution_type_nom" />
+                                </option>
+                            </tal:boucle>
+                        </select>
+                    </tal:blok>
+                </fieldset>
+
+                <fieldset>
+                    <legend class="legende">Plate-formes concernées</legend>
+                    <input type="checkbox"
+                           name="institution_plate_forme_sante_ecole"
+                           value="True"
+                           tal:attributes="checked python:institution.institution_plate_forme_sante_ecole and 'checked' or None;" />&nbsp;&nbsp;Point d'appui assuétudes
+                    <br />
+                    <input type="checkbox"
+                           name="institution_plate_forme_assuetude"
+                           value="True"
+                           tal:attributes="checked python:institution.institution_plate_forme_assuetude and 'checked' or None;" />&nbsp;&nbsp;Santé à l'école
+                    <br />
+                    <input type="checkbox"
+                           name="institution_plate_forme_sante_famille"
+                           value="True"
+                           tal:attributes="checked python:institution.institution_plate_forme_sante_famille and 'checked' or None;" />&nbsp;&nbsp;Santé des familles
+                    <br />
+                    <input type="checkbox"
+                           name="institution_plate_forme_sante_environnement"
+                           value="True"
+                           tal:attributes="checked python:institution.institution_plate_forme_sante_environnement and 'checked' or None;" />&nbsp;&nbsp;Santé et environnement
+                    <br />
+                </fieldset>
+
+                <fieldset>
+                    <legend class="legende">Listing des ressources dans les plate-formes</legend>
+                    Permet d'afficher une institution dans la liste des organismes des ressources d'une plate-forme
+                    <br />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_assuetude"
+                           checked=""
+                           value="True"
+                           tal:attributes="value institution/institution_listing_ressource_plate_forme_assuetude;
+                                           checked python:institution.institution_listing_ressource_plate_forme_assuetude and 'checked' or None" />
+                    &nbsp;&nbsp;Point d'appui assuétudes
+                    <br />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_sante_ecole"
+                           checked=""
+                           value="True"
+                           tal:attributes="value institution/institution_listing_ressource_plate_forme_sante_ecole;
+                                           checked python:institution.institution_listing_ressource_plate_forme_sante_ecole and 'checked' or None" />
+                    &nbsp;&nbsp;Santé à l'école
+                    <br />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_sante_famille"
+                           checked=""
+                           value="True"
+                           tal:attributes="value institution/institution_listing_ressource_plate_forme_sante_famille;
+                                           checked python:institution.institution_listing_ressource_plate_forme_sante_famille and 'checked' or None" />
+                    &nbsp;&nbsp;Santé des familles
+                    <br />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_sante_environnement"
+                           checked=""
+                           value="True"
+                           tal:attributes="value institution/institution_listing_ressource_plate_forme_sante_environnement;
+                                           checked python:institution.institution_listing_ressource_plate_forme_sante_environnement and 'checked' or None" />
+                    &nbsp;&nbsp;Santé et environnement
+                    <br />
+                </fieldset>
+                <fieldset>
+                    <legend>Propriétaire</legend>
+                    <ul class="formulaire">
+                        <tal:boucle tal:repeat="clps allClps">
+                            <li>
+                              <img src="list_flch_rouge.png" />
+                              <input type="checkbox"
+                                 name="institution_clps_fk:list"
+                                 checked=""
+                                 value=""
+                                 tal:attributes="value clps/clps_pk;
+                                                 checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
+                              &nbsp;&nbsp;
+                              <span tal:content="clps/clps_sigle" />
+                            </li>
+                        </tal:boucle>
+                    </ul>
+                </fieldset>
+            </div>
+        </tal:block>
+    </tal:boucle>
+</div><!-- div metal-->
+</body>
+</html>
+

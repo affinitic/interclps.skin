@@ -47,7 +47,7 @@
                         </li>
 
                     </ul>
-                    
+
                     <div id="footer-listing">
                         <table width="100%">
                             <tr>
@@ -57,7 +57,7 @@
                                       <span tal:content="ressource/ressource_modification_employe | nothing" />
                                       <br />
                                       Dernière modification :
-                                      <span tal:content="ressource/ressource_modification_date" />
+                                      <span tal:content="python: ressource.ressource_modification_date.strftime('%d-%m-%Y')" />
                                     </div>
                                     <div id="experience-etat"
                                          tal:define="ressourceEtat python:view.getRessourceEtat(ressourcePk)"
@@ -74,7 +74,7 @@
                                               tal:attributes="href string: ressource-modifier?ressourcePk=${ressourcePk}"
                                               title="Modifier la ressource"
                                               alt="Modifier la ressource">&nbsp;</a>
-                                      </div> 
+                                      </div>
                                 </td>
                                 <td align="right">
                                     <div align="right">

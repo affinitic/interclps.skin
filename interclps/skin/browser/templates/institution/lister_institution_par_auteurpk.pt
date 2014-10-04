@@ -60,7 +60,7 @@
                                   <span tal:content="institution/auteur/auteur_login | nothing" />
                                   <br />
                                   Dernière modification :
-                                  <span tal:content="institution/institution_modification_date" />
+                                  <span tal:content="python: institution.institution_modification_date.strftime('%d-%m-%Y')" />
                               </td>
                               <td align="right">
                                   <div class="btn-modifier"

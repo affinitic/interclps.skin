@@ -35,7 +35,8 @@
                  selectedClpsProprio python:view.getClpsProprioForInstitution(institutionPk, 'pk');
                  utranslate nocall:here/utranslate;"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-<form action="inserer-une-institution" method="post">
+<form action="manageInstitution"
+      method="post">
     <tal:boucle tal:repeat="institution institutions">
         <tal:block tal:define="institutionPk institution/institution_pk">
             <br />
