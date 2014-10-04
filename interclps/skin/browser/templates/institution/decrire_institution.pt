@@ -27,7 +27,7 @@
                     <div class="btn-modifier"
                          tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                         <a href=""
-                           tal:attributes="href string: admin-institution-modifier?institutionPk=${institutionPk}">&nbsp;</a>
+                           tal:attributes="href string: admin-modifier-une-institution?institutionPk=${institutionPk}">&nbsp;</a>
                     </div>
                 </div>
             </div>

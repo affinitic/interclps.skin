@@ -12,9 +12,9 @@
 <body>
 <div metal:fill-slot="main">
 <fieldset>
-<form action="assuetude-for-institution-gerer/manageAssuetudeInterventionForInstitution" method="post">
+<form action="assuetude-for-gerer-les-institutions/manageAssuetudeInterventionForInstitution" method="post">
     <h1>Encoder une intervention </h1>
-    <fieldset tal:define="interventions python: view.getAllInstitutionAssuetudeIntervention()">
+    <fieldset tal:define="interventions python: view.getAllAssuetudeInterventionForInstitution()">
         <table width="90%"
                align="center"
                class="listing">
@@ -73,8 +73,8 @@
                 <option value="True" selected="selected">Activer</option>
                 <option value="False">Désactiver</option>
             </select>
-        </div>    
-        <div class="div_question">    
+        </div>
+        <div class="div_question">
             <img src="list_flch_rouge.png" /> Numéro d'ordre
             <br />
             <input type="text"
@@ -82,7 +82,7 @@
                    value=""
                    size="5" />
         </div>
-        <div class="div_form_input">    
+        <div class="div_form_input">
             <input type="hidden"
                    name="operation"
                    value="insert" />
@@ -96,10 +96,10 @@
 
 
 <fieldset>
-<form action="assuetude-for-institution-gerer/manageAssuetudeActiviteProposeeForInstitution"
+<form action="assuetude-for-gerer-les-institutions/manageAssuetudeActiviteProposeeForInstitution"
       method="post">
     <h1>Encoder une activité proposée </h1>
-    <fieldset tal:define="activites python: view.getAllInstitutionAssuetudeActiviteProposee()">
+    <fieldset tal:define="activites python: view.getAllAssuetudeActiviteProposeeForInstitution()">
         <table width="90%"
                align="center"
                class="listing">
@@ -191,7 +191,7 @@
             &nbsp;&nbsp;
             Professionnel
         </div>
-        <div class="div_question">    
+        <div class="div_question">
             <img src="list_flch_rouge.png" /> Numéro d'ordre
             <br />
             <input type="text"
@@ -212,9 +212,9 @@
 
 
 <fieldset>
-<form action="assuetude-for-institution-gerer/manageAssuetudeThematiqueForInstitution" method="post">
+<form action="assuetude-for-gerer-les-institutions/manageAssuetudeThematiqueForInstitution" method="post">
     <h1>Encoder une thématique </h1>
-    <fieldset tal:define="thematiques python: view.getAllInstitutionAssuetudeThematique()">
+    <fieldset tal:define="thematiques python: view.getAllAssuetudeThemeForInstitution()">
         <table width="90%"
                align="center"
                class="listing">

@@ -73,7 +73,7 @@
 
             <dt class="menu-titre">institutions</dt>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/institution-creer">
+                    <a href="" tal:attributes="href string:${context/portal_url}/creer-une-institution">
                         Cr&eacute;er
                     </a>
                 </dd>
@@ -83,12 +83,12 @@
                     </a>
                 </dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/institution-chercher">
+                    <a href="" tal:attributes="href string:${context/portal_url}/chercher-une-institution">
                         Modifier
                     </a>
                 </dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/institution-chercher">
+                    <a href="" tal:attributes="href string:${context/portal_url}/chercher-une-institution">
                         Rechercher
                     </a>
                 </dd>
@@ -221,7 +221,7 @@
              <dt class="menu-titre">Assu&eacute;tude </dt>
                 <dd class="small-comment">(pour les institutions)</dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/assuetude-for-institution-gerer">
+                    <a href="" tal:attributes="href string:${context/portal_url}/assuetude-for-gerer-les-institutions">
                         Gestion des assu&eacute;tudes pour institutions
                     </a>
                 </dd>

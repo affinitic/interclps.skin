@@ -20,7 +20,8 @@
 <div metal:fill-slot="main"
      tal:define="auteur python:view.getAuteurByLogin('institution')">
 
-<form action="institution-inserer" method="post">
+<form action="manageInstitution"
+      method="post">
     <br />
     <h1>:: Encoder une institution ::</h1>
     <fieldset>
@@ -123,7 +124,7 @@
         </div>
         <div class="div_question">
             <img src="list_flch_rouge.png" /> Autres informations<br />
-            <span tal:replace="structure python: view.getWysiwygField('institution_autre_info', '')" /> 
+            <span tal:replace="structure python: view.getWysiwygField('institution_autre_info', '')" />
         </div>
         <div class="div_question">
             <img src="list_flch_rouge.png" /> Missions
@@ -241,7 +242,7 @@
                         <br/>
                         <img src="list_flch_rouge.png" /> <span class="gras">Intervention</span>
                         <br />
-                        <tal:block tal:define="interventions view/getAllInstitutionAssuetudeIntervention">
+                        <tal:block tal:define="interventions view/getAllAssuetudeInterventionForInstitution">
                             <tal:boucle tal:repeat="intervention interventions">
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <input type="checkbox"
@@ -271,7 +272,7 @@
                 </tr>
                 <tr class="info-institution-assuetude-even">
                     <td valign="top">
-                        <br /> 
+                        <br />
                         <span class="gras">Précision par rapport aux interventions</span>
                         <br />
                         <span tal:replace="structure python: view.getWysiwygField('institution_assuet_intervention_precision', '')" />
@@ -297,7 +298,7 @@
                         <br /><br />
                         <span class="gras">Pour le public final :</span>
                         <br />
-                        <tal:block tal:define="activites python:view.getAllInstitutionAssuetudeActiviteProposee('public')">
+                        <tal:block tal:define="activites python:view.getAllAssuetudeActiviteProposeeForInstitution('public')">
                             <tal:boucle tal:repeat="activite activites">
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <input type="checkbox"
@@ -312,7 +313,7 @@
                         <br /><br />
                         <span class="gras">Pour des professionnels :</span>
                         <br />
-                        <tal:block tal:define="activites python:view.getAllInstitutionAssuetudeActiviteProposee('pro')">
+                        <tal:block tal:define="activites python:view.getAllAssuetudeActiviteProposeeForInstitution('pro')">
                             <tal:boucle tal:repeat="activite activites">
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <input type="checkbox"
@@ -339,7 +340,7 @@
                 </tr>
                 <tr class="info-institution-assuetude-even">
                     <td valign="top">
-                        <br /> 
+                        <br />
                         <span class="gras">Précision par rapport aux activités proposées</span>
                         <br />
                         <span tal:replace="structure python: view.getWysiwygField('institution_assuet_activite_proposee_precision', '')" />
@@ -366,7 +367,7 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         Y a-t-il une thématique que vous aborder plus particulièrement ?
                         <br />
-                        <tal:block tal:define="thematiques view/getAllInstitutionAssuetudeThematique">
+                        <tal:block tal:define="thematiques view/getAllAssuetudeThemeForInstitution">
                             <tal:boucle tal:repeat="thematique thematiques">
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <input type="checkbox"
@@ -548,7 +549,7 @@
                 <tal:block tal:repeat="clps allClps">
                     <li>
                       <img src="list_flch_rouge.png" />
-                      <span tal:condition="python: clps.clps_pk==2"> 
+                      <span tal:condition="python: clps.clps_pk==2">
                           <input type="checkbox"
                                  name="institution_clps_proprio_fk"
                                  checked="checked"
@@ -557,7 +558,7 @@
                           &nbsp;&nbsp;
                           <span tal:content="clps/clps_sigle" />
                       </span>
-                      <span tal:condition="python: clps.clps_pk!=2"> 
+                      <span tal:condition="python: clps.clps_pk!=2">
                           <input type="checkbox"
                                  name="institution_clps_proprio_fk"
                                  value=""
@@ -576,6 +577,9 @@
                name="institution_auteur_login"
                value=""
                tal:attributes="value auteur/auteur_login" />
+        <input type="hidden"
+               name="auteurExterne"
+               value="True" />
         <input type="hidden"
                name="institution_auteur_fk"
                value=""

@@ -135,7 +135,7 @@
                         <span tal:repeat="institution institutions">
                             <span tal:condition="python: institution.institution_porteur.institution_etat == 'publish'">
                                 <a href=""
-                                   tal:attributes="href string:institution-decrire?institutionPk=${institution/institution_porteur/institution_pk}">
+                                   tal:attributes="href string:decrire-les-institutions?institutionPk=${institution/institution_porteur/institution_pk}">
                                    &#8226; <span tal:content="institution/institution_porteur/institution_nom" /></a>
                                 <br />
                             </span>
@@ -153,7 +153,7 @@
                         <span tal:repeat="institution institutions">
                             <span tal:condition="python: institution.institution_partenaire.institution_etat == 'publish'">
                                 <a href=""
-                                   tal:attributes="href string:institution-decrire?institutionPk=${institution/institution_partenaire/institution_pk}">
+                                   tal:attributes="href string:decrire-les-institutions?institutionPk=${institution/institution_partenaire/institution_pk}">
                                     &#8226; <span tal:content="institution/institution_partenaire/institution_nom" /></a>
                                 <br />
                             </span>
@@ -172,7 +172,7 @@
                             <span tal:repeat="institution institutions">
                                 <span tal:condition="python: institution.institution_ressource.institution_etat == 'publish'">
                                     <a href=""
-                                       tal:attributes="href string:institution-decrire?institutionPk=${institution/institution_ressource/institution_pk}">
+                                       tal:attributes="href string:decrire-les-institutions?institutionPk=${institution/institution_ressource/institution_pk}">
                                       &#8226; <span tal:content="institution/institution_ressource/institution_nom" /></a>
                                     <br />
                                 </span>

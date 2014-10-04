@@ -9,9 +9,10 @@
 </head>
 
 <body>
-<div metal:fill-slot="main">
-   <h1>:: Liste des institutions ::</h1>
-
+<div metal:fill-slot="main"
+     tal:condition="python:user.has_role(['RecitExperience'], here)">
+   <h1>:: Gérer les institutions ::</h1>
+   Sélectionnez l'institution à modifier.
    <div tal:define="institutions python:view.getInstitutionByAuteurLogin();">
        <tal:boucle tal:repeat="institution institutions">
            <tal:block tal:define="institutionPk institution/institution_pk">
@@ -19,16 +20,16 @@
                    <legend>
                         <a href=""
                            tal:content="institution/institution_nom"
-                           tal:attributes="href string:institution-decrire?institutionPk=${institutionPk}"
-                           class="titre_formation">nom de l'institution</a>
+                           tal:attributes="href string:modifier-une-institution?institutionPk=${institutionPk}"
+                           class="titre_formation">titre de l'institution</a>
                    </legend>
                    <div id="experience-etat"
-                        tal:define="institutionEtat python:view.getInstitutionEtat(institutionPk)"
-                        tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-                        <span tal:content="institutionEtat" />
-                        &Xi;
-                        <span tal:content="institutionPk" />
-                   </div>
+                            tal:define="institutionEtat python:view.getInstitutionEtat(institutionPk)"
+                            tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                            <span tal:content="institutionEtat" />
+                            &Xi;
+                            <span tal:content="institutionPk" />
+                       </div>
                    <ul>
                         <li>
                            <span class="brun">Adresse :</span><br />
@@ -50,9 +51,9 @@
                    </ul>
 
                    <div id="footer-listing">
-                      <table width="100%">
-                          <tr>
-                              <td align="left" class="discreet" valign="bottom">
+                       <table width="100%">
+                           <tr>
+                               <td align="left" class="discreet" valign="bottom">
                                   par
                                   <span tal:content="institution/auteur/auteur_prenom | nothing" />
                                   <span tal:content="institution/auteur/auteur_nom | nothing" /> -
@@ -60,25 +61,24 @@
                                   <br />
                                   Dernière modification :
                                   <span tal:content="institution/institution_modification_date" />
-                              </td>
-                              <td align="right">
-                                  <div class="btn-modifier"
-                                       tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                               </td>
+                               <td align="right">
+                                   <div class="btn-modifier"
+                                        tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                                        <a href=""
-                                          tal:attributes="href string: institution-modifier?institutionPk=${institutionPk}"
+                                          tal:attributes="href string: modifier-une-institution?institutionPk=${institutionPk}"
                                           title="Modifier institution"
                                           alt="Modifier institution">&nbsp;</a>
-                                  </div>
-                              </td>
-                              <td align="right">
-                                  <a href=""
-                                     tal:attributes="href string:institution-decrire?institutionPk=${institutionPk}"
-                                     title="Description institution"
-                                     alt="Description institution">
-                                      <img src="btn_suivant.png" /></a>
-                              </td>
-                          </tr>
-                      </table>
+                                   </div>
+                               </td>
+                               <td align="right">
+                                   <div class="btn-modifier">
+                                       <a href=""
+                                          tal:attributes="href string: modifier-une-institution?institutionPk=${institutionPk}">&nbsp;</a>
+                                   </div>
+                               </td>
+                           </tr>
+                       </table>
                    <div>
                </fieldset>
            </tal:block>

@@ -22,7 +22,7 @@
                     <img src="puce_famille.png" />
                     <a href=""
                        tal:attributes="href
-                                       string:${context/portal_url}/institution-decrire?institutionPk=${institution/institution_pk}">
+                                       string:${context/portal_url}/decrire-les-institutions?institutionPk=${institution/institution_pk}">
                         <span tal:content="institution/institution_nom">nom institution</span></a>
                 </div>
             </dt>
@@ -30,7 +30,7 @@
         <dt class="portletFooterInstitution">
             <div id="portletFooterDB-Bouton">
                 <div id="btn-flch-verte">
-                    <a href="institution-plate-forme-lister?plateForme=institution_plate_forme_assuetude"
+                    <a href="lister-les-institutions-par-plate-forme?plateForme=institution_plate_forme_assuetude"
                        title="listing des institutions"
                        alt="listing des projets partag&eacute;s">
                         <img src="flch_verte.png" /></a>

@@ -31,7 +31,7 @@
             <div id="info-champs">
             </div>
             <br />
-            <form action="institution-decrire"
+            <form action="decrire-les-institutions"
                   method="post">
                 <div class="div_question">
                     <input type="text"
@@ -50,7 +50,7 @@
 
         <fieldset class="search-zone-nom">
             <legend class="search-legend-titre"> A partir de la PK d'une institution </legend>
-            <form action="institution-decrire" method="post">
+            <form action="decrire-les-institutions" method="post">
                 <div class="div_question">
                     Pk de l'institution<br />
                     <input type="text"
@@ -69,7 +69,7 @@
 
         <fieldset class="search-zone-nom">
             <legend class="search-legend-titre"> Toutes les institutions de la DB </legend>
-            <form action="institution-decrire" method="post">
+            <form action="decrire-les-institutions" method="post">
                 Ci-dessous, la liste des différentes institution encodées dans la base.
                     <div class="div_question">
                         <select name="institutionPk">
@@ -108,7 +108,7 @@
         <fieldset tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
                   class="search-zone-nom">
             <legend class="search-legend-titre"> Recherche par auteur </legend>
-            <form action="institution-lister-auteur-pk" method="post">
+            <form action="lister-les-institutions-par-auteurpk" method="post">
                 Ci-dessous, la liste des différents auteurs d'institution encodées dans la base.
                 <br />
                 <tal:block tal:define="auteurs python:view.getAllAuteurFromInstitution()">

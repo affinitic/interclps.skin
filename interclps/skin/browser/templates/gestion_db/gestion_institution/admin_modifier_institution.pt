@@ -21,13 +21,13 @@
      tal:define="institutionPk request/institutionPk;
                  institutions python:view.getInstitutionByPk(institutionPk);
                  communes view/getAllCommune;
-                 allInterventions view/getAllInstitutionAssuetudeIntervention;
+                 allInterventions view/getAllAssuetudeInterventionForInstitution;
                  selectedInterventions python:view.getAssuetudeInterventionForInstituion(institutionPk, 'pk');
-                 allActivites python:view.getAllInstitutionAssuetudeActiviteProposee('public');
+                 allActivites python:view.getAllAssuetudeActiviteProposeeForInstitution('public');
                  selectedActivitesProposees python:view.getAssuetudeActiviteProposeePublicForInstituion(institutionPk, 'pk');
-                 allActivites python:view.getAllInstitutionAssuetudeActiviteProposee('pro');
+                 allActivites python:view.getAllAssuetudeActiviteProposeeForInstitution('pro');
                  selectedActivitesProposees python:view.getAssuetudeActiviteProposeeProForInstituion(institutionPk, 'pk');
-                 allThematiques view/getAllInstitutionAssuetudeThematique;
+                 allThematiques view/getAllAssuetudeThemeForInstitution;
                  selectedThematiques python:view.getAssuetudeThematiqueForInstituion(institutionPk, 'pk');
                  auteurs python:view.getAllActiveAuteur();
                  typeInstitutions python:view.getAllActiveInstitutionType();
@@ -35,7 +35,7 @@
                  selectedClpsProprio python:view.getClpsProprioForInstitution(institutionPk, 'pk');
                  utranslate nocall:here/utranslate;"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-<form action="institution-inserer" method="post">
+<form action="inserer-une-institution" method="post">
     <tal:boucle tal:repeat="institution institutions">
         <tal:block tal:define="institutionPk institution/institution_pk">
             <br />
@@ -301,7 +301,7 @@
                         </tr>
                         <tr class="info-institution-assuetude-even">
                             <td valign="top">
-                                <br /> 
+                                <br />
                                 <span class="gras">Précision par rapport aux interventions</span>
                                 <br />
                                 <span tal:replace="structure python: view.getWysiwygField('institution_assuet_intervention_precision', institution.institution_assuet_intervention_precision)" />
@@ -360,14 +360,14 @@
                                     <img src="info.png" />
                                     <br />
                                     Quels types d’activités proposez-vous en matière d’assuétudes ?
-                                    Plusieurs choix sont possibles 
+                                    Plusieurs choix sont possibles
                                 </div>
                                 <br />
                             </td>
                         </tr>
                         <tr class="info-institution-assuetude-even">
                             <td valign="top">
-                                <br /> 
+                                <br />
                                 <span class="gras">Précision par rapport aux activités proposées</span>
                                 <br />
                                 <span tal:replace="structure python: view.getWysiwygField('institution_assuet_activite_proposee_precision', institution.institution_assuet_activite_proposee_precision)" />
@@ -422,7 +422,7 @@
 
                        <tr class="info-institution-assuetude-odd">
                             <td valign="top">
-                                <br /> 
+                                <br />
                                 <span class="gras">Précision par rapport aux thématiques</span>
                                 <br />
                                 <span tal:replace="structure python: view.getWysiwygField('institution_assuet_thematique_precision', institution.institution_assuet_thematique_precision)" />
@@ -488,7 +488,7 @@
                 <fieldset>
                     <legend class="legende">Auteur - Editeur</legend>
                     Nom, prénom et identifiant de la personne qui pourra modifier le contenu de cette expérience<br />
-                    
+
                     <p>
                     Actuellement :
                     <tal:blok tal:define="auteurPk institution/institution_auteur_fk;
@@ -513,7 +513,7 @@
                            value=""
                            size="50">
                     </p>
-<!--                    
+<!--
                     <select name="institution_auteur_fk">
                         <option>...</option>
                         <tal:boucle tal:repeat="auteur auteurs">

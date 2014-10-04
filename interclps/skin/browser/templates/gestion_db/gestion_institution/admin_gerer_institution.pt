@@ -19,7 +19,7 @@
                    <legend>
                         <a href=""
                            tal:content="institution/institution_nom"
-                           tal:attributes="href string:institution-modifier?institutionPk=${institutionPk}"
+                           tal:attributes="href string:modifier-une-institution?institutionPk=${institutionPk}"
                            class="titre_formation">titre de l'institution</a>
                    </legend>
                    <div id="experience-etat"
@@ -48,7 +48,7 @@
                                  class="rubrique-db" />
                         </li>
                    </ul>
-                   
+
                    <div id="footer-listing">
                             <table width="100%">
                                 <tr>
@@ -57,7 +57,7 @@
                                     <td align="right">
                                         <div class="btn-modifier">
                                             <a href=""
-                                               tal:attributes="href string: institution-modifier?institutionPk=${institutionPk}">&nbsp;</a>
+                                               tal:attributes="href string: modifier-une-institution?institutionPk=${institutionPk}">&nbsp;</a>
                                         </div>
                                     </td>
                                 </tr>

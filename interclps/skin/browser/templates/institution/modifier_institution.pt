@@ -10,11 +10,36 @@
 </head>
 
 <body>
-<div metal:fill-slot="main"
-     tal:define="institutions python:view.getInstitutionByPk(institutionPk=request.institutionPk);
+
+<!--
+  tal:define="institutions python:view.getInstitutionByPk(institutionPk=request.institutionPk);
                  auteur python:view.getAuteurByLogin('institution')"
      tal:condition="python:user.has_role(['RecitExperience'], here)">
-<form action="institution-inserer" method="post">
+-->
+
+
+
+<div metal:fill-slot="main"
+     tal:define="institutionPk request/institutionPk;
+                 institutions python:view.getInstitutionByPk(institutionPk=request.institutionPk);
+                 allInterventions view/getAllAssuetudeInterventionForInstitution;
+                 selectedInterventions python:view.getAssuetudeInterventionForInstitution(institutionPk, 'pk');
+                 allActivitesPub python:view.getAllAssuetudeActiviteProposeeForInstitution('public');
+                 allActivitesPro python:view.getAllAssuetudeActiviteProposeeForInstitution('pro');
+                 selectedActivitesProposeesPub python:view.getAssuetudeActiviteProposeePublicForInstitution(institutionPk, 'pk');
+                 selectedActivitesProposeesPro python:view.getAssuetudeActiviteProposeeProForInstitution(institutionPk, 'pk');
+                 allThematiques view/getAllAssuetudeThemeForInstitution;
+                 selectedThematiques python:view.getAssuetudeThematiqueForInstitution(institutionPk, 'pk');
+                 auteurs python:view.getAllActiveAuteur();
+                 typeInstitutions python:view.getAllActiveInstitutionType();
+                 allClps python:view.getAllClps();
+                 selectedClpsProprio python:view.getClpsProprioForInstitution(institutionPk, 'pk');
+                 utranslate nocall:here/utranslate;
+                 auteur python:view.getAuteurByLogin('institution')"
+     tal:condition="python:user.has_role(['RecitExperience'], here)">
+
+<form action="manageInstitution"
+      method="post">
     <tal:boucle tal:repeat="institution institutions">
         <tal:block tal:define="institutionPk institution/institution_pk">
             <br />
@@ -263,8 +288,7 @@
                                 <br/>
                                 <img src="list_flch_rouge.png" /> <span class="gras">Intervention</span>
                                 <br />
-                                <tal:block tal:define="allInterventions view/getAllInstitutionAssuetudeIntervention;
-                                                       selectedInterventions python:view.getAssuetudeInterventionForInstituion(institutionPk, 'pk')">
+                                <tal:block>
                                     <tal:boucle tal:repeat="intervention allInterventions">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <input type="checkbox"
@@ -295,7 +319,7 @@
                         </tr>
                         <tr class="info-institution-assuetude-even">
                             <td valign="top">
-                                <br /> 
+                                <br />
                                 <span class="gras">Précision par rapport aux interventions</span>
                                 <br />
                                 <span tal:replace="structure python: view.getWysiwygField('institution_assuet_intervention_precision', institution.institution_assuet_intervention_precision)" />
@@ -321,9 +345,8 @@
                                 <br /><br />
                                 <span class="gras">Pour le public final :</span>
                                 <br />
-                                <tal:block tal:define="allActivites python:view.getAllInstitutionAssuetudeActiviteProposee('public');
-                                                       selectedActivitesProposees python:view.getAssuetudeActiviteProposeePublicForInstituion(institutionPk, 'pk')">
-                                    <tal:boucle tal:repeat="activite allActivites">
+                                <tal:block>
+                                    <tal:boucle tal:repeat="activite allActivitesPub">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <input type="checkbox"
                                                value=""
@@ -331,7 +354,7 @@
                                                name="assuetude_activite_proposee_public_fk:list"
                                                tal:attributes="value activite/assuetude_activite_proposee_pk;
                                                                checked python:activite.assuetude_activite_proposee_pk in
-                                                               selectedActivitesProposees and 'selected' or None;" />
+                                                               selectedActivitesProposeesPub and 'selected' or None;" />
                                         <span tal:content="activite/assuetude_activite_proposee_nom"></span>
                                         <br />
                                     </tal:boucle>
@@ -339,8 +362,8 @@
                                 <br /><br />
                                 <span class="gras">Pour des professionnels :</span>
                                 <br />
-                                <tal:block tal:define="allActivites python:view.getAllInstitutionAssuetudeActiviteProposee('pro');
-                                                   selectedActivitesProposees python:view.getAssuetudeActiviteProposeeProForInstituion(institutionPk, 'pk')">
+                                <tal:block tal:define="allActivites python:view.getAllAssuetudeActiviteProposeeForInstitution('pro');
+                                                   selectedActivitesProposeesPro python:view.getAssuetudeActiviteProposeeProForInstituion(institutionPk, 'pk')">
                                     <tal:boucle tal:repeat="activite allActivites">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <input type="checkbox"
@@ -348,7 +371,7 @@
                                                checked=""
                                                name="assuetude_activite_proposee_pro_fk:list"
                                                tal:attributes="value activite/assuetude_activite_proposee_pk;
-                                                               checked python:activite.assuetude_activite_proposee_pk in selectedActivitesProposees and 'selected' or None;" />
+                                                               checked python:activite.assuetude_activite_proposee_pk in selectedActivitesProposeesPro and 'selected' or None;" />
                                         <span tal:content="activite/assuetude_activite_proposee_nom"></span>
                                         <br />
                                     </tal:boucle>
@@ -361,14 +384,14 @@
                                     <img src="info.png" />
                                     <br />
                                     Quels types d’activités proposez-vous en matière d’assuétudes ?
-                                    Plusieurs choix sont possibles 
+                                    Plusieurs choix sont possibles
                                 </div>
                                 <br />
                             </td>
                         </tr>
                         <tr class="info-institution-assuetude-even">
                             <td valign="top">
-                                <br /> 
+                                <br />
                                 <span class="gras">Précision par rapport aux activités proposées</span>
                                 <br />
                                 <span tal:replace="structure python: view.getWysiwygField('institution_assuet_activite_proposee_precision', institution.institution_assuet_activite_proposee_precision)" />
@@ -395,7 +418,7 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 Y a-t-il une thématique que vous aborder plus particulièrement ?
                                 <br />
-                                <tal:block tal:define="allThematiques view/getAllInstitutionAssuetudeThematique;
+                                <tal:block tal:define="allThematiques view/getAllAssuetudeThemeForInstitution;
                                                        selectedThematiques python:view.getAssuetudeThematiqueForInstituion(institutionPk, 'pk')">
                                     <tal:boucle tal:repeat="thematique allThematiques">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -426,7 +449,7 @@
 
                        <tr class="info-institution-assuetude-odd">
                             <td valign="top">
-                                <br /> 
+                                <br />
                                 <span class="gras">Précision par rapport aux thématiques</span>
                                 <br />
                                 <span tal:replace="structure python: view.getWysiwygField('institution_assuet_thematique_precision', institution.institution_assuet_thematique_precision)" />
@@ -489,6 +512,9 @@
                            name="institution_auteur_fk"
                            value=""
                            tal:attributes="value auteur/auteur_pk" />
+                    <input type="hidden"
+                           name="auteurExterne"
+                           value="True" />
                     <input type="submit"
                            value="Modifier l'institution" />
                 </li>

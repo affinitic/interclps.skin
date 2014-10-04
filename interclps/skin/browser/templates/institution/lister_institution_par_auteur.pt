@@ -12,15 +12,14 @@
 <div metal:fill-slot="main">
    <h1>:: Liste des institutions ::</h1>
 
-   <div tal:define="auteurPk request/auteurPk;
-                    institutions python:view.getInstitutionByAuteurPk(auteurPk);">
+   <div tal:define="institutions python:view.getInstitutionByAuteurLogin();">
        <tal:boucle tal:repeat="institution institutions">
            <tal:block tal:define="institutionPk institution/institution_pk">
                <fieldset>
                    <legend>
                         <a href=""
                            tal:content="institution/institution_nom"
-                           tal:attributes="href string:institution-decrire?institutionPk=${institutionPk}"
+                           tal:attributes="href string:decrire-les-institutions?institutionPk=${institutionPk}"
                            class="titre_formation">nom de l'institution</a>
                    </legend>
                    <div id="experience-etat"
@@ -66,14 +65,14 @@
                                   <div class="btn-modifier"
                                        tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                                        <a href=""
-                                          tal:attributes="href string: institution-modifier?institutionPk=${institutionPk}"
+                                          tal:attributes="href string: modifier-une-institution?institutionPk=${institutionPk}"
                                           title="Modifier institution"
                                           alt="Modifier institution">&nbsp;</a>
                                   </div>
                               </td>
                               <td align="right">
                                   <a href=""
-                                     tal:attributes="href string:institution-decrire?institutionPk=${institutionPk}"
+                                     tal:attributes="href string:decrire-les-institutions?institutionPk=${institutionPk}"
                                      title="Description institution"
                                      alt="Description institution">
                                       <img src="btn_suivant.png" /></a>

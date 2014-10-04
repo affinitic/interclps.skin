@@ -653,7 +653,6 @@ class ManageInterClps(BrowserView):
         recuperation d'un auteur selon son login
         """
         auteurLogin = self.getUserAuthenticated()
-
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         query = session.query(Auteur)
@@ -668,7 +667,6 @@ class ManageInterClps(BrowserView):
         message = "%s %s (%s) de %s en mode creation d'une %s" % (auteurPrenom, auteurNom, auteurLogin, auteurInstitution, typeElement)
         message = message.encode('utf-8')
         self.sendMailWhenLoginByAuteur(sujet, message)
-
         return auteur
 
     def getAuteurPkByName(self, auteurConnecte):
@@ -2384,7 +2382,7 @@ class ManageInterClps(BrowserView):
         institutionType = query.all()
         return institutionType
 
-    def addInstitutionType(self):
+    def insertInstitutionType(self):
         """
         table pg institution_type
         ajout d'un type d'institution
@@ -2883,7 +2881,7 @@ class ManageInterClps(BrowserView):
         institution = [inst.institution_nom for inst in query.all()]
         return institution
 
-    def addInstitution(self):
+    def insertInstitution(self):
         """
         table pg institution
         ajout d'une institution
@@ -2995,7 +2993,9 @@ class ManageInterClps(BrowserView):
                                institution_institution_type_fk=institution_institution_type_fk)
         session.add(newEntry)
         session.flush()
-        return {'status': 1}
+        session.refresh(newEntry)
+        institutionPk = newEntry.institution_pk
+        return institutionPk
 
     def addLinkAssuetudeInterventionForInstitution(self, institutionFk):
         """
@@ -3148,7 +3148,7 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        query = session.query(deleteLinkAssuetudeThemeForInstitution)
+        query = session.query(LinkAssuetudeThemeForInstitution)
         query = query.filter(LinkAssuetudeThemeForInstitution.institution_fk == institutionFk)
         allInstitutions = query.all()
         for institutionFk in allInstitutions:
@@ -3300,7 +3300,7 @@ class ManageInterClps(BrowserView):
         institution.institution_auteur_fk = institution_auteur_fk
         institution.institution_auteur_login = institution_auteur_login
         session.flush()
-        return {'status': 1}
+
 
 ### ASSUETUDE FOR INSTITUION ###
 
@@ -3369,6 +3369,28 @@ class ManageInterClps(BrowserView):
         AssuetudeActiviteProposeeForInstitution = query.one()
         return AssuetudeActiviteProposeeForInstitution
 
+    def getAssuetudeThematiqueForInstitution(self, institutionPk, retour):
+        """
+        table pg intitution et public.link_institution_assuetude_thematique
+        recuperation d'un type d'institution selon sa pk
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        query = session.query(LinkAssuetudeThemeForInstitution)
+        query = query.filter(LinkAssuetudeThemeForInstitution.institution_fk == institutionPk)
+        thematiques = query.all()
+
+        thematiqueListe = []
+        assuetudeThematiques = self.getAllAssuetudeThemeForInstitution()
+        for ass in assuetudeThematiques:
+            for act in thematiques:
+                if act.assuetude_thematique_fk == ass.assuetude_thematique_pk:
+                    if retour == 'nom':
+                        thematiqueListe.append(ass.assuetude_thematique_nom)
+                    if retour == 'pk':
+                        thematiqueListe.append(ass.assuetude_thematique_pk)
+        return thematiqueListe
+
     def getAssuetudeThemeForInstitutionByPk(self, assuetudePk):
         """
         table pg assuetude_thematique_for_institution
@@ -3380,6 +3402,72 @@ class ManageInterClps(BrowserView):
         query = query.filter(AssuetudeThemeForInstitution.assuetude_thematique_pk == assuetudePk)
         institutionAssuetudeThematique = query.one()
         return institutionAssuetudeThematique
+
+    def getAssuetudeInterventionForInstitution(self, institutionPk, retour):
+        """
+        table pg intitution et link_institution_assuetude_intervention
+        recuperation d'un type d'institution selon sa pk
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        query = session.query(LinkAssuetudeInterventionForInstitution)
+        query = query.filter(LinkAssuetudeInterventionForInstitution.institution_fk == institutionPk)
+        interventions = query.all()
+
+        interventionListe = []
+        assuetudeInterventions = self.getAllAssuetudeInterventionForInstitution()
+        for ass in assuetudeInterventions:
+            for inte in interventions:
+                if inte.assuetude_intervention_fk == ass.assuetude_intervention_pk:
+                    if retour == 'nom':
+                        interventionListe.append(ass.assuetude_intervention_nom)
+                    if retour == 'pk':
+                        interventionListe.append(ass.assuetude_intervention_pk)
+        return interventionListe
+
+    def getAssuetudeActiviteProposeePublicForInstitution(self, institutionPk, retour):
+        """
+        table pg intitution et link_institution_assuetude_activite_proposee_public
+        recuperation d'un type d'institution selon sa pk
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        query = session.query(LinkAssuetudeActiviteProposeeForInstitutionPublic)
+        query = query.filter(LinkAssuetudeActiviteProposeeForInstitutionPublic.institution_fk == institutionPk)
+        activites = query.all()
+
+        activitePublicListe = []
+        assuetudeActivitesProposees = self.getAllAssuetudeActiviteProposeeForInstitution()
+        for ass in assuetudeActivitesProposees:
+            for act in activites:
+                if act.assuetude_activite_proposee_public_fk == ass.assuetude_activite_proposee_pk:
+                    if retour == 'nom':
+                        activitePublicListe.append(ass.assuetude_activite_proposee_nom)
+                    if retour == 'pk':
+                        activitePublicListe.append(ass.assuetude_activite_proposee_pk)
+        return activitePublicListe
+
+    def getAssuetudeActiviteProposeeProForInstitution(self, institutionPk, retour):
+        """
+        table pg intitution et link_institution_assuetude_activite_proposee_pro
+        recuperation d'un type d'institution selon sa pk
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        query = session.query(LinkAssuetudeActiviteProposeeForInstitutionPro)
+        query = query.filter(LinkAssuetudeActiviteProposeeForInstitutionPro.institution_fk == institutionPk)
+        activites = query.all()
+
+        activiteProListe = []
+        assuetudeActivitesProposees = self.getAllAssuetudeActiviteProposeeForInstitution()
+        for ass in assuetudeActivitesProposees:
+            for act in activites:
+                if act.assuetude_activite_proposee_pro_fk == ass.assuetude_activite_proposee_pk:
+                    if retour == 'nom':
+                        activiteProListe.append(ass.assuetude_activite_proposee_nom)
+                    if retour == 'pk':
+                        activiteProListe.append(ass.assuetude_activite_proposee_pk)
+        return activiteProListe
 
     def getAssuetudeInterventionForInstituion(self, institutionPk, retour):
         """
@@ -3492,7 +3580,7 @@ class ManageInterClps(BrowserView):
                                                        assuetude_intervention_modification_employe=assuetude_intervention_modification_employe)
         session.add(newEntry)
         session.flush()
-        cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
+        cible = "%s/assuetude-for-gerer-les-institutions" % (self.context.portal_url(), )
         self.context.REQUEST.RESPONSE.redirect(cible)
 
     def updateAssuetudeInterventionForInstitution(self):
@@ -3521,7 +3609,7 @@ class ManageInterClps(BrowserView):
             assuetudeIntervention.assuetude_intervention_modification_employe = assuetude_intervention_modification_employe
 
         session.flush()
-        cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
+        cible = "%s/assuetude-for-gerer-les-institutions" % (self.context.portal_url(), )
         self.context.REQUEST.RESPONSE.redirect(cible)
 
     def addAssuetudeActiviteProposeeForInstitution(self):
@@ -3551,7 +3639,7 @@ class ManageInterClps(BrowserView):
                                                            assuetude_activite_proposee_modification_employe=assuetude_activite_proposee_modification_employe)
         session.add(newEntry)
         session.flush()
-        cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
+        cible = "%s/assuetude-for-gerer-les-institutions" % (self.context.portal_url(), )
         self.context.REQUEST.RESPONSE.redirect(cible)
 
     def updateAssuetudeActiviteProposeeForInstitution(self):
@@ -3584,7 +3672,7 @@ class ManageInterClps(BrowserView):
             assuetudeActivite.assuetude_activite_proposee_modification_employe = assuetude_activite_proposee_modification_employe
 
         session.flush()
-        cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
+        cible = "%s/assuetude-for-gerer-les-institutions" % (self.context.portal_url(), )
         self.context.REQUEST.RESPONSE.redirect(cible)
 
     def addAssuetudeThematiqueForInstitution(self):
@@ -3610,7 +3698,7 @@ class ManageInterClps(BrowserView):
                                                 assuetude_thematique_modification_employe=assuetude_thematique_modification_employe)
         session.add(newEntry)
         session.flush()
-        cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
+        cible = "%s/assuetude-for-gerer-les-institutions" % (self.context.portal_url(), )
         self.context.REQUEST.RESPONSE.redirect(cible)
 
     def updateAssuetudeThematiqueForInstitution(self):
@@ -3639,7 +3727,7 @@ class ManageInterClps(BrowserView):
             assuetudeThematique.assuetude_thematique_modification_employe = assuetude_thematique_modification_employe
 
         session.flush()
-        cible = "%s/assuetude-for-institution-gerer" % (self.context.portal_url(), )
+        cible = "%s/assuetude-for-gerer-les-institutions" % (self.context.portal_url(), )
         self.context.REQUEST.RESPONSE.redirect(cible)
 
 ### EXPERIENCES ###
@@ -4841,7 +4929,7 @@ class ManageInterClps(BrowserView):
         operation = getattr(fields, 'operation')
 
         if operation == "insert":
-            self.addInstitutionType()
+            self.insertInstitutionType()
             return {'status': 1}
 
         if operation == "update":
@@ -4855,6 +4943,7 @@ class ManageInterClps(BrowserView):
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
         institutionSousPlateFormeFk = getattr(fields, 'institution_sousplateforme_fk', None)
+        auteurExterne = getattr(fields, 'auteurExterne', None)
 
         #creation de la liste des communes
         institutionCommuneCouverteFk = []
@@ -4874,7 +4963,7 @@ class ManageInterClps(BrowserView):
         institutionClpsProprioFk = getattr(fields, 'institution_clps_proprio_fk', None)
 
         if operation == "insert":
-            self.addInstitution()
+            self.insertInstitution()
             institutionFk = self.getInstitutionMaxPk()
 
             if assuetudeInterventionFk > 0:
@@ -4897,7 +4986,16 @@ class ManageInterClps(BrowserView):
 
             if institutionClpsProprioFk:                             # gestion du clps_proprio
                 self.addLinkInstitutionClpsProprio(institutionFk)
-            return {'status': 1}
+
+            portalUrl = getToolByName(self.context, 'portal_url')()
+            ploneUtils = getToolByName(self.context, 'plone_utils')
+            message = u"L'institution a été ajoutée !"
+            ploneUtils.addPortalMessage(message, 'info')
+            if auteurExterne:
+                url = "%s/decrire-une-institution?institutionPk=%s" % (portalUrl, institutionFk)
+            else:
+                url = "%s/admin-decrire-une-institution?institutionPk=%s" % (portalUrl, institutionFk)
+            self.request.response.redirect(url)
 
         if operation == "update":
             institutionSousPlateFormeFk = getattr(fields, 'institution_sousplateforme_fk', None)
@@ -4931,7 +5029,18 @@ class ManageInterClps(BrowserView):
             self.deleteLinkInstitutionClpsProprio(institutionFk)
             if institutionClpsProprioFk:
                 self.addLinkInstitutionClpsProprio(institutionFk)
-            return {'status': 1}
+
+            portalUrl = getToolByName(self.context, 'portal_url')()
+            ploneUtils = getToolByName(self.context, 'plone_utils')
+            message = u"L'institution a été modifiée !"
+            ploneUtils.addPortalMessage(message, 'info')
+
+            if auteurExterne:
+                url = "%s/decrire-une-institution?institutionPk=%s" % (portalUrl, institutionFk)
+            else:
+                url = "%s/admin-decrire-une-institution?institutionPk=%s" % (portalUrl, institutionFk)
+            self.request.response.redirect(url)
+
 
     def manageRessource(self):
         """

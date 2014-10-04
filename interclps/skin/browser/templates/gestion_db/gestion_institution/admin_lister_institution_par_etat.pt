@@ -14,7 +14,7 @@
                  etat python: view.getTranslationExperienceEtat(etatInstitution)"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
    <h1>:: Listing des institution selon l'état "<span tal:content="etat" />" ::</h1>
-   
+
     <div tal:define="institutions python:view.getAllInstitutionByEtat(etatInstitution);">
         <fieldset>
             <legend class="legende">Institution à l'état <span tal:content="etat"></span></legend>
@@ -24,7 +24,7 @@
                            <legend>
                                 <a href=""
                                    tal:content="institution/institution_nom"
-                                   tal:attributes="href string:institution-decrire?institutionPk=${institutionPk}"
+                                   tal:attributes="href string:decrire-les-institutions?institutionPk=${institutionPk}"
                                    class="titre_formation">nom de l'institution</a>
                            </legend>
                            <div id="experience-etat"
@@ -56,7 +56,7 @@
                            <div align="right">
                                 <a href=""
                                    tal:attributes="href
-                                   string:institution-decrire?institutionPk=${institutionPk}">
+                                   string:decrire-les-institutions?institutionPk=${institutionPk}">
                                    <img src="btn_suivant.png" /></a>
                            </div>
                        </fieldset>

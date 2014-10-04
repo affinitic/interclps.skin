@@ -40,12 +40,12 @@
             <dd class="portletItemDB">
                 <a href=""
                    tal:attributes="href
-                   string:${context/portal_url}/institution-listing-par-login-auteur">XXX
+                   string:${context/portal_url}/lister-les-instituion-par-auteur">XXX
                    Lister XXXX</a>
             </dd>
             <dd class="portletItemDB">
                 <a href=""
-                   tal:attributes="href string:${context/portal_url}/institution-gerer">Modifier</a>
+                   tal:attributes="href string:${context/portal_url}/gerer-les-institutions">Modifier</a>
             </dd>
         </div>
         <dt class="portletFooterDB">

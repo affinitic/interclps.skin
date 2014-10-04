@@ -10,7 +10,7 @@
 
 <body>
 <div metal:fill-slot="main">
-    
+
     <h1>Liste des organismes</h1>
 
     <div tal:define="institutionTypes python:view.getAllInstitutionType();">
@@ -42,7 +42,7 @@
                                      tal:define="institutionPk institution/institution_pk">
                                 <div class="organisme-titre">
                                     <a href=""
-                                       tal:attributes="href string:${context/portal_url}/institution-decrire?institutionPk=${institution/institution_pk}"
+                                       tal:attributes="href string:${context/portal_url}/decrire-les-institutions?institutionPk=${institution/institution_pk}"
                                        tal:content="institution/institution_nom" />
                                 </div>
                                 <dl>
@@ -56,7 +56,7 @@
                                             </tal:boucle>
                                         </dd>
                                     </tal:block>
-                                    
+
                                     <tal:block tal:define="selectedActivitesProposees python:view.getAssuetudeActiviteProposeePublicForInstituion(institutionPk, 'nom')"
                                                tal:condition="python: len(selectedActivitesProposees) > 0">
                                         <dt>Activités proposées pour le public</dt>
@@ -64,21 +64,21 @@
                                             <tal:boucle tal:repeat="activite selectedActivitesProposees">
                                                 <span tal:content="activite" />
                                                 <span tal:condition="not:repeat/activite/end"> - </span>
-                                            </tal:boucle>                                   
+                                            </tal:boucle>
                                         </dd>
                                     </tal:block>
-                                    
+
                                     <tal:block tal:define="selectedActivitesProposees python:view.getAssuetudeActiviteProposeeProForInstituion(institutionPk, 'nom')"
                                                 tal:condition="python: len(selectedActivitesProposees) > 0">
                                         <dt>Activités proposées pour les professionnel</dt>
                                         <dd>
                                             <tal:boucle tal:repeat="activite selectedActivitesProposees">
                                                 <span tal:content="activite" />
-                                                <span tal:condition="not: repeat/activite/end"> - </span> 
+                                                <span tal:condition="not: repeat/activite/end"> - </span>
                                             </tal:boucle>
-                                        </dd>  
+                                        </dd>
                                     </tal:block>
-                                    
+
                                     <tal:block tal:define="selectedThematiques python: view.getAssuetudeThematiqueForInstituion(institutionPk, 'nom')"
                                                tal:condition="python: len(selectedThematiques) > 0">
                                         <dt>Thématiques</dt>
@@ -86,10 +86,10 @@
                                             <tal:boucle tal:repeat="thematique selectedThematiques">
                                                 <span tal:content="thematique" />
                                                 <span tal:condition="not:repeat/thematique/end"> - </span>
-                                            </tal:boucle>                                                                                
+                                            </tal:boucle>
                                         </dd>
                                     </tal:block>
-                                    
+
                                     <tal:block tal:condition="python:institution.institution_assuet_aide_soutien_ecole !=''">
                                         <dt>Aide et soutien aux écoles</dt>
                                         <dd>

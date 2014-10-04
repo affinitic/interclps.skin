@@ -357,73 +357,73 @@
 <!-- USER INSTITUTION -->
 <!-- USER -->
     <browser:page
-          name="institution-creer"
+          name="creer-une-institution"
           for="*"
-          template="templates/institution/institution_creation_form.pt"
+          template="templates/institution/creer_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="institution-inserer"
+          name="inserer-une-institution"
           for="*"
-          template="templates/institution/institution_insertion.pt"
+          template="templates/institution/inserer_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="institution-modifier"
+          name="modifier-une-institution"
           for="*"
-          template="templates/institution/institution_modification_form.pt"
+          template="templates/institution/modifier_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
   <browser:page
-          name="institution-listing-par-login-auteur"
+          name="lister-les-instituion-par-auteur"
           for="*"
-          template="templates/institution/institution_listing_par_login_auteur.pt"
+          template="templates/institution/lister_institution_par_auteur.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="institution-lister-auteur-pk"
+          name="lister-les-institutions-par-auteurpk"
           for="*"
-          template="templates/institution/institution_listing_par_pk_auteur.pt"
+          template="templates/institution/lister_institution_par_auteurpk.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="institution-plate-forme-lister"
+          name="lister-les-institutions-par-plate-forme"
           for="*"
-          template="templates/institution/institution_listing_par_plateforme.pt"
+          template="templates/institution/lister_institution_par_plateforme.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="institution-gerer"
+          name="gerer-les-institutions"
           for="*"
-          template="templates/institution/institution_gestion.pt"
+          template="templates/institution/gerer_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="institution-decrire"
+          name="decrire-une-institution"
           for="*"
-          template="templates/institution/institution_description.pt"
+          template="templates/institution/decrire_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="institution-chercher"
+          name="chercher-une-institution"
           for="*"
-          template="templates/institution/institution_moteur_recherche_db.pt"
+          template="templates/institution/chercher_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
@@ -431,7 +431,7 @@
 
 <!-- ADMIN -->
     <browser:page
-          name="admin-institution-gerer"
+          name="admin-gerer-les-institutions"
           for="*"
           template="templates/gestion_db/gestion_institution/admin_gerer_institution.pt"
           permission="zope.Public"
@@ -455,11 +455,19 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-institution-modifier"
+          name="admin-modifier-une-institution"
           for="*"
           template="templates/gestion_db/gestion_institution/admin_modifier_institution.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+      <browser:page
+          name="manageInstitution"
+          for="*"
+          class=".ManageInterClps.ManageInterClps"
+          permission="zope.Public"
+          attribute="manageInstitution"
           allowed_interface=".interfaces.IManageInterClps"
           />
 
@@ -494,7 +502,7 @@
 
 <!-- ASSUETUDE POUR INSTITUTION - ASSUETUDE POUR INSTITUTION - ASSUETUDE POUR INSTITUTION -->
     <browser:page
-          name="assuetude-for-institution-gerer"
+          name="assuetude-for-gerer-les-institutions"
           for="*"
           template="templates/assuetude/assuetude_for_institution_gestion.pt"
           permission="zope.Public"

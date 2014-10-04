@@ -27,20 +27,20 @@
               <img src="alerte.png" />
               Un erreur s'est passée.
           </div>
-          
-          
+
+
           <div class="btn-nouvelle-recherche">
               <a href=""
-                 tal:attributes="href string:${context/portal_url}/institution-creer">
+                 tal:attributes="href string:${context/portal_url}/creer-une-institution">
                   Cr&eacute;er une nouvelle institution</a>
-          </div> 
+          </div>
           <div class="btn-nouvelle-recherche"
                tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                 <a href=""
-                   tal:attributes="href string:${context/portal_url}/institution-chercher">
+                   tal:attributes="href string:${context/portal_url}/chercher-une-institution">
                     Modifier une institution</a>
           </div>
-    </div>   
+    </div>
 </div>
 </body>
 </html>
