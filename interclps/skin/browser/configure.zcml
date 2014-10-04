@@ -365,14 +365,6 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="inserer-une-institution"
-          for="*"
-          template="templates/institution/inserer_institution.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
           name="modifier-une-institution"
           for="*"
           template="templates/institution/modifier_institution.pt"
@@ -380,7 +372,7 @@
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           />
-  <browser:page
+    <browser:page
           name="lister-les-instituion-par-auteur"
           for="*"
           template="templates/institution/lister_institution_par_auteur.pt"
