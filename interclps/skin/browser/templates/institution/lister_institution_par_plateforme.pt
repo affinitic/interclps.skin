@@ -21,7 +21,7 @@
                    <legend>
                         <a href=""
                            tal:content="institution/institution_nom"
-                           tal:attributes="href string:decrire-les-institutions?institutionPk=${institutionPk}"
+                           tal:attributes="href string:decrire-une-institution?institutionPk=${institutionPk}"
                            class="titre_formation">nom de l'institution</a>
                    </legend>
                    <div id="experience-etat"
@@ -53,7 +53,7 @@
                    <div align="right">
                         <a href=""
                            tal:attributes="href
-                           string:decrire-les-institutions?institutionPk=${institutionPk}">
+                           string:decrire-une-institution?institutionPk=${institutionPk}">
                            <img src="btn_suivant.png" /></a>
                    </div>
                </fieldset>

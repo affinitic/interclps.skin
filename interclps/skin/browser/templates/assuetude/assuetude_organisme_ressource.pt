@@ -42,7 +42,7 @@
                                      tal:define="institutionPk institution/institution_pk">
                                 <div class="organisme-titre">
                                     <a href=""
-                                       tal:attributes="href string:${context/portal_url}/decrire-les-institutions?institutionPk=${institution/institution_pk}"
+                                       tal:attributes="href string:${context/portal_url}/decrire-une-institution?institutionPk=${institution/institution_pk}"
                                        tal:content="institution/institution_nom" />
                                 </div>
                                 <dl>

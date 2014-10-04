@@ -31,7 +31,7 @@
             <div id="info-champs">
             </div>
             <br />
-            <form action="decrire-les-institutions"
+            <form action="decrire-une-institution"
                   method="post">
                 <div class="div_question">
                     <input type="text"
@@ -50,7 +50,7 @@
 
         <fieldset class="search-zone-nom">
             <legend class="search-legend-titre"> A partir de la PK d'une institution </legend>
-            <form action="decrire-les-institutions" method="post">
+            <form action="decrire-une-institution" method="post">
                 <div class="div_question">
                     Pk de l'institution<br />
                     <input type="text"
@@ -69,7 +69,7 @@
 
         <fieldset class="search-zone-nom">
             <legend class="search-legend-titre"> Toutes les institutions de la DB </legend>
-            <form action="decrire-les-institutions" method="post">
+            <form action="decrire-une-institution" method="post">
                 Ci-dessous, la liste des différentes institution encodées dans la base.
                     <div class="div_question">
                         <select name="institutionPk">

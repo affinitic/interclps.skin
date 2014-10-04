@@ -22,7 +22,7 @@
                     <img src="puce_famille.png" />
                     <a href=""
                        tal:attributes="href
-                                       string:${context/portal_url}/decrire-les-institutions?institutionPk=${institution/institution_pk}">
+                                       string:${context/portal_url}/decrire-une-institution?institutionPk=${institution/institution_pk}">
                         <span tal:content="institution/institution_nom">nom institution</span></a>
                 </div>
             </dt>
