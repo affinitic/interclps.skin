@@ -331,7 +331,10 @@ class PdfGenerator(BrowserView):
         objectif = self._pdfdata.experience_objectif
         public = self._pdfdata.experience_public_vise
         milieux = clpsView.getMilieuDeVieByExperiencePk(self._pdfdata.experience_pk, 'nom')
-        milieu = milieux[0]
+        if milieux:
+            milieu = milieux[0]
+        else:
+            milieu=''
         demarche = ('%s')%(self._pdfdata.experience_demarche_actions)
         moyen = ('%s')%(self._pdfdata.experience_moyens)
         evaluation = ('%s')%(self._pdfdata.experience_evaluation_enseignement)
