@@ -12,9 +12,9 @@
 <div metal:fill-slot="main"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
    <h1>:: Liste des institutions ::</h1>
-   <a href="admin-institution-lister#clpsbw">Les institutions du CLPS-Bw</a>
+   <div  class="btn-listing-par-clps"><a href="admin-institution-lister#clpsbw">Les institutions du CLPS-Bw</a></div>
    <br />
-   <a href="admin-institution-lister#clpslux">Les institutions du CLPS-Lux</a>
+   <div  class="btn-listing-par-clps"><a href="admin-institution-lister#clpslux">Les institutions du CLPS-Lux</a></div>
    <fieldset>
    <a name="clpsbw"></a>
    <legend>CLPS - BW</legend>
@@ -148,7 +148,17 @@
                                   <div id="experience-etat"
                                        tal:define="institutionEtat python:view.getInstitutionEtat(institutionPk)"
                                        tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-                                      <span tal:content="institutionEtat" />
+                                      <span tal:condition="python: institutionEtat=='Publié'">
+                                          <span tal:content="institutionEtat" class="vert-actif" />
+                                      </span>
+                                      <span tal:condition="python: institutionEtat=='En attente'">
+                                          <span tal:content="institutionEtat" class="orange-attente" />
+                                          &nbsp;<img src="alerte.png" width="16" />
+                                      </span>
+                                      <span tal:condition="python: institutionEtat=='Privé'">
+                                          <span tal:content="institutionEtat" class="rouge-non-actif" />
+                                      </span>
+                                      <br />
                                       &Xi;
                                       PK : <span tal:content="institutionPk" />
                                   </div>

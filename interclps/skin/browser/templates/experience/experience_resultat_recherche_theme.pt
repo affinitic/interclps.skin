@@ -61,27 +61,43 @@
                                       class="rep-qest" />
                             </li>
                         </ul>
-                   </div><!--listing texte experience-->
-                   <div id="footer-listing">
-                       <div class="listing-experience-bouton">
-                           <a href=""
-                              tal:attributes="href string:decrire-une-experience?experiencePk=${experiencePk}">
-                              <img src="btn_suivant.png" /></a>
-                       </div>
-                       <div class="listing-experience-clps-proprio discreet">
-                          Edité par le
-                          <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
-                              <span tal:content="clpsSigle"
-                                    class="gras" />
-                              <tal:if tal:condition="not: repeat/clpsSigle/end">
-                                  <span>et le </span>
-                              </tal:if>
-                          </tal:boucle>
-                       </div>
-                       <div class="discreet">
-                          Dernière modification :
-                          <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y %H:%M')"
-                                class="gras" />
+                  </div><!--listing texte experience-->
+                  <div id="footer-listing">
+                      <div class="listing-experience-bouton">
+                         <a href=""
+                            tal:attributes="href string:decrire-une-experience?experiencePk=${experiencePk}">
+                            <img src="btn_suivant.png" /></a>
+                      </div>
+                      <div class="listing-experience-clps-proprio discreet">
+                        Edité par le
+                        <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
+                            <span tal:content="clpsSigle"
+                                  class="gras" />
+                            <tal:if tal:condition="not: repeat/clpsSigle/end">
+                                <span>et le </span>
+                            </tal:if>
+                        </tal:boucle>
+                      </div>
+                      <div class="discreet">
+                        Dernière modification :
+                        <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y %H:%M')"
+                              class="gras" />
+                      </div>
+                      <div tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
+                           tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                          <span tal:condition="python: experienceEtat=='Publié'">
+                              <span tal:content="experienceEtat" class="vert-actif" />
+                          </span>
+                          <span tal:condition="python: experienceEtat=='En attente'">
+                              <span tal:content="experienceEtat" class="orange-attente" />
+                              &nbsp;<img src="alerte.png" width="16" />
+                          </span>
+                          <span tal:condition="python: experienceEtat=='Privé'">
+                              <span tal:content="experienceEtat" class="rouge-non-actif" />
+                          </span>
+                          <br />
+                          &Xi;
+                          PK : <span tal:content="experience/experience_pk" />
                       </div>
                    </div><!--footer listing-->
                 </fieldset>

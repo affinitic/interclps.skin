@@ -77,6 +77,22 @@
                         <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y %H:%M')"
                             class="gras" />
                     </div>
+                    <div tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
+                         tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                        <span tal:condition="python: experienceEtat=='Publié'">
+                            <span tal:content="experienceEtat" class="vert-actif" />
+                        </span>
+                        <span tal:condition="python: experienceEtat=='En attente'">
+                            <span tal:content="experienceEtat" class="orange-attente" />
+                            &nbsp;<img src="alerte.png" width="16" />
+                        </span>
+                        <span tal:condition="python: experienceEtat=='Privé'">
+                            <span tal:content="experienceEtat" class="rouge-non-actif" />
+                        </span>
+                        <br />
+                        &Xi;
+                        PK : <span tal:content="experience/experience_pk" />
+                    </div>
                 </div><!--footer listing-->
             </fieldset>
         </tal:block>

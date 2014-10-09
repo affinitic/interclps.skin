@@ -73,15 +73,6 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
-                                        align="left" class="discreet" valign="bottom">
-                                        <span tal:content="experienceEtat" />
-                                        &Xi;
-                                        PK : <span tal:content="experience/experience_pk" />
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
                                     <td align="left" class="discreet" valign="bottom">
                                         Créé par
                                         <span tal:content="experience/auteurFromExperience/auteur_prenom | nothing"
@@ -106,6 +97,24 @@
                                         par :
                                         <span tal:content="experience/experience_modification_employe"
                                               class="gras" />
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
+                                        align="left" class="discreet" valign="bottom">
+                                        <span tal:condition="python: experienceEtat=='Publié'">
+                                            <span tal:content="experienceEtat" class="vert-actif" />
+                                        </span>
+                                        <span tal:condition="python: experienceEtat=='En attente'">
+                                            <span tal:content="experienceEtat" class="orange-attente" />
+                                        </span>
+                                        <span tal:condition="python: experienceEtat=='Privé'">
+                                            <span tal:content="experienceEtat" class="rouge-non-actif" />
+                                        </span>
+                                        <br />
+                                        &Xi;
+                                        PK : <span tal:content="experience/experience_pk" />
                                     </td>
                                     <td></td>
                                 </tr>

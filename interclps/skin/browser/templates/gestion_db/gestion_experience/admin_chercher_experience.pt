@@ -52,7 +52,7 @@
 
             <hr class="search-ligne-bleue"/>
 
-            <form action="decrire-une-experience"
+            <form action="admin-decrire-une-experience"
                   method="post">
                 Ci-dessous, la liste des différents titres des expériences encodées dans notre base.
                     <div class="div_question">
@@ -101,7 +101,8 @@
                     <legend class="search-legend"> A destination d'un milieu de vie </legend>
                     <div id="info-champs">
                     </div>
-                    <form action="experience-resultat-recherche-milieu-vie" method="post">
+                    <form action="experience-resultat-recherche-milieu-vie"
+                          method="post">
                         <tal:block tal:define="milieuxDeViePk python:view.getMilieuDeVieForSearchEngine();
                                                milieuxDeVie python:view.getMilieuDeVieByPk(milieuxDeViePk)">
                             <div class="div_question">
@@ -135,7 +136,8 @@
                     <legend class="search-legend"> Recherche selon un thème </legend>
                     <div id="info-champs">
                     </div>
-                    <form action="experience-resultat-recherche-theme" method="post">
+                    <form action="experience-resultat-recherche-theme"
+                          method="post">
                         <tal:block tal:define="themesPk python:view.getThemeForSearchEngine();
                                                themes python:view.getThemeByPk(themesPk)">
                             <div class="div_question">
@@ -169,7 +171,8 @@
                     <legend class="search-legend"> Recherche selon un public </legend>
                     <div id="info-champs">
                     </div>
-                    <form action="experience-resultat-recherche-public" method="post">
+                    <form action="experience-resultat-recherche-public"
+                          method="post">
                         <tal:block tal:define="publicsPk python:view.getPublicForSearchEngine();
                                                publics python:view.getPublicByPk(publicsPk)">
                             <div class="div_question">
