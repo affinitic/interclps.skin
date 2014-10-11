@@ -16,49 +16,49 @@
     <div tal:define="institutions python:view.getInstitutionByPlateForme(plateForme);">
         <tal:boucle tal:repeat="institution institutions">
             <tal:boucle tal:repeat="institution institutions">
-           <tal:block tal:define="institutionPk institution/institution_pk">
-               <fieldset>
-                   <legend>
-                        <a href=""
-                           tal:content="institution/institution_nom"
-                           tal:attributes="href string:decrire-une-institution?institutionPk=${institutionPk}"
-                           class="titre_formation">nom de l'institution</a>
-                   </legend>
-                   <div id="experience-etat"
-                        tal:define="institutionEtat python:view.getInstitutionEtat(institutionPk)"
-                        tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-                        <span tal:content="institutionEtat" />
-                        &Xi;
-                        <span tal:content="institutionPk" />
-                   </div>
-                   <ul>
-                        <li>
-                           <span class="brun">Adresse :</span><br />
-                           <span tal:content="institution/institution_adresse"
-                                 class="rubrique-db" />
-                        </li>
-                        <li>
-                           <span class="brun">Localité :</span><br />
-                           <span class="rubrique-db">
-                               <span tal:content="institution/commune/com_localite_cp" />
-                               <span tal:content="institution/commune/com_localite_nom" />
-                           </span>
-                        </li>
-                        <li>
-                           <span class="brun">Contact :</span><br />
-                           <span tal:content="institution/institution_nom_contact"
-                                 class="rubrique-db" />
-                        </li>
-                   </ul>
-                   <div align="right">
-                        <a href=""
-                           tal:attributes="href
-                           string:decrire-une-institution?institutionPk=${institutionPk}">
-                           <img src="btn_suivant.png" /></a>
-                   </div>
-               </fieldset>
-           </tal:block>
-       </tal:boucle>
+                <tal:block tal:define="institutionPk institution/institution_pk">
+                   <fieldset>
+                       <legend>
+                            <a href=""
+                               tal:content="institution/institution_nom"
+                               tal:attributes="href string:decrire-une-institution?institutionPk=${institutionPk}"
+                               class="titre_formation">nom de l'institution</a>
+                       </legend>
+                       <div id="experience-etat"
+                            tal:define="institutionEtat python:view.getInstitutionEtat(institutionPk)"
+                            tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                            <span tal:content="institutionEtat" />
+                            &Xi;
+                            <span tal:content="institutionPk" />
+                       </div>
+                       <ul>
+                            <li>
+                               <span class="brun">Adresse :</span><br />
+                               <span tal:content="institution/institution_adresse"
+                                     class="rubrique-db" />
+                            </li>
+                            <li>
+                               <span class="brun">Localité :</span><br />
+                               <span class="rubrique-db">
+                                   <span tal:content="institution/commune/com_localite_cp" />
+                                   <span tal:content="institution/commune/com_localite_nom" />
+                               </span>
+                            </li>
+                            <li>
+                               <span class="brun">Contact :</span><br />
+                               <span tal:content="institution/institution_nom_contact"
+                                     class="rubrique-db" />
+                            </li>
+                       </ul>
+                       <div align="right">
+                            <a href=""
+                               tal:attributes="href
+                               string:decrire-une-institution?institutionPk=${institutionPk}">
+                               <img src="btn_suivant.png" /></a>
+                       </div>
+                   </fieldset>
+                </tal:block>
+            </tal:boucle>
         </tal:boucle>
     </div><!--define-->
 </div><!--metal-->

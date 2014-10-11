@@ -1,0 +1,602 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:js fill-slot="javascript_head_slot">
+        <script src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js" type="text/javascript"></script>
+        <script src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="++resource++interclps.js" type="text/javascript"></script>
+    </metal:js>
+    <metal:css fill-slot="style_slot">
+        <link href="++resource++collective.javascript.jqueryui/css/ui-lightness/jquery-ui.css" type="text/css" rel="stylesheet" />
+    </metal:css>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:define="auteur python:view.getAuteurByLogin('institution')">
+
+<form action="manageInstitution"
+      method="post">
+    <br />
+    <h1>:: Encoder une institution ::</h1>
+    <fieldset>
+        <legend class="legende">Institution</legend>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Nom
+            <br />
+            <input type="text"
+                   name="institution_nom"
+                   value=""
+               size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Sigle
+            <br />
+            <input type="text"
+                   name="institution_sigle"
+                   value=""
+               size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Adresse
+            <br />
+            <input type="text"
+                   name="institution_adresse"
+                   value=""
+               size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Localité
+            <br />
+            <select name="institution_commune_fk"
+                    tal:define="communes view/getAllCommune">
+                <option value=''>...</option>
+                <tal:boucle tal:repeat="commune communes">
+                  <option value=""
+                          tal:attributes="value commune/com_pk">
+                      <span tal:content="commune/com_localite_cp" />
+                      &nbsp;&nbsp;
+                      <span tal:content="commune/com_localite_nom" />
+                      &nbsp;&nbsp;
+                      [<span tal:content="commune/com_commune_nom" />]
+                  </option>
+                </tal:boucle>
+            </select>
+        </div>
+        <div class="div_question">
+            <div id="info-champs">
+                <span class="info-logo">i</span>
+                Attention pas du projet mais personne de contact
+            </div>
+            <br />
+            <img src="list_flch_rouge.png" /> Nom, Prénom de la personne de contact<br />
+            <input type="text"
+                    name="institution_nom_contact"
+                    value=""
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Fonction de la personne de contact<br />
+            <input type="text"
+                    name="institution_fonction_contact"
+                    value=""
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> E-mail de la personne de contact<br />
+            <input type="text"
+                    name="institution_email_contact"
+                    value=""
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Tél de la personne de contact<br />
+            <input type="text"
+                    name="institution_tel_contact"
+                    value=""
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Site web<br />
+            http://<input type="text"
+                          name="institution_url_site"
+                          value=""
+                          size="50" />
+        </div>
+        <!--
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Lien SISS<br />
+            http://<input type="text"
+                          name="institution_lien_siss"
+                          value=""
+                          size="50" />
+        </div>
+        -->
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Autre Lien<br />
+            <input type="text"
+                    name="institution_lien_autre"
+                    value=""
+                    size="50" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Autres informations<br />
+            <span tal:replace="structure python: view.getWysiwygField('institution_autre_info', '')" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Missions
+            <br />
+            <span tal:replace="structure python: view.getWysiwygField('institution_mission', '')" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Activités
+            <br />
+            <span tal:replace="structure python: view.getWysiwygField('institution_activite', '')" />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Public
+            <br />
+            <span tal:replace="structure python: view.getWysiwygField('institution_public', '')" />
+        </div>
+        <div class="div_question">
+            <br /><br />
+            Territoire couvert par cette institution.
+            <br />
+            <div id="info-champs">
+                <span class="info-logo">i</span>
+                &nbsp;&nbsp;
+                Sur quel territoire l’institution mène-t-elle ses activités ?
+                Ce territoire n’est pas nécessairement le même que celui sur
+                lequel elle est implantée.
+            </div>
+            <br />
+            <br />
+            <img src="list_flch_rouge.png" /> Localité(s) couverte(s) par cette institution
+            <br />
+            <br />
+            <img src="list_flch_rouge.png" /> Localité du Luxembourg
+            <tal:addremove define="errors python:{};">
+                <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_inbw_fk', ' ',
+                                               view.getAllCommune((4,)),
+                                               nameKey=['com_localite_cp', 'com_localite_nom'],
+                                               pkKey='com_pk')" />
+            </tal:addremove>
+            <br />
+            <br />
+            <img src="list_flch_rouge.png" />Localité hors Luxembourg
+            <tal:addremove define="errors python:{};">
+                <span metal:use-macro="python: view.getAddRemoveField('institution_commune_couverte_outbw_fk', ' ',
+                                               view.getAllCommune((1,2,3,5,11)),
+                                               nameKey=['com_localite_cp', 'com_localite_nom'],
+                                               pkKey='com_pk')" />
+            </tal:addremove>
+            <br />
+            <br />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" />
+            <input type="checkbox"
+                   name="institution_territoire_tout_luxembourg"
+                   value="True" />
+               Tout le Luxembourg
+            <br />
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" />
+            <input type="checkbox"
+                   name="institution_zone_cfwb"
+                   value="True" /> Communauté française
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" />
+            <input type="checkbox"
+                   name="institution_zone_rw"
+                   value="True" /> Région wallonne
+       </div>
+       <div class="div_question">
+           <img src="list_flch_rouge.png" />
+           <input type="checkbox"
+                  name="institution_zone_brxl"
+                  value="True" /> Région Bruxelles capitale
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" />
+            <input type="checkbox"
+                   name="institution_zone_belgique"
+                   value="True" /> Belgique
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" />
+            <input type="checkbox"
+                   name="institution_zone_internationale"
+                   value="True" /> International
+        </div>
+        <div class="div_question">
+            <img src="list_flch_rouge.png" /> Nom du pays
+            <br />
+            <input type="text"
+                   size="40"
+                   name="institution_zone_internationale_info"
+                   value="" />
+        </div>
+       <div class="div_question">
+            <img src="list_flch_rouge.png" /> Commentaires
+            <br />
+            <span tal:replace="structure python: view.getWysiwygField('institution_commentaire', '')" />
+        </div>
+    </fieldset>
+
+
+
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <div id="info-institution-assuetude">
+        <fieldset>
+            <h3> &Xi; Assuétudes &Xi; </h3>
+            <table cellspacing="0">
+                <tr class="info-institution-assuetude-odd">
+                    <td width="75%"
+                        valign="top">
+                        <br/>
+                        <img src="list_flch_rouge.png" /> <span class="gras">Intervention</span>
+                        <br />
+                        <tal:block tal:define="interventions view/getAllAssuetudeInterventionForInstitution">
+                            <tal:boucle tal:repeat="intervention interventions">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox"
+                                       name="assuetude_intervention_fk:list"
+                                       value=""
+                                       tal:attributes="value intervention/assuetude_intervention_pk" />
+                                &nbsp;
+                                <span tal:content="intervention/assuetude_intervention_nom"></span>
+                                <br />
+                            </tal:boucle>
+                        </tal:block>
+                        <br />
+                    </td>
+                    <td valign="top">
+                        <br />
+                        <div id="info-champs">
+                            <span class="info-logo">i</span>
+                            <br />
+                            A quel niveau intervenez-vous en matière d’assuétudes :
+                            plusieurs choix sont possibles. Si vous ne faites pas de
+                            prévention ou de soins mais êtes relais vers un organisme
+                            de prévention ou de soins vous pouvez également cocher
+                            la case vers le type d’acteurs vers lequel vous renvoyer.
+                        </div>
+                        <br />
+                    </td>
+                </tr>
+                <tr class="info-institution-assuetude-even">
+                    <td valign="top">
+                        <br />
+                        <span class="gras">Précision par rapport aux interventions</span>
+                        <br />
+                        <span tal:replace="structure python: view.getWysiwygField('institution_assuet_intervention_precision', '')" />
+                        <br />
+                    </td>
+                    <td valign="top">
+                        <br />
+                        <div id="info-champs">
+                            <span class="info-logo">i</span>
+                            <br />
+                            Vous voulez préciser vos activités (par exemple à quel public elles s’adressent) :
+                        </div>
+                        <br />
+                    </td>
+                </tr>
+
+                <tr><td colspan="2"></td></tr>
+
+                <tr class="info-institution-assuetude-even">
+                    <td valign="top">
+                        <br />
+                        <img src="list_flch_rouge.png" /> <span class="gras">Activités proposées</span>
+                        <br /><br />
+                        <span class="gras">Pour le public final :</span>
+                        <br />
+                        <tal:block tal:define="activites python:view.getAllAssuetudeActiviteProposeeForInstitution('public')">
+                            <tal:boucle tal:repeat="activite activites">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox"
+                                       value=""
+                                       name="assuetude_activite_proposee_public_fk:list"
+                                       tal:attributes="value activite/assuetude_activite_proposee_pk" />
+                                &nbsp;
+                                <span tal:content="activite/assuetude_activite_proposee_nom"></span>
+                                <br />
+                            </tal:boucle>
+                        </tal:block>
+                        <br /><br />
+                        <span class="gras">Pour des professionnels :</span>
+                        <br />
+                        <tal:block tal:define="activites python:view.getAllAssuetudeActiviteProposeeForInstitution('pro')">
+                            <tal:boucle tal:repeat="activite activites">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox"
+                                       value=""
+                                       name="assuetude_activite_proposee_pro_fk:list"
+                                       tal:attributes="value activite/assuetude_activite_proposee_pk" />
+                                &nbsp;
+                                <span tal:content="activite/assuetude_activite_proposee_nom"></span>
+                                <br />
+                            </tal:boucle>
+                        </tal:block>
+                        <br />
+                    </td>
+                    <td valign="top">
+                        <br />
+                        <div id="info-champs">
+                            <span class="info-logo">i</span>
+                            <br />
+                            Quels types d’activités proposez-vous en matière d’assuétudes ?
+                            Plusieurs choix sont possibles
+                        </div>
+                        <br />
+                    </td>
+                </tr>
+                <tr class="info-institution-assuetude-even">
+                    <td valign="top">
+                        <br />
+                        <span class="gras">Précision par rapport aux activités proposées</span>
+                        <br />
+                        <span tal:replace="structure python: view.getWysiwygField('institution_assuet_activite_proposee_precision', '')" />
+                        <br />
+                    </td>
+                    <td valign="top">
+                        <br />
+                        <div id="info-champs">
+                            <span class="info-logo">i</span>
+                            <br />
+                            Vous voulez préciser vos activités (par exemple à quel public elles s’adressent) :
+                        </div>
+                        <br />
+                    </td>
+                </tr>
+
+                <tr><td colspan="2"></td></tr>
+
+                <tr class="info-institution-assuetude-odd">
+                    <td valign="top">
+                        <br />
+                        <img src="list_flch_rouge.png" /> <span class="gras">Thématiques</span>
+                        <br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        Y a-t-il une thématique que vous aborder plus particulièrement ?
+                        <br />
+                        <tal:block tal:define="thematiques view/getAllAssuetudeThemeForInstitution">
+                            <tal:boucle tal:repeat="thematique thematiques">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox"
+                                       value=""
+                                       name="assuetude_thematique_fk"
+                                       tal:attributes="value thematique/assuetude_thematique_pk" />
+                                &nbsp;
+                                <span tal:content="thematique/assuetude_thematique_nom"></span>
+                                <br />
+                            </tal:boucle>
+                        </tal:block>
+                        <br />
+                    </td>
+                    <td valign="top">
+                        <br />
+                        <div id="info-champs">
+                            <span class="info-logo">i</span>
+                            <br />
+                            Y a-t-il une thématique que vous aborder plus particulièrement ?
+                            Plusieurs choix possibles. Cochez la case même si un seul
+                            des items entre parenthèse vous concerne
+                        </div>
+                        <br />
+                    </td>
+                </tr>
+                <tr class="info-institution-assuetude-odd">
+                    <td valign="top">
+                        <br />
+                        <span class="gras">Précision par rapport aux thématiques</span>
+                        <br />
+                        <span tal:replace="structure python: view.getWysiwygField('institution_assuet_thematique_precision', '')" />
+                        <br />
+                    </td>
+                    <td valign="top">
+                        <br />
+                        <div id="info-champs">
+                            <span class="info-logo">i</span>
+                            <br />
+                            Vous voulez préciser vos activités par rapport aux thématiques
+                            (par exemple vers quels publics vous aborder quelles thématiques) :
+                        </div>
+                        <br />
+                    </td>
+                </tr>
+
+                <tr><td colspan="2"></td></tr>
+
+                <tr class="info-institution-assuetude-even">
+                    <td valign="top">
+                        <br />
+                        <img src="list_flch_rouge.png" /> <span class="gras">Aide et soutien aux écoles</span>
+                        <br />
+                        <span tal:replace="structure python: view.getWysiwygField('institution_assuet_aide_soutien_ecole', '')" />
+                        <br />
+                    </td>
+                    <td valign="top">
+                        <br />
+                        <div id="info-champs">
+                            <span class="info-logo">i</span>
+                            <br />
+                            Pouvez-vous expliquer en quelques mots de quelle
+                            manière vous répondez à  un acteur scolaire qui
+                            serait en demande de soutien par rapport à la
+                            thématique des assuétudes ?)
+                        </div>
+                        <br />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+
+
+    <div tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
+         id="description-for-manager">
+        <div class="titre-for-manage">
+            &Xi; Administration &Xi;
+        </div>
+
+        <fieldset>
+            <legend class="legende"> Etat</legend>
+            <select name="institution_etat">
+                <option value="private"> Privé </option>
+                <option value="publish"> Publié </option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend class="legende">Auteur - Editeur</legend>
+            Nom, prénom et identifiant de la personne qui pourra modifier le contenu de cette expérience<br />
+            <input type="text"
+                   id="auteur_nom"
+                   name="institutionAuteur"
+                   value=""
+                   size="50">
+
+        </fieldset>
+
+        <fieldset>
+            <legend class="legende">Type d'institution</legend>
+            Permet de classer les instituions afin de les afficher correctement dans la zone ressources d'une plate-forme<br />
+            <tal:blok tal:define="typeInstitutions python:view.getAllActiveInstitutionType()">
+                <select name="institution_institution_type_fk">
+                    <option value="0">...</option>
+                    <tal:boucle tal:repeat="typeInstitution typeInstitutions">
+                        <option value=""
+                                tal:attributes="value typeInstitution/institution_type_pk">
+                            <span tal:content="typeInstitution/institution_type_nom" />
+                        </option>
+                    </tal:boucle>
+                </select>
+            </tal:blok>
+        </fieldset>
+
+        <fieldset>
+            <legend class="legende">Plate-formes et sous plate-formes concernées</legend>
+            <ul class="formulaire">
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_plate_forme_assuetude"
+                           value="True" />&nbsp;&nbsp;Point d'appui assuétudes
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_plate_forme_sante_ecole"
+                           value="True" />&nbsp;&nbsp;Santé à l'école
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_plate_forme_sante_famille"
+                           value="True" />&nbsp;&nbsp;Santé des familles
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_plate_forme_sante_environnement"
+                           value="True" />&nbsp;&nbsp;Santé et environnement
+                </li>
+            </ul>
+        </fieldset>
+
+        <fieldset>
+            <legend class="legende">Listing des ressources dans les plate-formes</legend>
+            <p>Permet d'afficher une institution dans la liste des organismes des ressources d'une plate-forme</p>
+            <ul class="formulaire">
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_assuetude"
+                           value="True" />&nbsp;&nbsp;Point d'appui assuétudes
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_sante_ecole"
+                           value="True" />&nbsp;&nbsp;Santé à l'école
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_sante_famille"
+                           value="True" />&nbsp;&nbsp;Santé des familles
+                </li>
+                <li>
+                    <img src="list_flch_rouge.png" />
+                    <input type="checkbox"
+                           name="institution_listing_ressource_plate_forme_sante_environnement"
+                           value="True" />&nbsp;&nbsp;Santé et environnement
+                </li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Propriétaire</legend>
+            <ul tal:define="allClps python: view.getAllClps()"
+                class="formulaire">
+                <tal:block tal:repeat="clps allClps">
+                    <li>
+                      <img src="list_flch_rouge.png" />
+                      <span tal:condition="python: clps.clps_pk==2">
+                          <input type="checkbox"
+                                 name="institution_clps_proprio_fk"
+                                 checked="checked"
+                                 value=""
+                                 tal:attributes="value clps/clps_pk" />
+                          &nbsp;&nbsp;
+                          <span tal:content="clps/clps_sigle" />
+                      </span>
+                      <span tal:condition="python: clps.clps_pk!=2">
+                          <input type="checkbox"
+                                 name="institution_clps_proprio_fk"
+                                 value=""
+                                 tal:attributes="value clps/clps_pk" />
+                          &nbsp;&nbsp;
+                          <span tal:content="clps/clps_sigle" />
+                      </span>
+                    </li>
+                </tal:block>
+            </ul>
+        </fieldset>
+    </div>
+
+    <div class="div_form_input">
+        <input type="hidden"
+               name="institution_lien_siss"
+               value=""
+               size="50" />
+        <input type="hidden"
+               name="institution_auteur_login"
+               value=""
+               tal:attributes="value auteur/auteur_login" />
+        <input type="hidden"
+               name="auteurExterne"
+               value="False" />
+        <input type="hidden"
+               name="institution_auteur_fk"
+               value=""
+               tal:attributes="value auteur/auteur_pk" />
+        <input type="hidden"
+               name="operation"
+               value="insert" />
+        <input type="submit"
+               value="Enregistrer l'institution" />
+    </div>
+</form>
+</div><!-- div metal-->
+</body>
+</html>

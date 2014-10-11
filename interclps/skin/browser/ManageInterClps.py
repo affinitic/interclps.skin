@@ -480,6 +480,8 @@ class ManageInterClps(BrowserView):
         for institution in institutions:
             for clps in allClps:
                 if institution.clps_fk == clps.clps_pk:
+                    if retour == 'sigle':
+                        clpsProprioListe.append(clps.clps_sigle)
                     if retour == 'nom':
                         clpsProprioListe.append(clps.clps_nom)
                     if retour == 'pk':
@@ -2630,6 +2632,7 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         query = session.query(Institution)
+        query = query.filter(Institution.institution_etat == institutionEtat)
         institution = query.all()
         return institution
 
@@ -4995,7 +4998,8 @@ class ManageInterClps(BrowserView):
             ploneUtils = getToolByName(self.context, 'plone_utils')
             message = u"L'institution a été ajoutée !"
             ploneUtils.addPortalMessage(message, 'info')
-            if auteurExterne:
+
+            if auteurExterne ==  True:
                 url = "%s/decrire-une-institution?institutionPk=%s" % (portalUrl, institutionFk)
             else:
                 url = "%s/admin-decrire-une-institution?institutionPk=%s" % (portalUrl, institutionFk)
@@ -5039,7 +5043,7 @@ class ManageInterClps(BrowserView):
             message = u"L'institution a été modifiée !"
             ploneUtils.addPortalMessage(message, 'info')
 
-            if auteurExterne:
+            if auteurExterne == True:
                 url = "%s/decrire-une-institution?institutionPk=%s" % (portalUrl, institutionFk)
             else:
                 url = "%s/admin-decrire-une-institution?institutionPk=%s" % (portalUrl, institutionFk)

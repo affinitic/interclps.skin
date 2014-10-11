@@ -1149,6 +1149,15 @@ box-shadow:4px 4px 10px rgba(0,0,0,0.5);
 margin-bottom:30px;
 }
 
+.description-institution-clps-proprio,
+.description-institution-derniere-modif{
+float:left;
+width:190px;
+margin-left:5px;
+margin-top:5px;
+text-align:center;
+}
+
 
 /*** DESCRIPTION RESSOURCE ***/
 #title-ressource{

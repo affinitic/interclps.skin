@@ -14,7 +14,7 @@
      tal:define="institutionPk request/institutionPk | nothing;
                  institutions python:view.getAllInstitution(institutionPk);
                  allClps python: view.getAllClps();
-                 selectedClpsProprio python:view.getClpsProprioForInstitution(institutionPk, 'pk')">
+                 selectedClpsProprio python:view.getClpsProprioForInstitution(institutionPk, 'sigle')">
     <tal:boucle tal:repeat="institution institutions">
         <tal:block tal:define="institutionPk institution/institution_pk">
             <div id="title-institution">
@@ -252,6 +252,22 @@
                         </tal:boucle>
                     </tal:block>
                 </div><!--projet-assuetude-institution-->
+                <div class="description-institution-clps-proprio discreet">
+                    Edité par le
+                    <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
+                        <span tal:content="clpsSigle"
+                              class="gras" />
+                        <tal:if tal:condition="not: repeat/clpsSigle/end">
+                            <span>et le </span>
+                        </tal:if>
+                    </tal:boucle>
+                </div>
+                <div class="description-institution-derniere-modif discreet">
+                    Dernière modification le :<br />
+                    <span tal:content="python: institution.institution_modification_date.strftime('%d-%m-%Y')"
+                         class="gras" />
+                </div>
+                <div class="break-float"></div>
             </div><!--right-institution-->
 
             <div class="break-float"></div>

@@ -73,22 +73,22 @@
 
             <dt class="menu-titre">institutions</dt>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/creer-une-institution">
+                    <a href="" tal:attributes="href string:${context/portal_url}/admin-creer-une-institution">
                         Cr&eacute;er
                     </a>
                 </dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/admin-institution-lister">
+                    <a href="" tal:attributes="href string:${context/portal_url}/admin-lister-les-institutions">
                         Lister
                     </a>
                 </dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/chercher-une-institution">
+                    <a href="" tal:attributes="href string:${context/portal_url}/admin-chercher-une-institution">
                         Modifier
                     </a>
                 </dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/chercher-une-institution">
+                    <a href="" tal:attributes="href string:${context/portal_url}/admin-chercher-une-institution">
                         Rechercher
                     </a>
                 </dd>
@@ -101,11 +101,11 @@
                 <div class="etatBase">
                     <dd tal:define="nbrInst python:institutions.getCountInstitutionByEtat('private')">
                         <br />
-                        <a href="admin-institution-lister-par-etat?etat=private">
+                        <a href="admin-lister-les-institutions-par-etat?etat=private">
                             Etat priv&eacute; : <span tal:content="nbrInst">nbr</span></a>
                     </dd>
                     <dd tal:define="nbrInst python:institutions.getCountExperienceByEtat('publish')">
-                        <a href="admin-institution-lister-par-etat?etat=publish">
+                        <a href="admin-lister-les-institutions-par-etat?etat=publish">
                             Etat publi&eacute; : <span tal:content="nbrInst">nbr</span></a>
                     </dd>
                     <dd tal:define="nbrInst python:institutions.getCountAllInstitution()">

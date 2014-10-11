@@ -110,16 +110,6 @@
                             <span tal:content="institution/institution_url_site" /></a>
                     </div>
                 </div>
-                <div tal:condition="python: institution.institution_lien_siss!=''"
-                     class="description-left-content">
-                    <h3 class="left-rubrique-db">Lien SISS</h3>
-                    <div class="text-db">
-                        <a href=""
-                           target="_blank"
-                           tal:attributes="href string: ${institution/institution_lien_siss}">
-                            <span tal:content="institution/institution_lien_siss" /></a>
-                    </div>
-                </div>
                 <div tal:condition="python: institution.institution_lien_autre!=''"
                      class="description-left-content">
                     <h3 class="left-rubrique-db">Autre lien</h3>
@@ -252,6 +242,22 @@
                         </tal:boucle>
                     </tal:block>
                 </div><!--projet-assuetude-institution-->
+                <div class="description-institution-clps-proprio discreet">
+                    Edité par le
+                    <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
+                        <span tal:content="clpsSigle"
+                              class="gras" />
+                        <tal:if tal:condition="not: repeat/clpsSigle/end">
+                            <span>et le </span>
+                        </tal:if>
+                    </tal:boucle>
+                </div>
+                <div class="description-institution-derniere-modif discreet">
+                    Dernière modification le :<br />
+                    <span tal:content="python: institution.institution_modification_date.strftime('%d-%m-%Y')"
+                         class="gras" />
+                </div>
+                <div class="break-float"></div>
             </div><!--right-institution-->
 
             <div class="break-float"></div>

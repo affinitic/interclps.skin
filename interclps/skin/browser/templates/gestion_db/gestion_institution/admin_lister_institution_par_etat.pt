@@ -19,7 +19,8 @@
         <fieldset>
             <legend class="legende">Institution à l'état <span tal:content="etat"></span></legend>
             <tal:boucle tal:repeat="institution institutions">
-                   <tal:block tal:define="institutionPk institution/institution_pk">
+                   <tal:block tal:define="institutionPk institution/institution_pk;
+                                          selectedClpsProprio python:view.getClpsProprioForInstitution(institutionPk, 'sigle')">
                        <fieldset>
                            <legend>
                                 <a href=""
@@ -51,6 +52,16 @@
                                 <table width="100%">
                                     <tr>
                                         <td align="left" class="discreet" valign="bottom">
+                                            <div>
+                                              Edité par le
+                                              <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
+                                                  <span tal:content="clpsSigle"
+                                                        class="gras" />
+                                                  <tal:if tal:condition="not: repeat/clpsSigle/end">
+                                                      <span>et le </span>
+                                                  </tal:if>
+                                              </tal:boucle>
+                                            </div>
                                             <div>
                                                 par
                                                 <span tal:content="institution/auteur/auteur_prenom | nothing" />

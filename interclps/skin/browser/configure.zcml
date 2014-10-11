@@ -431,6 +431,14 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
+          name="admin-creer-une-institution"
+          for="*"
+          template="templates/gestion_db/gestion_institution/admin_creer_institution.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
           name="admin-decrire-une-institution"
           for="*"
           template="templates/gestion_db/gestion_institution/admin_decrire_institution.pt"
@@ -439,7 +447,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-institution-lister"
+          name="admin-lister-les-institutions"
           for="*"
           template="templates/gestion_db/gestion_institution/admin_lister_institution.pt"
           permission="zope.Public"
@@ -447,7 +455,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-institution-lister-par-etat"
+          name="admin-lister-les-institutions-par-etat"
           for="*"
           template="templates/gestion_db/gestion_institution/admin_lister_institution_par_etat.pt"
           permission="zope.Public"
