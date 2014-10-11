@@ -19,6 +19,7 @@ from Products.Archetypes.Renderer import renderer
 from Products.Archetypes.atapi import BaseContent
 from interfaces import IManageInterClps
 from collective.captcha.browser.captcha import Captcha
+from plone import api
 
 # mettre ici toute les classe de initializer
 from interclps.db.pgsql.baseTypes import Auteur, \
@@ -164,7 +165,7 @@ class ManageInterClps(BrowserView):
         if isCorrectCaptcha:
             cible = "%s/experience-inscription-auteur-merci" % (obj.portal_url(), )
             obj.REQUEST.RESPONSE.redirect(cible)
-            self.addAuteur()
+            self.insertAuteur()
             self.sendMailForNewAuteurExperience()
 
         else:
@@ -232,7 +233,7 @@ class ManageInterClps(BrowserView):
                   En modifiant l'auteur, tu peux l'activer et lui donner un dentifiant "FileMaker"
                   <br />
                   Voir la liste des auteurs en cliquant sur ce
-                  <a href="http://www.projets-partages.be/admin-auteur-creer">lien</a>.
+                  <a href="http://www.projets-partages.be/admin-creer-un-auteur">lien</a>.
                   <hr />
                   """ \
                   % (clpsSigle, \
@@ -373,25 +374,28 @@ class ManageInterClps(BrowserView):
 
 ### ROLE USER PLONE ###
 
-    def addLoginAuteur(self, login, passw, role):
+    def insertLoginAuteur(self, auteurLogin, auteurPassword, auteurEmail, auteurRole, auteurFullName):
         """
         ajoute le login et le pass d'un auteur qui
         s'inscrit via le site
         le role est RecitExperience
+        j'enlève le role Member
         """
-        uf = getToolByName(self.context, 'acl_users')
-        uf.userFolderAddUser(login, passw, [role], [])
+        properties = dict(fullname=auteurFullName)
+        api.user.create(username=auteurLogin,
+                        email=auteurEmail,
+                        password='secret',
+                        properties=properties)
+        api.user.grant_roles(username=auteurLogin,
+                             roles=[auteurRole])
+        api.user.revoke_roles(username=auteurLogin,
+                              roles=['Member'])
 
-    def addInfoAuteur(self, userId, userEmail, userName):
+    def deleteLoginAuteur(self, auteurLogin):
         """
-        ajoute l'email de l'auteur qui vient de s'inscrire
+        suprime un auteur des users de plone
         """
-        membership = getToolByName(self.context, 'portal_membership')
-        member = membership.getMemberById(userId)
-        properties = {}
-        properties['email'] = userEmail
-        properties['fullname'] = userName
-        getToolByName(self, 'plone_utils').setMemberProperties(member, **properties)
+        api.user.delete(username=auteurLogin)
 
     def getUserAuthenticated(self):
         """
@@ -744,7 +748,7 @@ class ManageInterClps(BrowserView):
         for auteur in query.all():
             session.delete(auteur)
         session.flush()
-        cible = "%s/admin-auteur-creer" % (obj.portal_url(), )
+        cible = "%s/admin-creer-un-auteur" % (obj.portal_url(), )
         obj.REQUEST.RESPONSE.redirect(cible)
 
     def getAuteurByLeffeSearch(self, searchString):
@@ -759,7 +763,7 @@ class ManageInterClps(BrowserView):
         auteur = ["%s %s  (%s)" % (aut.auteur_nom, aut.auteur_prenom, aut.auteur_login) for aut in query.all()]
         return auteur
 
-    def addAuteur(self):
+    def insertAuteur(self):
         """
         table pg auteur
         ajout d'un auteur
@@ -5116,25 +5120,44 @@ class ManageInterClps(BrowserView):
         """
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
+        auteurExterne = getattr(fields, 'auteurExterne', None)
 
-        login = getattr(fields, 'auteur_login')
-        passw = getattr(fields, 'auteur_pass')
-        role = 'RecitExperience'
-        userId = getattr(fields, 'auteur_login')
-        userEmail = getattr(fields, 'auteur_email')
-        prenom = getattr(fields, 'auteur_prenom')
-        nom = getattr(fields, 'auteur_nom')
-        userName = ('%s %s') % (prenom, nom)
+        auteurLogin = getattr(fields, 'auteur_login')
+        auteurPassword = getattr(fields, 'auteur_pass')
+        auteurRole = 'RecitExperience'
+        auteurEmail = getattr(fields, 'auteur_email')
+        auteurPrenom = getattr(fields, 'auteur_prenom')
+        auteurNom = getattr(fields, 'auteur_nom')
+        auteurFullName = ('%s %s') % (auteurPrenom, auteurNom)
+        auteurEtat = getattr(fields, 'auteur_actif')
 
         if operation == "insert":
-            self.addAuteur()
-            self.addLoginAuteur(login, passw, role)
-            self.addInfoAuteur(userId, userEmail, userName)
-            return {'status': 1}
+            self.insertAuteur()
+            self.insertLoginAuteur(auteurLogin,
+                                   auteurPassword,
+                                   auteurEmail,
+                                   auteurRole,
+                                   auteurFullName)
+            message = u"L'auteur a été créé."
 
         if operation == "update":
             self.updateAuteur()
-            return {'status': 1}
+            self.deleteLoginAuteur(auteurLogin)
+            if auteurEtat == 'True':
+                self.insertLoginAuteur(auteurLogin,
+                                       auteurPassword,
+                                       auteurEmail,
+                                       auteurRole,
+                                       auteurFullName)
+                message = u"L'auteur a été modifié et activé."
+            else:
+                message = u"L'auteur a été modifié et désactivé."
+
+        portalUrl = getToolByName(self.context, 'portal_url')()
+        ploneUtils = getToolByName(self.context, 'plone_utils')
+        ploneUtils.addPortalMessage(message, 'info')
+        url = "%s/admin-creer-un-auteur" % (portalUrl)
+        self.request.response.redirect(url)
 
     def manageExperience(self):
         """
