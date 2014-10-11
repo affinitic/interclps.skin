@@ -13,7 +13,7 @@
 <div metal:fill-slot="main"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
     <br />
-     
+
     <h1>:: Gestion des auteurs d'expériences ::</h1>
     <fieldset>
         <legend class="legende">Liste des auteurs</legend>
@@ -55,14 +55,14 @@
                             <td align="center">
                                 <div class="btn-modifier">
                                     <a href=""
-                                       tal:attributes="href string: admin-auteur-modifier?auteurPk=${auteur/auteur_pk}">&nbsp;</a>
+                                       tal:attributes="href string: admin-modifier-un-auteur?auteurPk=${auteur/auteur_pk}">&nbsp;</a>
                                 </div>
                             </td>
                             <td tal:define="experience python:view.isAuteurHadExperience(auteur.auteur_pk);
                                             institution python:view.isAuteurHadInstitution(auteur.auteur_pk)">
                                 <div tal:condition="python: experience==False and institution==False">
                                     <a href=""
-                                       tal:attributes="href string: admin-auteur-supprimer?auteurPk=${auteur/auteur_pk}">
+                                       tal:attributes="href string: admin-supprimer-un-auteur?auteurPk=${auteur/auteur_pk}">
                                        <img src="supprimer.png" /></a>
                                 </div>
                             </td>
@@ -76,10 +76,10 @@
 
     <fieldset>
         <legend class="legende">Ajouter un auteur</legend>
-        <form action="admin-auteur-inserer"
+        <form action="manageAuteur"
               method="post">
             <div class="div_question">
-                <img src="list_flch_rouge.png" /> 
+                <img src="list_flch_rouge.png" />
                 <span class="clps-etiquette">Nom de l'auteur</span>
                 <br />
                 <input type="text"
@@ -96,7 +96,7 @@
             </div>
 
             <div class="div_question">
-                <img src="list_flch_rouge.png" /> 
+                <img src="list_flch_rouge.png" />
                 <span class="clps-etiquette">Identifiant</span>
                 <br />
                 <input type="text"
@@ -106,7 +106,7 @@
                        size="50" />
             </div>
             <div class="div_question">
-                <img src="list_flch_rouge.png" /> 
+                <img src="list_flch_rouge.png" />
                 <span class="clps-etiquette">Pass</span>
                 <br />
                 <input type="text"
@@ -116,7 +116,7 @@
                        size="50" />
             </div>
             <div class="div_question">
-                <img src="list_flch_rouge.png" /> 
+                <img src="list_flch_rouge.png" />
                 <span class="clps-etiquette">Email</span>
                 <br />
                 <input type="text"
@@ -126,7 +126,7 @@
                        size="50" />
             </div>
             <div class="div_question">
-                <img src="list_flch_rouge.png" /> 
+                <img src="list_flch_rouge.png" />
                 <span class="clps-etiquette">Institution</span>
                 <br />
                 <input type="text"
@@ -136,7 +136,7 @@
                        size="50" />
             </div>
             <div class="div_question">
-                <img src="list_flch_rouge.png" /> 
+                <img src="list_flch_rouge.png" />
                 <span class="clps-etiquette">ID FileMaker</span>
                 <br />
                 <input type="text"
@@ -146,7 +146,7 @@
                        size="50" />
             </div>
             <div class="div_question">
-                <img src="list_flch_rouge.png" /> 
+                <img src="list_flch_rouge.png" />
                 <span class="clps-etiquette">Etat</span>
                 <br />
                 <select name="auteur_actif"
@@ -156,7 +156,7 @@
                 </select>
             </div>
             <div class="div_question">
-                <img src="list_flch_rouge.png" /> 
+                <img src="list_flch_rouge.png" />
                 <span class="clps-etiquette">Rôle</span>
                 <br />
                 <input type="checkbox"
@@ -170,7 +170,7 @@
                        id="auteur_for_institution" /> Auteur d'une institution.
             </div>
 
-            
+
             <div class="div_form_input">
                 <input type="hidden"
                        name="auteur_clps_fk"

@@ -35,7 +35,8 @@
             <legend class="search-legend"> A partir du titre d'une expérience </legend>
             <div id="info-champs">
             </div>
-            <form action="decrire-une-experience" method="post">
+            <form action="decrire-une-experience"
+                  method="post">
                 <div class="div_question">
                 <input type="text"
                        id="titre_experience"

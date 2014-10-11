@@ -53,17 +53,17 @@
 
             <dt class="menu-titre">auteurs</dt>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/admin-auteur-creer">
+                    <a href="" tal:attributes="href string:${context/portal_url}/admin-creer-un-auteur">
                         Cr&eacute;er
                     </a>
                 </dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/admin-auteur-creer">
+                    <a href="" tal:attributes="href string:${context/portal_url}/admin-creer-un-auteur">
                         Lister
                     </a>
                 </dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/admin-auteur-chercher">
+                    <a href="" tal:attributes="href string:${context/portal_url}/admin-chercher-un-auteur">
                         Rechercher
                     </a>
                     <span class="portlet-gestion-db-separation"></span>

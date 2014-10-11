@@ -59,13 +59,13 @@
 
     <div class="btn-nouvelle-recherche">
         <a href=""
-           tal:attributes="href string:${context/portal_url}/admin-auteur-creer">
+           tal:attributes="href string:${context/portal_url}/admin-creer-un-auteur">
             Cr&eacute;er un nouvel auteur
         </a>
     </div>
     <div class="btn-nouvelle-recherche">
         <a href=""
-           tal:attributes="href string:${context/portal_url}/admin-auteur-chercher">
+           tal:attributes="href string:${context/portal_url}/admin-chercher-un-auteur">
             Modifier un auteur
         </a>
     </div>

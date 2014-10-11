@@ -13,14 +13,14 @@
 <div metal:fill-slot="main"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
     <br />
-    
+
     <h1>:: Gestion des auteurs d'expériences ::</h1>
     <fieldset>
         <legend class="legende">Modifier un auteur</legend>
         <tal:requete tal:define="auteurPk request/auteurPk;
                                  Auteur python:view.getAuteurByPk(auteurPk);">
             <tal:boucle tal:repeat="auteur Auteur">
-                <form action="admin-auteur-inserer"
+                <form action="manageAuteur"
                       method="post">
                     <fieldset>
                         <legend class="legende">Coordonn&eacute;es</legend>
@@ -142,7 +142,7 @@
                     </fieldset>
                 </form>
             </tal:boucle>
-        </tal:requete> 
+        </tal:requete>
     </fieldset>
 </div><!-- div metal-->
 </body>

@@ -13,11 +13,11 @@
 <div metal:fill-slot="main"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
     <br />
-    
+
     <h1>:: Gestion des auteurs d'expériences ::</h1>
     <fieldset>
         <legend class="legende"><img src="alerte.png" /> <span class="grasrouge">Supprimer un auteur</span></legend>
-        
+
         <tal:requete tal:define="auteurPk request/auteurPk;
                                  experience python:view.isAuteurHadExperience(auteurPk);
                                  institution python:view.isAuteurHadInstitution(auteurPk);
@@ -25,12 +25,12 @@
             <tal:block tal:condition="python: experience==False and institution==False">
                 <tal:boucle tal:repeat="auteur Auteur">
                     <form action="deleteAuteurByPk"
-                          method="post">                    
+                          method="post">
                         <div class="div_question">
                             <img src="list_flch_rouge.png" />
                             <span class="clps-etiquette">Nom de l'auteur</span>
                             <br />
-                            <span tal:content="auteur/auteur_nom" 
+                            <span tal:content="auteur/auteur_nom"
                                    class="grasorange" />
                         </div>
                         <div class="div_question">
@@ -113,7 +113,7 @@
                     </form>
                 </tal:boucle>
             </tal:block>
-        </tal:requete> 
+        </tal:requete>
     </fieldset>
 </div><!-- div metal-->
 </body>

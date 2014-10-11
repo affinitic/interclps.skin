@@ -769,7 +769,7 @@
 
 <!-- ADMIN AUTEUR -->
     <browser:page
-          name="admin-auteur-creer"
+          name="admin-creer-un-auteur"
           for="*"
           template="templates/gestion_db/gestion_auteur/admin_creer_auteur_experience.pt"
           permission="zope.Public"
@@ -777,15 +777,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-auteur-inserer"
-          for="*"
-          template="templates/gestion_db/gestion_auteur/admin_inserer_auteur_experience.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="admin-auteur-modifier"
+          name="admin-modifier-un-auteur"
           for="*"
           template="templates/gestion_db/gestion_auteur/admin_modifier_auteur_experience.pt"
           permission="zope.Public"
@@ -793,7 +785,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-auteur-supprimer"
+          name="admin-supprimer-un-auteur"
           for="*"
           template="templates/gestion_db/gestion_auteur/admin_supprimer_auteur_experience.pt"
           permission="zope.Public"
@@ -801,7 +793,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-auteur-chercher"
+          name="admin-chercher-un-auteur"
           for="*"
           template="templates/gestion_db/gestion_auteur/admin_chercher_auteur_experience.pt"
           permission="zope.Public"
@@ -815,6 +807,14 @@
           class=".ManageInterClps.ManageInterClps"
           allowed_interface=".interfaces.IManageInterClps"
           attribute="deleteAuteurByPk"
+          />
+    <browser:page
+          name="manageAuteur"
+          for="*"
+          class=".ManageInterClps.ManageInterClps"
+          permission="zope.Public"
+          attribute="manageAuteur"
+          allowed_interface=".interfaces.IManageInterClps"
           />
 
 
