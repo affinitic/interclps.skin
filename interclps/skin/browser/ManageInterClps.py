@@ -185,8 +185,8 @@ class ManageInterClps(BrowserView):
         mailer.setRecipients("alain.meurant@affinitic.be, l.polome@province.luxembourg.be, s.verscheure@province.luxembourg.be, %s" % clpsEmailContact)
         #mailer.setRecipients("alain.meurant@affinitic.be")
         mail = message
-        print message
-        #mailer.sendAllMail(mail)
+        #print message
+        mailer.sendAllMail(mail)
 
     def sendMailWhenLoginByAuteur(self, sujet, message):
         """
@@ -197,8 +197,8 @@ class ManageInterClps(BrowserView):
         mailer.setSubject(sujet)
         mailer.setRecipients("alain.meurant@skynet.be")
         mail = message
-        print message
-        #mailer.sendAllMail(mail)
+        #print message
+        mailer.sendAllMail(mail)
 
     def sendMailForNewAuteurExperience(self):
         """
