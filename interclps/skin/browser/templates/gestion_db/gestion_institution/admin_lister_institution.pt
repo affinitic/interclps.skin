@@ -103,7 +103,7 @@
                                   </td>
                                   <td align="right">
                                       <a href=""
-                                         tal:attributes="href string:decrire-une-institution?institutionPk=${institutionPk}"
+                                         tal:attributes="href string:admin-decrire-une-institution?institutionPk=${institutionPk}"
                                          title="Description institution"
                                          alt="Description institution">
                                           <img src="btn_suivant.png" /></a>
