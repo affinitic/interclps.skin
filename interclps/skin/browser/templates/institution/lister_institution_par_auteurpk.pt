@@ -32,19 +32,19 @@
                    </div>
                    <ul>
                         <li>
-                           <span class="brun">Adresse :</span><br />
+                           <span class="grasbrun">Adresse :</span><br />
                            <span tal:content="institution/institution_adresse"
                                  class="rubrique-db" />
                         </li>
                         <li>
-                           <span class="brun">Localité :</span><br />
+                           <span class="grasbrun">Localité :</span><br />
                            <span class="rubrique-db">
                                <span tal:content="institution/commune/com_localite_cp" />
                                <span tal:content="institution/commune/com_localite_nom" />
                            </span>
                         </li>
                         <li>
-                           <span class="brun">Contact :</span><br />
+                           <span class="grasbrun">Contact :</span><br />
                            <span tal:content="institution/institution_nom_contact"
                                  class="rubrique-db" />
                         </li>
