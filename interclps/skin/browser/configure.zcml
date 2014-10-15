@@ -471,6 +471,14 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
+          name="admin-lister-les-institutions-par-auteurpk"
+          for="*"
+          template="templates/gestion_db/gestion_institution/admin_lister_institution_par_auteurpk.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
           name="admin-modifier-une-institution"
           for="*"
           template="templates/gestion_db/gestion_institution/admin_modifier_institution.pt"

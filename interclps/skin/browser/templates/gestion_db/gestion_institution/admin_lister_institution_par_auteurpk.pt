@@ -12,7 +12,8 @@
 <div metal:fill-slot="main">
    <h1>:: Liste des institutions ::</h1>
 
-   <div tal:define="institutions python:view.getInstitutionByAuteurLogin();">
+   <div tal:define="auteurPk request/auteurPk;
+                    institutions python:view.getInstitutionByAuteurPk(auteurPk);">
        <tal:boucle tal:repeat="institution institutions">
            <tal:block tal:define="institutionPk institution/institution_pk">
                <fieldset>
@@ -60,8 +61,6 @@
                                   <br />
                                   Dernière modification :
                                   <span tal:content="python: institution.institution_modification_date.strftime('%d-%m-%Y')" />
-                                  <br />
-                                  PK : <span tal:content="institutionPk" />
                               </td>
                               <td align="right">
                                   <div class="btn-modifier"

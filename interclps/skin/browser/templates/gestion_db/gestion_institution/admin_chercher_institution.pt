@@ -117,7 +117,7 @@
         <fieldset tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
                   class="search-zone-nom">
             <legend class="search-legend-titre"> Recherche par auteur </legend>
-            <form action="lister-les-institutions-par-auteurpk"
+            <form action="admin-lister-les-institutions-par-auteurpk"
                   method="post">
                 Ci-dessous, la liste des différents auteurs d'institution encodées dans la base.
                 <br />
