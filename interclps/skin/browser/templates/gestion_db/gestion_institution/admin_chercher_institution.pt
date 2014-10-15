@@ -30,15 +30,14 @@
             <legend class="search-legend-titre"> A partir du titre d'une institution </legend>
             <div id="info-champs">
             </div>
-            <br />
-            <form action="decrire-une-institution"
+            <form action="admin-decrire-une-institution"
                   method="post">
                 <div class="div_question">
                     <input type="text"
                            id="nom_institution"
                            name="nomInstitution"
                            value=""
-                           size="50">
+                           size="100">
                 </div>
                 <div class="div_question">
                     <input type="submit"
@@ -49,27 +48,37 @@
         </fieldset>
 
         <fieldset class="search-zone-nom">
-            <legend class="search-legend-titre"> A partir de la PK d'une institution </legend>
-            <form action="decrire-une-institution" method="post">
-                <div class="div_question">
-                    Pk de l'institution<br />
-                    <input type="text"
-                           id="institutionPk"
-                           name="institutionPk"
-                           value=""
-                           size="10">
-                </div>
+            <legend class="search-legend-titre"> Toutes les institutions CLPS-LUX de la DB </legend>
+            <form action="admin-decrire-une-institution"
+                  method="post">
+                Ci-dessous, la liste des différentes institution encodées dans la base.
+                    <div class="div_question">
+                        <select name="institutionPk">
+                            <tal:block tal:define="institutions python:view.getAllInstitutionByClpsProprio(2)">
+                                <option></option>
+                                <optgroup label="CLPS-LUX">
+                                    <tal:boucle tal:repeat="institution institutions">
+                                        <option value=""
+                                                tal:attributes="value institution/institution_pk">
+                                            <span tal:content="institution/institution_nom">nom institution</span>
+                                        </option>
+                                    </tal:boucle>
+                                </optgroup>
+                            </tal:block>
+                        </select>
+                    </div>
                 <div class="div_question">
                     <input type="submit"
                            value="lancer la recherche"
                            class="search-button" />
                 </div>
             </form>
-        </fieldset>
+        </fieldset><!--search-zone-nom-->
 
         <fieldset class="search-zone-nom">
             <legend class="search-legend-titre"> Toutes les institutions de la DB </legend>
-            <form action="decrire-une-institution" method="post">
+            <form action="admin-decrire-une-institution"
+                  method="post">
                 Ci-dessous, la liste des différentes institution encodées dans la base.
                     <div class="div_question">
                         <select name="institutionPk">
@@ -108,7 +117,8 @@
         <fieldset tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
                   class="search-zone-nom">
             <legend class="search-legend-titre"> Recherche par auteur </legend>
-            <form action="lister-les-institutions-par-auteurpk" method="post">
+            <form action="lister-les-institutions-par-auteurpk"
+                  method="post">
                 Ci-dessous, la liste des différents auteurs d'institution encodées dans la base.
                 <br />
                 <tal:block tal:define="auteurs python:view.getAllAuteurFromInstitution()">
@@ -131,6 +141,26 @@
                 </div>
             </form>
         </fieldset><!--search-zone-nom-->
+
+        <fieldset class="search-zone-nom">
+            <legend class="search-legend-titre"> A partir de la PK d'une institution </legend>
+            <form action="admin-decrire-une-institution"
+                   method="post">
+                <div class="div_question">
+                    Pk de l'institution<br />
+                    <input type="text"
+                           id="institutionPk"
+                           name="institutionPk"
+                           value=""
+                           size="10">
+                </div>
+                <div class="div_question">
+                    <input type="submit"
+                           value="lancer la recherche"
+                           class="search-button" />
+                </div>
+            </form>
+        </fieldset>
     </div><!--id moteur-recherche-->
 </div><!-- div metal-->
 </body>

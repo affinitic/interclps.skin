@@ -2492,7 +2492,8 @@ class ManageInterClps(BrowserView):
     def getAllInstitutionByClpsProprio(self, clpsProprioPk):
         """
         table pg institution
-        recuperation de toutes les institutions
+        recuperation de toutes les institutions d'un clps
+        voir table clps  1 bw - 2 lux
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session

@@ -13,11 +13,11 @@
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
     <h1>:: Liste des institutions ::</h1>
 
-    <div  class="btn-listing-par-clps">
+    <div class="btn-listing-par-clps">
         &nbsp;<a href="admin-lister-les-institutions#clpsbw">Les institutions du CLPS-Bw</a>
     </div>
     <br />
-    <div  class="btn-listing-par-clps">
+    <div class="btn-listing-par-clps">
         &nbsp;<a href="admin-lister-les-institutions#clpslux">Les institutions du CLPS-Lux</a>
     </div>
 
