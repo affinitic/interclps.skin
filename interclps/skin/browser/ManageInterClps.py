@@ -2511,7 +2511,7 @@ class ManageInterClps(BrowserView):
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         query = session.query(Institution)
-        query = query.order_by(InstitutionT.institution_nom)
+        query = query.order_by(Institution.institution_nom)
         if etat:
             query = query.filter(Institution.institution_etat == 'publish')
         query = query.filter(Institution.institution_listing_ressource_plate_forme_assuetude == True)
