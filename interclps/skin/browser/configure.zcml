@@ -447,6 +447,14 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
+          name="admin-chercher-une-institution"
+          for="*"
+          template="templates/gestion_db/gestion_institution/admin_chercher_institution.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
           name="admin-lister-les-institutions"
           for="*"
           template="templates/gestion_db/gestion_institution/admin_lister_institution.pt"
