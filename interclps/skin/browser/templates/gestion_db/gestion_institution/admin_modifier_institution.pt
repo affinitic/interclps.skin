@@ -623,7 +623,7 @@
                 </fieldset>
 
                 <fieldset>
-                    <legend>Propriétaire</legend>
+                    <legend>Propriétaires</legend>
                     <ul class="formulaire">
                         <tal:boucle tal:repeat="clps allClps">
                             <li>

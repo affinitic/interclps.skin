@@ -484,7 +484,7 @@
                                  checked=""
                                  value=""
                                  tal:attributes="value clps/clps_pk;
-                                                 checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
+                                                 checked python:clps.clps_sigle in selectedClpsProprio and 'selected' or None;" />
                               &nbsp;&nbsp;
                               <span tal:content="clps/clps_sigle" />
                             </li>
