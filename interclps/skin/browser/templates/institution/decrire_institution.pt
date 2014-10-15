@@ -14,7 +14,7 @@
      tal:define="institutionPk request/institutionPk | nothing;
                  institutions python:view.getAllInstitution(institutionPk);
                  allClps python: view.getAllClps();
-                 selectedClpsProprio python:view.getClpsProprioForInstitution(institutionPk, 'pk')">
+                 selectedClpsProprio python:view.getClpsProprioForInstitution(institutionPk, 'sigle')">
     <tal:boucle tal:repeat="institution institutions">
         <tal:block tal:define="institutionPk institution/institution_pk">
             <div id="title-institution">
@@ -474,7 +474,7 @@
                                  checked=""
                                  value=""
                                  tal:attributes="value clps/clps_pk;
-                                                 checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
+                                                 checked python:clps.clps_sigle in selectedClpsProprio and 'selected' or None;" />
                               &nbsp;&nbsp;
                               <span tal:content="clps/clps_sigle" />
                             </li>
