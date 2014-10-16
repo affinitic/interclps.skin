@@ -17,9 +17,9 @@
     <h1>:: Gestion des auteurs d'expériences ::</h1>
     <fieldset>
         <legend class="legende">Modifier un auteur</legend>
-        <tal:requete tal:define="auteurPk request/auteurPk;
-                                 Auteur python:view.getAuteurByPk(auteurPk);">
-            <tal:boucle tal:repeat="auteur Auteur">
+        <tal:requete tal:define="auteurPk request/auteurPk | nothing;
+                                 auteur python:view.getAuteurByPk(auteurPk);
+                                 auteurPk auteur/auteur_pk">
                 <form action="manageAuteur"
                       method="post">
                     <fieldset>
@@ -91,17 +91,6 @@
                                    tal:attributes="value auteur/auteur_institution" />
                         </div>
                         <div class="div_question">
-                            <span class="fieldRequired" title="Requis">&nbsp;</span>
-                            <span class="clps-etiquette">ID FileMaker</span>
-                            <br />
-                            <input type="text"
-                                   name="auteur_id_filemaker"
-                                   value=""
-                                   class="required"
-                                   size="50"
-                                   tal:attributes="value auteur/auteur_id_filemaker" />
-                        </div>
-                        <div class="div_question">
                             <img src="list_flch_rouge.png" />
                             <span class="clps-etiquette">Etat</span>
                             <br />
@@ -141,7 +130,6 @@
                         </div>
                     </fieldset>
                 </form>
-            </tal:boucle>
         </tal:requete>
     </fieldset>
 </div><!-- div metal-->
