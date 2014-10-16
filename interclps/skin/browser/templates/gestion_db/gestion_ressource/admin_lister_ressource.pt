@@ -14,7 +14,8 @@
     <div tal:define="ressources python:view.getAllRessource();">
         <tal:boucle tal:repeat="ressource ressources">
             <tal:block tal:define="ressourcePk ressource/ressource_pk;
-                                   publics python:view.getPublicByRessourcePk(ressourcePk, 'nom');">
+                                   publics python:view.getPublicByRessourcePk(ressourcePk, 'nom');
+                                   selectedClpsProprio python:view.getClpsProprioForRessource(ressourcePk, 'sigle')">
                 <fieldset>
                     <legend>
                           <a href=""
@@ -24,22 +25,22 @@
                     </legend>
                     <ul class="description">
                         <li>
-                            <span class="left-rubrique-db"> Description :</span><br />
+                            <span class="grasbrun"> Description :</span><br />
                             <span tal:replace="structure ressource/ressource_description"
                                    class="rubrique-db" />
                         </li>
                         <li>
-                            <span class="left-rubrique-db"> Auteur :</span><br />
+                            <span class="grasbrun"> Auteur :</span><br />
                             <span tal:content="ressource/ressource_auteur"
                                    class="rubrique-db" />
                         </li>
                         <li>
-                            <span class="left-rubrique-db"> Année de parution :</span><br />
+                            <span class="grasbrun"> Année de parution :</span><br />
                             <span tal:content="ressource/ressource_date_edition"
                                    class="rubrique-db" />
                         </li>
                         <li>
-                            <span class="left-rubrique-db"> Public :</span><br />
+                            <span class="grasbrun"> Public :</span><br />
                             <tal:boucle tal:repeat="public publics">
                                 <span tal:content="public"
                                       class="rubrique-db" /><br />
@@ -53,17 +54,39 @@
                             <tr>
                                 <td align="left" class="discreet" valign="bottom">
                                     <div>
-                                      par
-                                      <span tal:content="ressource/ressource_modification_employe | nothing" />
-                                      <br />
-                                      Dernière modification :
-                                      <span tal:content="python: ressource.ressource_modification_date.strftime('%d-%m-%Y')" />
+                                        Edité par le
+                                        <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
+                                            <span tal:content="clpsSigle"
+                                                  class="gras" />
+                                            <tal:if tal:condition="not: repeat/clpsSigle/end">
+                                                <span>et le </span>
+                                            </tal:if>
+                                        </tal:boucle>
+                                      </div>
+                                    <div>
+                                        Dernière modification :
+                                        <span tal:content="python: ressource.ressource_modification_date.strftime('%d-%m-%Y')"
+                                              class="gras" />
+                                        par
+                                        <span tal:content="ressource/ressource_modification_employe | nothing"
+                                              class="gras" />
                                     </div>
                                     <div id="experience-etat"
                                          tal:define="ressourceEtat python:view.getRessourceEtat(ressourcePk)"
                                          tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-                                        <span tal:content="ressourceEtat" />
-                                            &Xi;
+                                         <span tal:condition="python: ressourceEtat=='Publié'">
+                                            <span tal:content="ressourceEtat" class="vert-actif" />
+                                        </span>
+                                        <span tal:condition="python: ressourceEtat=='En attente'">
+                                            <span tal:content="ressourceEtat" class="orange-attente" />
+                                            &nbsp;<img src="alerte.png" width="16" />
+                                        </span>
+                                        <span tal:condition="python: ressourceEtat=='Privé'">
+                                            <span tal:content="ressourceEtat" class="rouge-non-actif" />
+                                        </span>
+                                    </div>
+                                    <div>
+                                        &Xi;
                                         PK : <span tal:content="ressource/ressource_pk" />
                                     </div>
                                 </td>
