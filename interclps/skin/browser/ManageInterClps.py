@@ -626,17 +626,24 @@ class ManageInterClps(BrowserView):
         allAuteurFromInstitution = query.all()
         return allAuteurFromInstitution
 
-    def getAuteurByPk(self, auteur_pk):
+    def getAuteurByPk(self, auteurPk=None):
         """
         table pg auteur
         recuperation d'un auteur selon la pk
+        ou selon son nom via le leffesearch
         """
+        fields = self.request.form
+        nomAuteur = fields.get('nomAuteur')
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         query = session.query(Auteur)
-        query = query.filter(Auteur.auteur_pk == auteur_pk)
-        query = query.order_by(Auteur.auteur_nom)
-        auteur = query.all()
+        if nomAuteur:
+            nomAuteur = nomAuteur.split(' ')
+            nomAuteur = nomAuteur[0]
+            query = query.filter(Auteur.auteur_nom == nomAuteur)
+        if auteurPk:
+            query = query.filter(Auteur.auteur_pk == auteurPk)
+        auteur = query.one()
         return auteur
 
     def getAuteurLogin(self, auteur_pk):
@@ -819,7 +826,6 @@ class ManageInterClps(BrowserView):
         auteur_pass = getattr(fields, 'auteur_pass', None)
         auteur_email = getattr(fields, 'auteur_email', None)
         auteur_institution = getattr(fields, 'auteur_institution', None)
-        auteur_id_filemaker = getattr(fields, 'auteur_id_filemaker', None)
         auteur_actif = getattr(fields, 'auteur_actif', None)
         auteur_for_experience = getattr(fields, 'auteur_for_experience', False)
         auteur_for_institution = getattr(fields, 'auteur_for_institution', False)
@@ -838,7 +844,6 @@ class ManageInterClps(BrowserView):
             auteur.auteur_pass = unicode(auteur_pass, 'utf-8')
             auteur.auteur_email = unicode(auteur_email, 'utf-8')
             auteur.auteur_institution = unicode(auteur_institution, 'utf-8')
-            auteur.auteur_id_filemaker = unicode(auteur_id_filemaker, 'utf-8')
             auteur.auteur_actif = auteur_actif
             auteur.auteur_for_experience = auteur_for_experience
             auteur.auteur_for_institution = auteur_for_institution
@@ -5147,7 +5152,7 @@ class ManageInterClps(BrowserView):
 
         if operation == "update":
             self.updateAuteur()
-            self.deleteLoginAuteur(auteurLogin)
+            #self.deleteLoginAuteur(auteurLogin)
             if auteurEtat == 'True':
                 self.insertLoginAuteur(auteurLogin,
                                        auteurPassword,
