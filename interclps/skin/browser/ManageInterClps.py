@@ -442,7 +442,7 @@ class ManageInterClps(BrowserView):
         clpsInfo = query.one()
         return clpsInfo
 
-    def getClpsProprioForRessource(self, ressourcePk, retour):
+    def decri(self, ressourcePk, retour):
         """
         table pg ressource et link_ressource_clps
         recuperation des clpsProprio d'une ressource
@@ -458,6 +458,30 @@ class ManageInterClps(BrowserView):
         for ressource in ressources:
             for clps in allClps:
                 if ressource.clps_fk == clps.clps_pk:
+                    if retour == 'sigle':
+                        clpsProprioListe.append(clps.clps_sigle)
+                    if retour == 'nom':
+                        clpsProprioListe.append(clps.clps_nom)
+                    if retour == 'pk':
+                        clpsProprioListe.append(clps.clps_pk)
+        return clpsProprioListe
+
+    def getClpsProprioForExperience(self, experiencePk, retour):
+        """
+        table pg experience et link_experience_clps
+        recuperation des clpsProprio d'une experience
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        query = session.query(LinkExperienceClpsProprio)
+        query = query.filter(LinkExperienceClpsProprio.experience_fk == experiencePk)
+        experiences = query.all()
+
+        clpsProprioListe = []
+        allClps = self.getAllClps()
+        for experience in experiences:
+            for clps in allClps:
+                if experience.clps_fk == clps.clps_pk:
                     if retour == 'sigle':
                         clpsProprioListe.append(clps.clps_sigle)
                     if retour == 'nom':
@@ -490,22 +514,22 @@ class ManageInterClps(BrowserView):
                         clpsProprioListe.append(clps.clps_pk)
         return clpsProprioListe
 
-    def getClpsProprioForExperience(self, experiencePk, retour):
+    def getClpsProprioForRessource(self, ressourcePk, retour):
         """
-        table pg experience et link_experience_clps
-        recuperation des clpsProprio d'une experience
+        table pg ressource et link_ressource_clps
+        recuperation des clpsProprio d'une ressource
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        query = session.query(LinkExperienceClpsProprio)
-        query = query.filter(LinkExperienceClpsProprio.experience_fk == experiencePk)
-        experiences = query.all()
+        query = session.query(LinkRessourceClpsProprio)
+        query = query.filter(LinkRessourceClpsProprio.ressource_fk == ressourcePk)
+        ressources = query.all()
 
         clpsProprioListe = []
         allClps = self.getAllClps()
-        for experience in experiences:
+        for ressource in ressources:
             for clps in allClps:
-                if experience.clps_fk == clps.clps_pk:
+                if ressource.clps_fk == clps.clps_pk:
                     if retour == 'sigle':
                         clpsProprioListe.append(clps.clps_sigle)
                     if retour == 'nom':
@@ -513,6 +537,7 @@ class ManageInterClps(BrowserView):
                     if retour == 'pk':
                         clpsProprioListe.append(clps.clps_pk)
         return clpsProprioListe
+
 
 ### COMMUNES ###
 
