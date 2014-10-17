@@ -841,6 +841,4 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
 
-
-
 </configure>

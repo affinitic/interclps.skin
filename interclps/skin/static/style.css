@@ -1199,6 +1199,13 @@ width:28px;
 height:73px;
 }
 
+img#image-ressource{
+display:block;
+margin:auto;
+box-shadow:3px 3px 6px rgba(50,50,50,0.5);
+margin-bottom:20px;
+}
+
 .titre-ressource-top{
 float:left;
 color:#fff;

@@ -39,6 +39,12 @@
 
 <!-- === COLONNE GAUCHE =================================================================================================-->
             <div id="left-ressource">
+                <div class="left-section-description" >
+                    <img src=""
+                         id="image-ressource"
+                         tal:attributes="src string:${context/@@plone_portal_state/portal_url}/local_fs_ressource/${ressourcePk}.png" />
+                    <br /><br />
+                </div>
                 <div>
                     <h3 class="left-rubrique-db">Public</h3>
                     <div class="text-db">
