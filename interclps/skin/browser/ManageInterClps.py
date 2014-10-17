@@ -1965,7 +1965,7 @@ class ManageInterClps(BrowserView):
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        query = session.query(RessourceT)
+        query = session.query(Ressource)
         ressource = query.all()
         listePk = []
         for i in ressource:
@@ -2099,7 +2099,7 @@ class ManageInterClps(BrowserView):
                         listeClpsDispoForRessource.append(j.clps_nom)
         return listeClpsDispoForRessource
 
-    def addRessource(self):
+    def insertRessource(self):
         """
         table pg ressource
         ajout d'une ressource
@@ -2164,7 +2164,6 @@ class ManageInterClps(BrowserView):
                              ressource_modification_employe=ressource_modification_employe)
         session.add(newEntry)
         session.flush()
-        return {'status': 1}
 
     def addLinkRessourceSupport(self, ressourceFk):
         """
@@ -5096,7 +5095,7 @@ class ManageInterClps(BrowserView):
         ressourceClpsDispoFk = getattr(fields, 'ressource_clps_dispo_fk', None)
 
         if operation == "insert":
-            self.addRessource()
+            self.insertRessource()
             ressourceFk = self.getRessourceMaxPk()
             if ressourcePublicFk > 0:
                 self.addLinkRessourcePublic(ressourceFk)
@@ -5108,7 +5107,15 @@ class ManageInterClps(BrowserView):
                 self.addLinkRessourceClpsProprio(ressourceFk)
             if ressourceClpsDispoFk:                            # gestion du clps proprio
                 self.addLinkRessourceClpsDispo(ressourceFk)
-            return {'status': 1}
+
+            portalUrl = getToolByName(self.context, 'portal_url')()
+            ploneUtils = getToolByName(self.context, 'plone_utils')
+            message = u"La ressource a été ajoutée !"
+            ploneUtils.addPortalMessage(message, 'info')
+            url = "%s/admin-decrire-une-ressource?ressourcePk=%s" % (portalUrl, ressourceFk)
+            self.request.response.redirect(url)
+
+
 
         if operation == "update":
             ressourceFk = getattr(fields, 'ressource_pk')
@@ -5134,7 +5141,12 @@ class ManageInterClps(BrowserView):
             if ressourceClpsDispoFk:
                 self.addLinkRessourceClpsDispo(ressourceFk)
 
-            return {'status': 1}
+            portalUrl = getToolByName(self.context, 'portal_url')()
+            ploneUtils = getToolByName(self.context, 'plone_utils')
+            message = u"La ressource ont été modifiée !"
+            ploneUtils.addPortalMessage(message, 'info')
+            url = "%s/admin-decrire-une-ressource?ressourcePk=%s" % (portalUrl, ressourceFk)
+            self.request.response.redirect(url)
 
     def manageSupport(self):
         """

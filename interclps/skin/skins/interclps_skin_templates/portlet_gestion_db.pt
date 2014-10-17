@@ -130,22 +130,22 @@
             <dt class="menu-titre">Ressources</dt>
                 <dd class="small-comment">(Livres - Outils - Dossiers)</dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/ressource-creer">
+                    <a href="" tal:attributes="href string:${context/portal_url}/admin-creer-une-ressource">
                         Cr&eacute;er
                     </a>
                 </dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/ressource-lister">
+                    <a href="" tal:attributes="href string:${context/portal_url}/admin-lister-les-ressources">
                         Lister
                     </a>
                 </dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/ressource-chercher">
+                    <a href="" tal:attributes="href string:${context/portal_url}/admin-chercher-une-ressource">
                         Modifier
                     </a>
                 </dd>
                 <dd>
-                    <a href="" tal:attributes="href string:${context/portal_url}/ressource-chercher">
+                    <a href="" tal:attributes="href string:${context/portal_url}/admin-chercher-une-ressource">
                         Rechercher
                     </a>
                     <span class="portlet-gestion-db-separation"></span>

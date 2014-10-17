@@ -19,7 +19,8 @@
                  clpsDispo python:view.getClpsDispoByRessourcePk(ressourcePk, 'cle');
                  selectedClpsProprio python:view.getClpsProprioForRessource(ressourcePk, 'pk')"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-<form action="ressource-inserer" method="post">
+<form action="manageRessource"
+      method="post">
     <tal:boucle tal:repeat="ressource ressources">
         <br />
         <h1>:: Modifier la ressource : <span tal:content="ressource/ressource_titre" class="rouge-titre" /> ::</h1>
@@ -57,7 +58,7 @@
                 <input type="text"
                         name="ressource_collection"
                         value=""
-                        size="50" 
+                        size="50"
                         tal:attributes="value ressource/ressource_collection"
                         class="grasorange" />
             </div>
@@ -67,7 +68,7 @@
                 <input type="text"
                        name="ressource_edition"
                        value=""
-                       size="50" 
+                       size="50"
                        tal:attributes="value ressource/ressource_edition"
                        class="grasorange"/>
             </div>
@@ -77,7 +78,7 @@
                 <input type="text"
                        name="ressource_lieu_edition"
                        value=""
-                       size="50" 
+                       size="50"
                        tal:attributes="value ressource/ressource_lieu_edition"
                        class="grasorange"/>
             </div>
@@ -87,7 +88,7 @@
                 <input type="text"
                        name="ressource_date_edition"
                        value=""
-                       size="50" 
+                       size="50"
                        tal:attributes="value ressource/ressource_date_edition"
                        class="grasorange"/>
             </div>
@@ -168,7 +169,7 @@
                                                    view.getAllActiveSupport(),
                                                    nameKey='support_titre',
                                                    pkKey='support_pk',
-                                                   selectedPks=view.getSupportByRessourcePk(ressource.ressource_pk, 'cle'))" /> 
+                                                   selectedPks=view.getSupportByRessourcePk(ressource.ressource_pk, 'cle'))" />
                 </tal:addremove>
             </div>
             <div class="div_question">
@@ -189,7 +190,7 @@
         <div tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
              id="description-for-manager">
             <div class="titre-for-manage">
-                &Xi; Administration &Xi; 
+                &Xi; Administration &Xi;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span tal:content="ressource/ressource_pk" />
             </div>
@@ -209,7 +210,7 @@
                                                    view.getAllActiveTheme(),
                                                    nameKey='theme_nom',
                                                    pkKey='theme_pk',
-                                                   selectedPks=view.getThemePkByRessourcePk(ressource.ressource_pk))" /> 
+                                                   selectedPks=view.getThemePkByRessourcePk(ressource.ressource_pk))" />
                 </tal:addremove>
             </fieldset>
 
@@ -235,7 +236,7 @@
                 <legend>Mission</legend>
                 <ul class="formulaire">
                     <li>
-                        <img src="list_flch_rouge.png" /> 
+                        <img src="list_flch_rouge.png" />
                         <input type="checkbox"
                                name="ressource_mission_centre_documentation"
                                value="True"
@@ -243,7 +244,7 @@
                         &nbsp;&nbsp;Centre documentation
                     </li>
                     <li>
-                        <img src="list_flch_rouge.png" /> 
+                        <img src="list_flch_rouge.png" />
                         <input type="checkbox"
                                name="ressource_mission_accompagnement_projet"
                                value="True"
@@ -251,7 +252,7 @@
                         &nbsp;&nbsp;Accompagnement de projet
                     </li>
                     <li>
-                        <img src="list_flch_rouge.png" /> 
+                        <img src="list_flch_rouge.png" />
                         <input type="checkbox"
                                name="ressource_mission_reseau_echange"
                                value="True"
@@ -259,7 +260,7 @@
                         &nbsp;&nbsp;Mise en réseau, échanges
                     </li>
                     <li>
-                        <img src="list_flch_rouge.png" /> 
+                        <img src="list_flch_rouge.png" />
                         <input type="checkbox"
                                name="ressource_mission_formation"
                                value="True"

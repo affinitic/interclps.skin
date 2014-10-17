@@ -294,7 +294,7 @@
 <!--  RESOURCES - RESOURCES - RESOURCES - RESOURCES - RESOURCES  -->
 <!-- USER RESSOURCE -->
     <browser:page
-          name="ressource-decrire"
+          name="decrire-une-ressource"
           for="*"
           template="templates/ressource/ressource_description.pt"
           permission="zope.Public"
@@ -303,7 +303,7 @@
           />
 <!-- ADMIN RESSOURCE -->
     <browser:page
-          name="ressource-chercher"
+          name="admin-chercher-une-ressource"
           for="*"
           template="templates/gestion_db/gestion_ressource/admin_cherhcer_ressource.pt"
           permission="zope.Public"
@@ -311,7 +311,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="ressource-creer"
+          name="admin-creer-une-ressource"
           for="*"
           template="templates/gestion_db/gestion_ressource/admin_creer_ressource.pt"
           permission="zope.Public"
@@ -319,15 +319,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="ressource-inserer"
-          for="*"
-          template="templates/gestion_db/gestion_ressource/admin_inserer_ressource.pt"
-          permission="zope.Public"
-          class=".ManageInterClps.ManageInterClps"
-          allowed_interface=".interfaces.IManageInterClps"
-          />
-    <browser:page
-          name="ressource-modifier"
+          name="admin-modifier-une-ressource"
           for="*"
           template="templates/gestion_db/gestion_ressource/admin_modifier_ressource.pt"
           permission="zope.Public"
@@ -335,7 +327,7 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="ressource-lister"
+          name="admin-lister-les-ressources"
           for="*"
           template="templates/gestion_db/gestion_ressource/admin_lister_ressource.pt"
           permission="zope.Public"
@@ -343,11 +335,19 @@
           allowed_interface=".interfaces.IManageInterClps"
           />
     <browser:page
-          name="admin-ressource-decrire"
+          name="admin-decrire-une-ressource"
           for="*"
           template="templates/gestion_db/gestion_ressource/admin_decrire_ressource.pt"
           permission="zope.Public"
           class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
+          name="manageRessource"
+          for="*"
+          class=".ManageInterClps.ManageInterClps"
+          permission="zope.Public"
+          attribute="manageRessource"
           allowed_interface=".interfaces.IManageInterClps"
           />
 

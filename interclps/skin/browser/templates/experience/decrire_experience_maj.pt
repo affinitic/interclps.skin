@@ -213,7 +213,7 @@
                                               ressourceTitre python:ressource[1]">
                                 <a href=""
                                    tal:attributes="href
-                                                   string:ressource-decrire?ressourcePk=${ressourcePk}">
+                                                   string:decrire-une-ressource?ressourcePk=${ressourcePk}">
                                   &#8226; <span tal:content="ressourceTitre" /></a>
                                 <br />
                             </span>

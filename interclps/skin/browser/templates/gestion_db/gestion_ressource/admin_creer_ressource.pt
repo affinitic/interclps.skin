@@ -18,7 +18,7 @@
 
 <body>
 <div metal:fill-slot="main">
-<form action="ressource-inserer"
+<form action="manageRessource"
       method="post">
     <br />
     <h1>:: Ressource ::</h1>
@@ -94,7 +94,7 @@
                        name="ressource_public"
                        value="TEST" />
             </div>
-            <div class="div_question"> 
+            <div class="div_question">
                 <img src="list_flch_rouge.png" /> Autres info
                 <br />
                 <div id="info-champs">
@@ -126,7 +126,7 @@
                 <br />
                 <span tal:replace="structure python: view.getWysiwygField('ressource_objectif', '')" />
             </div>
-            <div class="div_form_input">    
+            <div class="div_form_input">
                 <tal:block tal:define="allClps python:view.getAllClps()">
                     <tal:boucle tal:repeat="clps allClps">
                         <img src="list_flch_rouge.png" />
@@ -134,13 +134,13 @@
                                name="ressource_clps_dispo_fk:list"
                                value=""
                                tal:attributes="value clps/clps_pk" />
-                        Disponible au 
+                        Disponible au
                         <span tal:content="clps/clps_sigle" />
                         <br /><br />
                     </tal:boucle>
                 </tal:block>
-                
-                
+
+
                 <div id="info-champs">
                     <span class="info-logo">i</span>
                     Autre disponibilté.
@@ -164,7 +164,7 @@
                                                        nameKey='support_titre',
                                                        pkKey='support_pk')" />
                 </tal:addremove>
-            </div>       
+            </div>
     </fieldset>
 
 
@@ -174,7 +174,7 @@
     <div tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)"
          id="description-for-manager">
         <div class="titre-for-manage">&Xi; Administration &Xi;</div>
-        
+
         <img src="list_flch_rouge.png" /> Etat
         <br />
         <select name="ressource_etat">
@@ -195,28 +195,28 @@
             <legend>Plate-forme</legend>
             <ul class="formulaire">
                 <li>
-                    <img src="list_flch_rouge.png" /> 
+                    <img src="list_flch_rouge.png" />
                     <input type="checkbox"
                            name="ressource_plate_forme_sante_ecole"
                            value="True" />
                     &nbsp;&nbsp;Santé à l'école
                 </li>
                 <li>
-                    <img src="list_flch_rouge.png" /> 
+                    <img src="list_flch_rouge.png" />
                     <input type="checkbox"
                            name="ressource_plate_forme_assuetude"
                            value="True" />
                     &nbsp;&nbsp;Point d'appui assuétudes
                 </li>
                 <li>
-                    <img src="list_flch_rouge.png" /> 
+                    <img src="list_flch_rouge.png" />
                     <input type="checkbox"
                            name="ressource_plate_forme_sante_famille"
                            value="True" />
                     &nbsp;&nbsp;Santé des familles
                 </li>
                 <li>
-                    <img src="list_flch_rouge.png" /> 
+                    <img src="list_flch_rouge.png" />
                     <input type="checkbox"
                            name="ressource_plate_forme_sante_environnement"
                            value="True" />
@@ -229,28 +229,28 @@
             <legend>Mission</legend>
             <ul class="formulaire">
                 <li>
-                    <img src="list_flch_rouge.png" /> 
+                    <img src="list_flch_rouge.png" />
                     <input type="checkbox"
                            name="ressource_mission_centre_documentation"
                            value="True" />
                     &nbsp;&nbsp;Centre documentation
                 </li>
                 <li>
-                    <img src="list_flch_rouge.png" /> 
+                    <img src="list_flch_rouge.png" />
                     <input type="checkbox"
                            name="ressource_mission_accompagnement_projet"
                            value="True" />
                     &nbsp;&nbsp;Accompagnement de projet
                 </li>
                 <li>
-                    <img src="list_flch_rouge.png" /> 
+                    <img src="list_flch_rouge.png" />
                     <input type="checkbox"
                            name="ressource_mission_reseau_echange"
                            value="True" />
                     &nbsp;&nbsp;Mise en réseau, échanges
                 </li>
                 <li>
-                    <img src="list_flch_rouge.png" /> 
+                    <img src="list_flch_rouge.png" />
                     <input type="checkbox"
                            name="ressource_mission_formation"
                            value="True" />
@@ -265,7 +265,7 @@
                 <tal:block tal:repeat="clps allClps">
                     <li>
                       <img src="list_flch_rouge.png" />
-                      <span tal:condition="python: clps.clps_pk==2"> 
+                      <span tal:condition="python: clps.clps_pk==2">
                           <input type="checkbox"
                                  name="ressource_clps_proprio_fk:list"
                                  checked="checked"
@@ -274,7 +274,7 @@
                           &nbsp;&nbsp;
                           <span tal:content="clps/clps_sigle" />
                       </span>
-                      <span tal:condition="python: clps.clps_pk!=2"> 
+                      <span tal:condition="python: clps.clps_pk!=2">
                           <input type="checkbox"
                                  name="ressource_clps_proprio_fk:list"
                                  value=""
@@ -295,7 +295,7 @@
         <input type="submit"
                value="Enregistrer la ressource" />
     </div>
-    
+
 </form>
 </div><!-- div metal-->
 </body>

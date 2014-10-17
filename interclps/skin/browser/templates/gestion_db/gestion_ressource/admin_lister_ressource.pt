@@ -20,7 +20,7 @@
                     <legend>
                           <a href=""
                              tal:content="ressource/ressource_titre"
-                             tal:attributes="href string:ressource-decrire?ressourcePk=${ressourcePk}"
+                             tal:attributes="href string:decrire-une-ressource?ressourcePk=${ressourcePk}"
                              class="titre_formation">titre de la ressource</a>
                     </legend>
                     <ul class="description">
@@ -94,7 +94,7 @@
                                       <div class="btn-modifier"
                                            tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                                            <a href=""
-                                              tal:attributes="href string: ressource-modifier?ressourcePk=${ressourcePk}"
+                                              tal:attributes="href string: admin-modifier-une-ressource?ressourcePk=${ressourcePk}"
                                               title="Modifier la ressource"
                                               alt="Modifier la ressource">&nbsp;</a>
                                       </div>
@@ -103,7 +103,7 @@
                                     <div align="right">
                                         <a href=""
                                            tal:attributes="href
-                                           string:ressource-decrire?ressourcePk=${ressourcePk}">
+                                           string:admin-decrire-une-ressource?ressourcePk=${ressourcePk}">
                                            <img src="btn_suivant.png" /></a>
                                     </div>
                                 </td>

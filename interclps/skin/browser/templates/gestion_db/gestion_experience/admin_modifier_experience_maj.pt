@@ -496,7 +496,7 @@
                               rows="8"
                               tal:content="experienceMaj/experience_maj_institution_outil_autre"></textarea>
                     <div class="btn-links-table">
-                        <a href="ressource-creer"
+                        <a href="admin-creer-une-ressource"
                            target="_blank"
                            alt="add_db"
                            title="créer une nouvelle resource"><img src ="add_db.png" /></a>

@@ -31,7 +31,7 @@
                          tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
                         <br />
                         <a href=""
-                           tal:attributes="href string: ressource-modifier?ressourcePk=${ressourcePk}">&nbsp;</a>
+                           tal:attributes="href string: admin-modifier-une-ressource?ressourcePk=${ressourcePk}">&nbsp;</a>
                     </div>
                 </div>
             </div>

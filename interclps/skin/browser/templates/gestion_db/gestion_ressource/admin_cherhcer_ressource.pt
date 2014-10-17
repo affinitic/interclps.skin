@@ -35,7 +35,7 @@
             <legend class="search-legend-titre"> A partir du titre d'une ressource </legend>
             <div id="info-champs">
             </div>
-            <form action="ressource-decrire"
+            <form action="decrire-une-ressource"
                   method="post">
                 <div class="div_question">
                     <input type="text"
@@ -54,7 +54,7 @@
 
         <fieldset  class="search-zone-nom">
             <legend class="search-legend-titre"> A partir de la PK de la ressouce </legend>
-            <form action="ressource-decrire"
+            <form action="decrire-une-ressource"
                   method="post">
                 <div class="div_question">
                     Pk de la ressource<br />
@@ -75,7 +75,7 @@
 
         <fieldset  class="search-zone-nom">
             <legend class="search-legend-titre"> Toutes les ressources de la DB </legend>
-            <form action="ressource-decrire"
+            <form action="decrire-une-ressource"
                   method="post">
                 Ci-dessous, la liste des différentes ressources encodées dans la base.
                 <select name="ressourcePk">
