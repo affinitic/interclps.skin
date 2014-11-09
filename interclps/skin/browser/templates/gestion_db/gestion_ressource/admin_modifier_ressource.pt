@@ -4,7 +4,6 @@
       i18n:domain="plone">
 
 <head>
-    <script src="validate_forms.js" type="text/javascript"></script>
     <metal:noborder fill-slot="top_slot"
                  tal:define="dummy python:request.set('disable_border',1)" />
 </head>
@@ -19,11 +18,25 @@
                  clpsDispo python:view.getClpsDispoByRessourcePk(ressourcePk, 'cle');
                  selectedClpsProprio python:view.getClpsProprioForRessource(ressourcePk, 'pk')"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+
+<h1> Gestion des resources </h1>
+<fieldset>
+    <h2> Charger une photo pour la ressource </h2>
+    <tal:macro tal:define="filename ressourcePk;
+                           dest_localfs string:local_fs_ressource;
+                           width string:50;
+                           height string:50;
+                           layoutmaxwidth string:500;
+                           redirect string:${context/@@plone_portal_state/portal_url}/admin-modifier-une-ressource?ressourcePk=${ressourcePk}">
+        <div metal:use-macro="context/@@affinitic.imageuploader.macros/affinitic-image-uploader" />
+    </tal:macro>
+</fieldset>
+
 <form action="manageRessource"
       method="post">
     <tal:boucle tal:repeat="ressource ressources">
         <br />
-        <h1>:: Modifier la ressource : <span tal:content="ressource/ressource_titre" class="rouge-titre" /> ::</h1>
+        <h2>Modifier la ressource : <span tal:content="ressource/ressource_titre" class="rouge-titre" /></h2>
         Il s'agit de livre, cd-rom, dvd, dossier pédagogique, jeu, ....
         <fieldset>
             <legend class="legende">Ressource</legend>
