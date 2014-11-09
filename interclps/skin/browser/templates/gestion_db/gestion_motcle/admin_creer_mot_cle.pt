@@ -4,19 +4,8 @@
       i18n:domain="plone">
 
 <head>
-    <script src="validate_forms.js" type="text/javascript"></script>
     <metal:noborder fill-slot="top_slot"
                  tal:define="dummy python:request.set('disable_border',1)" />
-
-    <metal:js fill-slot="javascript_head_slot">
-        <script src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js" type="text/javascript"></script>
-        <script src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js" type="text/javascript"></script>
-        <script src="++resource++interclps.js" type="text/javascript"></script>
-    </metal:js>
-    <metal:css fill-slot="style_slot">
-        <link href="++resource++collective.javascript.jqueryui/css/ui-lightness/jquery-ui.css" type="text/css" rel="stylesheet" />
-    </metal:css>
-
 </head>
 
 <body>
@@ -33,7 +22,7 @@
                     <th> Mot </th>
                     <th> Etat </th>
                     <th class="nosort"> Modifier </th>
-                </tr> 
+                </tr>
             </thead>
             <tbody>
                 <tal:boucle tal:repeat="motcle motcles">
@@ -81,7 +70,7 @@
                     <option value="False">Désactiver</option>
                 </select>
             </div>
-           
+
             <div class="div_form_input">
                 <input type="hidden"
                        name="operation"
@@ -97,7 +86,7 @@
         <form action="mot-cle-inserer" method="post">
             <div class="div_question">
                 <img src="list_flch_rouge.png" /> Mot-clé
-                <br />                                    
+                <br />
                 <input type="text"
                        id="thesaurus"
                        name="motcle_mot"
@@ -113,7 +102,7 @@
                     <option value="False">Désactiver</option>
                 </select>
             </div>
-            
+
             <div class="div_form_input">
                 <input type="hidden"
                        name="operation"
