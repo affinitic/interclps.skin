@@ -35,7 +35,7 @@
                         <input type="text"
                                name="experience_titre"
                                value=""
-                               size="50"
+                               size="100"
                                tal:attributes="value experience/experience_titre"
                                class="grasorange" />
                     </td>
@@ -75,7 +75,7 @@
                         <input type="text"
                                 name="experience_personne_contact"
                                 value=""
-                                size="50"
+                                size="100"
                                 tal:attributes="value experience/experience_personne_contact"
                                 class="grasorange" />
                         <br />
@@ -85,7 +85,7 @@
                         <input type="text"
                                 name="experience_personne_contact_email"
                                 value=""
-                                size="50"
+                                size="100"
                                 tal:attributes="value experience/experience_personne_contact_email"
                                 class="grasorange"/>
                         <br />
@@ -95,7 +95,7 @@
                         <input type="text"
                                 name="experience_personne_contact_telephone"
                                 value=""
-                                size="50"
+                                size="100"
                                 tal:attributes="value experience/experience_personne_contact_telephone"
                                 class="grasorange" />
                         <br />
@@ -105,7 +105,7 @@
                         <input type="text"
                                 name="experience_personne_contact_institution"
                                 value=""
-                                size="50"
+                                size="100"
                                 tal:attributes="value experience/experience_personne_contact_institution"
                                 class="grasorange" />
                     </td>
