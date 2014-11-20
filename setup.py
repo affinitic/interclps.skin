@@ -27,6 +27,8 @@ setup(name='interclps.skin',
           'setuptools',
           'Products.AddRemoveWidget',
           'reportlab',
+          'BeautifulSoup',
+          'ghdiff',
           'Plone',
           # -*- Extra requirements: -*-
       ],
