@@ -6,32 +6,32 @@
 
 <!-- 'interclps skin' Zope 3 browser layer -->
     <interface
-        interface=".interfaces.IInterClpsTheme"
-        type="zope.publisher.interfaces.browser.IBrowserSkinType"
-        name="interclps skin"
-        />
+          interface=".interfaces.IInterClpsTheme"
+          type="zope.publisher.interfaces.browser.IBrowserSkinType"
+          name="interclps skin"
+          />
 
 <!-- js -->
     <browser:resource
-        name="interclps.js"
-        file="js/interclps.js"
-        />
+          name="interclps.js"
+          file="js/interclps.js"
+          />
 
     <browser:page
-        for="*"
-        name="manageInterClps"
-        class=".ManageInterClps.ManageInterClps"
-        allowed_interface=".interfaces.IManageInterClps"
-        permission="zope.Public"
-        />
+          for="*"
+          name="manageInterClps"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          permission="zope.Public"
+          />
 
     <browser:page
-        for="*"
-        name="pdfGenerator"
-        class=".pdfgenerator.PdfGenerator"
-        allowed_interface=".interfaces.IPdfGenerator"
-        permission="zope.Public"
-        />
+          for="*"
+          name="pdfGenerator"
+          class=".pdfgenerator.PdfGenerator"
+          allowed_interface=".interfaces.IPdfGenerator"
+          permission="zope.Public"
+          />
 
     <!-- Moved document actions viewlet PDF
     <browser:viewlet
@@ -46,39 +46,47 @@
 
 <!-- leffe search -->
     <browser:page
-         for="*"
-         name="experience-searchJSON"
-         class=".searchexperience.SearchExperienceAutoCompleteJSON"
-         permission="zope.Public"
-         />
+          for="*"
+          name="experience-searchJSON"
+          class=".searchexperience.SearchExperienceAutoCompleteJSON"
+          permission="zope.Public"
+          />
     <browser:page
-         for="*"
-         name="institution-searchJSON"
-         class=".searchinstitution.SearchInstitutionAutoCompleteJSON"
-         permission="zope.Public"
-         />
+          for="*"
+          name="institution-searchJSON"
+          class=".searchinstitution.SearchInstitutionAutoCompleteJSON"
+          permission="zope.Public"
+          />
     <browser:page
-         for="*"
-         name="ressource-searchJSON"
-         class=".searchressource.SearchRessourceAutoCompleteJSON"
-         permission="zope.Public"
-         />
+          for="*"
+          name="ressource-searchJSON"
+          class=".searchressource.SearchRessourceAutoCompleteJSON"
+          permission="zope.Public"
+          />
     <browser:page
-         for="*"
-         name="auteur-searchJSON"
-         class=".searchauteur.SearchAuteurAutoCompleteJSON"
-         permission="zope.Public"
-         />
+          for="*"
+          name="auteur-searchJSON"
+          class=".searchauteur.SearchAuteurAutoCompleteJSON"
+          permission="zope.Public"
+          />
     <browser:page
-         for="*"
-         name="thesaurus-searchJSON"
-         class=".searchthesaurus.SearchThesaurusAutoCompleteJSON"
-         permission="zope.Public"
-         />
+          for="*"
+          name="thesaurus-searchJSON"
+          class=".searchthesaurus.SearchThesaurusAutoCompleteJSON"
+          permission="zope.Public"
+          />
 
 
 
 <!-- GESTION DB - GESTION DB - GESTION DB - GESTION DB - GESTION DB - GESTION DB - GESTION DB -->
+    <browser:page
+          name="showDiff"
+          for="*"
+          permission="zope.Public"
+          class=".versioning.Versioning"
+          attribute="getDiff"
+          />
+
 
 <!-- EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE - EXPERIENCE -->
 <!-- USER EXEPRIENCE -->

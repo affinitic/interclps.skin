@@ -13,7 +13,7 @@
 <div metal:fill-slot="main"
      tal:define="auteur python:view.getAuteurByLogin('experience')">
 
-<form action="experience-inserer"
+<form action="manageExperience"
       method="post">
     <br />
 
@@ -34,7 +34,7 @@
                     <input type="text"
                            name="experience_titre"
                            value=""
-                           size="50" />
+                           size="100" />
                 </td>
                 <td class="form-experience-right-column">
                     <div class="info-champs">
@@ -72,7 +72,7 @@
                     <input type="text"
                             name="experience_personne_contact"
                             value=""
-                            size="50" />
+                            size="100" />
                     <br />
                     <img src="list_flch_rouge.png" />
                     E-mail
@@ -80,7 +80,7 @@
                     <input type="text"
                             name="experience_personne_contact_email"
                             value=""
-                            size="50" />
+                            size="100" />
                     <br />
                     <img src="list_flch_rouge.png" />
                     Téléphone
@@ -88,7 +88,7 @@
                     <input type="text"
                             name="experience_personne_contact_telephone"
                             value=""
-                            size="50" />
+                            size="100" />
                     <br />
                     <img src="list_flch_rouge.png" />
                     Institution
@@ -96,7 +96,7 @@
                     <input type="text"
                             name="experience_personne_contact_institution"
                             value=""
-                            size="50" />
+                            size="100" />
                 </td>
                 <td class="form-experience-right-column">
                     <div class="info-champs">

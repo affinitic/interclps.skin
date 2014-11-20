@@ -198,7 +198,7 @@ class ManageInterClps(BrowserView):
         mailer.setRecipients("alain.meurant@skynet.be")
         mail = message
         print message
-        mailer.sendAllMail(mail)
+        #mailer.sendAllMail(mail)
 
     def sendMailForNewAuteurExperience(self):
         """
@@ -3918,6 +3918,25 @@ class ManageInterClps(BrowserView):
         experience = query.all()
         return experience
 
+### experience maj verionning ###
+    def getExperienceMajByPk(self, experiencePk, experienceEtat=None):
+        """
+        table pg experience_maj
+        recuperation d'un recit selon experience_pk
+        qui est dans experience_maj_expfk
+        """
+        if not isinstance(experiencePk, list):
+            experiencePk = [experiencePk]
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        query = session.query(ExperienceMaj)
+        query = query.filter(ExperienceMaj.experience_maj_expfk.in_(experiencePk))
+        if experienceEtat:
+            query = query.filter(ExperienceMaj.experience_maj_etat == experienceEtat)
+        query = query.order_by(ExperienceMaj.experience_maj_titre)
+        experienceMaj = query.one()
+        return experienceMaj
+
     def getAllExperienceByEtat(self, experienceEtat):
         """
         table pg experience
@@ -4696,6 +4715,8 @@ class ManageInterClps(BrowserView):
         dans table experience_maj pour versionning
         """
         fields = self.context.REQUEST
+        import pdb; pdb.set_trace()
+
         experiencePk = getattr(fields, 'experience_pk')
         experience_titre = getattr(fields, 'experience_titre', None)
         experience_resume = getattr(fields, 'field.experience_resume', None)
@@ -5350,7 +5371,7 @@ class ManageInterClps(BrowserView):
             ploneUtils = getToolByName(self.context, 'plone_utils')
             message = u"L'expérience a été enregistrée !"
             ploneUtils.addPortalMessage(message, 'info')
-            url = "%s/admin-decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
+            url = "%s/decrire-une-experience-maj?experiencePk=%s" % (portalUrl, experienceFk)
             self.request.response.redirect(url)
 
 
