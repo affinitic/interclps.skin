@@ -105,28 +105,11 @@
                     <p class="grasorange">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span tal:content="auteur/clpsOrigine/clps_sigle" /></p>
                 </div>
                 <div id="footer-listing">
-                    <ul id="menu-gestion-donnee">
-                        <li>
-                            <a href=""
-                               tal:attributes="href string:${context/portal_url}/admin-creer-un-auteur">
-                                Chercher</a>
-                        </li>
-                        <li>
-                            <a href=""
-                               tal:attributes="href string:${context/portal_url}/admin-modifier-un-auteur?auteurPk=${auteurPk}">
-                                Modifier</a>
-                        </li>
-                        <!--
-                        <tal:block tal:define="experience python:view.isAuteurHadExperience(auteurPk);
-                                               institution python:view.isAuteurHadInstitution(auteurPk)">
-                            <li tal:condition="python: experience==False and institution==False">
-                                <a href=""
-                                   tal:attributes="href string: admin-supprimer-un-auteur?auteurPk=${auteurPk}">
-                                   Supprimer</a>
-                            </li>
-                        </tal:block>
-                        -->
-                      </ul>
+                    <a href=""
+                       tal:attributes="href string:${context/portal_url}/admin-creer-un-auteur">Chercher</a>
+                    &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;
+                    <a href=""
+                       tal:attributes="href string:${context/portal_url}/admin-modifier-un-auteur?auteurPk=${auteurPk}">Modifier</a>
                 </div>
             </article>
         </tal:requete>
