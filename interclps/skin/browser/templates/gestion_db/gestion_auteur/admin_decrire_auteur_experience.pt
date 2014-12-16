@@ -12,6 +12,8 @@
 <div metal:fill-slot="main"
      tal:condition="python:user.has_role(['Manager'], here)">
     <h1>Gestion des auteurs d'expériences</h1>
+    <fieldset>
+        <legend class="legende">Décrire un auteur</legend>
         <tal:requete tal:define="auteurPk request/auteurPk | nothing;
                                  auteur python:view.getAuteurByPk(auteurPk);
                                  auteurPk auteur/auteur_pk">
@@ -65,7 +67,6 @@
                     <h4>Clps</h4>
                     <p><span tal:content="auteur/clpsOrigine/clps_sigle" /></p>
                 </div>
-                <hr class="ligne-top-menu-gestion-donnee" />
                 <div id="footer-listing">
                     <ul id="menu-gestion-donnee">
                         <li>
@@ -92,6 +93,7 @@
                 </div>
             </article>
         </tal:requete>
+    </fieldset>
 </div><!-- div metal-->
 </body>
 </html>
