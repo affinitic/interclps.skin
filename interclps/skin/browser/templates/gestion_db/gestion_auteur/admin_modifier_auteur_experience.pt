@@ -17,9 +17,8 @@
     <h1>:: Gestion des auteurs d'expériences ::</h1>
     <fieldset>
         <legend class="legende">Modifier un auteur</legend>
-        <tal:requete tal:define="auteurPk request/auteurPk | nothing;
-                                 auteur python:view.getAuteurByPk(auteurPk);
-                                 auteurPk auteur/auteur_pk">
+        <tal:requete tal:define="auteurPk request/auteurPk;
+                                 auteur python:view.getAuteurByPk(auteurPk)">
                 <form action="manageAuteur"
                       method="post">
                     <fieldset>

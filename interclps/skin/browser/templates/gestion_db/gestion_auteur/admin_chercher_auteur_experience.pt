@@ -20,7 +20,7 @@
             <legend class="search-legend"> A partir du nom d'un auteur</legend>
             <div id="info-champs">
             </div>
-            <form action="admin-modifier-un-auteur"
+            <form action="admin-decrire-un-auteur"
                   method="post">
                 <div class="div_question">
                     <input type="text"

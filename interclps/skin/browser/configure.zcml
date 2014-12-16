@@ -801,6 +801,14 @@
 
 <!-- ADMIN AUTEUR -->
     <browser:page
+          name="admin-decrire-un-auteur"
+          for="*"
+          template="templates/gestion_db/gestion_auteur/admin_decrire_auteur_experience.pt"
+          permission="zope.Public"
+          class=".ManageInterClps.ManageInterClps"
+          allowed_interface=".interfaces.IManageInterClps"
+          />
+    <browser:page
           name="admin-creer-un-auteur"
           for="*"
           template="templates/gestion_db/gestion_auteur/admin_creer_auteur_experience.pt"

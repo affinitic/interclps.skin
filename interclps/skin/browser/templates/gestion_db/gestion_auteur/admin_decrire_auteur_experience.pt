@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<div metal:fill-slot="main"
+     tal:condition="python:user.has_role(['Manager'], here)">
+    <h1>Gestion des auteurs d'expériences</h1>
+        <tal:requete tal:define="auteurPk request/auteurPk | nothing;
+                                 auteur python:view.getAuteurByPk(auteurPk);
+                                 auteurPk auteur/auteur_pk">
+            <article class="formulaire">
+                <h2>
+                    <span tal:content="auteur/auteur_nom" />
+                    <span tal:content="auteur/auteur_prenom" />
+                </h2>
+
+                <div class="description-listing">
+                    <h4>Identifiant</h4>
+                    <p tal:content="auteur/auteur_login" />
+                </div>
+                <div class="description-listing">
+                    <h4>Pass</h4>
+                    <p tal:content="auteur/auteur_pass" />
+                </div>
+                <div class="description-listing">
+                    <h4>Email</h4>
+                    <p tal:content="auteur/auteur_email" />
+                </div>
+                <div class="description-listing">
+                    <h4>Institution</h4>
+                    <p tal:content="auteur/auteur_institution" />
+                </div>
+                <div class="description-listing">
+                    <h4>ID FileMaker</h4>
+                    <p tal:content="auteur/auteur_id_filemaker" />
+                </div>
+                <div class="description-listing">
+                    <h4>Etat</h4>
+                    <p>
+                        <span tal:condition="python: auteur.auteur_actif">
+                            <span class="vert-actif">Actif</span>
+                        </span>
+                        <span tal:condition="python: auteur.auteur_actif==False">
+                            <span class="rouge-non-actif">Non-actif</span>
+                        </span>
+                    </p>
+                </div>
+                <div class="description-listing">
+                    <h4>Rôle</h4>
+                    <tal:if tal:condition="python: auteur.auteur_for_experience==True">
+                        <p>Auteur d'une expérience.</p>
+                    </tal:if>
+                    <tal:if tal:condition="python: auteur.auteur_for_institution==True">
+                        <p>Auteur d'une institution.</p>
+                    </tal:if>
+                </div>
+                <div class="description-listing">
+                    <h4>Clps</h4>
+                    <p><span tal:content="auteur/clpsOrigine/clps_sigle" /></p>
+                </div>
+                <hr class="ligne-top-menu-gestion-donnee" />
+                <div id="footer-listing">
+                    <ul id="menu-gestion-donnee">
+                        <li>
+                            <a href=""
+                               tal:attributes="href string:${context/portal_url}/admin-creer-un-auteur">
+                                Chercher</a>
+                        </li>
+                        <li>
+                            <a href=""
+                               tal:attributes="href string:${context/portal_url}/admin-modifier-un-auteur?auteurPk=${auteurPk}">
+                                Modifier</a>
+                        </li>
+                        <!--
+                        <tal:block tal:define="experience python:view.isAuteurHadExperience(auteurPk);
+                                               institution python:view.isAuteurHadInstitution(auteurPk)">
+                            <li tal:condition="python: experience==False and institution==False">
+                                <a href=""
+                                   tal:attributes="href string: admin-supprimer-un-auteur?auteurPk=${auteurPk}">
+                                   Supprimer</a>
+                            </li>
+                        </tal:block>
+                        -->
+                      </ul>
+                </div>
+            </article>
+        </tal:requete>
+</div><!-- div metal-->
+</body>
+</html>
+
