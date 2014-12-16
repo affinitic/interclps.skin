@@ -18,34 +18,69 @@
                                  auteur python:view.getAuteurByPk(auteurPk);
                                  auteurPk auteur/auteur_pk">
             <article class="formulaire">
-                <h2>
-                    <span tal:content="auteur/auteur_nom" />
-                    <span tal:content="auteur/auteur_prenom" />
-                </h2>
-
-                <div class="description-listing">
-                    <h4>Identifiant</h4>
-                    <p tal:content="auteur/auteur_login" />
-                </div>
-                <div class="description-listing">
-                    <h4>Pass</h4>
-                    <p tal:content="auteur/auteur_pass" />
-                </div>
-                <div class="description-listing">
-                    <h4>Email</h4>
-                    <p tal:content="auteur/auteur_email" />
-                </div>
-                <div class="description-listing">
-                    <h4>Institution</h4>
-                    <p tal:content="auteur/auteur_institution" />
-                </div>
-                <div class="description-listing">
-                    <h4>ID FileMaker</h4>
-                    <p tal:content="auteur/auteur_id_filemaker" />
-                </div>
-                <div class="description-listing">
-                    <h4>Etat</h4>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <span class="clps-etiquette">Nom, prénom</span>
                     <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span tal:content="auteur/auteur_nom"
+                              class="grasorange" />
+                        <span tal:content="auteur/auteur_prenom"
+                              class="grasorange" />
+                    </p>
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <span class="clps-etiquette">Identifiant</span>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span tal:content="auteur/auteur_login"
+                              class="grasorange" />
+                    </p>
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <span class="clps-etiquette">Pass</span>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span tal:content="auteur/auteur_pass"
+                              class="grasorange" />
+                    </p>
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <span class="clps-etiquette">Email</span>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span tal:content="auteur/auteur_email"
+                              class="grasorange" />
+                    </p>
+                </div>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <span class="clps-etiquette">Institution</span>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span tal:content="auteur/auteur_institution"
+                              class="grasorange" />
+                    </p>
+                </div>
+                <!--
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <span class="clps-etiquette">ID FileMaker</span>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span tal:content="auteur/auteur_id_filemaker"
+                              class="grasorange" />
+                    </p>
+                </div>
+                -->
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <span class="clps-etiquette">Etat</span>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span tal:condition="python: auteur.auteur_actif">
                             <span class="vert-actif">Actif</span>
                         </span>
@@ -54,18 +89,20 @@
                         </span>
                     </p>
                 </div>
-                <div class="description-listing">
-                    <h4>Rôle</h4>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <span class="clps-etiquette">Rôle</span>
                     <tal:if tal:condition="python: auteur.auteur_for_experience==True">
-                        <p>Auteur d'une expérience.</p>
+                        <p class="grasorange">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auteur d'une expérience.</p>
                     </tal:if>
                     <tal:if tal:condition="python: auteur.auteur_for_institution==True">
-                        <p>Auteur d'une institution.</p>
+                        <p class="grasorange">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auteur d'une institution.</p>
                     </tal:if>
                 </div>
-                <div class="description-listing">
-                    <h4>Clps</h4>
-                    <p><span tal:content="auteur/clpsOrigine/clps_sigle" /></p>
+                <div class="div_question">
+                    <img src="list_flch_rouge.png" />
+                    <span class="clps-etiquette">Clps</span>
+                    <p class="grasorange">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span tal:content="auteur/clpsOrigine/clps_sigle" /></p>
                 </div>
                 <div id="footer-listing">
                     <ul id="menu-gestion-donnee">
