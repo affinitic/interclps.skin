@@ -12,6 +12,7 @@
 <div metal:fill-slot="main"
      tal:define="experiencePk request/experiencePk;
                  experiences python:view.getExperienceByPk(experiencePk);
+                 experienceEtat python:view.getExperienceEtat(experiencePk);
                  allClps python:view.getAllClps();
                  selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk');
                  "
@@ -828,26 +829,33 @@
                 <ul class="formulaire">
                     <li>
                         <img src="list_flch_rouge.png" />
+                        Etat actuel :
+                        <span tal:content="experienceEtat" class="orange" />
+                    </li>
+                    <li>
+                        <img src="list_flch_rouge.png" />
+                        Modifier l'état :
                         <select name="experience_etat">
                             <option value="private"
                                     selected=""
-                                    tal:attributes="selected python:experience.experience_etat=='private' and 'selected' or None;">Privé</option>
-                            <option value="pending"
-                                    selected=""
-                                    tal:attributes="selected python:experience.experience_etat=='pending' and 'selected' or None;">Attente</option>
+                                    tal:attributes="selected python:experience.experience_etat=='private' and 'selected' or None;">
+                                Brouillon
+                            </option>
                             <option value="pending_for_review"
                                     selected=""
-                                    tal:attributes="selected python:experience.experience_etat=='pending_for_review' and 'selected' or None;">En cours de validation</option>
+                                    tal:attributes="selected python:experience.experience_etat=='pending-by-clps' and 'selected' or None;">
+                                En cours de validation par le CLPS
+                            </option>
                             <option value="publish"
                                     selected=""
-                                    tal:attributes="selected python:experience.experience_etat=='publish' and 'selected' or None;">Publié</option>
+                                    tal:attributes="selected python:experience.experience_etat=='publish' and 'selected' or None;">Publié
+                            </option>
                         </select>
                     </li>
                 </ul>
             </fieldset>
         </div>
 
-        <hr />
 
         <div class="div_form_input">
             <input type="hidden"
