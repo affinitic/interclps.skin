@@ -709,6 +709,7 @@ color:#555;
 text-align:center;
 }
 
+/*
 .btn-modifier{
 }
 
@@ -725,7 +726,50 @@ background-repeat:no-repeat;
 .btn-modifier a:hover {
 background-image:url(images/modifier_on.png);
 }
+*/
+.btn-modifier{
+margin-top:15px;
+margin-right:8px;
+}
 
+.btn-modifier{
+width:30px;
+height:30px;
+border:1px solid #dedede;
+border-radius:8px;
+box-shadow:3px 3px 6px rgba(50,50,50,0.6);
+background: -moz-linear-gradient(top,  rgba(255,255,255,0.95) 0%, rgba(241,241,241,0.95) 50%, rgba(225,225,225,0.95) 51%, rgba(246,246,246,0.95) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.95)), color-stop(50%,rgba(241,241,241,0.95)), color-stop(51%,rgba(225,225,225,0.95)), color-stop(100%,rgba(246,246,246,0.95))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(255,255,255,0.95) 0%,rgba(241,241,241,0.95) 50%,rgba(225,225,225,0.95) 51%,rgba(246,246,246,0.95) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(255,255,255,0.95) 0%,rgba(241,241,241,0.95) 50%,rgba(225,225,225,0.95) 51%,rgba(246,246,246,0.95) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(255,255,255,0.95) 0%,rgba(241,241,241,0.95) 50%,rgba(225,225,225,0.95) 51%,rgba(246,246,246,0.95) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(255,255,255,0.95) 0%,rgba(241,241,241,0.95) 50%,rgba(225,225,225,0.95) 51%,rgba(246,246,246,0.95) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2ffffff', endColorstr='#f2f6f6f6',GradientType=0 ); /* IE6-9 */
+}
+
+.btn-modifier a{
+display:inline-block;
+width:30px;
+height:30px;
+margin-top:0px;
+text-decoration:none;
+background-image:url(images/modifier_off.png);
+background-position:center center;
+background-repeat:no-repeat;
+border-bottom:none !important;
+}
+
+.btn-modifier:hover{
+box-shadow:1px 1px 1px rgba(50,50,50,0.6);
+}
+
+.btn-modifier a:hover{
+background-image:url(images/modifier_on.png);
+}
+
+td .btn-modifier{
+margin:5px 0px;
+}
 
 /*** DESCRIPTION DB ***/
 #main-experience{
