@@ -13,13 +13,25 @@
 <div metal:fill-slot="main"
      tal:define="experiencePk request/experiencePk | nothing;
                  experiences python:view.getActiveExperience(experiencePk);
-                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
+                 experienceEtat python:view.getExperienceEtat(experiencePk);
+                 allClps python:view.getAllClps();
+                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk')">
     <tal:boucle tal:repeat="experience experiences">
         <div id="main-experience"
              tal:define="experiencePk experience/experience_pk">
             <div id="alerte"
-                 tal:condition="python: experience.experience_etat=='pending_for_review'">
-                <img src="alerte.png" /> Cette expérience en en cours de validation
+                 tal:condition="python: experience.experience_etat=='pending-by-clps'">
+                <img src="alerte.png" />
+                Cette expérience est en état :
+                <span tal:content="experienceEtat"
+                      class="gras" />
+            </div>
+            <div id="alerte"
+                 tal:condition="python: experience.experience_etat=='pending-by-auteur'">
+                <img src="alerte.png" />
+                Cette expérience est en état :
+                <span tal:content="experienceEtat"
+                      class="gras" />
             </div>
             <div id="title-experience">
                 <div id="title-experience-left"></div>
@@ -28,9 +40,8 @@
                 </div>
                 <div id="title-experience-right"
                       tal:define="experiencePk experience/experience_pk">
-                    <div class="btn-modifier"
+                    <div class="btn-modifier-description"
                          tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-                        <br />
                         <a href=""
                            tal:attributes="href string: admin-modifier-une-experience?experiencePk=${experiencePk}">&nbsp;</a>
                     </div>
@@ -248,16 +259,6 @@
                 <div id="right-experience-footer"></div>
             </div><!--right-->
 
-            <div class="description-experience-clps-proprio discreet">
-                Edité par le
-                <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
-                    <span tal:content="clpsSigle"
-                          class="gras" />
-                    <tal:if tal:condition="not: repeat/clpsSigle/end">
-                        <span>et le </span>
-                    </tal:if>
-                </tal:boucle>
-            </div>
             <div class="description-experience-derniere-modif discreet">
                 Dernière modification le :<br />
                 <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y')"
@@ -266,6 +267,87 @@
             <div class="break-float"></div>
             <div id="experience-footer"></div>
         </div><!--main experience-->
+
+
+
+<!-- === ZONE ADMIN ======================================================================= -->
+        <div tal:condition="python:user.has_role(['Manager'], here)"
+             class="description-for-manager">
+            <div class="titre-for-manage">
+                &Xi; Administration &Xi;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                PK : <span tal:content="experience/experience_pk" />
+            </div>
+
+            <div class="formulaire">
+                <h2> Lien pour la newsletter</h2>
+                <span tal:content="string:${context/portal_url}/decrire-une-experience?experiencePk=${experience/experience_pk}" />
+            </div>
+
+            <div class="formulaire">
+                <h2>Auteur - Editeur</h2>
+                <p>
+                <tal:blok tal:define="auteurPk experience/experience_auteur_fk;
+                                      auteur python:view.getAuteurByPk(auteurPk)">
+                    <span tal:content="auteur/auteur_nom" class="gras" />
+                    <span tal:content="auteur/auteur_prenom" class="gras" />
+                    &nbsp;
+                    (<span tal:content="auteur/auteur_login" class="gras" />)
+                </tal:blok>
+                <input type="hidden"
+                       name="experience_auteur_fk"
+                       value=""
+                       tal:attributes="value experience/experience_auteur_fk" />
+                </p>
+            </div>
+
+            <div class="formulaire">
+                <h2>Mots-clés</h2>
+                <tal:addremove define="errors python:{};">
+                    <span metal:use-macro="python: view.getAddRemoveField('experience_mot_cle_fk', ' ',
+                                                   view.getAllMotCle(),
+                                                   nameKey='motcle_mot',
+                                                   pkKey='motcle_pk',
+                                                   selectedPks=view.getMotCleByExperiencePk(experience.experience_pk))" />
+                </tal:addremove>
+                <br />
+            </div>
+
+            <div class="formulaire">
+                <h2>Thèmes</h2>
+                <tal:addremove define="errors python:{};">
+                    <span metal:use-macro="python: view.getAddRemoveField('experience_theme_fk', ' ',
+                                                   view.getAllTheme(),
+                                                   nameKey='theme_nom',
+                                                   pkKey='theme_pk',
+                                                   selectedPks=view.getThemeByExperiencePk(experience.experience_pk))" />
+                </tal:addremove>
+            </div>
+
+            <div class="formulaire">
+                <h2>Propriétaire</h2>
+                <ul>
+                    <tal:boucle tal:repeat="clps allClps">
+                        <li>
+                            <input type="checkbox"
+                                   name="experience_clps_proprio_fk:list"
+                                   checked=""
+                                   value=""
+                                   tal:attributes="value clps/clps_pk;
+                                                   checked python:clps.clps_pk in selectedClpsProprio and 'selected' or None;" />
+                            &nbsp;&nbsp;
+                            <span tal:content="clps/clps_sigle" />
+                        </li>
+                    </tal:boucle>
+                </ul>
+            </div>
+
+            <div class="formulaire">
+                <h2>Niveau visibilité</h2>
+                <span tal:content="experienceEtat"
+                      class="gras" />
+            </div>
+        </div><!--fin admin-->
     </tal:boucle>
 </div><!-- div metal-->
 </body>

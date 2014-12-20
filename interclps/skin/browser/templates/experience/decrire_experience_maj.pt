@@ -16,8 +16,18 @@
                  selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
     <div id="main-experience">
         <div id="alerte"
-             tal:condition="python: experience.experience_maj_etat=='pending_for_review'">
-            <img src="alerte.png" /> Cette expérience en en cours de validation
+             tal:condition="python: experience.experience_maj_etat=='pending-by-clps'">
+            <img src="alerte.png" />
+            Cette expérience est en état :
+            <span tal:content="experienceEtat"
+                  class="gras" />
+        </div>
+        <div id="alerte"
+             tal:condition="python: experience.experience_maj_etat=='pending-by-auteur'">
+            <img src="alerte.png" />
+            Cette expérience est en état :
+            <span tal:content="experienceEtat"
+                  class="gras" />
         </div>
         <div id="title-experience">
             <div id="title-experience-left"></div>
@@ -26,9 +36,8 @@
             </div>
             <div id="title-experience-right"
                   tal:define="experiencePk experience/experience_maj_pk">
-                <div class="btn-modifier"
+                <div class="btn-modifier-description"
                      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-                    <br />
                     <a href=""
                        tal:attributes="href string: admin-modifier-une-experience?experiencePk=${experiencePk}">&nbsp;</a>
                 </div>

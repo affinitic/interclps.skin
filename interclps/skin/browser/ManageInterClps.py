@@ -5371,7 +5371,10 @@ class ManageInterClps(BrowserView):
             ploneUtils = getToolByName(self.context, 'plone_utils')
             message = u"L'expérience a été enregistrée !"
             ploneUtils.addPortalMessage(message, 'info')
-            url = "%s/decrire-une-experience-maj?experiencePk=%s" % (portalUrl, experienceFk)
+            if auteurExterne:
+                url = "%s/decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
+            else:
+                url = "%s/admin-decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
             self.request.response.redirect(url)
 
 
@@ -5429,5 +5432,8 @@ class ManageInterClps(BrowserView):
             ploneUtils = getToolByName(self.context, 'plone_utils')
             message = u"L'expérience a été enregistrée !"
             ploneUtils.addPortalMessage(message, 'info')
-            url = "%s/decrire-une-experience-maj?experiencePk=%s" % (portalUrl, experienceFk)
+            if auteurExterne:
+                url = "%s/decrire-une-experience-maj?experiencePk=%s" % (portalUrl, experienceFk)
+            else:
+                url = "%s/admin-decrire-une-experience?experiencePk=%s" % (portalUrl, experienceFk)
             self.request.response.redirect(url)

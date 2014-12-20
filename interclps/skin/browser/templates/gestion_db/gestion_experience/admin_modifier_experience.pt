@@ -729,83 +729,6 @@
             </fieldset>
 
             <fieldset>
-                <legend class="legende">Plate-formes et sous plate-formes concernées</legend>
-                <ul class="formulaire">
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="experience_plate_forme_assuetude"
-                               value="True"
-                              tal:attributes="checked python:experience.experience_plate_forme_assuetude and 'checked' or None;" />
-                        &nbsp;&nbsp;Point d'appui assuétudes
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="experience_plate_forme_sante_ecole"
-                               value="True"
-                               tal:attributes="checked python:experience.experience_plate_forme_sante_ecole and 'checked' or None;" />
-                        &nbsp;&nbsp;Santé à l'école
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="experience_plate_forme_sante_famille"
-                               value="True"
-                               tal:attributes="checked python:experience.experience_plate_forme_sante_famille and 'checked' or None;" />
-                        &nbsp;&nbsp;Santé des familles
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="experience_plate_forme_sante_environnement"
-                               value="True"
-                               tal:attributes="checked python:experience.experience_plate_forme_sante_environnement and 'checked' or None;" />
-                        &nbsp;&nbsp;Santé et environnement
-                    </li>
-                </ul>
-            </fieldset>
-
-            <fieldset>
-                <legend class="legende">Mission concernée</legend>
-                <span class="discreet"></span>
-                <ul class="formulaire">
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="experience_mission_centre_documentation"
-                               value="True"
-                               tal:attributes="checked python:experience.experience_mission_centre_documentation and 'checked' or None;" />
-                        &nbsp;&nbsp;Centre documentation
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="experience_mission_accompagnement_projet"
-                               value="True"
-                               tal:attributes="checked python:experience.experience_mission_accompagnement_projet and 'checked' or None;" />
-                        &nbsp;&nbsp;Accompagnement de projet
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="experience_mission_reseau_echange"
-                               value="True"
-                               tal:attributes="checked python:experience.experience_mission_reseau_echange and 'checked' or None;" />
-                        &nbsp;&nbsp;Mise en réseau, échanges
-                    </li>
-                    <li>
-                        <img src="list_flch_rouge.png" />
-                        <input type="checkbox"
-                               name="experience_mission_formation"
-                               value="True"
-                               tal:attributes="checked python:experience.experience_mission_formation and 'checked' or None;" />
-                        &nbsp;&nbsp;Formation
-                    </li>
-                </ul>
-            </fieldset>
-
-            <fieldset>
                 <legend>Propriétaire</legend>
                 <ul class="formulaire">
                     <tal:boucle tal:repeat="clps allClps">
@@ -856,14 +779,13 @@
             </fieldset>
         </div>
 
-
         <div class="div_form_input">
             <input type="hidden"
                    name="operation"
                    value="updateByClps" />
             <input type="hidden"
                    name="auteurExterne"
-                   value="False" />
+                   value="" />
             <input type="hidden"
                    name="experience_pk"
                    value=""
