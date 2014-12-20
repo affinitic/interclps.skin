@@ -13,7 +13,24 @@
      tal:define="etatExperience request/etat;
                  etat python: view.getTranslationExperienceEtat(etatExperience)"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-   <h1>:: Listing des expériences selon l'état "<span tal:content="etat" />" ::</h1>
+    <h1>:: Listing des expériences selon l'état "<span tal:content="etat" />" ::</h1>
+    <p><br /></p>
+    <div tal:define="nbrExp python: view.getCountExperienceByEtat(etatExperience, 2)">
+        <p tal:condition="python: nbrExp == 0">
+            Il n'y a <span class="orange">aucune</span> experiences à l'état
+            <span tal:content="etat" class="orange" />
+        </p>
+        <p tal:condition="python: nbrExp == 1">
+            Il y a <span tal:content="nbrExp" class="orange" />
+            experience à l'état
+            <span tal:content="etat" class="orange" />
+        </p>
+        <p tal:condition="python: nbrExp > 1">
+            Il y a <span tal:content="nbrExp" class="orange" />
+            experiences à l'état
+            <span tal:content="etat" class="orange" />
+        </p>
+    </div>
 
     <div tal:define="etatExperience request/etat;
                      experiences python:view.getExperienceByClpsByEtat(2, etatExperience);">
@@ -59,7 +76,7 @@
                         <table width="100%">
                             <tr>
                                 <td align="left" class="discreet" valign="bottom">
-                                        Edité par le
+                                    Edité par le
                                         <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
                                             <span tal:content="clpsSigle"
                                                   class="gras" />
@@ -67,11 +84,7 @@
                                                 <span>et le </span>
                                             </tal:if>
                                         </tal:boucle>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td align="left" class="discreet" valign="bottom">
+                                    <br />
                                     Créé par
                                     <span tal:content="experience/auteurFromExperience/auteur_prenom | nothing"
                                           class="gras" />
@@ -99,20 +112,18 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
-                                    align="left" class="discreet" valign="bottom">
-                                    <span tal:condition="python: experienceEtat=='Publié'">
-                                        <span tal:content="experienceEtat" class="vert-actif" />
-                                    </span>
-                                    <span tal:condition="python: experienceEtat=='En attente'">
-                                        <span tal:content="experienceEtat" class="orange-attente" />
-                                    </span>
-                                    <span tal:condition="python: experienceEtat=='Privé'">
-                                        <span tal:content="experienceEtat" class="rouge-non-actif" />
-                                    </span>
-                                    <br />
-                                    &Xi;
-                                    PK : <span tal:content="experience/experience_pk" />
+                                <td align="left" class="discreet" valign="bottom">
+                                    <div class="experience-etat"
+                                         tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)"
+                                         tal:condition="python:user.has_role(['Manager'], here)">
+                                        Etat :
+                                        <span tal:content="experienceEtat"
+                                              class="gras" />
+                                        <br />
+                                        &Xi;&nbsp; PK :
+                                        <span tal:content="experience/experience_pk"
+                                              class="gras" />
+                                    </div>
                                 </td>
                                 <td></td>
                             </tr>

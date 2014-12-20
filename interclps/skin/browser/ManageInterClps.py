@@ -3993,8 +3993,6 @@ class ManageInterClps(BrowserView):
         recuperation du nombre d'experience selon experience_etat
         private pending publish
         """
-        experienceByClps = self.getExperienceByClpsByEtat(clpsPk, experienceEtat)
-        nbrExperiencesByEtat = len(experienceByClps)
         # wrapper = getSAWrapper('clpsbw')
         # session = wrapper.session
         # query = session.query(Experience)
@@ -4002,6 +4000,8 @@ class ManageInterClps(BrowserView):
         # nbrExp = select([func.count(Experience.experience_pk).label('count')])
         # nbrExp.append_whereclause(Experience.experience_etat == experienceEtat)
         # nbrExperiencesByEtat = nbrExp.execute().fetchone().count
+        experienceByClps = self.getExperienceByClpsByEtat(clpsPk, experienceEtat)
+        nbrExperiencesByEtat = len(experienceByClps)
         return nbrExperiencesByEtat
 
     def getCountAllExperience(self):
