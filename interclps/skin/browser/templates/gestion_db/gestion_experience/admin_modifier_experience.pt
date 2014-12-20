@@ -658,6 +658,10 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 PK : <span tal:content="experience/experience_pk" />
             </div>
+            <fieldset>
+                <legend>Lien pour la newsletter : </legend>
+                <span tal:content="string:${context/portal_url}/decrire-une-experience?experiencePk=${experience/experience_pk}" />
+            </fieldset>
 
             <fieldset>
                 <legend class="legende">Auteur - Editeur</legend>

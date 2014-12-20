@@ -33,19 +33,29 @@
                 </dd>
 
                 <div class="etatBase">
-                    <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('private')">
-                        <br />
-                        <a href="admin-lister-les-experiences-par-etat?etat=private">Etat priv&eacute; : <span tal:content="nbrExp">nbr</span></a>
+                    Etat :
+                    <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('private', 2)">
+                        <a href="admin-lister-les-experiences-par-etat?etat=private">
+                            &bull; brouillon : <span tal:content="nbrExp">nbr</span></a>
                     </dd>
-                    <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('pending')">
-                        <a href="admin-lister-les-experiences-par-etat?etat=pending">Etat en attente : <span tal:content="nbrExp">nbr</span></a>
+                    <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('pending-by-auteur', 2)">
+                        <a href="admin-lister-les-experiences-par-etat?etat=pending-by-auteur">
+                            &bull; en attente par l'auteur : <span tal:content="nbrExp">nbr</span>
+                        </a>
                     </dd>
-                    <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('publish')">
-                        <a href="admin-lister-les-experiences-par-etat?etat=publish">Etat publi&eacute; : <span tal:content="nbrExp">nbr</span></a>
+                    <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('pending-by-clps', 2)">
+                        <a href="admin-lister-les-experiences-par-etat?etat=pending-by-clps">
+                            &bull; en attente par le CLPS : <span tal:content="nbrExp">nbr</span>
+                        </a>
+                    </dd>
+                    <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('publish', 2)">
+                        <a href="admin-lister-les-experiences-par-etat?etat=publish">
+                            &bull; publi&eacute; : <span tal:content="nbrExp">nbr</span></a>
                     </dd>
                     <dd tal:define="nbrExp python:experiences.getCountAllExperience()">
                         <br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="gras">Total : <span tal:content="nbrExp">nbr</span></span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="gras">Total : <span tal:content="nbrExp">nbr</span></span>
                     </dd>
                 </div>
 
@@ -100,17 +110,18 @@
                 </dd>
                 <div class="etatBase">
                     <dd tal:define="nbrInst python:institutions.getCountInstitutionByEtat('private')">
-                        <br />
+                        Etat :<br />
                         <a href="admin-lister-les-institutions-par-etat?etat=private">
-                            Etat priv&eacute; : <span tal:content="nbrInst">nbr</span></a>
+                            &bull; brouillon : <span tal:content="nbrInst">nbr</span></a>
                     </dd>
-                    <dd tal:define="nbrInst python:institutions.getCountExperienceByEtat('publish')">
+                    <dd tal:define="nbrInst python:institutions.getCountExperienceByEtat('publish',2)">
                         <a href="admin-lister-les-institutions-par-etat?etat=publish">
-                            Etat publi&eacute; : <span tal:content="nbrInst">nbr</span></a>
+                            &bull; publi&eacute; : <span tal:content="nbrInst">nbr</span></a>
                     </dd>
                     <dd tal:define="nbrInst python:institutions.getCountAllInstitution()">
                         <br />
-                        &nbsp;<span class="gras">Total :
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="gras">Total :
                         <span tal:content="nbrInst">nbr</span></span>
                     </dd>
                 </div>

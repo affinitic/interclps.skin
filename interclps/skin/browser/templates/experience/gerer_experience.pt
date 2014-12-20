@@ -63,17 +63,21 @@
                             <tr>
                                 <td align="left" class="discreet" valign="bottom">
                                     par
-                                    <span tal:content="experience/auteurFromExperience/auteur_prenom | nothing" />
-                                    <span tal:content="experience/auteurFromExperience/auteur_nom | nothing" /> -
-                                    <span tal:content="experience/experience_auteur_login" />
+                                    <span tal:content="experience/auteurFromExperience/auteur_prenom | nothing" class="gras" />
+                                    <span tal:content="experience/auteurFromExperience/auteur_nom | nothing" class="gras" /> -
                                     <br />
                                     Dernière modification :
-                                    <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y')" />
+                                    <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y')" class="gras" />
                                     <br />
-                                    PK : <span tal:content="experiencePk" />
+                                    PK : <span tal:content="experiencePk" class="gras" />
+                                    <div class="experience-etat"
+                                             tal:define="experienceEtat python:view.getExperienceEtat(experiencePk)">
+                                            Etat : <span tal:content="experienceEtat"  class="gras" />
+                                    </div>
                                 </td>
                                 <td align="right">
-                                    <div class="btn-modifier">
+                                    <div class="btn-modifier"
+                                         tal:condition="python: experience.experience_etat!='pending-by-clps'">
                                         <a href=""
                                            tal:attributes="href string: modifier-une-experience?experiencePk=${experiencePk}">&nbsp;</a>
                                     </div>

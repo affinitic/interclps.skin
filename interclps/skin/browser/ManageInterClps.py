@@ -1987,7 +1987,7 @@ class ManageInterClps(BrowserView):
         ressource = query.one()
         ressourceEtat = ''
         if ressource.ressource_etat == 'private':
-            ressourceEtat = 'Privé'
+            ressourceEtat = 'Brouillon'
         if ressource.ressource_etat == 'pending':
             ressourceEtat = 'En attente'
         if ressource.ressource_etat == 'publish':
@@ -2632,7 +2632,7 @@ class ManageInterClps(BrowserView):
         institution = query.one()
         institutionEtat = ''
         if institution.institution_etat == 'private':
-            institutionEtat = 'Privé'
+            institutionEtat = 'Brouillon'
         if institution.institution_etat == 'pending':
             institutionEtat = 'En attente'
         if institution.institution_etat == 'publish':
@@ -3839,13 +3839,13 @@ class ManageInterClps(BrowserView):
         """
         experienceEtat = ''
         if etat == 'private':
-            experienceEtat = 'Privé'
-        if etat == 'pending':
-            experienceEtat = 'En attente'
-        if etat == 'pending_for_review':
-            experienceEtat = 'En cours de validation'
+            experienceEtat = "Brouilllon"
+        if etat == 'pending-by-auteur':
+            experienceEtat = "En demande de validation par l'auteur"
+        if etat == 'pending-by-clps':
+            experienceEtat = "En cours de validation par le CLPS"
         if etat == 'publish':
-            experienceEtat = 'Publié'
+            experienceEtat = "Publié"
         return experienceEtat
 
     def getExperienceEtat(self, experiencePk):
@@ -3987,19 +3987,21 @@ class ManageInterClps(BrowserView):
         experience = [exp.experience_titre for exp in query.all()]
         return experience
 
-    def getCountExperienceByEtat(self, experienceEtat):
+    def getCountExperienceByEtat(self, experienceEtat, clpsPk):
         """
         table pg experience
         recuperation du nombre d'experience selon experience_etat
         private pending publish
         """
-        wrapper = getSAWrapper('clpsbw')
-        session = wrapper.session
-        query = session.query(Experience)
-        query = query.filter(Experience.experience_etat == experienceEtat)
-        nbrExp = select([func.count(Experience.experience_pk).label('count')])
-        nbrExp.append_whereclause(Experience.experience_etat == experienceEtat)
-        nbrExperiencesByEtat = nbrExp.execute().fetchone().count
+        experienceByClps = self.getExperienceByClpsByEtat(clpsPk, experienceEtat)
+        nbrExperiencesByEtat = len(experienceByClps)
+        # wrapper = getSAWrapper('clpsbw')
+        # session = wrapper.session
+        # query = session.query(Experience)
+        # query = query.filter(Experience.experience_etat == experienceEtat)
+        # nbrExp = select([func.count(Experience.experience_pk).label('count')])
+        # nbrExp.append_whereclause(Experience.experience_etat == experienceEtat)
+        # nbrExperiencesByEtat = nbrExp.execute().fetchone().count
         return nbrExperiencesByEtat
 
     def getCountAllExperience(self):
@@ -4841,7 +4843,6 @@ class ManageInterClps(BrowserView):
                                 recherchelog_date=recherchelog_date)
         session.add(newEntry)
         session.flush()
-        return {'status': 1}
 
 #### MANAGE ####
 
