@@ -1,0 +1,164 @@
+
+/*** FORMULAIRE ***/
+.formulaire{
+margin:auto;
+border:1px solid #aaa;
+border-radius:10px;
+box-shadow:3px 3px 15px rgba(50, 50, 50, 0.5);
+margin:15px auto;
+padding:20px;
+background: rgb(255,255,255); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(47%,rgba(246,246,246,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+}
+
+div.formulaire h2,
+article.formulaire h2{
+border-bottom: 1px solid #20a3af;
+color:#00728a !important;
+font-size: 1.8em;
+font-weight: normal;
+letter-spacing: 1px;
+margin-bottom: 5px;
+text-align: right;
+text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.formulaire label{
+display:block;
+width:80%;
+cursor:pointer;
+margin-top:15px;
+font-size:1.2em;
+color:#666;
+text-shadow:1px 1px 1px rgba(255,255,255, 1); 
+padding-left:15px;
+margin-bottom:4px;
+background-image:url(label_flch_rouge.png);
+background-repeat:no-repeat;
+background-position:left top;
+}
+
+.formInput{
+margin:2em 0;
+}
+
+.formControls{
+border-top:1px solid #20a3af;
+padding-top:4px;
+text-align:center;
+}
+
+.formulaire input[type=checkbox] {
+cursor:pointer;
+font-size:0.85em;
+}
+
+.formulaire input:not([type=submit]) {
+border:1px solid #aaa;
+border-radius:3px;
+box-shadow:0 0 3px #aaa;
+padding:5px;
+background: rgb(238,238,238); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(255,255,255,1) 100%, rgba(255,255,255,1) 20%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(255,255,255,1)), color-stop(20%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 100%,rgba(255,255,255,1) 20%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 100%,rgba(255,255,255,1) 20%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 100%,rgba(255,255,255,1) 20%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 100%,rgba(255,255,255,1) 20%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+.formulaire select,
+.formulaire input[type=file]{
+cursor:pointer;
+padding:3px;
+box-shadow:0 0 3px #aaa;
+}
+
+.formulaire select:active,
+.formulaire select:focus,
+.formulaire input[type=file]:active,
+.formulaire input[type=file]:focus{
+border:1px solid #093c75;
+box-shadow:0 0 3px #0459b7;
+outline:none;
+}
+
+.formulaire input:not([type=submit]):focus:valid {
+border-color:#093c75;
+box-shadow:0px 0px 3px #0459b7;
+outline:none;
+}
+
+.formulaire input[type=submit],
+.formulaire input[type=file]{
+background:#ddd;
+background:-moz-linear-gradient(90deg, #0459b7, #08adff); /* Firefox */
+background:-webkit-gradient(linear, left top, left bottom, from(#08adff), to(#0459b7)); /* Webkit */
+border:1px solid #093c75;
+border-radius:3px;
+box-shadow:0 1px 0 #fff;
+color:#fff;
+cursor:pointer;
+padding:5px 10px;
+text-shadow:0 1px 1px #333;
+text-transform:uppercase;
+}
+
+.formulaire input[type=submit]:hover{
+background:#eee;
+background:-moz-linear-gradient(90deg, #067cd3, #0bcdff);
+background:-webkit-gradient(linear, left top, left bottom, from(#0bcdff), to(#067cd3));
+border-color:#093c75;
+text-decoration:none;
+}
+
+.formulaire input[type=submit]:active,
+.formulaire input[type=submit]:focus{
+background:#ccc;
+background:-moz-linear-gradient(90deg, #0bcdff, #067cd3);
+background:-webkit-gradient(linear, left top, left bottom, from(#067cd3), to(#0bcdff));
+border-color:#093c75;
+outline:none;
+}
+
+.formulaire-titre{
+border-bottom:1px solid #ccc;
+font-size:11px;
+font-weight:bold;
+letter-spacing:2px;
+margin-bottom:20px;
+text-transform:uppercase;
+}
+
+.formulaire-input{
+margin:10px 6px;
+}
+
+.formulaire-submit{
+margin-top:3px;
+margin-bottom:8px;
+padding-top:0px;
+/*border-top:1px solid #aaa;*/
+text-align:center;
+}
+
+.table-donne-db{
+margin-top:10px;
+}
+
+.table-donne-db table{
+margin:auto;
+box-shadow:3px 3px 15px rgba(50, 50, 50, 0.5);
+}
+
+div.formulaire table.listing{
+width:70%;
+margin:auto;
+}
