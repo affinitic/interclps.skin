@@ -3843,7 +3843,7 @@ class ManageInterClps(BrowserView):
         if etat == 'pending-by-auteur':
             experienceEtat = "En demande de validation par l'auteur"
         if etat == 'pending-by-clps':
-            experienceEtat = "En cours de validation par le CLPS"
+            experienceEtat = "En attente par le CLPS"
         if etat == 'publish':
             experienceEtat = "Publié"
         return experienceEtat
