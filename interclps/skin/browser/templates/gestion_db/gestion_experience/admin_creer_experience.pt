@@ -711,9 +711,8 @@
                     <img src="list_flch_rouge.png" />
                     <select name="experience_etat"
                             id="auteur_actif">
-                        <option value="private" selected="selected">Privé</option>
-                        <option value="pending">En attente</option>
-                        <option value="pending_for_review">En cours de validation</option>
+                        <option value="private" selected="selected">Brouillon</option>
+                        <option value="pending-by-clps">En cours de validation par le CLPS</option>
                         <option value="Publish">Publié</option>
                     </select>
                 </li>

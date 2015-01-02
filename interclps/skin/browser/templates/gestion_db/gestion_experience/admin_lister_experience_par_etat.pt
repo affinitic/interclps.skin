@@ -95,8 +95,15 @@
                                 </td>
                                 <td align="right">
                                     <div class="btn-modifier">
-                                        <a href=""
-                                           tal:attributes="href string: admin-modifier-une-experience?experiencePk=${experiencePk}">&nbsp;</a>
+                                        <tal:block tal:condition="python: experience.experience_etat=='pending-by-auteur'">
+                                            <a href=""
+                                               tal:attributes="href string: admin-modifier-une-experience-maj?experiencePk=${experiencePk}">&nbsp;</a>
+                                        </tal:block>
+
+                                        <tal:block tal:condition="python: experience.experience_etat=='pending-by-clps' or experience.experience_etat=='private' or experience.experience_etat=='publish'">
+                                            <a href=""
+                                               tal:attributes="href string: admin-modifier-une-experience?experiencePk=${experiencePk}">&nbsp;</a>
+                                        </tal:block>
                                     </div>
                                 </td>
                             </tr>

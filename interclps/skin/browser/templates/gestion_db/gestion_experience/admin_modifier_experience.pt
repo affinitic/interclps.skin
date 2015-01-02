@@ -771,7 +771,8 @@
                             </option>
                             <option value="publish"
                                     selected=""
-                                    tal:attributes="selected python:experience.experience_etat=='publish' and 'selected' or None;">Publié
+                                    tal:attributes="selected python:experience.experience_etat=='publish' and 'selected' or None;">
+                                Publié
                             </option>
                         </select>
                     </li>

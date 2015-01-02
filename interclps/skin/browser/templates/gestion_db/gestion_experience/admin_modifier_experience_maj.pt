@@ -46,9 +46,8 @@
             <div class="formInput">
                 <label for="experience_titre">Nom de l'activité ou du projet</label>
                 Quel nom avez-vous donné au projet ?
-                <br />
-                <div class="info-actuelle">
-                    <span tal:content="experience/experience_titre" />
+                <div tal:define="diff nocall:context/@@showDiff">
+                    <span tal:replace="structure python: diff(experience.experience_titre, experienceMaj.experience_maj_titre)" />
                 </div>
                 <input type="text"
                        name="experience_titre"
@@ -61,9 +60,8 @@
             <div class="formInput">
                 <label for="experience_resume">Résumé</label>
                 Pouvez-vous résumer le projet en quelques lignes ?
-                <br />
-                <div class="info-actuelle">
-                    <span tal:replace="structure experience/experience_resume" />
+                <div tal:define="diff nocall:context/@@showDiff">
+                    <span tal:replace="structure python: diff(experience.experience_resume, experienceMaj.experience_maj_resume)" />
                 </div>
                 <span tal:replace="structure python: view.getWysiwygField('experience_resume', experienceMaj.experience_maj_resume)" />
             </div>
@@ -75,8 +73,8 @@
                 au sujet de ce projet ?
                 <div class="formInput">
                     <label for="experience_personne_contact">Personne de contact</label>
-                    <div class="info-actuelle">
-                        <span tal:content="experience/experience_personne_contact" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_personne_contact, experienceMaj.experience_maj_personne_contact)" />
                     </div>
                     <input type="text"
                             name="experience_personne_contact"
@@ -86,8 +84,8 @@
                             tal:attributes="value experienceMaj/experience_maj_personne_contact" />
 
                     <label for="experience_personne_contact_email">E-mail</label>
-                    <div class="info-actuelle">
-                        <span tal:content="experience/experience_personne_contact_email" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_personne_contact_email, experienceMaj.experience_maj_personne_contact_email)" />
                     </div>
                     <input type="text"
                             name="experience_personne_contact_email"
@@ -97,8 +95,8 @@
                             tal:attributes="value experienceMaj/experience_maj_personne_contact_email" />
 
                     <label for="experience_personne_contact_telephone">Téléphone</label>
-                    <div class="info-actuelle">
-                        <span tal:content="experience/experience_personne_contact_telephone" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_personne_contact_telephone, experienceMaj.experience_maj_personne_contact_telephone)" />
                     </div>
                     <input type="text"
                             name="experience_personne_contact_telephone"
@@ -108,8 +106,8 @@
                             tal:attributes="value experienceMaj/experience_maj_personne_contact_telephone" />
 
                     <label for="experience_personne_contact_institution">Institution</label>
-                    <div class="info-actuelle">
-                        <span tal:content="experience/experience_personne_contact_institution" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_personne_contact_institution, experienceMaj.experience_maj_personne_contact_institution)" />
                     </div>
                     <input type="text"
                             name="experience_personne_contact_institution"
@@ -125,8 +123,8 @@
                 Quelle situation – quelles observations sont à l’origine du projet / de l’action ?
                 <div class="formInput">
                     <label for="experience_titre">Contexte</label>
-                    <div class="info-actuelle">
-                        <span tal:replace="structure experience/experience_element_contexte" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_element_contexte, experienceMaj.experience_maj_element_contexte)" />
                     </div>
                     <span tal:replace="structure python: view.getWysiwygField('experience_element_contexte', experienceMaj.experience_maj_element_contexte)" />
                 </div>
@@ -139,8 +137,8 @@
                 en place ? Quel(s) changement(s) attendez-vous ?
                 <div class="formInput">
                     <label for="experience_objectif">Objectifs</label>
-                    <div class="info-actuelle">
-                        <span tal:replace="structure experience/experience_objectif" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_objectif, experienceMaj.experience_maj_objectif)" />
                     </div>
                     <span tal:replace="structure python: view.getWysiwygField('experience_objectif', experienceMaj.experience_maj_objectif)" />
                 </div>
@@ -167,8 +165,8 @@
                     <label for="experience_titre">Un autre type de public</label>
                     Si vous le souhaitez, vous
                     pouvez ici apporter des précisions concernant le public.
-                    <div class="info-actuelle">
-                        <span tal:replace="structure experience/experience_public_vise" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_public_vise, experienceMaj.experience_maj_public_vise)" />
                     </div>
                     <textarea name="experience_public_vise"
                               rows="3"
@@ -224,8 +222,8 @@
                 </ul>
                 <div class="formInput">
                     <label for="experience_titre">Démarches et actions</label>
-                    <div class="info-actuelle">
-                        <span tal:replace="structure experience/experience_demarche_actions" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_demarche_actions, experienceMaj.experience_maj_demarche_actions)" />
                     </div>
                     <span tal:replace="structure python: view.getWysiwygField('experience_demarche_actions', experienceMaj.experience_maj_demarche_actions)" />
                 </div>
@@ -270,8 +268,8 @@
                 </div>
                 <div class="formInput">
                     <label for="experience_titre">Dans un autre pays ?</label>
-                    <div class="info-actuelle">
-                        <span tal:replace="structure experience/experience_commune_international" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_commune_international, experienceMaj.experience_maj_commune_international)" />
                     </div>
                     <textarea name="experience_commune_international"
                               rows="5"
@@ -285,8 +283,8 @@
                 Quand s’est déroulé le projet ?
                 <div class="formInput">
                     <label for="experience_periode_deroulement">Période de déroulement</label>
-                    <div class="info-actuelle">
-                        <span tal:replace="structure experience/experience_periode_deroulement" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_periode_deroulement, experienceMaj.experience_maj_periode_deroulement)" />
                     </div>
                     <textarea name="experience_periode_deroulement"
                               rows="5"
@@ -311,8 +309,8 @@
                 </ul>
                 <div class="formInput">
                     <label for="experience_titre">Moyens</label>
-                    <div class="info-actuelle">
-                        <span tal:replace="structure experience/experience_moyens" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_moyens, experienceMaj.experience_maj_moyens)" />
                     </div>
                     <span tal:replace="structure python: view.getWysiwygField('experience_moyens', experienceMaj.experience_maj_moyens)" />
                 </div>
@@ -334,8 +332,8 @@
                 Que changeriez vous?<br />
                 <div class="formInput">
                     <label for="experience_titre">Evaluation et enseignements</label>
-                    <div class="info-actuelle">
-                        <span tal:replace="structure experience/experience_evaluation_enseignement" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_evaluation_enseignement, experienceMaj.experience_maj_evaluation_enseignement)" />
                     </div>
                     <span tal:replace="structure python: view.getWysiwygField('experience_evaluation_enseignement', experienceMaj.experience_maj_evaluation_enseignement)" />
                 </div>
@@ -347,8 +345,8 @@
                  Une reconduction ? Une réorientation... ?
                  <div class="formInput">
                      <label for="experience_titre">Perspectives envisagées</label>
-                     <div class="info-actuelle">
-                        <span tal:replace="structure experience/experience_perspective_envisagee" />
+                     <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_perspective_envisagee, experienceMaj.experience_maj_perspective_envisagee)" />
                     </div>
                      <span tal:replace="structure python: view.getWysiwygField('experience_perspective_envisagee', experienceMaj.experience_maj_perspective_envisagee)" />
                  </div>
@@ -379,8 +377,8 @@
                     pas dans la liste déroulante ci-dessus.
                     <br />
                     Soyez le plus complet possible.
-                    <div class="info-actuelle">
-                        <span tal:content="experience/experience_institution_porteur_autre" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_institution_porteur_autre, experienceMaj.experience_maj_institution_porteur_autre)" />
                     </div>
                     <textarea name="experience_institution_porteur_autre"
                               cols="70"
@@ -422,8 +420,8 @@
                     pas dans la liste déroulante ci-dessus.
 
                     <label for="experience_titre">Institution</label>
-                    <div class="info-actuelle">
-                        <span tal:content="experience/experience_institution_partenaire_autre" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_institution_partenaire_autre, experienceMaj.experience_maj_institution_partenaire_autre)" />
                     </div>
                     <textarea name="experience_institution_partenaire_autre"
                               cols="70"
@@ -460,8 +458,8 @@
                     pas dans la liste déroulante ci-dessus.
                     <br />
                     Soyez le plus complet possible.
-                    <div class="info-actuelle">
-                        <span tal:content="experience/experience_institution_ressource_autre" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_institution_ressource_autre, experienceMaj.experience_maj_institution_ressource_autre)" />
                     </div>
                     <textarea name="experience_institution_ressource_autre"
                               cols="70"
@@ -488,8 +486,8 @@
                 <div class="formInput">
                     <label for="experience_titre">Autres outils : nom, éditeur</label>
                     Outils qui ne figurent pas dans le menu déroulant ci-dessus
-                    <div class="info-actuelle">
-                        <span tal:content="experience/experience_institution_outil_autre" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_institution_outil_autre, experienceMaj.experience_maj_institution_outil_autre)" />
                     </div>
                     <textarea name="experience_institution_outil_autre"
                               cols="70"
@@ -505,8 +503,8 @@
                 <div class="formInput">
                     <label for="experience_titre">Formations</label>
                     Y a-t-il des formations qui vous ont aidé ?
-                    <div class="info-actuelle">
-                        <span tal:replace="structure experience/experience_formation_suivie" />
+                    <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_formation_suivie, experienceMaj.experience_maj_formation_suivie)" />
                     </div>
                     <span tal:replace="structure python: view.getWysiwygField('experience_formation_suivie', experienceMaj.experience_maj_formation_suivie)" />
                 </div>
@@ -518,8 +516,8 @@
                 vous lui conseilleriez de contacter qui ? de commencer
                 par où ?
                 <label for="experience_titre">Pour aller plus loin</label>
-                <div class="info-actuelle">
-                    <span tal:content="experience/experience_aller_plus_loin" />
+                <div tal:define="diff nocall:context/@@showDiff">
+                        <span tal:replace="structure python: diff(experience.experience_aller_plus_loin, experienceMaj.experience_maj_aller_plus_loin)" />
                 </div>
                 <span tal:replace="structure python: view.getWysiwygField('experience_aller_plus_loin', experienceMaj.experience_maj_aller_plus_loin)" />
             </div>
@@ -680,16 +678,19 @@
                     <select name="experience_etat">
                         <option value="private"
                                 selected=""
-                                tal:attributes="selected python:experience.experience_etat=='private' and 'selected' or None;">Privé</option>
+                                tal:attributes="selected python:experience.experience_etat=='private' and 'selected' or None;">
+                            Brouillon
+                        </option>
                         <option value="pending"
                                 selected=""
-                                tal:attributes="selected python:experience.experience_etat=='pending' and 'selected' or None;">Attente</option>
-                        <option value="pending"
-                                selected=""
-                                tal:attributes="selected python:experience.experience_etat=='pending' and 'selected' or None;">En cours de validation</option>
+                                tal:attributes="selected python:experience.experience_etat=='pending-by-clps' and 'selected' or None;">
+                            En cours de validation par le CLPS
+                        </option>
                         <option value="publish"
                                 selected=""
-                                tal:attributes="selected python:experience.experience_etat=='publish' and 'selected' or None;">Publié</option>
+                                tal:attributes="selected python:experience.experience_etat=='publish' and 'selected' or None;">
+                            Publié
+                        </option>
                     </select>
                 </div>
             </div>
