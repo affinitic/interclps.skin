@@ -2,16 +2,27 @@
 <!-- This file holds the setup configuration for the portal_css tool. -->
 
 <object name="portal_css">
- <stylesheet title=""
-             id="++theme++interclps.skin/style.css"
-             media="screen"
-             rel="stylesheet"
-             rendering="link"
-             cacheable="True"
-             compression="safe"
-             cookable="True"
-             enabled="1"
-             applyPrefix="True"
-             expression="request/HTTP_X_THEME_ENABLED | nothing"/>
+    <stylesheet title=""
+                id="++theme++interclps.skin/style.css"
+                media="screen"
+                rel="stylesheet"
+                rendering="link"
+                cacheable="True"
+                compression="safe"
+                cookable="True"
+                enabled="1"
+                applyPrefix="True"
+                expression="request/HTTP_X_THEME_ENABLED | nothing"/>
+
+     <stylesheet title=""
+                 id="formulaire_interclps_style.css"
+                 media="screen"
+                 rel="stylesheet"
+                 rendering="import"
+                 cacheable="True"
+                 compression="safe"
+                 cookable="True"
+                 enabled="1"
+                 expression=""/>
 
 </object>
