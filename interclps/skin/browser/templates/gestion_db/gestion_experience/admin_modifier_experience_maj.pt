@@ -23,7 +23,8 @@
                  experiences python:view.getExperienceByPk(experiencePk);
                  experienceMaj python:view.getExperienceMajByPk(experiencePk);
                  allClps python:view.getAllClps();
-                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk')"
+                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk');
+                 experienceEtat python:view.getExperienceEtat(experiencePk)"
      tal:condition="python:user.has_role(['Manager'], here)">
 <form action="manageExperience"
       method="post">
@@ -675,6 +676,11 @@
 
                 <div class="formulaire">
                     <h2>Niveau visibilité</h2>
+                    Etat actuel :
+                    <span tal:content="experienceEtat"
+                          class="orange" />
+                    <br /><br />
+                    Modifier l'état<br />
                     <select name="experience_etat">
                         <option value="private"
                                 selected=""

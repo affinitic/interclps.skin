@@ -621,7 +621,35 @@
             </table>
         </fieldset>
 
-        <hr />
+        <fieldset>
+            <legend class="legende"> Niveau de visibilité </legend>
+             <table>
+                <tr>
+                    <td tal:define="experienceEtat python:view.getTranslationExperienceEtat(experience.experience_etat)"
+                        class="form-experience-left-column">
+                        Etat actuel :
+                        <span tal:content="experienceEtat"
+                              class="orange" />
+                        <br /><br />
+                        Modifier l'état :
+                        <select name="experience_etat">
+                            <option value="private"
+                                    selected=""
+                                    tal:attributes="selected python:experience.experience_etat=='private' and 'selected' or None;">
+                                Brouillon
+                            </option>
+                            <option value="pending-by-auteur"
+                                    selected=""
+                                    tal:attributes="selected python:experience.experience_etat=='pending-by-auteur' and 'selected' or None;">
+                                En demande de validation
+                            </option>
+                        </select>
+                    </td>
+                    <td class="form-experience-right-column">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
 
         <div class="div_form_input">
             <input type="hidden"
@@ -642,9 +670,6 @@
             <input type="hidden"
                    name="operation"
                    value="updateByAuteur" />
-            <input type="hidden"
-                   name="experience_etat"
-                   value="pending" />
             <input type="hidden"
                    name="auteurExterne"
                    value="True" />

@@ -4592,11 +4592,23 @@ class ManageInterClps(BrowserView):
             session.delete(experienceFk)
         session.flush()
 
+    def deleteExperienceMaj(self, experienceFk):
+        """
+        table pg experience_maj
+        suppression de l'experience mise a jour > versionning
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        query = session.query(ExperienceMaj)
+        query = query.filter(ExperienceMaj.experience_maj_expfk == experienceFk)
+        for experienceFk in query.all():
+            session.delete(experienceFk)
+        session.flush()
+
     def updateExperienceByClps(self):
         """
         table pg experience
         mise à jour des infos d'une experience par equipe Clps
-        effacement de la version de l'experience dans experience_maj
         """
         fields = self.context.REQUEST
         experience_pk = getattr(fields, 'experience_pk')
@@ -4694,13 +4706,11 @@ class ManageInterClps(BrowserView):
         experience.experience_modification_date = experience_modification_date
         session.flush()
 
-    def updateEtatExperience(self, experiencePk):
+    def updateEtatExperience(self, experiencePk, experienceEtat):
         """
         table pg experience
         mise à jour de l'état d'une experience suite à la mise à jour par l'auteur dans experience_maj
         """
-        experienceEtat = 'pending'
-
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
         query = session.query(Experience)
@@ -4754,6 +4764,8 @@ class ManageInterClps(BrowserView):
         experience_auteur_fk = getattr(fields, 'experience_auteur_fk', None)
         experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
         experience_clps_proprio_fk = getattr(fields, 'experience_clps_proprio_fk', None)
+        experience_etat = getattr(fields, 'experience_etat', None)
+
 
 
         #cas de modification de l'auteur via ligth search
@@ -4762,7 +4774,6 @@ class ManageInterClps(BrowserView):
             experience_auteur_fk = self.getAuteurPkByName(experience_auteur)
 
         experience_modification_employe = self.getAuteurLogin(experience_auteur)
-        experience_etat = 'pending'
         experienceMaj = True
 
 
@@ -4812,7 +4823,7 @@ class ManageInterClps(BrowserView):
         session.refresh(newEntry)
         experienceMajPk = newEntry.experience_maj_pk
 
-        self.updateEtatExperience(experiencePk)
+        self.updateEtatExperience(experiencePk, experience_etat)
 
 
 ### LOG ###
@@ -5364,6 +5375,9 @@ class ManageInterClps(BrowserView):
             self.deleteLinkExperienceClpsProprio(experienceFk)
             if experienceClpsProprioFk > 0:                             # gestion du clps proprio
                 self.addLinkExperienceClpsProprio(experienceFk)
+
+            #suppresion dans la table experience_maj (versionning)
+            self.deleteExperienceMaj(experienceFk)
 
             self.sendMailForUpdateExperience()
 

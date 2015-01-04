@@ -13,6 +13,7 @@
 <div metal:fill-slot="main"
      tal:define="experiencePk request/experiencePk | nothing;
                  experience python:view.getExperienceMajByPk(experiencePk);
+                 experienceEtat python:view.getExperienceEtat(experiencePk);
                  selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
     <div id="main-experience">
         <div id="alerte"
