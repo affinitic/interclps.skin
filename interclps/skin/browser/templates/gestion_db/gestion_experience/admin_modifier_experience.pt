@@ -764,7 +764,7 @@
                                     tal:attributes="selected python:experience.experience_etat=='private' and 'selected' or None;">
                                 Brouillon
                             </option>
-                            <option value="pending_for_review"
+                            <option value="pending-by-clps"
                                     selected=""
                                     tal:attributes="selected python:experience.experience_etat=='pending-by-clps' and 'selected' or None;">
                                 En cours de validation par le CLPS
