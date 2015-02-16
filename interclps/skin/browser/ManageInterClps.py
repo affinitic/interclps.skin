@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-#import time
-#import random
+# import time
+# import random
 from sqlalchemy import select, func
 from mailer import Mailer
-#from LocalFS import LocalFS
+# from LocalFS import LocalFS
 from Products.Five import BrowserView
 from zope.interface import implements
 from z3c.sqlalchemy import getSAWrapper
 from plone.app.form.widgets.wysiwygwidget import WYSIWYGWidget
-#from Products.CMFPlone.utils import normalizeString
+# from Products.CMFPlone.utils import normalizeString
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as _
 from Products.AddRemoveWidget.AddRemoveWidget import AddRemoveWidget
@@ -63,9 +63,9 @@ from interclps.db.pgsql.baseTypes import Auteur, \
                                          LinkAssuetudeActiviteProposeeForInstitutionPro, \
                                          AssuetudeThemeForInstitution, \
                                          LinkAssuetudeThemeForInstitution
-                                         #InstitutionAssuetudeIntervention
-                                         #InstitutionAssuetudeActiviteProposee, \
-                                         #AssuetudeThemeForInstitution, \
+                                         # InstitutionAssuetudeIntervention
+                                         # InstitutionAssuetudeActiviteProposee, \
+                                         # AssuetudeThemeForInstitution, \
 
 
 class ManageInterClps(BrowserView):
@@ -236,11 +236,11 @@ class ManageInterClps(BrowserView):
                   <a href="http://www.projets-partages.be/admin-creer-un-auteur">lien</a>.
                   <hr />
                   """ \
-                  % (clpsSigle, \
-                     clpsPrenomContact, \
-                     auteurNom, \
-                     auteurPrenom, \
-                     auteurInstitution, \
+                  % (clpsSigle,
+                     clpsPrenomContact,
+                     auteurNom,
+                     auteurPrenom,
+                     auteurInstitution,
                      auteurDescription)
         message = message.encode('utf-8')
         self.sendMail(sujet, message, clpsEmailContact)
@@ -290,17 +290,17 @@ class ManageInterClps(BrowserView):
                   :: Autre institution outil : <font color='#ff9c1b'><b>%s</b></font><br />
                   </font>
                   """ \
-                  % (clpsSigle, \
-                     clpsPrenomContact, \
-                     experience_titre, \
-                     experience_personne_contact, \
-                     experience_creation_employe, \
-                     experience_etat, \
-                     experience_pk, \
-                     experience_public_vise, \
-                     experience_institution_porteur_autre, \
-                     experience_institution_partenaire_autre, \
-                     experience_institution_ressource_autre, \
+                  % (clpsSigle,
+                     clpsPrenomContact,
+                     experience_titre,
+                     experience_personne_contact,
+                     experience_creation_employe,
+                     experience_etat,
+                     experience_pk,
+                     experience_public_vise,
+                     experience_institution_porteur_autre,
+                     experience_institution_partenaire_autre,
+                     experience_institution_ressource_autre,
                      experience_institution_outil_autre)
         message = message.encode('utf-8')
         self.sendMail(sujet, message, clpsEmailContact)
@@ -3993,16 +3993,18 @@ class ManageInterClps(BrowserView):
         recuperation du nombre d'experience selon experience_etat
         private pending publish
         """
-        # wrapper = getSAWrapper('clpsbw')
-        # session = wrapper.session
-        # query = session.query(Experience)
-        # query = query.filter(Experience.experience_etat == experienceEtat)
-        # nbrExp = select([func.count(Experience.experience_pk).label('count')])
-        # nbrExp.append_whereclause(Experience.experience_etat == experienceEtat)
-        # nbrExperiencesByEtat = nbrExp.execute().fetchone().count
         experienceByClps = self.getExperienceByClpsByEtat(clpsPk, experienceEtat)
         nbrExperiencesByEtat = len(experienceByClps)
         return nbrExperiencesByEtat
+
+    def getCountExperienceByClps(self, clpsPk):
+        """
+        table pg experience
+        recuperation du nombre d'experience selon le clps
+        """
+        experienceByClps = self.getExperienceByClpsByEtat(clpsPk)
+        nbrExperiencesByClps = len(experienceByClps)
+        return nbrExperiencesByClps
 
     def getCountAllExperience(self):
         """
@@ -5394,6 +5396,7 @@ class ManageInterClps(BrowserView):
 
         if operation == "updateByAuteur":
             experienceFk = getattr(fields, 'experience_pk')
+
             self.updateExperienceByAuteur()
 
             self.deleteLinkExperienceCommune(experienceFk)

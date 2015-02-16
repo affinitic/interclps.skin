@@ -517,7 +517,7 @@ font-variant:small-caps;
 font-size:1.1em;
 font-weight:bold;
 padding-left:15px;
-border-bottom:1px solid #e9953a;
+border-bottom:1px solid #cf00a1;
 }
 
 .portletItemDB,
@@ -594,13 +594,22 @@ padding-left:2em;
 
 .etatBase{
 margin-top:5px;
+margin-left:-17px;
 font-size:0.8em;
 background-color:rgba(225, 210, 192, 0.5);
-width:160px;
+width:182px;
 border-radius:12px;
 padding:5px;
 }
 
+.etatBase a{
+padding-left:3px;
+}
+
+.texte-etat-base{
+font-size:0.8em;
+color:#777;
+}
 
 /**** FIELDSET PAGE DB ****/
 #content fieldset {

@@ -40,7 +40,7 @@
                     </dd>
                     <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('pending-by-auteur', 2)">
                         <a href="admin-lister-les-experiences-par-etat?etat=pending-by-auteur">
-                            &bull; en attente par l'auteur : <span tal:content="nbrExp">nbr</span>
+                            &bull; demande de validation par l'auteur : <span tal:content="nbrExp">nbr</span>
                         </a>
                     </dd>
                     <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('pending-by-clps', 2)">
@@ -52,10 +52,20 @@
                         <a href="admin-lister-les-experiences-par-etat?etat=publish">
                             &bull; publi&eacute; : <span tal:content="nbrExp">nbr</span></a>
                     </dd>
+                </div>
+                <div class="etatBase">
+                    Total :
+                    <dd tal:define="nbrExp python:experiences.getCountExperienceByClps(1)">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="texte-etat-base">&bull; Clsp-Bw : <span tal:content="nbrExp" /></span>
+                    </dd>
+                    <dd tal:define="nbrExp python:experiences.getCountExperienceByClps(2)">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="texte-etat-base">&bull; Clps-Lux : <span tal:content="nbrExp" /></span>
+                    </dd>
                     <dd tal:define="nbrExp python:experiences.getCountAllExperience()">
-                        <br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="gras">Total : <span tal:content="nbrExp">nbr</span></span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="texte-etat-base">&bull; Total : <span tal:content="nbrExp" /></span>
                     </dd>
                 </div>
 

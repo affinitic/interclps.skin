@@ -63,8 +63,7 @@ class IManageInterClps(Interface):
         generates a WYSIWYG field containing value
         """
 
-    def getAddRemoveField(name, title, values, nameKey='name', pkKey='pk', \
-                          selectedPks=[]):
+    def getAddRemoveField(name, title, values, nameKey='name', pkKey='pk', selectedPks=[]):
         """
         generates an Add / Remove from list field with already selected pks
         nameKey and pkKey are used for the display value and the record pk to
@@ -206,6 +205,12 @@ class IManageInterClps(Interface):
         """
         table pg experience
         recuperation du nombre d'experience
+        """
+
+    def getCountExperienceByClps(self, clpsPk):
+        """
+        table pg experience
+        recuperation du nombre d'experience selon le clps
         """
 
     def insertExperience():
