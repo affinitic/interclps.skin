@@ -3,7 +3,7 @@
 import datetime
 # import time
 # import random
-from sqlalchemy import select, func
+from sqlalchemy import select, func, exists
 from mailer import Mailer
 # from LocalFS import LocalFS
 from Products.Five import BrowserView
@@ -3832,6 +3832,19 @@ class ManageInterClps(BrowserView):
         #experienceMaxPk = query.max(ExperienceTable.experience_pk)
         return experienceMaxPk
 
+    def IfExperiencePkExist(self, experiencePk):
+        """
+        table pg experience_maj
+        check si une experiencePk est déjà dans la table de mise à jour (versionning)
+        """
+        wrapper = getSAWrapper('clpsbw')
+        session = wrapper.session
+        query = session.query(ExperienceMaj)
+        # check si la pk existe dans la table et renvoie true ou false
+        experienceMajExist = session.query(exists().where(ExperienceMaj.experience_maj_expfk==experiencePk)).scalar()
+        return experienceMajExist
+
+
     def getTranslationExperienceEtat(self, etat):
         """
         traduction de l'état d'une experience
@@ -4687,7 +4700,7 @@ class ManageInterClps(BrowserView):
 
         #suppresion dans la table experience_maj (versionning) si l'état n'est plus private > brouillon
         if experience_etat != 'private':
-            self.deleteExperienceMaj(experienceFk)
+            self.deleteExperienceMaj(experience_pk)
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
@@ -4793,64 +4806,94 @@ class ManageInterClps(BrowserView):
         experience_clps_proprio_fk = getattr(fields, 'experience_clps_proprio_fk', None)
         experience_etat = getattr(fields, 'experience_etat', None)
 
-
-
         #cas de modification de l'auteur via ligth search
         experience_auteur = getattr(fields, 'experience_auteur_fk', None)
         if not experience_auteur:
             experience_auteur_fk = self.getAuteurPkByName(experience_auteur)
 
         experience_modification_employe = self.getAuteurLogin(experience_auteur)
-        experienceMaj = True
-
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
-        newEntry = ExperienceMaj(experience_maj_expfk=experiencePk,
-                                 experience_maj_titre=experience_titre,
-                                 experience_maj_resume=experience_resume,
-                                 experience_maj_personne_contact=experience_personne_contact,
-                                 experience_maj_personne_contact_email=experience_personne_contact_email,
-                                 experience_maj_personne_contact_telephone=experience_personne_contact_telephone,
-                                 experience_maj_personne_contact_institution=experience_personne_contact_institution,
-                                 experience_maj_element_contexte=experience_element_contexte,
-                                 experience_maj_objectif=experience_objectif,
-                                 experience_maj_public_vise=experience_public_vise,
-                                 experience_maj_demarche_actions=experience_demarche_actions,
-                                 experience_maj_commune_international=experience_commune_international,
-                                 experience_maj_territoire_tout_brabant_wallon=experience_territoire_tout_brabant_wallon,
-                                 experience_maj_periode_deroulement=experience_periode_deroulement,
-                                 experience_maj_moyens=experience_moyens,
-                                 experience_maj_evaluation_enseignement=experience_evaluation_enseignement,
-                                 experience_maj_perspective_envisagee=experience_perspective_envisagee,
-                                 experience_maj_institution_porteur_autre=experience_institution_porteur_autre,
-                                 experience_maj_institution_partenaire_autre=experience_institution_partenaire_autre,
-                                 experience_maj_institution_ressource_autre=experience_institution_ressource_autre,
-                                 experience_maj_institution_outil_autre=experience_institution_outil_autre,
-                                 experience_maj_formation_suivie=experience_formation_suivie,
-                                 experience_maj_aller_plus_loin=experience_aller_plus_loin,
-                                 experience_maj_plate_forme_sante_ecole=experience_plate_forme_sante_ecole,
-                                 experience_maj_plate_forme_assuetude=experience_plate_forme_assuetude,
-                                 experience_maj_plate_forme_sante_famille=experience_plate_forme_sante_famille,
-                                 experience_maj_plate_forme_sante_environnement=experience_plate_forme_sante_environnement,
-                                 experience_maj_mission_centre_documentation=experience_mission_centre_documentation,
-                                 experience_maj_mission_accompagnement_projet=experience_mission_accompagnement_projet,
-                                 experience_maj_mission_reseau_echange=experience_mission_reseau_echange,
-                                 experience_maj_mission_formation=experience_mission_formation,
-                                 experience_maj_auteur_login=experience_auteur_login,
-                                 experience_maj_clps_proprio_fk=experience_clps_proprio_fk,
-                                 experience_maj_auteur_fk=experience_auteur_fk,
-                                 experience_maj_etat=experience_etat,
-                                 experience_maj_modification_date=experience_modification_date,
-                                 experience_maj_modification_employe=experience_modification_employe)
+        experienceMaj = self.IfExperiencePkExist(experiencePk)
+        #l'exeprience n'existe pas encore dans experience_maj > insertion
+        if not experienceMaj:
+            newEntry = ExperienceMaj(experience_maj_expfk=experiencePk,
+                                     experience_maj_titre=experience_titre,
+                                     experience_maj_resume=experience_resume,
+                                     experience_maj_personne_contact=experience_personne_contact,
+                                     experience_maj_personne_contact_email=experience_personne_contact_email,
+                                     experience_maj_personne_contact_telephone=experience_personne_contact_telephone,
+                                     experience_maj_personne_contact_institution=experience_personne_contact_institution,
+                                     experience_maj_element_contexte=experience_element_contexte,
+                                     experience_maj_objectif=experience_objectif,
+                                     experience_maj_public_vise=experience_public_vise,
+                                     experience_maj_demarche_actions=experience_demarche_actions,
+                                     experience_maj_commune_international=experience_commune_international,
+                                     experience_maj_territoire_tout_brabant_wallon=experience_territoire_tout_brabant_wallon,
+                                     experience_maj_periode_deroulement=experience_periode_deroulement,
+                                     experience_maj_moyens=experience_moyens,
+                                     experience_maj_evaluation_enseignement=experience_evaluation_enseignement,
+                                     experience_maj_perspective_envisagee=experience_perspective_envisagee,
+                                     experience_maj_institution_porteur_autre=experience_institution_porteur_autre,
+                                     experience_maj_institution_partenaire_autre=experience_institution_partenaire_autre,
+                                     experience_maj_institution_ressource_autre=experience_institution_ressource_autre,
+                                     experience_maj_institution_outil_autre=experience_institution_outil_autre,
+                                     experience_maj_formation_suivie=experience_formation_suivie,
+                                     experience_maj_aller_plus_loin=experience_aller_plus_loin,
+                                     experience_maj_plate_forme_sante_ecole=experience_plate_forme_sante_ecole,
+                                     experience_maj_plate_forme_assuetude=experience_plate_forme_assuetude,
+                                     experience_maj_plate_forme_sante_famille=experience_plate_forme_sante_famille,
+                                     experience_maj_plate_forme_sante_environnement=experience_plate_forme_sante_environnement,
+                                     experience_maj_mission_centre_documentation=experience_mission_centre_documentation,
+                                     experience_maj_mission_accompagnement_projet=experience_mission_accompagnement_projet,
+                                     experience_maj_mission_reseau_echange=experience_mission_reseau_echange,
+                                     experience_maj_mission_formation=experience_mission_formation,
+                                     experience_maj_auteur_login=experience_auteur_login,
+                                     experience_maj_clps_proprio_fk=experience_clps_proprio_fk,
+                                     experience_maj_auteur_fk=experience_auteur_fk,
+                                     experience_maj_etat=experience_etat,
+                                     experience_maj_modification_date=experience_modification_date,
+                                     experience_maj_modification_employe=experience_modification_employe)
+            session.add(newEntry)
 
-        session.add(newEntry)
+        #l'exeprience existe dans experience_maj > update (versionning)
+        if experienceMaj:
+            query = session.query(ExperienceMaj)
+            query = query.filter(ExperienceMaj.experience_maj_expfk == experiencePk)
+            experienceMaj = query.one()
+            experienceMaj.experience_maj_titre = unicode(experience_titre, 'utf-8')
+            experienceMaj.experience_maj_resume = unicode(experience_resume, 'utf-8')
+            experienceMaj.experience_maj_personne_contact = unicode(experience_personne_contact, 'utf-8')
+            experienceMaj.experience_maj_personne_contact_email = unicode(experience_personne_contact_email, 'utf-8')
+            experienceMaj.experience_maj_personne_contact_telephone = unicode(experience_personne_contact_telephone, 'utf-8')
+            experienceMaj.experience_maj_personne_contact_institution = unicode(experience_personne_contact_institution, 'utf-8')
+            experienceMaj.experience_maj_element_contexte = unicode(experience_element_contexte, 'utf-8')
+            experienceMaj.experience_maj_objectif = unicode(experience_objectif, 'utf-8')
+            experienceMaj.experience_maj_public_vise = unicode(experience_public_vise, 'utf-8')
+            experienceMaj.experience_maj_demarche_actions = unicode(experience_demarche_actions, 'utf-8')
+            experienceMaj.experience_maj_commune_international = unicode(experience_commune_international, 'utf-8')
+            experienceMaj.experience_maj_territoire_tout_brabant_wallon = experience_territoire_tout_brabant_wallon
+            experienceMaj.experience_maj_periode_deroulement = unicode(experience_periode_deroulement, 'utf-8')
+            experienceMaj.experience_maj_moyens = unicode(experience_moyens, 'utf-8')
+            experienceMaj.experience_maj_evaluation_enseignement = unicode(experience_evaluation_enseignement, 'utf-8')
+            experienceMaj.experience_maj_perspective_envisagee = unicode(experience_perspective_envisagee, 'utf-8')
+            experienceMaj.experience_maj_institution_porteur_autre = unicode(experience_institution_porteur_autre, 'utf-8')
+            experienceMaj.experience_maj_institution_partenaire_autre = unicode(experience_institution_partenaire_autre, 'utf-8')
+            experienceMaj.experience_maj_institution_ressource_autre = unicode(experience_institution_ressource_autre, 'utf-8')
+            experienceMaj.experience_maj_institution_outil_autre = unicode(experience_institution_outil_autre, 'utf-8')
+            experienceMaj.experience_maj_formation_suivie = unicode(experience_formation_suivie, 'utf-8')
+            experienceMaj.experience_maj_aller_plus_loin = unicode(experience_aller_plus_loin, 'utf-8')
+            experienceMaj.experience_maj_auteur_login = experience_auteur_login
+            experienceMaj.experience_maj_auteur_fk = experience_auteur_fk
+            experienceMaj.experience_maj_etat = unicode(experience_etat, 'utf-8')
+            experienceMaj.experience_maj_modification_employe = experience_modification_employe
+            experienceMaj.experience_maj_modification_date = experience_modification_date
+
         session.flush()
 
-        session.refresh(newEntry)
-        experienceMajPk = newEntry.experience_maj_pk
-
         self.updateEtatExperience(experiencePk, experience_etat)
+
 
 
 ### LOG ###
@@ -5227,7 +5270,6 @@ class ManageInterClps(BrowserView):
         """
         fields = self.context.REQUEST
         operation = getattr(fields, 'operation')
-        auteurExterne = getattr(fields, 'auteurExterne', None)
 
         auteurLogin = getattr(fields, 'auteur_login')
         auteurPassword = getattr(fields, 'auteur_pass')
