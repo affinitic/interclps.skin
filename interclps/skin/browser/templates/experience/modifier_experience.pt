@@ -12,13 +12,23 @@
 <body>
 <div metal:fill-slot="main"
      tal:define="experiencePk request/experiencePk;
-                 experiences python:view.getExperienceByPk(experiencePk)"
+                 experienceEtat request/experienceEtat;
+                 experience python:view.getExperienceByPk(experiencePk);
+                 experienceMaj python:view.getExperienceForModification(experiencePk, experienceEtat)"
      tal:condition="python:user.has_role(['RecitExperience'], here)">
 
 <form action="manageExperience"
       method="post">
-    <tal:boucle tal:repeat="experience experiences">
-        <h1>:: Modifier l'expérience <span tal:content="experience/experience_titre" class="rouge-titre" /> ::</h1>
+        <h1>
+            :: Modifier l'expérience
+            <span tal:condition="python: experienceEtat!='private'"
+                  tal:content="experience/experience_titre"
+                  class="rouge-titre" />
+            <span tal:condition="python: experienceEtat=='private'"
+                  tal:content="experienceMaj/experience_maj_titre"
+                  class="rouge-titre" />
+            ::
+        </h1>
         <div class="discreet">
             Les <span class="info-logo">i</span> situés à droite de l’écran sont là pour vous soutenir
             dans la structuration ou la rédaction, il n’est pas nécessaire
@@ -31,12 +41,20 @@
                     <td class="form-experience-left-column">
                         <img src="list_flch_rouge.png" />
                         Nom de l'activité ou du projet
-                        <br />
                         <input type="text"
                                name="experience_titre"
                                value=""
                                size="100"
                                tal:attributes="value experience/experience_titre"
+                               tal:condition="python: experienceEtat!='private'"
+                               class="grasorange" />
+
+                        <input type="text"
+                               name="experience_titre"
+                               value=""
+                               size="100"
+                               tal:attributes="value experienceMaj/experience_maj_titre"
+                               tal:condition="python: experienceEtat=='private'"
                                class="grasorange" />
                     </td>
                     <td class="form-experience-right-column">
@@ -52,7 +70,13 @@
                         <img src="list_flch_rouge.png" />
                         Résumé
                         <br />
-                        <span tal:replace="structure python: view.getWysiwygField('experience_resume', experience.experience_resume)" />
+                        <div tal:condition="python: experienceEtat!='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_resume', experience.experience_resume)" />
+                        </div>
+
+                        <div tal:condition="python: experienceEtat=='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_resume', experienceMaj.experience_maj_resume)" />
+                        </div>
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
@@ -63,7 +87,6 @@
                 </tr>
             </table>
         </fieldset>
-
         <fieldset>
             <legend class="legende">Contact</legend>
             <table>
@@ -73,41 +96,77 @@
                         Personne de contact
                         <br/>
                         <input type="text"
-                                name="experience_personne_contact"
-                                value=""
-                                size="100"
-                                tal:attributes="value experience/experience_personne_contact"
-                                class="grasorange" />
+                               name="experience_personne_contact"
+                               value=""
+                               size="100"
+                               tal:attributes="value experience/experience_personne_contact"
+                               tal:condition="python: experienceEtat!='private'"
+                               class="grasorange" />
+
+                        <input type="text"
+                               name="experience_personne_contact"
+                               value=""
+                               size="100"
+                               tal:attributes="value experienceMaj/experience_maj_personne_contact"
+                               tal:condition="python: experienceEtat=='private'"
+                               class="grasorange" />
                         <br />
                         <img src="list_flch_rouge.png" />
                         E-mail
                         <br/>
                         <input type="text"
-                                name="experience_personne_contact_email"
-                                value=""
-                                size="100"
-                                tal:attributes="value experience/experience_personne_contact_email"
-                                class="grasorange"/>
+                               name="experience_personne_contact_email"
+                               value=""
+                               size="100"
+                               tal:attributes="value experience/experience_personne_contact_email"
+                               tal:condition="python: experienceEtat!='private'"
+                               class="grasorange"/>
+
+                        <input type="text"
+                               name="experience_personne_contact_email"
+                               value=""
+                               size="100"
+                               tal:attributes="value experienceMaj/experience_maj_personne_contact_email"
+                               tal:condition="python: experienceEtat=='private'"
+                               class="grasorange"/>
                         <br />
                         <img src="list_flch_rouge.png" />
                         Téléphone
                         <br/>
                         <input type="text"
-                                name="experience_personne_contact_telephone"
-                                value=""
-                                size="100"
-                                tal:attributes="value experience/experience_personne_contact_telephone"
-                                class="grasorange" />
+                               name="experience_personne_contact_telephone"
+                               value=""
+                               size="100"
+                               tal:attributes="value experience/experience_personne_contact_telephone"
+                               tal:condition="python: experienceEtat!='private'"
+                               class="grasorange" />
+
+                        <input type="text"
+                               name="experience_personne_contact_telephone"
+                               value=""
+                               size="100"
+                               tal:attributes="value experienceMaj/experience_maj_personne_contact_telephone"
+                               tal:condition="python: experienceEtat=='private'"
+                               class="grasorange" />
                         <br />
                         <img src="list_flch_rouge.png" />
                         Institution
                         <br/>
                         <input type="text"
-                                name="experience_personne_contact_institution"
-                                value=""
-                                size="100"
-                                tal:attributes="value experience/experience_personne_contact_institution"
-                                class="grasorange" />
+                               name="experience_personne_contact_institution"
+                               value=""
+                               size="100"
+                               tal:attributes="value experience/experience_personne_contact_institution"
+                               tal:condition="python: experienceEtat!='private'"
+                               class="grasorange" />
+
+                        <input type="text"
+                               name="experience_personne_contact_institution"
+                               value=""
+                               size="100"
+                               tal:attributes="value experienceMaj/experience_maj_personne_contact_institution"
+                               tal:condition="python: experienceEtat=='private'"
+                               class="grasorange" />
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
@@ -126,7 +185,12 @@
                 <tr>
                     <td class="form-experience-left-column">
                         <br />
-                        <span tal:replace="structure python: view.getWysiwygField('experience_element_contexte', experience.experience_element_contexte)" />
+                        <div tal:condition="python: experienceEtat!='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_element_contexte', experience.experience_element_contexte)" />
+                        </div>
+                        <div tal:condition="python: experienceEtat=='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_element_contexte', experienceMaj.experience_maj_element_contexte)" />
+                        </div>
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
@@ -137,13 +201,19 @@
                 </tr>
             </table>
         </fieldset>
+
         <fieldset>
             <legend class="legende">Objectifs</legend>
              <table>
                 <tr>
                     <td class="form-experience-left-column">
                         <br />
-                        <span tal:replace="structure python: view.getWysiwygField('experience_objectif', experience.experience_objectif)" />
+                        <div tal:condition="python: experienceEtat!='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_objectif', experience.experience_objectif)" />
+                        </div>
+                        <div tal:condition="python: experienceEtat=='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_objectif', experienceMaj.experience_maj_objectif)" />
+                        </div>
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
@@ -189,6 +259,14 @@
                                   rows="3"
                                   cols="70"
                                   tal:content="experience/experience_public_vise"
+                                  tal:condition="python: experienceEtat!='private'"
+                                  class="grasorange"></textarea>
+
+                        <textarea name="experience_public_vise"
+                                  rows="3"
+                                  cols="70"
+                                  tal:content="experience/experience_public_vise"
+                                  tal:condition="python: experienceEtat=='private'"
                                   class="grasorange"></textarea>
                     </td>
                     <td class="form-experience-right-column">
@@ -239,7 +317,12 @@
              <table>
                 <tr>
                     <td class="form-experience-left-column">
-                        <span tal:replace="structure python: view.getWysiwygField('experience_demarche_actions', experience.experience_demarche_actions)" />
+                        <div tal:condition="python: experienceEtat!='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_demarche_actions', experience.experience_demarche_actions)" />
+                        </div>
+                        <div tal:condition="python: experienceEtat=='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_demarche_actions', experienceMaj.experience_maj_demarche_actions)" />
+                        </div>
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
@@ -292,6 +375,14 @@
                                   rows="5"
                                   cols="50"
                                   tal:content="experience/experience_commune_international"
+                                  tal:condition="python: experienceEtat!='private'"
+                                  class="grasorange"></textarea>
+
+                        <textarea name="experience_commune_international"
+                                  rows="5"
+                                  cols="50"
+                                  tal:content="experience/experience_commune_international"
+                                  tal:condition="python: experienceEtat=='private'"
                                   class="grasorange"></textarea>
                     </td>
                     <td class="form-experience-right-column">
@@ -314,6 +405,14 @@
                                   rows="5"
                                   cols="50"
                                   tal:content="experience/experience_periode_deroulement"
+                                  tal:condition="python: experienceEtat!='private'"
+                                  class="grasorange"></textarea>
+
+                        <textarea name="experience_periode_deroulement"
+                                  rows="5"
+                                  cols="50"
+                                  tal:content="experienceMaj/experience_maj_periode_deroulement"
+                                  tal:condition="python: experienceEtat=='private'"
                                   class="grasorange"></textarea>
                     </td>
                     <td class="form-experience-right-column">
@@ -332,7 +431,12 @@
                 <tr>
                     <td class="form-experience-left-column">
                         <br />
-                        <span tal:replace="structure python: view.getWysiwygField('experience_moyens', experience.experience_moyens)" />
+                        <div tal:condition="python: experienceEtat!='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_moyens', experience.experience_moyens)" />
+                        </div>
+                        <div tal:condition="python: experienceEtat=='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_moyens', experienceMaj.experience_maj_moyens)" />
+                        </div>
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
@@ -361,7 +465,12 @@
                 <tr>
                     <td class="form-experience-left-column">
                         <br />
-                        <span tal:replace="structure python: view.getWysiwygField('experience_evaluation_enseignement', experience.experience_evaluation_enseignement)" />
+                        <div tal:condition="python: experienceEtat!='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_evaluation_enseignement', experience.experience_evaluation_enseignement)" />
+                        </div>
+                        <div tal:condition="python: experienceEtat=='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_evaluation_enseignement', experienceMaj.experience_maj_evaluation_enseignement)" />
+                        </div>
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
@@ -390,7 +499,12 @@
                 <tr>
                     <td class="form-experience-left-column">
                         <br />
-                        <span tal:replace="structure python: view.getWysiwygField('experience_perspective_envisagee', experience.experience_perspective_envisagee)" />
+                        <div tal:condition="python: experienceEtat!='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_perspective_envisagee', experience.experience_perspective_envisagee)" />
+                        </div>
+                        <div tal:condition="python: experienceEtat=='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_perspective_envisagee', experienceMaj.experience_maj_perspective_envisagee)" />
+                        </div>
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
@@ -402,7 +516,6 @@
                 </tr>
             </table>
         </fieldset>
-
 
         <fieldset>
             <legend class="legende">Porteur(s) de l'expérience.</legend>
@@ -439,6 +552,14 @@
                                   cols="70"
                                   rows="8"
                                   tal:content="experience/experience_institution_porteur_autre"
+                                  tal:condition="python: experienceEtat!='private'"
+                                  class="grasorange"></textarea>
+
+                        <textarea name="experience_institution_porteur_autre"
+                                  cols="70"
+                                  rows="8"
+                                  tal:content="experienceMaj/experience_maj_institution_porteur_autre"
+                                  tal:condition="python: experienceEtat=='private'"
                                   class="grasorange"></textarea>
                         <br />
                     </td>
@@ -453,7 +574,6 @@
                 </tr>
             </table>
         </fieldset>
-
 
         <fieldset>
             <legend class="legende">Partenaire(s)</legend>
@@ -490,6 +610,14 @@
                                   cols="70"
                                   rows="8"
                                   tal:content="experience/experience_institution_partenaire_autre"
+                                  tal:condition="python: experienceEtat!='private'"
+                                  class="grasorange"></textarea>
+
+                        <textarea name="experience_institution_partenaire_autre"
+                                  cols="70"
+                                  rows="8"
+                                  tal:content="experienceMaj/experience_maj_institution_partenaire_autre"
+                                  tal:condition="python: experienceEtat=='private'"
                                   class="grasorange"></textarea>
                         <br />
                     </td>
@@ -536,6 +664,14 @@
                                   cols="70"
                                   rows="8"
                                   tal:content="experience/experience_institution_ressource_autre"
+                                  tal:condition="python: experienceEtat!='private'"
+                                  class="grasorange"></textarea>
+
+                        <textarea name="experience_institution_ressource_autre"
+                                  cols="70"
+                                  rows="8"
+                                  tal:content="experienceMaj/experience_maj_institution_ressource_autre"
+                                  tal:condition="python: experienceEtat=='private'"
                                   class="grasorange"></textarea>
                     </td>
                     <td class="form-experience-right-column">
@@ -575,6 +711,14 @@
                                   cols="70"
                                   rows="8"
                                   tal:content="experience/experience_institution_outil_autre"
+                                  tal:condition="python: experienceEtat!='private'"
+                                  class="grasorange"></textarea>
+
+                        <textarea name="experience_institution_outil_autre"
+                                  cols="70"
+                                  rows="8"
+                                  tal:content="experience/experience_institution_outil_autre"
+                                  tal:condition="python: experienceEtat=='private'"
                                   class="grasorange"></textarea>
                     </td>
                     <td class="form-experience-right-column">
@@ -607,7 +751,12 @@
                 <tr>
                     <td class="form-experience-left-column">
                         <br />
-                        <span tal:replace="structure python: view.getWysiwygField('experience_aller_plus_loin', experience.experience_aller_plus_loin)" />
+                        <div tal:condition="python: experienceEtat!='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_aller_plus_loin', experience.experience_aller_plus_loin)" />
+                        </div>
+                        <div tal:condition="python: experienceEtat=='private'">
+                            <span tal:replace="structure python: view.getWysiwygField('experience_aller_plus_loin', experienceMaj.experience_maj_aller_plus_loin)" />
+                        </div>
                     </td>
                     <td class="form-experience-right-column">
                         <div id="info-champs">
@@ -680,7 +829,6 @@
             <input type="submit"
                    value="Modifier les données" />
         </div>
-    </tal:boucle>
 </form>
 </div><!-- div metal-->
 </body>

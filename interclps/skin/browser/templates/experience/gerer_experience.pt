@@ -15,7 +15,9 @@
 
     <div tal:define="experiences python:view.getExperienceByAuteurLogin();">
         <tal:boucle tal:repeat="experience experiences">
-            <tal:block tal:define="experiencePk experience/experience_pk">
+            <tal:block tal:define="experiencePk experience/experience_pk;
+                                   experienceEtat experience/experience_etat">
+                =====<span tal:content="experienceEtat" />=====
                 <fieldset>
                     <legend>
                         <a href=""
@@ -79,7 +81,7 @@
                                     <div class="btn-modifier"
                                          tal:condition="python: experience.experience_etat=='private' or experience.experience_etat=='publish'">
                                         <a href=""
-                                           tal:attributes="href string: modifier-une-experience?experiencePk=${experiencePk}">&nbsp;</a>
+                                           tal:attributes="href string: modifier-une-experience?experiencePk=${experiencePk}&experienceEtat=${experienceEtat}">&nbsp;</a>
                                     </div>
                                 </td>
                             </tr>

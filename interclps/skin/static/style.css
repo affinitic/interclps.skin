@@ -645,12 +645,12 @@ padding-left:10px;
 }
 
 .info-logo{
-font-size:14pt;
 font-weight:bold;
 font-style:italic;
 color:#fff;
 background-color:#00f;
 padding:2px 5px 0px 5px;
+border-radius:25px;
 }
 
 .form-experience-left-column{
