@@ -596,10 +596,36 @@
         </table>
     </fieldset>
 
+    <fieldset>
+        <legend class="legende"> Niveau de visibilité </legend>
+         <table>
+            <tr>
+                <td class="form-experience-left-column">
+                    Sélectionnez l'état :
+                    <select name="experience_etat">
+                        <option value="private">
+                            Brouillon
+                        </option>
+                        <option value="pending-by-auteur">
+                            En demande de validation
+                        </option>
+                    </select>
+                </td>
+                <td class="form-experience-right-column">
+                    <div class="info-champs">
+                        <span class="info-logo">i</span>
+                        <span class="gras">Brouillon</span> :
+                        vous pouvez revenir modifier votre contenu.
+                        <br />
+                        <span class="gras">En demande de validation</span> :
+                        vous avez terminé votre travail d'encodage et vous demandez au CLPS de valider votre expérience afin qu'elle soit publiée sur le site.
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
     <div class="div_form_input">
-        <input type="hidden"
-               name="experience_etat"
-               value="pending" />
         <input type="hidden"
                name="experience_clps_proprio_fk"
                value="2" />

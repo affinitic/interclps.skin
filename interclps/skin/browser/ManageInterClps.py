@@ -4279,6 +4279,8 @@ class ManageInterClps(BrowserView):
         experience_etat = getattr(fields, 'experience_etat', None)
         experience_creation_date = self.getTimeStamp()
         experience_creation_employe = self.getUserAuthenticated()
+        experience_modification_date = self.getTimeStamp()
+        experience_modification_employe = self.getUserAuthenticated()
         experience_auteur = getattr(fields, 'experienceAuteur', None)    # via formlaire admin_experience_creation_form
         experience_auteur_fk = getattr(fields, 'experience_auteur_fk', None)
         experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
@@ -4294,6 +4296,7 @@ class ManageInterClps(BrowserView):
 
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
+
         newEntry = Experience(experience_titre=experience_titre,
                               experience_resume=experience_resume,
                               experience_personne_contact=experience_personne_contact,
@@ -4330,11 +4333,55 @@ class ManageInterClps(BrowserView):
                               experience_clps_proprio_fk=experience_clps_proprio_fk,
                               experience_etat=experience_etat,
                               experience_creation_date=experience_creation_date,
-                              experience_creation_employe=experience_creation_employe)
+                              experience_creation_employe=experience_creation_employe,
+                              experience_maj_modification_date=experience_modification_date,
+                              experience_maj_modification_employe=experience_modification_employe)
         session.add(newEntry)
         session.flush()
         session.refresh(newEntry)
         experiencePk = newEntry.experience_pk
+
+        experienceMaj = self.IfExperiencePkExist(experiencePk)
+        #l'exeprience n'existe pas encore dans experience_maj > insertion
+        if not experienceMaj and experience_etat == 'private':
+            newEntry = ExperienceMaj(experience_maj_expfk=experiencePk,
+                                     experience_maj_titre=experience_titre,
+                                     experience_maj_resume=experience_resume,
+                                     experience_maj_personne_contact=experience_personne_contact,
+                                     experience_maj_personne_contact_email=experience_personne_contact_email,
+                                     experience_maj_personne_contact_telephone=experience_personne_contact_telephone,
+                                     experience_maj_personne_contact_institution=experience_personne_contact_institution,
+                                     experience_maj_element_contexte=experience_element_contexte,
+                                     experience_maj_objectif=experience_objectif,
+                                     experience_maj_public_vise=experience_public_vise,
+                                     experience_maj_demarche_actions=experience_demarche_actions,
+                                     experience_maj_commune_international=experience_commune_international,
+                                     experience_territoire_tout_luxembourg=experience_territoire_tout_luxembourg,
+                                     experience_maj_periode_deroulement=experience_periode_deroulement,
+                                     experience_maj_moyens=experience_moyens,
+                                     experience_maj_evaluation_enseignement=experience_evaluation_enseignement,
+                                     experience_maj_perspective_envisagee=experience_perspective_envisagee,
+                                     experience_maj_institution_porteur_autre=experience_institution_porteur_autre,
+                                     experience_maj_institution_partenaire_autre=experience_institution_partenaire_autre,
+                                     experience_maj_institution_ressource_autre=experience_institution_ressource_autre,
+                                     experience_maj_institution_outil_autre=experience_institution_outil_autre,
+                                     experience_maj_formation_suivie=experience_formation_suivie,
+                                     experience_maj_aller_plus_loin=experience_aller_plus_loin,
+                                     experience_maj_plate_forme_sante_ecole=experience_plate_forme_sante_ecole,
+                                     experience_maj_plate_forme_assuetude=experience_plate_forme_assuetude,
+                                     experience_maj_plate_forme_sante_famille=experience_plate_forme_sante_famille,
+                                     experience_maj_plate_forme_sante_environnement=experience_plate_forme_sante_environnement,
+                                     experience_maj_mission_centre_documentation=experience_mission_centre_documentation,
+                                     experience_maj_mission_accompagnement_projet=experience_mission_accompagnement_projet,
+                                     experience_maj_mission_reseau_echange=experience_mission_reseau_echange,
+                                     experience_maj_mission_formation=experience_mission_formation,
+                                     experience_maj_auteur_login=experience_auteur_login,
+                                     experience_maj_clps_proprio_fk=experience_clps_proprio_fk,
+                                     experience_maj_auteur_fk=experience_auteur_fk,
+                                     experience_maj_etat=experience_etat,
+                                     experience_maj_modification_date=experience_modification_date,
+                                     experience_maj_modification_employe=experience_modification_employe)
+            session.add(newEntry)
         return experiencePk
 
     def addLinkExperienceCommune(self, experienceFk, experienceCommuneFk):
@@ -4661,7 +4708,7 @@ class ManageInterClps(BrowserView):
         experience_public_vise = getattr(fields, 'experience_public_vise', None)
         experience_demarche_actions = getattr(fields, 'field.experience_demarche_actions', None)
         experience_commune_international = getattr(fields, 'experience_commune_international', None)
-        experience_territoire_tout_brabant_wallon = getattr(fields, 'experience_territoire_tout_brabant_wallon', None)
+        experience_territoire_tout_luxembourg = getattr(fields, 'experience_territoire_tout_luxembourg', None)
         experience_periode_deroulement = getattr(fields, 'experience_periode_deroulement', None)
         experience_moyens = getattr(fields, 'field.experience_moyens', None)
         experience_evaluation_enseignement = getattr(fields, 'field.experience_evaluation_enseignement', None)
@@ -4719,7 +4766,7 @@ class ManageInterClps(BrowserView):
         experience.experience_public_vise = unicode(experience_public_vise, 'utf-8')
         experience.experience_demarche_actions = unicode(experience_demarche_actions, 'utf-8')
         experience.experience_commune_international = unicode(experience_commune_international, 'utf-8')
-        experience.experience_territoire_tout_brabant_wallon = experience_territoire_tout_brabant_wallon
+        experience.experience_territoire_tout_luxembourg = experience_territoire_tout_luxembourg
         experience.experience_periode_deroulement = unicode(experience_periode_deroulement, 'utf-8')
         experience.experience_moyens = unicode(experience_moyens, 'utf-8')
         experience.experience_evaluation_enseignement = unicode(experience_evaluation_enseignement, 'utf-8')
@@ -4780,7 +4827,7 @@ class ManageInterClps(BrowserView):
         experience_public_vise = getattr(fields, 'experience_public_vise', None)
         experience_demarche_actions = getattr(fields, 'field.experience_demarche_actions', None)
         experience_commune_international = getattr(fields, 'experience_commune_international', None)
-        experience_territoire_tout_brabant_wallon = getattr(fields, 'experience_territoire_tout_brabant_wallon', None)
+        experience_territoire_tout_luxembourg = getattr(fields, 'experience_territoire_tout_luxembourg', None)
         experience_periode_deroulement = getattr(fields, 'experience_periode_deroulement', None)
         experience_moyens = getattr(fields, 'field.experience_moyens', None)
         experience_evaluation_enseignement = getattr(fields, 'field.experience_evaluation_enseignement', None)
@@ -4830,7 +4877,7 @@ class ManageInterClps(BrowserView):
                                      experience_maj_public_vise=experience_public_vise,
                                      experience_maj_demarche_actions=experience_demarche_actions,
                                      experience_maj_commune_international=experience_commune_international,
-                                     experience_maj_territoire_tout_brabant_wallon=experience_territoire_tout_brabant_wallon,
+                                     experience_territoire_tout_luxembourg=experience_territoire_tout_luxembourg,
                                      experience_maj_periode_deroulement=experience_periode_deroulement,
                                      experience_maj_moyens=experience_moyens,
                                      experience_maj_evaluation_enseignement=experience_evaluation_enseignement,
@@ -4873,7 +4920,7 @@ class ManageInterClps(BrowserView):
             experienceMaj.experience_maj_public_vise = unicode(experience_public_vise, 'utf-8')
             experienceMaj.experience_maj_demarche_actions = unicode(experience_demarche_actions, 'utf-8')
             experienceMaj.experience_maj_commune_international = unicode(experience_commune_international, 'utf-8')
-            experienceMaj.experience_maj_territoire_tout_brabant_wallon = experience_territoire_tout_brabant_wallon
+            experienceMaj.experience_maj_territoire_tout_luxembourg = experience_territoire_tout_luxembourg
             experienceMaj.experience_maj_periode_deroulement = unicode(experience_periode_deroulement, 'utf-8')
             experienceMaj.experience_maj_moyens = unicode(experience_moyens, 'utf-8')
             experienceMaj.experience_maj_evaluation_enseignement = unicode(experience_evaluation_enseignement, 'utf-8')

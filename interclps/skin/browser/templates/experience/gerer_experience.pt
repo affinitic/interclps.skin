@@ -17,7 +17,6 @@
         <tal:boucle tal:repeat="experience experiences">
             <tal:block tal:define="experiencePk experience/experience_pk;
                                    experienceEtat experience/experience_etat">
-                =====<span tal:content="experienceEtat" />=====
                 <fieldset>
                     <legend>
                         <a href=""
