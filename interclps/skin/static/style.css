@@ -1002,6 +1002,11 @@ background-color:rgba(255,245,234,0.5);
 word-wrap: break-word;
 }
 
+.highlight{
+background-color: #008800;
+color: #ffff00;
+}
+
 .info-aide-maj{
 position:relative;
 left:300px;
