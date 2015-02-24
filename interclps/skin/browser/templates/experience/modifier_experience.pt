@@ -828,7 +828,7 @@
                value=""
                tal:attributes="value experience/experience_pk" />
         <input type="submit"
-               value="Modifier les données" />
+               value="Enregistrer mes modifications" />
     </div>
 </form>
 </div><!-- div metal-->
