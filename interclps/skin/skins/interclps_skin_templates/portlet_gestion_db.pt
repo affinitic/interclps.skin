@@ -45,7 +45,7 @@
                     </dd>
                     <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('pending-by-clps', 2)">
                         <a href="admin-lister-les-experiences-par-etat?etat=pending-by-clps">
-                            &bull; en attente par le CLPS : <span tal:content="nbrExp">nbr</span>
+                            &bull; en re-lecture par le CLPS : <span tal:content="nbrExp">nbr</span>
                         </a>
                     </dd>
                     <dd tal:define="nbrExp python:experiences.getCountExperienceByEtat('publish', 2)">
