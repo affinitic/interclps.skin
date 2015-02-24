@@ -2055,7 +2055,7 @@ class ManageInterClps(BrowserView):
     def getRessourceByClps(self, clpsPk):
         """
         table pg link_ressource_clps_proprio
-        recuperation d'une experience selon experience_clps_proprio_fk
+        recuperation d'une experience selon clpsProprioPk
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
@@ -3981,7 +3981,7 @@ class ManageInterClps(BrowserView):
     def getExperienceByClpsByEtat(self, clpsPk, experienceEtat=None):
         """
         table pg experience
-        recuperation d'une experience selon experience_clps_proprio_fk et son etat
+        recuperation d'une experience selon clpsProprioFk et son etat
         """
         wrapper = getSAWrapper('clpsbw')
         session = wrapper.session
@@ -4284,7 +4284,6 @@ class ManageInterClps(BrowserView):
         experience_auteur = getattr(fields, 'experienceAuteur', None)    # via formlaire admin_experience_creation_form
         experience_auteur_fk = getattr(fields, 'experience_auteur_fk', None)
         experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
-        experience_clps_proprio_fk = getattr(fields, 'experienceClpsProprio', None)
 
         if not experience_auteur_fk:     # cas ou c'est un auteur exterieur qui se loggue formulaire experience_creation_form
             auteur = self.getAuteurByLogin('institution')
@@ -4330,7 +4329,6 @@ class ManageInterClps(BrowserView):
                               experience_mission_formation=experience_mission_formation,
                               experience_auteur_login=experience_auteur_login,
                               experience_auteur_fk=experience_auteur_fk,
-                              experience_clps_proprio_fk=experience_clps_proprio_fk,
                               experience_etat=experience_etat,
                               experience_creation_date=experience_creation_date,
                               experience_creation_employe=experience_creation_employe,
@@ -4376,7 +4374,6 @@ class ManageInterClps(BrowserView):
                                      experience_maj_mission_reseau_echange=experience_mission_reseau_echange,
                                      experience_maj_mission_formation=experience_mission_formation,
                                      experience_maj_auteur_login=experience_auteur_login,
-                                     experience_maj_clps_proprio_fk=experience_clps_proprio_fk,
                                      experience_maj_auteur_fk=experience_auteur_fk,
                                      experience_maj_etat=experience_etat,
                                      experience_maj_modification_date=experience_modification_date,
@@ -4850,7 +4847,6 @@ class ManageInterClps(BrowserView):
         experience_modification_employe = self.getUserAuthenticated()
         experience_auteur_fk = getattr(fields, 'experience_auteur_fk', None)
         experience_auteur_login = getattr(fields, 'experience_auteur_login', None)
-        experience_clps_proprio_fk = getattr(fields, 'experience_clps_proprio_fk', None)
         experience_etat = getattr(fields, 'experience_etat', None)
 
         #cas de modification de l'auteur via ligth search
@@ -4897,7 +4893,6 @@ class ManageInterClps(BrowserView):
                                      experience_maj_mission_reseau_echange=experience_mission_reseau_echange,
                                      experience_maj_mission_formation=experience_mission_formation,
                                      experience_maj_auteur_login=experience_auteur_login,
-                                     experience_maj_clps_proprio_fk=experience_clps_proprio_fk,
                                      experience_maj_auteur_fk=experience_auteur_fk,
                                      experience_maj_etat=experience_etat,
                                      experience_maj_modification_date=experience_modification_date,
