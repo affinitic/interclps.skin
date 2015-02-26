@@ -3813,7 +3813,6 @@ class ManageInterClps(BrowserView):
         for experience in allExperiences:
             experiencePk = experience.experience_pk
             self.addRechercheLog(experiencePk=experiencePk)
-        import pdb; pdb.set_trace()
         return allExperiences
 
     def getExperienceMaxPk(self):
