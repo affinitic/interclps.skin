@@ -13,7 +13,6 @@
 <div metal:fill-slot="main"
      tal:define="experiencePk request/experiencePk | nothing;
                  experiences python:view.getActiveExperience(experiencePk);
-                 experienceEtat python:view.getExperienceEtat(experiencePk);
                  allClps python:view.getAllClps();
                  selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
     <tal:boucle tal:repeat="experience experiences">
