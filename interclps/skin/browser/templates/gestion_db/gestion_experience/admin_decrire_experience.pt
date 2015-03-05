@@ -14,11 +14,11 @@
      tal:define="experiencePk request/experiencePk | nothing;
                  experiences python:view.getActiveExperience(experiencePk);
                  experienceEtat python:view.getExperienceEtat(experiencePk);
-                 allClps python:view.getAllClps();
-                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk')">
+                 allClps python:view.getAllClps();">
     <tal:boucle tal:repeat="experience experiences">
         <div id="main-experience"
-             tal:define="experiencePk experience/experience_pk">
+             tal:define="experiencePk experience/experience_pk;
+                         selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
             <div id="alerte"
                  tal:condition="python: experience.experience_etat=='pending-by-clps'">
                 <img src="alerte.png" />
@@ -259,6 +259,16 @@
                 <div id="right-experience-footer"></div>
             </div><!--right-->
 
+            <div class="description-experience-clps-proprio discreet">
+                Edité par le
+                <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
+                    <span tal:content="clpsSigle"
+                          class="gras" />
+                    <tal:if tal:condition="not: repeat/clpsSigle/end">
+                        <span>et le </span>
+                    </tal:if>
+                </tal:boucle>
+            </div>
             <div class="description-experience-derniere-modif discreet">
                 Dernière modification le :<br />
                 <span tal:content="python: experience.experience_modification_date.strftime('%d-%m-%Y')"

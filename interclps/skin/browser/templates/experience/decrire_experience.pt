@@ -13,11 +13,11 @@
 <div metal:fill-slot="main"
      tal:define="experiencePk request/experiencePk | nothing;
                  experiences python:view.getActiveExperience(experiencePk);
-                 allClps python:view.getAllClps();
-                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
+                 allClps python:view.getAllClps()">
     <tal:boucle tal:repeat="experience experiences">
         <div id="main-experience"
-             tal:define="experiencePk experience/experience_pk">
+             tal:define="experiencePk experience/experience_pk;
+                         selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
             <div id="alerte"
                  tal:condition="python: experience.experience_etat=='pending-by-clps'">
                 <img src="alerte.png" />
