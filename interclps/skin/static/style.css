@@ -1002,9 +1002,13 @@ background-color:rgba(255,245,234,0.5);
 word-wrap: break-word;
 }
 
-.highlight{
-background-color: #008800;
-color: #ffff00;
+.diff .insert{
+background-color:#3eff88 !important;
+}
+
+.diff .insert .highlight{
+background-color:#008800 !important;
+color: #ffff00 !important;
 }
 
 .info-aide-maj{
