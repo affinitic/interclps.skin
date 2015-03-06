@@ -322,7 +322,7 @@ class PdfGenerator(BrowserView):
         if not experiences:
             return
         self._pdftype = 'experience'
-        self._pdfdata = experiences[0]
+        self._pdfdata = experiences
         self._pdfdata.titre = self._pdfdata.experience_titre
 
         #colonne de gauche
