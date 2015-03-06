@@ -338,7 +338,6 @@
             <div class="formulaire">
                 <h2>Propriétaire</h2>
                 <ul>
-                    <span tal:content="selectedClpsProprio" />
                     <tal:boucle tal:repeat="clps allClps">
                         <li>
                             <input type="checkbox"
