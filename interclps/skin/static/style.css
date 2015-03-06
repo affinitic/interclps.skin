@@ -820,7 +820,6 @@ margin-bottom:20px;
 font-weight:bold;
 font-size:2em;
 text-align:center;
-height:73px;
 width:100%;
 background-color:#d0e9f5;
 text-align:center;
@@ -835,14 +834,6 @@ box-shadow:4px 4px 10px rgba(0,0,0,0.5);
 margin-bottom:3em;
 }
 
-#title-experience-left{
-float:left;
-background-image:url(titre_description_border_left.png);
-background-repeat:no-repeat;
-background-position:left top;
-width:28px;
-height:73px;
-}
 
 .titre-top{
 float:left;
@@ -851,14 +842,6 @@ width:90%;
 line-height:73px;
 }
 
-#title-experience-right{
-float:right;
-background-image:url(titre_description_border_right.png);
-background-repeat:no-repeat;
-background-position:right top;
-width:28px;
-height:73px;
-}
 
 .left-rubrique-db{
 color:#329FD7;

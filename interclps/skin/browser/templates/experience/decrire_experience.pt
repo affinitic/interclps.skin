@@ -32,20 +32,17 @@
                 <span tal:content="experienceEtat"
                       class="gras" />
             </div>
-
             <div id="title-experience">
-                <div id="title-experience-left"></div>
                 <div class="titre-top">
                     <span tal:content="experience/experience_titre"></span>
                 </div>
-                <div id="title-experience-right"
-                     tal:define="experiencePk experience/experience_pk">
-                    <div class="btn-modifier-description"
-                         tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
-                        <a href=""
-                           tal:attributes="href string: admin-modifier-une-experience?experiencePk=${experiencePk}">&nbsp;</a>
-                    </div>
+                <div class="btn-modifier-description"
+                     tal:define="experiencePk experience/experience_pk"
+                     tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
+                    <a href=""
+                       tal:attributes="href string: admin-modifier-une-experience?experiencePk=${experiencePk}">&nbsp;</a>
                 </div>
+                <div class="break-float"></div>
             </div>
 
             <div id="left-experience">
