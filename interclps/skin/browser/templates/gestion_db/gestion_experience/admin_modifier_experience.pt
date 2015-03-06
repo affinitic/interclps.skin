@@ -14,8 +14,7 @@
                  experience python:view.getExperienceByPk(experiencePk);
                  experienceEtat python:view.getExperienceEtat(experiencePk);
                  allClps python:view.getAllClps();
-                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk');
-                 "
+                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk')"
      tal:condition="python:user.has_role(['Manager', 'Site Administrator'], here)">
 <form action="manageExperience"
       method="post">

@@ -14,11 +14,11 @@
      tal:define="experiencePk request/experiencePk | nothing;
                  experiences python:view.getActiveExperience(experiencePk);
                  experienceEtat python:view.getExperienceEtat(experiencePk);
+                 selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'pk');
                  allClps python:view.getAllClps();">
     <tal:boucle tal:repeat="experience experiences">
         <div id="main-experience"
-             tal:define="experiencePk experience/experience_pk;
-                         selectedClpsProprio python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
+             tal:define="experiencePk experience/experience_pk">
             <div id="alerte"
                  tal:condition="python: experience.experience_etat=='pending-by-clps'">
                 <img src="alerte.png" />
@@ -259,9 +259,10 @@
                 <div id="right-experience-footer"></div>
             </div><!--right-->
 
-            <div class="description-experience-clps-proprio discreet">
+            <div class="description-experience-clps-proprio discreet"
+                 tal:define="selectedClpsProprioSigle python:view.getClpsProprioForExperience(experiencePk, 'sigle')">
                 Edité par le
-                <tal:boucle tal:repeat="clpsSigle selectedClpsProprio">
+                <tal:boucle tal:repeat="clpsSigle selectedClpsProprioSigle">
                     <span tal:content="clpsSigle"
                           class="gras" />
                     <tal:if tal:condition="not: repeat/clpsSigle/end">
@@ -337,6 +338,7 @@
             <div class="formulaire">
                 <h2>Propriétaire</h2>
                 <ul>
+                    <span tal:content="selectedClpsProprio" />
                     <tal:boucle tal:repeat="clps allClps">
                         <li>
                             <input type="checkbox"
